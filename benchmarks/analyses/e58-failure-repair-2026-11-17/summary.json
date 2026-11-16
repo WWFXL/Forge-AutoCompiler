@@ -1,0 +1,142 @@
+{
+  "kind": "zero_provider_engineering",
+  "provider_calls": 0,
+  "scientific_effect_observations": 0,
+  "rows": [
+    {
+      "project": "smenu",
+      "raw": "/home/yiwei/.codex/outputs/forge-e58-failure-repair-2026-11-17-v1/smenu",
+      "result_sha256": "a5d6d18c15d2dd371308030d74d47317c7ecfa800dae588271ca0868e7cbaf7d",
+      "layers": {
+        "command_build_passed": true,
+        "primary_build_completed": true,
+        "delivery": "passed",
+        "author_tests": "not_required",
+        "executable_smoke": "passed",
+        "final_verification_passed": true,
+        "clean_replay": "passed",
+        "full_completed": null,
+        "main_build_task_completed": true,
+        "reproducible_delivery_completed": true
+      },
+      "cleanup": {
+        "succeeded": true,
+        "stopped": true,
+        "removed": true
+      },
+      "source_unchanged": true,
+      "original_changes": [],
+      "wall_seconds": 31.06620928598568,
+      "failed_commands": [],
+      "reset_command_bytes": [],
+      "replay_status": [
+        "passed"
+      ]
+    },
+    {
+      "project": "quickjs",
+      "raw": "/home/yiwei/.codex/outputs/forge-e58-failure-repair-2026-11-17-v1/quickjs",
+      "result_sha256": "a2ed4ccea2532d42beeba76bd389a1998c84f411af194091cd9dad4b6cbe4adc",
+      "layers": {
+        "command_build_passed": true,
+        "primary_build_completed": true,
+        "delivery": "passed",
+        "author_tests": "not_required",
+        "executable_smoke": "passed",
+        "final_verification_passed": true,
+        "clean_replay": "passed",
+        "full_completed": null,
+        "main_build_task_completed": true,
+        "reproducible_delivery_completed": true
+      },
+      "cleanup": {
+        "succeeded": true,
+        "stopped": true,
+        "removed": true
+      },
+      "source_unchanged": true,
+      "original_changes": [],
+      "wall_seconds": 84.83074939786457,
+      "failed_commands": [],
+      "reset_command_bytes": [],
+      "replay_status": [
+        "passed"
+      ]
+    },
+    {
+      "project": "zstd",
+      "raw": "/home/yiwei/.codex/outputs/forge-e58-failure-repair-2026-11-17-v1/zstd",
+      "result_sha256": "31d78bdfbd1a0d7fb9e30afd0084e3aa8d575dc0f379c79069c67ed60a2473bf",
+      "layers": {
+        "command_build_passed": true,
+        "primary_build_completed": true,
+        "delivery": "passed",
+        "author_tests": "not_required",
+        "executable_smoke": "passed",
+        "final_verification_passed": true,
+        "clean_replay": "passed",
+        "full_completed": null,
+        "main_build_task_completed": true,
+        "reproducible_delivery_completed": true
+      },
+      "cleanup": {
+        "succeeded": true,
+        "stopped": true,
+        "removed": true
+      },
+      "source_unchanged": true,
+      "original_changes": [],
+      "wall_seconds": 95.42265433305874,
+      "failed_commands": [],
+      "reset_command_bytes": [],
+      "replay_status": [
+        "passed"
+      ]
+    },
+    {
+      "project": "libtasn1",
+      "raw": "/home/yiwei/.codex/outputs/forge-e58-failure-repair-2026-11-17-v3/libtasn1",
+      "result_sha256": "75945f838ef47346352be08b651f18519bde9dc0e0382ea12f7cfc002b743315",
+      "layers": {
+        "command_build_passed": true,
+        "primary_build_completed": true,
+        "delivery": "passed",
+        "author_tests": "not_required",
+        "executable_smoke": "not_applicable",
+        "final_verification_passed": true,
+        "clean_replay": "passed",
+        "full_completed": null,
+        "main_build_task_completed": true,
+        "reproducible_delivery_completed": true
+      },
+      "cleanup": {
+        "succeeded": true,
+        "stopped": true,
+        "removed": true
+      },
+      "source_unchanged": true,
+      "original_changes": [],
+      "wall_seconds": 274.37295057298616,
+      "failed_commands": [
+        {
+          "command_id": "command_0e757f99345542048e12a0a14f231a9f",
+          "command": "GNULIB_SRCDIR=/usr/share/gnulib ./bootstrap --no-git --skip-po",
+          "exit_code": 1,
+          "log_path": "/home/yiwei/.codex/outputs/forge-e58-failure-repair-2026-11-17-v3/libtasn1/.compile-sessions/simple-system/90602c2b3ad3/logs/command_0e757f99345542048e12a0a14f231a9f.log"
+        },
+        {
+          "command_id": "command_c0ab05b4b2c64cbd858b8e1ab02d7e43",
+          "command": "make -j2",
+          "exit_code": 2,
+          "log_path": "/home/yiwei/.codex/outputs/forge-e58-failure-repair-2026-11-17-v3/libtasn1/.compile-sessions/simple-system/90602c2b3ad3/logs/command_c0ab05b4b2c64cbd858b8e1ab02d7e43.log"
+        }
+      ],
+      "reset_command_bytes": [
+        859
+      ],
+      "replay_status": [
+        "passed"
+      ]
+    }
+  ]
+}

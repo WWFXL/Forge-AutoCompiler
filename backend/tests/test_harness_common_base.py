@@ -120,17 +120,22 @@ def test_large_protected_list_is_not_a_shell_argument(tmp_path, monkeypatch):
     baseline["original ' file.c"] = {}
     (tmp_path / "original ' file.c").write_text("original")
     (tmp_path / "generated.o").write_text("remove")
+    from deerflow.compile.generated_inputs import write_manifest
+
+    write_manifest(tmp_path, baseline)
     step = generated_reset_step(baseline)
+    assert len(step.command.encode()) < 2000
+    assert "nested/" not in step.command
     script = step.command.replace("/workspace/repo", str(tmp_path))
     real_run = subprocess.run
     seen = []
 
     def docker_substitute(command, **kwargs):
         seen.append(command)
-        assert command[2] == "-i" and command[-2:] == ["bash", "-ls"]
         assert max(len(arg.encode()) for arg in command) < 65536
-        assert kwargs["input"].startswith("set -euo pipefail\n")
-        return real_run(["bash", "-s"], **kwargs)
+        # 清理命令已缩短，正常走短命令通道；保留严格Shell语义。
+        assert command[-2] == "-lc" and command[-1].startswith("set -euo pipefail\n")
+        return real_run(["bash", "-c", command[-1]], **kwargs)
 
     monkeypatch.setattr(subprocess, "run", docker_substitute)
     session = CompileSession(session_id="large-script", thread_id="test", repo_url="https://example.invalid/repo", branch=None, image="test", status="ready", container_id="local-substitute")
@@ -151,3 +156,49 @@ def test_long_script_keeps_strict_shell_failure(monkeypatch):
     session = CompileSession(session_id="strict", thread_id="test", repo_url="https://example.invalid/repo", branch=None, image="test", status="ready", container_id="local")
     result = CompileDockerRuntime(config=RuntimeConfig()).exec(session, "#" + "x" * 70000 + "\nfalse\nprintf BAD", strict_shell=True)
     assert result.exit_code != 0 and "BAD" not in result.stdout
+
+
+@pytest.mark.parametrize("command", ["cat /repro", "cat '/repro/source.tar'", 'ls "/repro"'])
+def test_real_repro_path_remains_restricted(command):
+    from deerflow.compile.simple_build_runtime import validate_phase_command
+
+    with pytest.raises(PlanContractError):
+        validate_phase_command(PlanStep(step_id="inspect", role="configure", command=command, source="夹具", expected="禁止"))
+
+
+def test_normal_reproducer_filename_is_not_repro_directory():
+    from deerflow.compile.simple_build_runtime import validate_phase_command
+
+    validate_phase_command(PlanStep(step_id="inspect", role="configure", command="test -f tests/reproducers.c", source="作者源码", expected="正常文件"))
+
+
+def test_manifest_change_stops_before_deleting_generated_files(tmp_path):
+    from deerflow.compile.generated_inputs import write_manifest
+
+    write_manifest(tmp_path, ["source.c"])
+    step = generated_reset_step(["source.c"])
+    write_manifest(tmp_path, [])
+    generated = tmp_path / "generated.o"
+    generated.write_text("untouched")
+    result = subprocess.run(["bash", "-c", step.command.replace("/workspace/repo", str(tmp_path))], capture_output=True, text=True)
+    assert result.returncode != 0 and generated.read_text() == "untouched"
+
+
+def test_clean_replay_recreates_manifest_from_original_files(tmp_path):
+    from deerflow.compile.generated_inputs import SNAPSHOT_SCRIPT, manifest_bytes
+
+    root = tmp_path / "repo"
+    root.mkdir()
+    (root / "tests").mkdir()
+    (root / "tests/reproducers.c").write_text("source")
+    (root / "link").symlink_to("tests", target_is_directory=True)
+    (root / ".git").mkdir()
+    (root / ".git/ignored").write_text("metadata")
+    result = subprocess.run(["python3", "-c", SNAPSHOT_SCRIPT.replace("/workspace/repo", str(root))], capture_output=True, text=True)
+    assert result.returncode == 0, result.stderr
+    assert (tmp_path / ".forge-source-inputs.json").read_bytes() == manifest_bytes(["link", "tests/reproducers.c"])
+    (root / "generated.o").write_text("generated")
+    result = subprocess.run(["bash", "-c", generated_reset_step(["link", "tests/reproducers.c"]).command.replace("/workspace/repo", str(root))], capture_output=True, text=True)
+    assert result.returncode == 0, result.stderr
+    assert (root / "tests/reproducers.c").is_file() and (root / "link").is_symlink()
+    assert not (root / "generated.o").exists() and (root / ".git/ignored").exists()

@@ -1,0 +1,144 @@
+{
+  "source_fixture": "benchmarks/fixtures/harness-update-comparison-v1/tasks.json",
+  "references": {
+    "smenu": {
+      "task_sha256": "fcde5e410f989b5208086a87034823ba5d637df9deec71776f59c6215005279b",
+      "components": [
+        {
+          "name": "smenu",
+          "artifact_names": [
+            "smenu"
+          ],
+          "kinds": [
+            "executable"
+          ],
+          "evidence": "Makefile.am:1 bin_PROGRAMS = smenu; 主要组件，其他语言绑定/示例不列为要求"
+        }
+      ],
+      "author_tests": [],
+      "tests_not_applicable_reason": "main-build-v1仅主项目构建、CLI轻量验证和干净重建，不要求完整作者测试",
+      "executable_smokes": [
+        {
+          "artifact_name": "smenu",
+          "accepted_exit_codes": [
+            0
+          ],
+          "step": {
+            "step_id": "smoke-smenu",
+            "role": "smoke",
+            "command": "TERM=xterm script -qec '/artifacts/smenu -V' /dev/null",
+            "source": "smenu.c:10457-10472先打开/dev/tty；8892-8906版本动作输出Version并退出0",
+            "expected": "提供原生PTY后，作者版本入口退出0并输出版本",
+            "workdir": "/artifacts",
+            "requires": [],
+            "required_output": [
+              "Version:"
+            ],
+            "diagnostic_paths": []
+          }
+        }
+      ],
+      "generated_documents": []
+    },
+    "quickjs": {
+      "task_sha256": "13e3b2eda734deec01efa6a9bf41a433a7393898c8bf751584d4a582ffe39f18",
+      "components": [
+        {
+          "name": "quickjs",
+          "artifact_names": [
+            "qjs"
+          ],
+          "kinds": [
+            "executable"
+          ],
+          "evidence": "Makefile:225 PROGS=qjs$(EXE) qjsc$(EXE) run-test262$(EXE); 主要组件，其他语言绑定/示例不列为要求"
+        }
+      ],
+      "author_tests": [],
+      "tests_not_applicable_reason": "main-build-v1仅主项目构建、CLI轻量验证和干净重建，不要求完整作者测试",
+      "executable_smokes": [
+        {
+          "artifact_name": "qjs",
+          "accepted_exit_codes": [
+            0
+          ],
+          "step": {
+            "step_id": "smoke-quickjs",
+            "role": "smoke",
+            "command": "/artifacts/qjs -e 'if (1 + 1 !== 2) throw new Error(\"arithmetic\"); print(1 + 1)'",
+            "source": "qjs.c表达式入口；原运算命令仅print(1+1)，真实输出2",
+            "expected": "算术表达式无异常，输出2并退出0",
+            "workdir": "/artifacts",
+            "requires": [],
+            "required_output": [
+              "2"
+            ],
+            "diagnostic_paths": []
+          }
+        }
+      ],
+      "generated_documents": []
+    },
+    "zstd": {
+      "task_sha256": "a03862df7afa9a913c78e0df073617791996ddb53d4f34e55a3a134b1eaa3ff1",
+      "components": [
+        {
+          "name": "zstd",
+          "artifact_names": [
+            "zstd"
+          ],
+          "kinds": [
+            "executable"
+          ],
+          "evidence": "Makefile:40 ## default: Build lib-release and zstd-release; 主要组件，其他语言绑定/示例不列为要求"
+        }
+      ],
+      "author_tests": [],
+      "tests_not_applicable_reason": "main-build-v1仅主项目构建、CLI轻量验证和干净重建，不要求完整作者测试",
+      "executable_smokes": [
+        {
+          "artifact_name": "zstd",
+          "accepted_exit_codes": [
+            0
+          ],
+          "step": {
+            "step_id": "smoke-zstd",
+            "role": "smoke",
+            "command": "/artifacts/zstd --version",
+            "source": "programs/zstdcli.c作者版本入口输出Zstandard CLI",
+            "expected": "交付程序原生版本入口退出0并输出版本",
+            "workdir": "/artifacts",
+            "requires": [],
+            "required_output": [
+              "Zstandard CLI"
+            ],
+            "diagnostic_paths": []
+          }
+        }
+      ],
+      "generated_documents": []
+    },
+    "libtasn1": {
+      "task_sha256": "62cb91ec07dc0ab1e94b0dbeef0ec4ba53ac2c450da1f7db1e591b25b798402d",
+      "components": [
+        {
+          "name": "libtasn1",
+          "artifact_names": [
+            "libtasn1.a",
+            "libtasn1.so",
+            "libtasn1.so.6"
+          ],
+          "kinds": [
+            "static_library",
+            "shared_library"
+          ],
+          "evidence": "lib/Makefile.am:31 lib_LTLIBRARIES = libtasn1.la; 主要组件，其他语言绑定/示例不列为要求"
+        }
+      ],
+      "author_tests": [],
+      "tests_not_applicable_reason": "main-build-v1仅主项目构建、CLI轻量验证和干净重建，不要求完整作者测试",
+      "executable_smokes": [],
+      "generated_documents": []
+    }
+  }
+}

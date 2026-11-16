@@ -2617,6 +2617,10 @@ def _write_repro_bundle(
                 "",
             ]
         )
+    if any(session_command.command_id in {step.command_id for step in recipe.steps} and "FORGE_GENERATED_RESET" in session_command.command for session_command in session.commands):
+        from deerflow.compile.generated_inputs import SNAPSHOT_SCRIPT
+
+        build_lines.extend(["python3 - <<'FORGE_SOURCE_INPUTS'", SNAPSHOT_SCRIPT, "FORGE_SOURCE_INPUTS", ""])
     commands_by_id = {command.command_id: command for command in session.commands}
     for replay_index, step in enumerate(recipe.steps, start=1):
         command = commands_by_id.get(step.command_id)

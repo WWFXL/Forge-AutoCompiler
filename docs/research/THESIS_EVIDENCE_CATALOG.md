@@ -1,5 +1,8 @@
 # 历史研究材料目录
 
+E58工程后续（#815，不增模型效果分母、不回填原失败）：[四项目失败归因与共同修复](2026-11-17-e58-failure-repair.md)。smenu/quickjs/zstd修正独立检查，libtasn1修清理阻断并补依赖/编译参数；四项主构建/交付/原归档干净重建通过、原输入未变，0Provider。175KB清理命令改为859字节及执行侧清单，首轮失败和误启动中断保留；[摘要/原件指针](../../benchmarks/analyses/e58-failure-repair-2026-11-17/summary.json)，仅供实现与案例说明，未改论文v0.12。
+
+
 最新E58：[本轮Harness更新全18项目比较](2026-11-17-harness-update-comparison-results.md)，36/36完整、两组主构建17/18及交付14/18；组合更新总费低19.9%、累计时低13.6%，前期查询增加，检查/共同执行器缺陷及全部失败保留。用户已批准纳入论文v0.12第5、6章，含容量与libffi机制说明；[完整表和原件指针](../../benchmarks/analyses/harness-update-comparison-2026-11-17/README.md)。
 
 比较准备（#809，不增模型效果分母、未入论文）：[本轮Harness更新18项目比较准备](2026-11-17-harness-update-comparison-preparation.md)。cpp-build-harness-update-comparison-flash-v1，固定18含libffi/36槽，无复用/经验库检索，只全18汇总；两组零Provider真实接线和dsvpn参考通过，正式0/36，费用及时窗待确认。
