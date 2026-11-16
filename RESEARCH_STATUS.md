@@ -3,7 +3,15 @@
 论文选材固定入口：[硕士论文实验与证据索引](docs/research/THESIS_EVIDENCE_INDEX.md)，[历史材料目录](docs/research/THESIS_EVIDENCE_CATALOG.md)保留存量导航。当前完整稿为[论文v0.11工具Harness结果修订稿](docs/thesis/README.md)；E50–E52保存主构建系统及两轮Harness结果，既有完整任务、状态/恢复消融和两层经验继续按各自版本与分母使用。
 
 
-## 当前阶段（2026-11-16；#762容器查询工具自主单例准备完成，待授权）
+## 当前阶段（2026-11-16；#764容器查询工具自主单例结束，未完成，待用户审核）
+
+[结果报告](docs/research/2026-11-16-libffi-environment-tools-autonomous.md)：原P0＋工具约束＋规则路由＋R2通用原则，增加恢复容器查询，libffi从零独立规划一次、无答案/旧方案/经验。54请求/754230Token/0.2957706美元/497.67秒/未知0；初始3请求，恢复12＋20＋19。49查询尝试中36次实际执行，仍未找对libltdl-dev，未用候选包/提供者检索；本地空结果再次被错误解释成版本移除。
+
+最终源码安装Libtool2.4.6，强制生成命令退出0，但config.guess权限0644→0755（内容不变）首先触发原文件保护，另config.sub内容实际变化。主项目configure/build、交付与重建未观察，总任务未完成；清理成功、两容器名称/ID实查不存在。低于旧成功观察的投入不当降本收益，不因辅助脚本而追认通过或改验收。
+
+用户1美元/UTC03:56:19—04:56:19单次已结束，无Provider自动重试/追加尝试；无活动Provider。不改核心/论文，不回填E57。原件forge-libffi-environment-tools-flash-2026-11-16-v1，inventory77569aef；78份源码/材料快照及逐响应费用核验通过。下一步用户审核依赖提供者诊断/无效重复查询与原辅助脚本边界，再定是否修复。发布以关联PR最新HEAD三CI及科研集成分支合并为准。
+
+## 上一阶段（2026-11-16；#762容器查询工具自主单例准备完成，待授权）
 
 [准备报告](docs/research/2026-11-16-libffi-environment-autonomous-preparation.md)：新身份`cpp-build-libffi-environment-tools-flash-v1`，原P0＋工具约束＋规则路由＋R2通用依赖原则，恢复增加已合并容器查询及配套指导。从零独立规划libffi一次，不给包名/宏答案/旧方案/经验；分析主动诊断、恢复绕行及请求/费用。若恢复未触发如实保留。
 

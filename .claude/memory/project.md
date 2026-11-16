@@ -634,6 +634,11 @@
 
 ## 最近变更 (Recent Changes)
 
+- 2026-11-16 — #764完成libffi恢复查询工具单次自主观察与分析，未完成任务，停止追加调用。
+  - 文件: `docs/research/2026-11-16-libffi-environment-tools-autonomous.md`, `benchmarks/analyses/libffi-environment-tools-2026-11-16/`, `RESEARCH_STATUS.md`。
+  - 结果: 54请求/754230Token/0.2957706美元/497.67秒，36真实查询仍未定位开发包。源码安装Libtool2.4.6后强制生成改变原config.guess权限及config.sub内容，主构建/交付/重建未观察；清理与两容器引用实查通过。
+  - 边界: 用户1美元/UTC03:56:19—04:56:19内单次已闭合，无Provider自动重试/追加；原件inventory77569aef，78份材料快照匹配。未改核心/论文或E57分母，待用户审核下一修复方向；发布以关联PR三CI/merge为准。
+
 - 2026-11-16 — #762完成容器查询工具下libffi单次自主观察准备，待新预算。
   - 文件: `scripts/forge_libffi_environment_autonomous.py`, `backend/tests/test_libffi_environment_autonomous.py`, `benchmarks/preregistrations/cpp-build-libffi-environment-tools-flash-v1.md`, `docs/research/2026-11-16-libffi-environment-autonomous-preparation.md`。
   - 动机: 区分上轮预写修复接线与Flash真实自主诊断；沿用R2通用原则、不提供包名或成功方案，不改核心和论文。

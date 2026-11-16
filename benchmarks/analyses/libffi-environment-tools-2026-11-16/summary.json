@@ -1,0 +1,204 @@
+{
+  "identity": "cpp-build-libffi-environment-tools-flash-v1",
+  "run_revision": "e57e44fc5cf6bc04caa4b06538f5ecb6d0bcb4f9",
+  "raw_root": "/home/yiwei/.codex/outputs/forge-libffi-environment-tools-flash-2026-11-16-v1",
+  "method": "forge",
+  "status": "error",
+  "source_unchanged": false,
+  "error_type": "PlanContractError",
+  "error": "原源码/测试被修改：config.guess",
+  "layers": {
+    "command_build_passed": null,
+    "primary_build_completed": null,
+    "delivery": "unobserved",
+    "author_tests": "unobserved",
+    "executable_smoke": "unobserved",
+    "final_verification_passed": null,
+    "clean_replay": "unobserved",
+    "full_completed": false,
+    "main_build_task_completed": false,
+    "reproducible_delivery_completed": false
+  },
+  "timings": {
+    "configure_seconds": 15.691687404876575,
+    "recovery_diagnostic_seconds": 10.209276330890134,
+    "dependency_seconds": 16.964188849320635,
+    "recovery_execution_seconds": 27.97779078921303,
+    "initial_planning_seconds": 7.811940815998241,
+    "recovery_agent_seconds": 452.1250066990033
+  },
+  "source_protection_error": "原源码/测试被修改：config.guess",
+  "cleanup": {
+    "succeeded": true,
+    "stopped": true,
+    "removed": true
+  },
+  "session_status": "failed",
+  "agent_usage": {
+    "model_requests": 54,
+    "recorded_tokens": 754230,
+    "agent_steps": 164,
+    "tool_calls": 110,
+    "commands": 45,
+    "elapsed_seconds": 487.91058013401926,
+    "input_tokens": 677006,
+    "output_tokens": 77224,
+    "estimated_cost_usd": 0.2957706,
+    "unknown_usage_requests": 0,
+    "cost_and_usage_complete": true,
+    "estimated_cost_usd_completed_responses": 0.2957706
+  },
+  "arm_total_wall_seconds": 497.67053553578444,
+  "termination_reason": "原源码/测试被修改：config.guess",
+  "validation_scope": "main_build",
+  "router_usage": {
+    "model_requests": 0,
+    "input_tokens": 0,
+    "output_tokens": 0,
+    "estimated_cost_usd_completed_responses": "0",
+    "unknown_usage_requests": 0,
+    "identity_mismatch": false,
+    "wall_seconds": 0,
+    "method": "rule",
+    "decision_count": 3,
+    "local_actions": 0,
+    "agent_routes": 3
+  },
+  "phase_stats": [
+    {
+      "revision": 1,
+      "recovery": false,
+      "requests": 3,
+      "input_tokens": 31683,
+      "output_tokens": 1129,
+      "cost_usd": "0.0108597",
+      "tools": {
+        "list_source": 1,
+        "read_source": 1
+      }
+    },
+    {
+      "revision": 2,
+      "recovery": true,
+      "requests": 12,
+      "input_tokens": 145527,
+      "output_tokens": 20217,
+      "cost_usd": "0.0679185",
+      "tools": {
+        "list_source": 7,
+        "search_build_files": 8,
+        "inspect_build_environment": 8,
+        "read_source": 10
+      }
+    },
+    {
+      "revision": 3,
+      "recovery": true,
+      "requests": 20,
+      "input_tokens": 253197,
+      "output_tokens": 28445,
+      "cost_usd": "0.1100931",
+      "tools": {
+        "list_source": 4,
+        "search_build_files": 14,
+        "read_source": 15,
+        "read_failure_log": 1,
+        "inspect_build_environment": 2
+      }
+    },
+    {
+      "revision": 4,
+      "recovery": true,
+      "requests": 19,
+      "input_tokens": 246599,
+      "output_tokens": 27433,
+      "cost_usd": "0.1068993",
+      "tools": {
+        "read_failure_log": 3,
+        "list_source": 4,
+        "search_build_files": 13,
+        "inspect_build_environment": 4,
+        "read_source": 15
+      }
+    }
+  ],
+  "actual_response_models": [
+    "deepseek-flash"
+  ],
+  "accepted_proposals": 4,
+  "handoffs": 3,
+  "tools": {
+    "list_source": 16,
+    "read_source": 41,
+    "search_build_files": 35,
+    "inspect_build_environment": 14,
+    "read_failure_log": 4
+  },
+  "query_attempts": 49,
+  "actual_container_queries": 36,
+  "query_result_status": {
+    "matches": 10,
+    "unavailable": 4,
+    "ok": 8,
+    "no_match_in_scope": 14
+  },
+  "query_repeated_arguments": 13,
+  "query_attempt_results": {
+    "matches": 10,
+    "invalid_query": 4,
+    "unavailable": 4,
+    "ok": 8,
+    "no_match_in_scope": 14,
+    "budget_exhausted": 9
+  },
+  "read_source_calls": 41,
+  "read_source_repeated_exact_arguments": 20,
+  "queries_per_handoff": {
+    "3b1c36d4d8964040bfee86233ebce5b5": 12,
+    "00206fd0d2ea4f10ae38cfd06ea4e266": 12,
+    "c7988b26e026427dadbdf9758d602a14": 12
+  },
+  "query_kinds": {
+    "project": 9,
+    "dependencies": 4,
+    "command": 3,
+    "macros": 15,
+    "package": 2,
+    "package_policy": 1,
+    "package_files": 2
+  },
+  "source_changes": [
+    {
+      "path": "config.guess",
+      "content_changed": false,
+      "before_sha256": "cf610daf8afdedbf2110abd79bdd4121d59080cab5ec46deaf67f97273bb6bda",
+      "after_sha256": "cf610daf8afdedbf2110abd79bdd4121d59080cab5ec46deaf67f97273bb6bda",
+      "before_mode": "0o644",
+      "after_mode": "0o755"
+    },
+    {
+      "path": "config.sub",
+      "content_changed": true,
+      "before_sha256": "c2af8e462af03519f77c7068d99cb09ef01fc4359452f3b7b3a807191098910a",
+      "after_sha256": "deb02c26f43b2ea64276c9ede77ec0f53d08e6256710f3c0a12275712085c348",
+      "before_mode": "0o755",
+      "after_mode": "0o755"
+    }
+  ],
+  "source_snapshot_count": 78,
+  "source_snapshot_matches_run_revision": true,
+  "container_absence_checks": [
+    {
+      "reference": "9733d7074db0c89526a50a16e2d1df8c272af907fda389ea32725c369fc7162b",
+      "absent": true,
+      "exit_code": 1
+    },
+    {
+      "reference": "deerflow-compile-simple-s-5a89655d",
+      "absent": true,
+      "exit_code": 1
+    }
+  ],
+  "diagnosis": "未找到libltdl-dev；未调用package_search/owner/package_file_search/search_paths；源码安装Libtool2.4.6后强制重生成，原config.guess权限0644→0755（内容未变）首先触发保护，另config.sub内容变化；主构建/交付/重建未观察",
+  "interpretation": "工具实际接线成功但本次自主依赖诊断未改善；成本/时间较旧完成观察低不能当同等完成降本；不自动重试或写论文"
+}
