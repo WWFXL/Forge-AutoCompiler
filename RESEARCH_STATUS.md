@@ -7,7 +7,7 @@
 
 [归因与修复报告](docs/research/2026-11-17-e58-failure-repair.md)、[四项目工程结果](benchmarks/analyses/e58-failure-repair-2026-11-17/summary.json)：smenu/quickjs/zstd原构建动作不变，修正PTY与真实输出参考后，主构建、交付、原归档干净重建通过；libtasn1复现缺gtkdocize→原补包方案→默认make的config.h包含错误→正常编译参数补救，最终默认构建/静态共享库/重建通过。四项原输入均未变，20个本轮容器引用不存在。
 
-共同清理命令从175308缩至859字节，路径清单留执行侧并验SHA，重建解压后初始化同一清单；修复tests/reproducers.c误命中/repro。51项针对性检查/Ruff/格式通过。v1工程负面及v2误启动中断保留，最终libtasn1见v3；0Provider/0新增费用，工程成功不当新Agent自主效果。原E58分母、失败和论文v0.12不改。
+共同清理命令从175308缩至859字节，路径清单留执行侧并验SHA，重建解压后初始化同一清单；修复tests/reproducers.c误命中/repro。57项针对性检查/Ruff/格式通过。v1工程负面及v2误启动中断保留，最终libtasn1见v3；0Provider/0新增费用，工程成功不当新Agent自主效果。原E58分母、失败和论文v0.12不改。
 
 修复阶段结束；下一项是基于统一修复基座及新参考设计集中比较，模型真实自主结果仍待新运行。若改Harness先交用户审核；本轮没有启动新付费比较或续用旧授权。发布见Issue815关联PR/CI。
 

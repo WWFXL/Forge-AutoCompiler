@@ -45,8 +45,11 @@ def test_identical_tasks_independent_planning_and_isolated_tools(tmp_path, monke
         assert not {"initial_plan", "bank", "recipe"} & call.keys()
 
 
-def test_default_material_check_does_not_read_credentials(monkeypatch, capsys):
+def test_default_material_check_does_not_read_credentials(tmp_path, monkeypatch, capsys):
+    # 仅在测试临时目录组装当前材料，不覆盖已完成实验的冻结协议。
     # CI不依赖服务器源码归档；真实CLI默认核对归档SHA。
+    monkeypatch.setattr(c, "MANIFEST", tmp_path / "manifest.json")
+    c.shared.save(c.MANIFEST, c.candidate())
     actual_validate = c.validate
     monkeypatch.setattr(c, "validate", lambda value: actual_validate(value, check_sources=False))
     monkeypatch.setattr(c, "run_paid", lambda *a: pytest.fail("不应读取凭据或调用Provider"))
@@ -85,3 +88,12 @@ def test_all_18_report_retains_unobserved_instead_of_failures(tmp_path):
     assert result["arms"][c.METHODS[1]]["unobserved"] == 18
     assert result["arms"][c.METHODS[0]]["main_build_completed"] == 1
     assert result["arms"][c.METHODS[0]]["estimated_cost_usd"] == "0.01"
+
+
+def test_runtime_evolution_does_not_reauthorize_frozen_experiment(monkeypatch):
+    value = c.shared.load(c.MANIFEST)
+    changed = json.loads(json.dumps(value))
+    changed["components"]["backend/packages/harness/deerflow/compile/simple_build_runtime.py"] = "0" * 64
+    monkeypatch.setattr(c, "candidate", lambda: changed)
+    with pytest.raises(PlanContractError, match="不得续用旧身份"):
+        c.validate(value, check_sources=False)
