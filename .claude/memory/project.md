@@ -633,6 +633,10 @@
   - 下一步: 等待实验负责人确认当前网络接入介质，并决定是否授权只读 endpoint 诊断和新的 canary amendment；获得确认后必须另建中文 Issue/PR 和协议 identity，保留当前失败 marker。
 
 ## 最近变更 (Recent Changes)
+- 2026-11-16 — #801规划依赖真实观察在上下文装配停止，完整失败保留、待用户审核。
+  - 文件: `docs/research/2026-11-16-libffi-planning-dependency-results.md`, `benchmarks/analyses/libffi-planning-dependency-2026-11-16/`
+  - 动机: 核实新增规划查询的真实效果。8请求/104610Token/0.0337203美元/35.66秒，初始7请求10查询未识别缺宏，恢复1请求核实候选未装；第9请求前本地49KB超限，未提交修订/安装，主库/交付/重建未观察。cleanup两引用不存在、86快照/用量核验通过；原输入未改/17新增。inventorye1fdca09；一次1美元/UTC15:00:43—16:00:43已用，不自动重试/追加、不改论文/旧分母。下一建议零Provider复现证据装配，未实施。当前状态见RESEARCH_STATUS.md。
+
 - 2026-11-16 — #799准备规划依赖真实模型单次观察入口，待新授权。
   - 文件: `scripts/forge_libffi_planning_dependency.py`, `backend/tests/test_libffi_planning_dependency_entry.py`, `benchmarks/preregistrations/cpp-build-libffi-planning-dependency-flash-v1.md`
   - 动机: 观察真实Flash能否在规划中识别并生成必要依赖安装步骤，而非等到恢复。仅开启规划检查，恢复沿用审核经验；6检查/默认材料CLI/Ruff/格式通过，0Provider/凭据/费用，不重复工程构建。拟1美元/1小时一次尚待授权，无自动重试；不改论文/旧证据。当前阶段以RESEARCH_STATUS.md为准。
