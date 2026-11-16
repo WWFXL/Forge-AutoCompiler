@@ -1,0 +1,33 @@
+{
+  "response_usage_matches_ledger": true,
+  "cost_matches_summary": true,
+  "source_snapshot_hashes_verified": 82,
+  "unknown_usage_requests": 0,
+  "models": {
+    "deepseek-flash": 50
+  },
+  "read_counts": {
+    "initial": {
+      "read_calls": 11,
+      "exact_parameter_repetitions": 0
+    },
+    "recovery": {
+      "read_calls": 83,
+      "exact_parameter_repetitions": 54
+    }
+  },
+  "memory_snapshots": 43,
+  "candidate_lists_all_empty": true,
+  "source_original_unchanged": true,
+  "added_files": 17,
+  "resources": [
+    {
+      "reference": "deerflow-compile-simple-s-5dd3d63f",
+      "absent": true
+    },
+    {
+      "reference": "cd6b7fe8b10dba4405534ce9899d85817d60b5666a0a04aa88428c0ea98d9250",
+      "absent": true
+    }
+  ]
+}
