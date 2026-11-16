@@ -633,6 +633,11 @@
   - 下一步: 等待实验负责人确认当前网络接入介质，并决定是否授权只读 endpoint 诊断和新的 canary amendment；获得确认后必须另建中文 Issue/PR 和协议 identity，保留当前失败 marker。
 
 ## 最近变更 (Recent Changes)
+- 2026-11-16 — #797将实际容器依赖查询接入初始规划，安装仍由Workflow执行。
+  - 文件: `backend/packages/harness/deerflow/compile/planning_environment.py`, `simple_build_task.py`, `recovery_environment.py`, `scripts/forge_simple_system.py`, `scripts/forge_planning_dependency_check.py`, `docs/research/2026-11-16-planning-dependency-check.md`。
+  - 验证: 26相关检查/Ruff，零Provider真实libffi三查询→补包→原构建/交付/干净重建/清理通过，56.03秒无恢复；76源码快照及四容器核验通过，inventory0ed19e2f。
+  - 边界: 显式inspect_planning_dependencies开启，查询计原任务预算、结束关闭；旧入口/提示保持。不把预写4回复当Flash效果，0新增费，无活动Provider；不改论文或旧分母，下一真实观察另绑定授权。
+
 - 2026-11-16 — #795完成已审核宏依赖经验单次真实观察，结果待审核，不改论文。
   - 文件: `docs/research/2026-11-16-libffi-macro-experience-results.md`, `benchmarks/analyses/libffi-macro-experience-2026-11-16/`, `RESEARCH_STATUS.md`。
   - 证据: 11Flash（初始9/恢复2）/136293Token/0.0432美元/85.55秒；经验仅恢复可见，核实libltdl-dev未装和ltdl.m4归属后补包，主库/交付/原归档实际重建/cleanup通过，无替代宏/旧工具。原输入不变、186新增后审，85快照/计费及四容器引用核验通过，inventory4c21279a。

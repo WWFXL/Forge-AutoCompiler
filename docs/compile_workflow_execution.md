@@ -167,3 +167,11 @@ docker build --pull=false --build-arg BASE_IMAGE=autocompiler:gcc13-https-v1 -f 
 `run_simple_system(..., diagnose_dependencies=True)`在恢复中启用结构化缺口、任务内候选记录及`diagnose_dependency`组合工具，默认关闭。明确缺依赖日志首次交接先做一次有界只读查询；未知/歧义交给Agent。宏组件命名线索单列为未核实，不把局部无命中解释成版本删除。Agent仍决定修复，工具不安装。
 
 组合工具逐条消费原12查询及任务命令/时间额度；查询与命令frontier/日志一起记录，不进入成功配方。头文件优先常见系统头路径，无匹配再扩大。每次恢复请求附加带来源的缺口、候选与转向提醒；无进展只提醒，新路径不自动撤销全部诊断工具，总预算仍生效。原入口行为保持。实现、验证及边界见[诊断动作改进报告](research/2026-11-16-dependency-diagnosis-selection.md)。
+
+## 规划阶段的依赖检查
+
+`run_simple_system(inspect_planning_dependencies=True)`为方案式Forge启用初始规划环境查询，脚本模型CLI使用`--inspect-planning-dependencies`。历史入口默认不启用；新比较需记录这个配置。直接复用完整方案时跳过模型规划，也不会额外执行这些查询。
+
+规划Agent可从构建说明、CI、CMake/Autotools声明识别主要目标的必要依赖，用`search_build_files`检查项目及已安装开发文件，用`inspect_build_environment`核实工具版本、包状态、包描述、文件提供者与路径。两工具复用恢复阶段的固定查询程序，不接受任意Shell，也不安装包或更新索引。Agent依据证据生成dependency安装步骤，再由Workflow执行配置生成、配置和构建；没有缺口时可直接交付方案，不机械检查所有依赖。
+
+初始查询绑定当前源码和会话，方案生成结束后关闭，最多12次且计入共享任务命令/时间额度。完整命令和日志保留，查询角色为diagnostic，不进入构建重放配方；生成的安装步骤则正常进入可复现构建。规划查询与恢复查询分别记录耗时。恢复仍处理未能预见的真实失败，不承诺消除全部依赖错误。

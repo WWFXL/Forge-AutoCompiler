@@ -1,0 +1,143 @@
+{
+  "identity": "cpp-build-planning-dependency-engineering-v1",
+  "provider_calls": 0,
+  "scripted_responses": 4,
+  "queries": [
+    {
+      "event": "planning.environment_query",
+      "version": "planning-dependency-check-v1",
+      "operation": "search",
+      "query": "LT_SYS_SYMBOL_USCORE",
+      "scope": "project",
+      "result": {
+        "status": "matches",
+        "scope": "project",
+        "roots": [
+          "/workspace/repo"
+        ],
+        "matches": [
+          {
+            "path": "/workspace/repo/configure.ac",
+            "line": 219,
+            "text": "LT_SYS_SYMBOL_USCORE"
+          }
+        ],
+        "files_scanned": 430,
+        "bytes_scanned": 2776343,
+        "incomplete": false,
+        "note": "仅搜索已存在的限定目录；空结果不能证明包不存在或功能已移除",
+        "command_id": "command_dd1e8c3883bc4a528618f7828c1f6d02",
+        "exit_code": 0,
+        "timed_out": false,
+        "log_path": "logs/command_dd1e8c3883bc4a528618f7828c1f6d02.log"
+      }
+    },
+    {
+      "event": "planning.environment_query",
+      "version": "planning-dependency-check-v1",
+      "operation": "environment",
+      "query": "libltdl-dev",
+      "kind": "package",
+      "result": {
+        "status": "ok",
+        "argv": [
+          "dpkg-query",
+          "-W",
+          "-f=${binary:Package}\t${db:Status-Abbrev}\t${Version}\n",
+          "libltdl-dev"
+        ],
+        "executable": "/usr/bin/dpkg-query",
+        "exit_code": 0,
+        "output": "libltdl-dev\tun \t\n",
+        "truncated": false,
+        "package_state": "un",
+        "installed": false,
+        "version": "",
+        "command_id": "command_c74b92f825824400ae465bc421f821a6",
+        "timed_out": false,
+        "log_path": "logs/command_c74b92f825824400ae465bc421f821a6.log"
+      }
+    },
+    {
+      "event": "planning.environment_query",
+      "version": "planning-dependency-check-v1",
+      "operation": "environment",
+      "query": "ltdl.m4",
+      "kind": "package_file_search",
+      "result": {
+        "status": "ok",
+        "argv": [
+          "apt-file",
+          "search",
+          "--regexp",
+          "(^|/)ltdl\\.m4$"
+        ],
+        "executable": "/usr/bin/apt-file",
+        "exit_code": 0,
+        "output": "libltdl-dev: /usr/share/aclocal/ltdl.m4\n",
+        "truncated": false,
+        "index_state": {
+          "package_indexes": 15,
+          "contents_indexes": 4,
+          "packages": "present",
+          "contents": "present",
+          "apt_file_available": true,
+          "coverage": "仅当前本地索引；present不证明最新或覆盖全部源/架构",
+          "preparation": "缺包索引时在dependency步骤运行apt-get update；缺文件查询能力时安装apt-file并运行apt-file update"
+        },
+        "evidence_scope": "当前可见包/文件索引，空结果不证明不存在或版本移除",
+        "command_id": "command_a84272f228f04058952740bf46eecd2f",
+        "timed_out": false,
+        "log_path": "logs/command_a84272f228f04058952740bf46eecd2f.log"
+      }
+    }
+  ],
+  "layers": {
+    "command_build_passed": true,
+    "primary_build_completed": true,
+    "delivery": "passed",
+    "author_tests": "not_required",
+    "executable_smoke": "not_applicable",
+    "final_verification_passed": true,
+    "clean_replay": "passed",
+    "full_completed": null,
+    "main_build_task_completed": true,
+    "reproducible_delivery_completed": true
+  },
+  "cleanup": {
+    "succeeded": true,
+    "stopped": true,
+    "removed": true
+  },
+  "seconds": 56.02852841396816,
+  "source_unchanged": true,
+  "source_review": "pending_review",
+  "source_snapshot_files": 76,
+  "source_snapshot_hashes_valid": true,
+  "runtime_snapshot_matches_current_code": true,
+  "original_inputs_unchanged": true,
+  "added_files": 186,
+  "container_checks": [
+    {
+      "reference": "deerflow-compile-simple-s-6252609c",
+      "exists": false
+    },
+    {
+      "reference": "28348bd106955513914505a8867d914a1392b6b7e73971f14f5309ce29a5f4fc",
+      "exists": false
+    },
+    {
+      "reference": "deerflow-replay-simple-s-6252609c-replay_6c760",
+      "exists": false
+    },
+    {
+      "reference": "31ad3c58ba673994737ef9f27704f0140add2ce087598e93859b869cafe1fc8f",
+      "exists": false
+    }
+  ],
+  "workflow_commands_used": 7,
+  "meter_commands": 7,
+  "inventory_sha256": "0ed19e2fb208d5adeafd78bb472012c044392c204b451706f2e8d5fd45c68bb7",
+  "inventory_files": 1405,
+  "effect_claim": false
+}

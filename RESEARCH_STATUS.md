@@ -3,7 +3,15 @@
 论文选材固定入口：[硕士论文实验与证据索引](docs/research/THESIS_EVIDENCE_INDEX.md)，[历史材料目录](docs/research/THESIS_EVIDENCE_CATALOG.md)保留存量导航。当前完整稿为[论文v0.11工具Harness结果修订稿](docs/thesis/README.md)；E50–E52保存主构建系统及两轮Harness结果，既有完整任务、状态/恢复消融和两层经验继续按各自版本与分母使用。
 
 
-## 当前阶段（2026-11-16；#795已审核宏经验单次观察成功，结果待用户审核）
+## 当前阶段（2026-11-16；#797规划依赖检查实现与工程验证完成）
+
+[实现与验证](docs/research/2026-11-16-planning-dependency-check.md)：初始规划可查询真实容器工具/包/文件提供者/路径，依据作者声明生成dependency安装步骤；执行仍交Workflow。复用原查询，无虚假失败交接。显式inspect_planning_dependencies开启，旧入口保持；查询计原命令/时间额度，结束关闭，不进入重建配方。
+
+26项相关检查/Ruff及格式通过。一次零Provider libffi接线3查询→安装libltdl-dev→原流程/主库/静态共享交付/原归档重建/cleanup通过，无恢复交接，56.03秒；76快照/共享7命令/四容器不存在核验通过，原件forge-planning-dependency-engineering-2026-11-16-v1，inventory0ed19e2f。预写4回复明确给包名，只证明接线，非Flash效果；未给规划提示硬编码包名或项目答案。
+
+工程阶段结束，0新增模型费，无活动Provider；下一项真实规划依赖检查观察待新身份预算/时窗，不续旧单次。结果与方案先审核，不改论文/旧结果/E57分母。发布以Issue797关联PR和CI为准。
+
+## 上一阶段（2026-11-16；#795已审核宏经验单次观察成功，结果待用户审核）
 
 [结果报告](docs/research/2026-11-16-libffi-macro-experience-results.md)：11Flash请求（初始9/恢复2）、136293Token、0.0432美元、85.55秒，未知0。恢复核实包未安装及ltdl.m4提供者，安装libltdl-dev后原流程/主库/静态共享交付/原归档干净重建/cleanup通过；无替代宏或别版Libtool。原输入未变、新增186文件后审，完整作者测试未要求。
 

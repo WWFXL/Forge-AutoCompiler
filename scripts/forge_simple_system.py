@@ -94,10 +94,13 @@ def run_simple_system(
     enforce_planning_tools=False,
     retain_recovery_diagnostics=False,
     diagnose_dependencies=False,
+    inspect_planning_dependencies=False,
 ):
     """可复用执行接点；本函数不加载配置或凭据，不自行创建Provider。"""
     if method not in METHODS[:3]:
         raise ValueError("此接点仅接受Forge/经验Forge/强工具Agent")
+    if inspect_planning_dependencies and method == "strong_tool_agent":
+        raise ValueError("规划依赖查询只用于方案式Forge，不能隐式改变强工具Agent")
     if (task.task_version == "main-build-v1") != (validation_scope == "main_build"):
         raise ValueError("公开任务版本必须与主构建/旧作者测试范围一致")
     if reference.task_sha256 != _digest(task.model_dump(mode="json")):
@@ -124,6 +127,7 @@ def run_simple_system(
             deadline=deadline,
             validation_scope=validation_scope,
             enforce_planning_tools=enforce_planning_tools,
+            inspect_planning_dependencies=inspect_planning_dependencies,
             recovery_environment_tools=DIAGNOSTIC_VERSION if method != "strong_tool_agent" else None,
             kind="zero_provider_engineering" if accepted_models == ("zero-provider-script",) else "requires_external_authorized_protocol",
         ),
@@ -140,6 +144,7 @@ def run_simple_system(
     ledger = PlanAgentLedger(root / "agent")
     initial_packet = {}
     planning_seconds, recovery_seconds = 0.0, 0.0
+    planning_environment = None
 
     def packet():
         if service:
@@ -179,13 +184,28 @@ def run_simple_system(
             else:
                 if recipe is not None:
                     ledger.append("recipe.abstained", reason="公开任务身份变化")
+                if inspect_planning_dependencies:
+                    from deerflow.compile.planning_environment import PlanningEnvironment
+
+                    planning_environment = PlanningEnvironment(session=session, manager=manager, runtime=runtime, meter=meter)
                 planning_start = time.monotonic()
                 try:
                     plan, _ = propose_simple(
-                        model=model, task=task, source_root=source, session_root=Path(session.metadata_path).parent, meter=meter, experience_bank=bank, family=family, harness=harness, enforce_planning_tools=enforce_planning_tools
+                        model=model,
+                        task=task,
+                        source_root=source,
+                        session_root=Path(session.metadata_path).parent,
+                        meter=meter,
+                        experience_bank=bank,
+                        family=family,
+                        harness=harness,
+                        enforce_planning_tools=enforce_planning_tools,
+                        planning_environment=planning_environment,
                     )
                 finally:
                     planning_seconds += time.monotonic() - planning_start
+                    if planning_environment is not None:
+                        planning_environment.close()
         diagnostic_memory = None
         if retain_recovery_diagnostics or diagnose_dependencies:
             from deerflow.compile.recovery_diagnostic_memory import RecoveryDiagnosticMemory
@@ -194,6 +214,10 @@ def run_simple_system(
         # 作者测试统一串行；不改变构建的并行资源，也不把测试指令交给构建Agent。
         serial = reference.model_copy(update={"author_tests": tuple(s.model_copy(update={"command": "export CTEST_PARALLEL_LEVEL=1\n" + s.command}) for s in reference.author_tests)})
         workflow = SimpleBuildWorkflow(plan=plan, session=session, manager=manager, runtime=runtime, reference=serial, budget=PlanBudget(wall_clock_seconds=1200, command_timeout_seconds=180, max_commands=64, max_handoffs=8), meter=meter)
+        if planning_environment is not None:
+            workflow.commands_used += planning_environment.calls
+            workflow.timings["planning_diagnostic_seconds"] = planning_environment.seconds
+            workflow._persist()
         if method == "strong_tool_agent":
             service = SimpleToolBuildService(workflow, meter)
             run_simple_tool_agent(model=model, service=service, source_root=source, session_root=Path(session.metadata_path).parent, meter=meter)
@@ -300,6 +324,7 @@ def main():
     parser.add_argument("--family", required=True)
     parser.add_argument("--recipe", type=Path)
     parser.add_argument("--experience-bank", type=Path)
+    parser.add_argument("--inspect-planning-dependencies", action="store_true", help="规划阶段查询真实容器依赖，安装仍交由Workflow")
     args = parser.parse_args()
     if args.method != "forge_experience" and (args.recipe or args.experience_bank):
         parser.error("只有经验Forge可读取方案库/经验库")
@@ -325,6 +350,7 @@ def main():
             family=args.family,
             recipe=SimpleProjectRecipe.model_validate_json(args.recipe.read_text()) if args.recipe else None,
             bank=SimpleStateTargetBank.load(args.experience_bank) if args.experience_bank else None,
+            inspect_planning_dependencies=args.inspect_planning_dependencies,
         )
     print(json.dumps(result, ensure_ascii=False, indent=2))
     return 0 if result.get("layers", {}).get("primary_build_completed") and result["cleanup"]["succeeded"] else 1

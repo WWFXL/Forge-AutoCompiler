@@ -245,23 +245,29 @@ class RecoveryEnvironment:
                 w._persist()
 
     def tools(self):
-        @tool
-        def search_build_files(query: str, scope: SearchScope = "project") -> str:
-            """按精确文本搜索容器项目、系统宏/头文件/pkgconfig或外部依赖；返回文件行号和有界片段。空结果不代表包不存在。"""
-            return json.dumps(self.execute("search", query, scope=scope), ensure_ascii=False)
+        return environment_tools(self)
+
+
+def environment_tools(service):
+    """规划与恢复复用相同结构化只读工具，各自校验活动范围和预算。"""
+
+    @tool
+    def search_build_files(query: str, scope: SearchScope = "project") -> str:
+        """按精确文本搜索容器项目、系统宏/头文件/pkgconfig或外部依赖；返回文件行号和有界片段。空结果不代表包不存在。"""
+        return json.dumps(service.execute("search", query, scope=scope), ensure_ascii=False)
+
+    @tool
+    def inspect_build_environment(kind: EnvironmentKind, query: str) -> str:
+        """查询版本、包状态/候选/描述/文件/所属包、包名及描述搜索、文件提供者和索引状态。package_index传apt；package_file_search传文件名而非符号。不安装或更新索引。"""
+        return json.dumps(service.execute("environment", query, kind=kind), ensure_ascii=False)
+
+    tools = [search_build_files, inspect_build_environment]
+    if service.dependency_diagnosis is not None:
 
         @tool
-        def inspect_build_environment(kind: EnvironmentKind, query: str) -> str:
-            """查询版本、包状态/候选/描述/文件/所属包、包名及描述搜索、文件提供者和索引状态。package_index传apt；package_file_search传文件名而非符号。不安装或更新索引。"""
-            return json.dumps(self.execute("environment", query, kind=kind), ensure_ascii=False)
+        def diagnose_dependency(kind: MissingKind, item: str, component: str | None = None, candidate: str | None = None) -> str:
+            """组合只读依赖诊断：kind为缺失类型，item为日志名称；宏可附组件检索词component；已有真实候选时传candidate核实描述/安装/文件/路径。逐条计原预算，不安装。"""
+            return json.dumps(service.dependency_diagnosis.diagnose(kind, item, component=component, candidate=candidate), ensure_ascii=False)
 
-        tools = [search_build_files, inspect_build_environment]
-        if self.dependency_diagnosis is not None:
-
-            @tool
-            def diagnose_dependency(kind: MissingKind, item: str, component: str | None = None, candidate: str | None = None) -> str:
-                """组合只读依赖诊断：kind为缺失类型，item为日志名称；宏可附组件检索词component；已有真实候选时传candidate核实描述/安装/文件/路径。逐条计原预算，不安装。"""
-                return json.dumps(self.dependency_diagnosis.diagnose(kind, item, component=component, candidate=candidate), ensure_ascii=False)
-
-            tools.append(diagnose_dependency)
-        return tools
+        tools.append(diagnose_dependency)
+    return tools
