@@ -70,14 +70,22 @@ def test_default_cli_only_checks_material(monkeypatch, capsys):
     assert result["provider_calls"] == 0 and result["credentials_read"] is False
 
 
-def test_material_only_changes_run_label_goal_and_query_image():
-    task, reference, archive, recovery = entry.material()
-    original, _, old_archive, old_recovery = entry.previous_material()
+def test_material_only_changes_run_label_goal_and_query_image(tmp_path, monkeypatch):
+    from deerflow.compile.simple_build_task import BuildReference, PublicBuildTask
+
+    # CI不依赖科研服务器归档；真实归档已由默认CLI单独核验。
+    item = next(p for p in json.loads((entry.ROOT / "benchmarks/fixtures/planning-tool-p4-comparison-v1/tasks.json").read_text())["projects"] if p["name"] == "libffi")
+    original = PublicBuildTask.model_validate(item["task"])
+    old_reference = BuildReference.model_validate(item["reference"])
+    archive = tmp_path / "source.tar"
+    recovery = object()
+    monkeypatch.setattr(entry, "previous_material", lambda: (original, old_reference, archive, recovery))
+    task, reference, actual_archive, actual_recovery = entry.material()
     assert task.image_id == entry.IMAGE_ID != original.image_id
     assert task.goal == entry.SIMPLE_GOAL
     assert task.plan_id == entry.IDENTITY
     assert reference.task_sha256 == entry._digest(task.model_dump(mode="json"))
-    assert archive == old_archive
+    assert actual_archive == archive
     assert task.source_archive_sha256 == original.source_archive_sha256
-    assert recovery.fingerprint() == old_recovery.fingerprint()
+    assert actual_recovery is recovery
     assert "libltdl-dev" not in task.goal
