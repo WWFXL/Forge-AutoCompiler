@@ -618,3 +618,7 @@ E54共同工程后续：[验证、依赖工具链及文件保护修复](2026-11-
 - 结果：主构建及可复现交付10/12、11/12、10/12；请求132/113/152，费0.5840436/0.4971639/0.6943038美元，累计1468.79/1257.90/1459.75秒。B多完成open62541、总费低14.9%，但共同10项费高85.4%；C较B总费高39.7%，但共同10项中8项低费、合计低38.0%。
 - 边界：实际工具拒绝只在open62541；libffi三组共同宏错误未解。单次比较、事后共同完成子集只解释路径，不主张一般因果或普遍降本。建议P0约束为下一基线候选，P4不直接替换；本次入文不授权自动续修或新实验。
 - [报告](2026-11-12-planning-tool-p4-comparison-results.md) / [完整逐槽分析](../../benchmarks/analyses/planning-tool-p4-comparison-2026-11-12/README.md)。原件`/home/yiwei/.codex/outputs/forge-planning-tool-p4-comparison-flash-v1`，inventory `cc85f9d841f16e18e6c0c3f756777c37e4ffd0e4147be9c500ba6407647457b9`；397响应/1.7755113美元，0未知/未启动/未闭合，36cleanup及134容器引用核验通过。
+
+### #772 依赖提供者与索引修复（工程材料，0模型效果分母）
+
+[报告](2026-11-16-dependency-provider-repair.md)及[分析](../../benchmarks/analyses/dependency-provider-repair-2026-11-16/README.md)：一次脚本驱动真实Workflow缺宏/查询/补包/主库/交付/干净重建/清理通过，82.38秒，0Provider/美元。新镜像带查询工具和索引、不预装目标包；旧/新环境差异与宽泛头名截断明确保留。仅作实现与局限分析候选，不作Harness或自主Agent增益、不入旧E57分母、不自动写论文。原件forge-dependency-provider-repair-2026-11-16-v2，inventorye5141d03；失败v1保留。

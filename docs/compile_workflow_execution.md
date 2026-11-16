@@ -124,11 +124,11 @@
 `run_simple_system`的Forge恢复调用绑定`RecoveryEnvironment`，在原源码/日志读取之外提供两类工具；初始规划和强工具Agent不因此改变。直接调用`propose_simple`时须显式传入与活动交接绑定的`diagnostics`。
 
 - `search_build_files(query, scope)`：固定文本搜索`project/macros/headers/pkgconfig/dependencies`范围，返回路径、行号、片段及不完整标记。系统宏包含版本化aclocal目录；不依赖容器安装ripgrep。
-- `inspect_build_environment(kind, query)`：查询常见构建命令版本与实际路径、精确包状态/候选/文件/所属包、包名或文件索引、aclocal/pkg-config/编译器路径及指定开发环境变量。只读本地数据库；`apt-file`或索引不可用时明确返回`unavailable`，不自动安装或刷新索引。
+- `inspect_build_environment(kind, query)`：查询常见构建命令版本与实际路径、精确包状态/候选/文件/所属包、包名及描述搜索、精确包描述、文件索引及其就绪状态、aclocal/pkg-config/编译器路径及指定开发环境变量。只读本地数据库；`apt-file`或索引不可用时明确返回`unavailable`，不自动安装或刷新索引。
 
 指导顺序为：用日志里的缺失名称搜索实际文件，核实提供者、安装状态和路径，再决定最小修复。无命中不等于功能被版本移除；证据不足不伪造宏。查询不执行任意模型Shell、不安装依赖、不修改成功阶段；修复仍提交完整方案，由Workflow继续执行。
 
-每次活动交接最多12次查询，另受原任务命令/时间预算约束。查询通过原runtime执行，按`diagnostic`保留命令、退出码、日志和耗时，同步命令frontier；不进入成功配方或重建脚本。搜索最多20条匹配、2000文件、16MB读取和5秒；单文件上限1MB，版本/包查询最多8KB输出、8秒，外层再受15秒及剩余预算限制。重复查询不因新命令ID被算作新知识。
+每次活动交接最多12次查询，另受原任务命令/时间预算约束。查询通过原runtime执行，按`diagnostic`保留命令、退出码、日志和耗时，同步命令frontier；不进入成功配方或重建脚本。搜索最多20条匹配、2000文件、16MB读取和5秒；单文件上限1MB，版本/包查询最多8KB输出、8秒，外层15秒；文件提供者查询内部20秒、外层25秒，均受剩余预算限制。重复查询不因新命令ID被算作新知识。
 
 工程验证入口：`scripts/forge_recovery_environment_repair.py --output <新目录>`。使用脚本回复在真实libffi容器查询并提交预写修复，实际执行交付及干净重建；0 Provider，不能据此声称模型效率提升。细节见[修复报告](research/2026-11-16-recovery-environment-tools.md)。
 
@@ -143,3 +143,15 @@
 干净重建仍从固定原归档和相同镜像执行成功配方，必要构建适配须由配方重现；不把已改目录当作原始源码。旧任务/报告与历史严格检查工具保留原身份，新运行应采用新的默认目标和独立身份，不续用旧授权或改写旧标签。历史CXXCrafter适配器不在本次改动范围，新比较须先统一其后验审查口径。
 
 [libffi零Provider工程验证](research/2026-11-16-source-posthoc-review-repair.md)重现config.guess权限变化、config.sub内容变化后继续完成主库和实际重建，属于工程证据。
+
+### 软件包与文件索引（#772）
+
+`package_search`搜索包名及描述；`package_description`接受精确包名，`package_index(query="apt")`检查Packages/Contents及apt-file。索引缺失与当前索引无匹配分开返回，不自动联网准备。缺失文件可按名称或完整路径查询；同名结果过多时依据实际头文件路径缩小查询。
+
+新查询镜像由`docker/compile/Dockerfile.dependency-index`构建：
+
+```bash
+docker build --pull=false --build-arg BASE_IMAGE=autocompiler:gcc13-https-v1 -f docker/compile/Dockerfile.dependency-index -t autocompiler:dependency-index-v1 docker/compile
+```
+
+构建前核验本地基础镜像；新任务冻结实际image_id。新镜像装查询工具并保留索引，不预装项目答案。旧默认与冻结实验保持，后续各比较方法统一镜像与准备条件；索引存在不代表始终最新。[真实查询及零Provider恢复](research/2026-11-16-dependency-provider-repair.md)。

@@ -333,3 +333,7 @@ E54共同工程后续：[验证、依赖工具链及文件保护修复](2026-11-
 | [cpp-typed-action-benchmark-rule-gate-audit-v1.md](../../benchmarks/reports/cpp-typed-action-benchmark-rule-gate-audit-v1.md) | Jev benchmark v1 RuleGate 可辨识性审计 | 待逐项复核 |
 | [cpp-typed-semantic-routing-pilot-v2.md](../../benchmarks/reports/cpp-typed-semantic-routing-pilot-v2.md) | 同阶段异根因类型化语义路由 benchmark v2 结果 | 待逐项复核 |
 | [cpp-verifier-checkpoint-behavioral-pilot-v2.md](../../benchmarks/reports/cpp-verifier-checkpoint-behavioral-pilot-v2.md) | Checkpoint 行为终态 v2 六配对实验结果 | 待逐项复核 |
+
+### #772 依赖提供者与索引修复（工程材料，0模型效果分母）
+
+[报告](2026-11-16-dependency-provider-repair.md)及[分析](../../benchmarks/analyses/dependency-provider-repair-2026-11-16/README.md)：一次脚本驱动真实Workflow缺宏/查询/补包/主库/交付/干净重建/清理通过，82.38秒，0Provider/美元。新镜像带查询工具和索引、不预装目标包；旧/新环境差异与宽泛头名截断明确保留。仅作实现与局限分析候选，不作Harness或自主Agent增益、不入旧E57分母、不自动写论文。原件forge-dependency-provider-repair-2026-11-16-v2，inventorye5141d03；失败v1保留。

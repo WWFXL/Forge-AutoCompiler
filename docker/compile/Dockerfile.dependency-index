@@ -1,0 +1,12 @@
+# 为后续各方法统一准备包/文件查询；不改变既有冻结镜像。
+ARG BASE_IMAGE
+FROM ${BASE_IMAGE}
+
+RUN set -eux; \
+    apt-get -o Acquire::Retries=0 update --error-on=any; \
+    DEBIAN_FRONTEND=noninteractive apt-get -o Acquire::Retries=0 install -y --no-install-recommends apt-file; \
+    apt-get -o Acquire::Retries=0 update --error-on=any; \
+    test -n "$(find /var/lib/apt/lists -maxdepth 1 -name '*_Packages*' -print -quit)"; \
+    test -n "$(find /var/lib/apt/lists -maxdepth 1 -name '*_Contents-*' -print -quit)"
+
+LABEL org.forge-autocompiler.dependency-index="apt-file-v1"
