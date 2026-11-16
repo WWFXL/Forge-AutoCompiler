@@ -3,7 +3,13 @@
 论文选材固定入口：[硕士论文实验与证据索引](docs/research/THESIS_EVIDENCE_INDEX.md)，[历史材料目录](docs/research/THESIS_EVIDENCE_CATALOG.md)保留存量导航。当前完整稿为[论文v0.11工具Harness结果修订稿](docs/thesis/README.md)；E50–E52保存主构建系统及两轮Harness结果，既有完整任务、状态/恢复消融和两层经验继续按各自版本与分母使用。
 
 
-## 当前阶段（2026-11-16；#791已验证宏依赖经验及恢复提示提案完成，待用户审核）
+## 当前阶段（2026-11-16；#793已审核宏经验单次观察入口准备完成，待新费用及时窗）
+
+用户已审核候选9de184d7。[新协议](benchmarks/preregistrations/cpp-build-libffi-macro-experience-flash-v1.md)及`scripts/forge_libffi_macro_experience.py`固定候选/纯追加关系，仅恢复阶段采用已验证宏→文件→包经验；明确包含libltdl-dev关联，非无答案诊断。P0、模型、工具、Workflow、任务额度及验收沿用。
+
+3项入口/授权/运行参数装配检查、实际默认材料CLI、Ruff/格式通过；0Provider/新构建/新增费用，未读凭据。没有重复参考或产品全测；pytest清理旧临时目录权限告警不属本入口构建清理。拟一次、1美元硬上限、确认起1小时，无自动重试，未知用量/标识异常/清理失败停止。本身份新费用及时窗尚未绑定，旧单次不续用。结果先审核，不改论文/E57或独立分母；发布以Issue793关联PR/CI为准。
+
+## 上一阶段（2026-11-16；#791已验证宏依赖经验及恢复提示提案完成，待用户审核）
 
 [经验卡与提案](docs/research/2026-11-16-verified-macro-experience-proposal.md)从旧真实包归属/宏定义/成功重建及最新未核实轨迹提取一条错误经验：LT_SYS_SYMBOL_USCORE→ltdl.m4→当前Ubuntu的libltdl-dev，核实包/安装/路径后补齐并重跑原生成流程。按错误与环境适用，不按项目名，不扩大成所有宏错误。
 
