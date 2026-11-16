@@ -1,0 +1,46 @@
+{
+  "status": "primary_completed",
+  "layers": {
+    "command_build_passed": true,
+    "primary_build_completed": true,
+    "delivery": "passed",
+    "author_tests": "not_required",
+    "executable_smoke": "not_applicable",
+    "final_verification_passed": true,
+    "clean_replay": "passed",
+    "full_completed": null,
+    "main_build_task_completed": true,
+    "reproducible_delivery_completed": true
+  },
+  "source_unchanged": true,
+  "source_protection": {
+    "protected_inputs_unchanged": true,
+    "generated_document_changes": [],
+    "generated_metadata_changes": []
+  },
+  "cleanup": {
+    "succeeded": true,
+    "stopped": true,
+    "removed": true
+  },
+  "error": null,
+  "agent_usage": {
+    "model_requests": 1,
+    "recorded_tokens": 0,
+    "agent_steps": 1,
+    "tool_calls": 0,
+    "commands": 6,
+    "elapsed_seconds": 36.130962568102404,
+    "input_tokens": 0,
+    "output_tokens": 0,
+    "estimated_cost_usd": 0.0,
+    "unknown_usage_requests": 0,
+    "cost_and_usage_complete": true,
+    "estimated_cost_usd_completed_responses": 0.0
+  },
+  "arm_total_wall_seconds": 74.43108272110112,
+  "identity": "cpp-build-libffi-recovery-assembly-repair-v1",
+  "provider_calls": 0,
+  "scripted_responses": 1,
+  "scientific_effect_observations": 0
+}
