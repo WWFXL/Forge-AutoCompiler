@@ -1,0 +1,81 @@
+{
+  "identity": "cpp-build-libffi-dependency-guidance-flash-v1",
+  "release_revision": "09ae3ada3f07bacb996285feaf57c4399556b13e",
+  "raw_root": "/home/yiwei/.codex/outputs/forge-libffi-dependency-guidance-flash-2026-11-16-v1",
+  "status": "primary_completed",
+  "layers": {
+    "command_build_passed": true,
+    "primary_build_completed": true,
+    "delivery": "passed",
+    "author_tests": "not_required",
+    "executable_smoke": "not_applicable",
+    "final_verification_passed": true,
+    "clean_replay": "passed",
+    "full_completed": null,
+    "main_build_task_completed": true,
+    "reproducible_delivery_completed": true
+  },
+  "agent_usage": {
+    "model_requests": 67,
+    "recorded_tokens": 953752,
+    "agent_steps": 178,
+    "tool_calls": 111,
+    "commands": 14,
+    "elapsed_seconds": 809.735809143167,
+    "input_tokens": 837795,
+    "output_tokens": 115957,
+    "estimated_cost_usd": 0.3904869,
+    "unknown_usage_requests": 0,
+    "cost_and_usage_complete": true,
+    "estimated_cost_usd_completed_responses": 0.3904869
+  },
+  "timings": {
+    "configure_seconds": 29.903272688854486,
+    "dependency_seconds": 35.23817039467394,
+    "recovery_execution_seconds": 63.34081657137722,
+    "build_seconds": 2.952492920681834,
+    "result_location_seconds": 0.03988061589188874,
+    "primary_build_seconds": 812.4969214061275,
+    "time_to_primary_from_arm_start_seconds": 812.4984069368802,
+    "delivery_seconds": 0.17650131206028163,
+    "author_tests_seconds": 9.008101187646389e-05,
+    "clean_replay_seconds": 48.26492089405656,
+    "total_seconds_before_cleanup": 860.9900115330238,
+    "initial_planning_seconds": 18.47978369379416,
+    "recovery_agent_seconds": 723.9655102009419
+  },
+  "wall_seconds": 864.4761396339163,
+  "source_unchanged": true,
+  "cleanup": {
+    "succeeded": true,
+    "stopped": true,
+    "removed": true
+  },
+  "phase_stats": {
+    "initial": {
+      "requests": 7,
+      "input_tokens": 83232,
+      "output_tokens": 2210,
+      "cost_usd": "0.0276216",
+      "tools": {
+        "list_source": 1,
+        "read_source": 5
+      }
+    },
+    "recovery": {
+      "requests": 60,
+      "input_tokens": 754563,
+      "output_tokens": 113747,
+      "cost_usd": "0.3628653",
+      "tools": {
+        "read_source": 72,
+        "list_source": 19,
+        "read_failure_log": 14
+      }
+    }
+  },
+  "accepted_proposals": 4,
+  "handoffs": 3,
+  "repair_method": "源码安装Libtool2.4.7并通过ACLOCAL_PATH引入真实ltdl.m4；安装texinfo后完成默认构建；未找到libltdl-dev，未伪造宏或固定检测值",
+  "interpretation": "当前主构建及可复现交付通过，依赖提供者/版本解释仍错误；本次无效率改善，不作单例提示因果比较"
+}

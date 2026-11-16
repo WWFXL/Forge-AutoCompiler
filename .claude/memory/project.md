@@ -634,6 +634,10 @@
 
 ## 最近变更 (Recent Changes)
 
+- 2026-11-16 — 完成#758通用诊断提示下libffi单次真实观察，停止追加实验。
+  - 文件: `docs/research/2026-11-16-libffi-dependency-guidance.md`, `benchmarks/analyses/libffi-dependency-guidance-2026-11-16/`, `RESEARCH_STATUS.md`。
+  - 结果: 主构建/交付/实际重建/源码保护/清理通过；67请求、953752Token、0.3904869美元、864.48秒。源码安装真实Libtool与texinfo，无伪造宏；未找对libltdl-dev，恢复重复读取与生成文件重置问题保留。单次1美元/1小时已闭合，旧E57/论文不改；无活动Provider。原件inventory d61a3290，发布以PR759为准。
+
 - 2026-11-16 — #758接入通用依赖诊断恢复指导，准备单次libffi从零观察。
   - 文件: `scripts/forge_libffi_dependency_guidance.py`, `benchmarks/fixtures/dependency-diagnosis-guidance-v1/guidance.md`, `benchmarks/preregistrations/cpp-build-libffi-dependency-guidance-flash-v1.md`
   - 动机: 先核实依赖提供方/安装/路径，避免错误版本推测和伪造宏；只改R2提示，不给包名或成功路径。
