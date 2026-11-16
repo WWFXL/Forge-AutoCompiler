@@ -92,6 +92,7 @@ def run_simple_system(
     harness=None,
     recovery_harness=None,
     enforce_planning_tools=False,
+    retain_recovery_diagnostics=False,
 ):
     """可复用执行接点；本函数不加载配置或凭据，不自行创建Provider。"""
     if method not in METHODS[:3]:
@@ -184,6 +185,11 @@ def run_simple_system(
                     )
                 finally:
                     planning_seconds += time.monotonic() - planning_start
+        diagnostic_memory = None
+        if retain_recovery_diagnostics:
+            from deerflow.compile.recovery_diagnostic_memory import RecoveryDiagnosticMemory
+
+            diagnostic_memory = RecoveryDiagnosticMemory()
         # 作者测试统一串行；不改变构建的并行资源，也不把测试指令交给构建Agent。
         serial = reference.model_copy(update={"author_tests": tuple(s.model_copy(update={"command": "export CTEST_PARALLEL_LEVEL=1\n" + s.command}) for s in reference.author_tests)})
         workflow = SimpleBuildWorkflow(plan=plan, session=session, manager=manager, runtime=runtime, reference=serial, budget=PlanBudget(wall_clock_seconds=1200, command_timeout_seconds=180, max_commands=64, max_handoffs=8), meter=meter)
@@ -217,7 +223,7 @@ def run_simple_system(
                         harness=harness,
                         recovery_harness=recovery_harness,
                         revision_validator=workflow.validate_revision,
-                        diagnostics=RecoveryEnvironment(workflow, meter),
+                        diagnostics=RecoveryEnvironment(workflow, meter, diagnostic_memory=diagnostic_memory),
                     )
                 finally:
                     recovery_seconds += time.monotonic() - recovery_start

@@ -3,7 +3,15 @@
 论文选材固定入口：[硕士论文实验与证据索引](docs/research/THESIS_EVIDENCE_INDEX.md)，[历史材料目录](docs/research/THESIS_EVIDENCE_CATALOG.md)保留存量导航。当前完整稿为[论文v0.11工具Harness结果修订稿](docs/thesis/README.md)；E50–E52保存主构建系统及两轮Harness结果，既有完整任务、状态/恢复消融和两层经验继续按各自版本与分母使用。
 
 
-## 当前阶段（2026-11-16；#779诊断顺序自主观察构建成功，未获预期诊断收益）
+## 当前阶段（2026-11-16；#781恢复诊断证据保留已实现，自主观察待新授权）
+
+[实现与验证报告](docs/research/2026-11-16-recovery-diagnostic-memory.md)：单任务恢复记录保留真实查询候选及出处/核实状态，每次请求重建，跨上下文压缩保留，跨交接状态可能过期。仅新入口开启，不预填具体答案，不加工具/额度，不改P0、原R2、Workflow或验收。
+
+45项相关检查/Ruff/格式通过；只读旧25查询回放保留17候选，强制压缩后仍可见。预写脚本Agent真实libffi容器路径79.62秒，主静态/共享库/交付/原归档干净重建/cleanup通过；7脚本回复、0真实Provider/Token/新增美元，只证明接线，不证明Flash自主诊断或效率收益。四容器引用实查不存在；原件forge-diagnostic-memory-engineering-2026-11-16-v1，inventoryba446660。
+
+下一项`cpp-build-libffi-diagnostic-memory-flash-v1`从零一次自主观察，拟1美元/确认起1小时，尚未绑定新授权；旧单次已消费，不读凭据/调用Provider。结果先审核，不改旧结果/论文/E57或独立项目分母。当前无活动Provider；PR发布及CI以Issue781关联记录为准，知识库不注入正式Agent。
+
+## 上一阶段（2026-11-16；#779诊断顺序自主观察构建成功，未获预期诊断收益）
 
 [结果报告](docs/research/2026-11-16-libffi-diagnostic-order-results.md)：Flash从零libffi一次，51请求（初始17/恢复34）、704206Token/0.2693865美元/485.49秒/未知0。主库、静态共享交付、原归档干净重建/cleanup通过，四容器引用不存在；原输入未变、新增186生成文件后审。真实Libtool2.5.4的ltdl.m4提供宏，未伪造宏/固定值；作者测试未执行。
 
