@@ -634,6 +634,9 @@
 
 ## 最近变更 (Recent Changes)
 
+- 2026-11-16 — #774查询索引修复后libffi自主观察结束：10请求（初始3/恢复7）/139461Token/0.0536607美元/170.92秒，主库/交付/原归档重建/清理通过，4容器引用不存在。未找对libltdl-dev，源码安装真实Libtool2.4.6，不造固定宏；16诊断尝试/12实际/4限额，描述检索0。原输入未改、186新增后审；新镜像/独立规划不作历史因果。单次1美元UTC08:14:16—09:14:16已消费，无追加Provider/自动重试/论文修改；inventory3a43fdf2，报告2026-11-16-libffi-index-autonomous.md。结果待用户审核，下一诊断顺序提案不自动实现。
+
+
 - 2026-11-16 — #774查询索引修复后libffi自主观察准备：新身份cpp-build-libffi-index-autonomous-flash-v1，P0/R2及简洁目标不变，仅新查询镜像d483ffa7，无答案/旧方案/经验。10测试/Ruff、默认材料、Docker/镜像检查通过，0Provider/费用；不重复真实工程构建。一次无自动重试，拟1美元/确认起1小时，未知用量/身份/cleanup异常停止；尚待新付费授权，不改论文/E57。入口scripts/forge_libffi_index_autonomous.py，协议同身份。
 
 

@@ -622,3 +622,7 @@ E54共同工程后续：[验证、依赖工具链及文件保护修复](2026-11-
 ### #772 依赖提供者与索引修复（工程材料，0模型效果分母）
 
 [报告](2026-11-16-dependency-provider-repair.md)及[分析](../../benchmarks/analyses/dependency-provider-repair-2026-11-16/README.md)：一次脚本驱动真实Workflow缺宏/查询/补包/主库/交付/干净重建/清理通过，82.38秒，0Provider/美元。新镜像带查询工具和索引、不预装目标包；旧/新环境差异与宽泛头名截断明确保留。仅作实现与局限分析候选，不作Harness或自主Agent增益、不入旧E57分母、不自动写论文。原件forge-dependency-provider-repair-2026-11-16-v2，inventorye5141d03；失败v1保留。
+
+### #774 查询索引修复后自主单例（开发观察，待审不自动入文）
+
+[报告](2026-11-16-libffi-index-autonomous.md)/[分析](../../benchmarks/analyses/libffi-index-autonomous-2026-11-16/README.md)：一个libffi独立从零观察，10Flash请求/139461Token/0.0536607美元/170.92秒，主库/交付/实际重建/cleanup通过。未定位系统开发包，源码安装真实Libtool2.4.6；16诊断尝试/12实际/4限额，描述搜索0，一次文件提供者有效。新查询镜像与初始方案不同，历史差值不作因果、不增E57独立分母，不改论文。原件forge-libffi-index-autonomous-flash-2026-11-16-v1，inventory3a43fdf2，保留失败与文件后审。
