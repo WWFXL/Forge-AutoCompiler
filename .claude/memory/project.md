@@ -633,6 +633,12 @@
   - 下一步: 等待实验负责人确认当前网络接入介质，并决定是否授权只读 endpoint 诊断和新的 canary amendment；获得确认后必须另建中文 Issue/PR 和协议 identity，保留当前失败 marker。
 
 ## 最近变更 (Recent Changes)
+- 2026-11-16 — #777追加通用依赖诊断顺序指导并准备无答案自主观察。
+  - 文件: `benchmarks/fixtures/dependency-diagnostic-order-v1/guidance.md`, `scripts/forge_libffi_diagnostic_order.py`, `backend/tests/test_dependency_diagnostic_order.py`, `docs/research/2026-11-16-dependency-diagnostic-order-preparation.md`。
+  - 动机: #774工具可用却未用包描述、重复宏搜索后错误推断版本删除；新策略只改恢复提示，不给项目答案，不加工具/额度或改旧R2/P0/Workflow。
+  - 验证: 34相关检查/Ruff通过，真实提示收据仅恢复注入，脚本模型接线后本机cc/ar构建成功；0真实Provider/新增费用，未证明Flash效果。首次测试系统字段读错已修，旧pytest临时目录权限告警保留。
+  - 下一: 新身份cpp-build-libffi-diagnostic-order-flash-v1，拟1美元/确认起1小时、单次无重试，尚待新预算时窗；不续旧授权、不改论文/E57，不自动扩批。根用户改动保持，科研发布以关联PR/CI为准。
+
 
 - 2026-11-16 — #774查询索引修复后libffi自主观察结束：10请求（初始3/恢复7）/139461Token/0.0536607美元/170.92秒，主库/交付/原归档重建/清理通过，4容器引用不存在。未找对libltdl-dev，源码安装真实Libtool2.4.6，不造固定宏；16诊断尝试/12实际/4限额，描述检索0。原输入未改、186新增后审；新镜像/独立规划不作历史因果。单次1美元UTC08:14:16—09:14:16已消费，无追加Provider/自动重试/论文修改；inventory3a43fdf2，报告2026-11-16-libffi-index-autonomous.md。结果待用户审核，下一诊断顺序提案不自动实现。
 
