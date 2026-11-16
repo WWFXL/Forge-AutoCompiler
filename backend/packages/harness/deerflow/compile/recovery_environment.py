@@ -11,10 +11,15 @@ from langchain_core.tools import tool
 
 from deerflow.compile.plan_workflow import PlanContractError, PlanStep
 
-DIAGNOSTIC_VERSION = "recovery-environment-v1"
+DIAGNOSTIC_VERSION = "recovery-environment-v2"
 RECOVERY_ENVIRONMENT_PROMPT = """
 恢复时可用search_build_files与inspect_build_environment查询实际编译容器，不局限于原源码。
-遇到未定义宏、缺头文件/库/命令：先用精确名称搜索项目和相应系统目录，再查询命令版本、包状态/文件及搜索路径。
+遇到未定义宏、缺头文件/库/命令：沿“缺失项→提供文件/组件→开发包→安装/路径”获取证据。已安装目录搜索不能发现未安装包的内容。
+package_search搜索包名及描述，可用相关工具/组件名发现名称不同的开发包，再用package_description核实用途。
+已知缺失文件名时，package_file_search查文件提供包；它不搜索宏或符号的内容。owner只查已安装文件所属包，不能替代未安装包检索。
+APT查询返回index_state；索引缺失时，空结果或无候选不代表仓库没有该包。若需准备，将apt-get update写入dependency步骤由Workflow执行。
+文件查询工具/Contents索引不可用时，明确缺少的查询能力；必要时将安装apt-file及apt-file update写入准备步骤，不把不可用当作无提供者。
+准备后的索引仍只覆盖已配置软件源/架构；package_index(query="apt")可单独检查。command查询只接受工具名，例如aclocal，不接受整条Shell命令。
 区分未安装、已安装但路径未生效和有证据支持的版本不兼容；无命中或查询不可用不证明版本移除了功能。
 优先采用系统包及正确路径的最小修复；仅在查询证据支持系统包不能满足时考虑源码安装依赖。
 不要重复分段读取同一文件猜测，也不要伪造宏或跳过依赖检查。诊断有次数与时间限制，证据足够即返回完整修订方案。
@@ -27,6 +32,7 @@ import glob,json,os,pathlib,re,selectors,shutil,subprocess,time
 cfg=CONFIG
 started=time.monotonic()
 limit=8000
+query_seconds=20 if cfg.get('kind')=='package_file_search' else 8
 safe_path='/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin'
 def run(argv):
     executable=shutil.which(argv[0],path=safe_path)
@@ -38,7 +44,7 @@ def run(argv):
     with selectors.DefaultSelector() as selector:
         selector.register(p.stdout,selectors.EVENT_READ)
         while selector.get_map():
-            if time.monotonic()-started>8:
+            if time.monotonic()-started>query_seconds:
                 timed_out=True; break
             for key,_ in selector.select(.1):
                 data=os.read(key.fd,1024)
@@ -57,6 +63,17 @@ def run(argv):
     output=b''.join(chunks)[:limit].decode('utf-8','replace')
     status='timeout' if timed_out else 'truncated' if truncated else 'ok' if code==0 else 'query_failed'
     return dict(status=status,argv=argv,executable=executable,exit_code=code,output=output,truncated=truncated)
+
+def index_state():
+    root=pathlib.Path('/var/lib/apt/lists')
+    packages=[p for p in root.glob('*_Packages*') if p.is_file()]
+    contents=[p for p in root.glob('*_Contents-*') if p.is_file()]
+    return dict(package_indexes=len(packages),contents_indexes=len(contents),
+                packages='present' if packages else 'missing',
+                contents='present' if contents else 'missing',
+                apt_file_available=shutil.which('apt-file',path=safe_path) is not None,
+                coverage='仅当前本地索引；present不证明最新或覆盖全部源/架构',
+                preparation='缺包索引时在dependency步骤运行apt-get update；缺文件查询能力时安装apt-file并运行apt-file update')
 
 if cfg['operation']=='search':
     scope=cfg['scope']; query=cfg['query']
@@ -108,24 +125,35 @@ else:
             state=fields[1].strip() if len(fields)>1 else ''
             result.update(package_state=state,installed=state=='ii',version=fields[2] if len(fields)>2 else '')
         elif result['status']=='query_failed': result['installed']=False
+    elif kind=='package_index': result=dict(status='ok',index_state=index_state())
     elif kind=='package_policy': result=run(['apt-cache','policy',q])
+    elif kind=='package_description': result=run(['apt-cache','show',q])
     elif kind=='package_files': result=run(['dpkg-query','-L',q])
     elif kind=='owner': result=run(['dpkg-query','-S',q])
-    elif kind=='package_search': result=run(['apt-cache','search','--names-only',re.escape(q)])
+    elif kind=='package_search':
+        result=run(['apt-cache','search',re.escape(q)])
+        result['match_scope']='package_name_and_description'
     elif kind=='package_file_search':
-        result=run(['apt-file','search','--regexp',re.escape(q)+'$'])
-        if result['status']=='query_failed':
+        result=run(['apt-file','search','--regexp',r'(^|/)'+re.escape(q.lstrip('/'))+'$'])
+        if result['status']=='query_failed' and result.get('exit_code')==1 and index_state()['contents']=='present':
+            result['status']='no_match_in_index'
+        elif result['status']=='query_failed':
             result['status']='unavailable'
             result['reason']='文件索引查询失败（可能无索引）；不能据此认定文件无提供者'
     elif kind=='search_paths':
         result=run({'aclocal':['aclocal','--print-ac-dir'],'pkg-config':['pkg-config','--variable=pc_path','pkg-config'],'cc':['cc','-print-search-dirs']}[q])
         result['environment']={key:os.environ.get(key,'') for key in ('ACLOCAL_PATH','PKG_CONFIG_PATH','CMAKE_PREFIX_PATH','CPATH','LIBRARY_PATH','LD_LIBRARY_PATH')}
     else: raise ValueError('unknown query')
+    if kind in {'package_policy','package_description','package_search','package_file_search'}:
+        result['index_state']=index_state()
+        result['evidence_scope']='当前可见包/文件索引，空结果不证明不存在或版本移除'
+        if result.get('status')=='ok' and not result.get('output','').strip():
+            result['status']='no_match_in_index' if result['index_state']['packages']=='present' else 'index_unavailable'
 print(json.dumps(result,ensure_ascii=False))
 """
 
 SearchScope = Literal["project", "macros", "headers", "pkgconfig", "dependencies"]
-EnvironmentKind = Literal["command", "package", "package_policy", "package_files", "owner", "package_search", "package_file_search", "search_paths"]
+EnvironmentKind = Literal["command", "package", "package_policy", "package_description", "package_files", "owner", "package_search", "package_file_search", "package_index", "search_paths"]
 COMMANDS = {"aclocal", "autoconf", "automake", "autoreconf", "libtool", "libtoolize", "m4", "make", "cmake", "ninja", "gcc", "g++", "cc", "c++", "pkg-config", "python3", "makeinfo", "meson"}
 
 
@@ -145,7 +173,9 @@ def query_command(operation, query, *, scope=None, kind=None):
             raise ValueError("只允许查询常见构建工具的版本")
         if kind == "search_paths" and query not in {"aclocal", "pkg-config", "cc"}:
             raise ValueError("路径查询只支持aclocal、pkg-config、cc")
-        if kind in {"package", "package_policy", "package_files"}:
+        if kind == "package_index" and query != "apt":
+            raise ValueError("索引状态查询只接受apt")
+        if kind in {"package", "package_policy", "package_description", "package_files"}:
             import re
 
             if not re.fullmatch(r"[a-z0-9][a-z0-9+.:-]*", query):
@@ -190,7 +220,8 @@ class RecoveryEnvironment:
             step = PlanStep(step_id="recovery-query", role="build", command=command, source=DIAGNOSTIC_VERSION, expected="查询实际容器证据").model_copy(update={"role": "diagnostic"})
             started = time.monotonic()
             try:
-                record, output = w._post_command(step, min(15, w.budget.command_timeout_seconds, int(remaining)))
+                query_limit = 25 if kwargs.get("kind") == "package_file_search" else 15
+                record, output = w._post_command(step, min(query_limit, w.budget.command_timeout_seconds, int(remaining)))
                 try:
                     result = json.loads(output.stdout) if record.exit_code == 0 else dict(status="query_failed", output=output.combined_output[-2000:])
                 except ValueError:
@@ -211,7 +242,7 @@ class RecoveryEnvironment:
 
         @tool
         def inspect_build_environment(kind: EnvironmentKind, query: str) -> str:
-            """查询容器构建工具版本、精确包状态/候选/文件/所属包、包名/文件索引或搜索路径；不安装、不联网更新索引。"""
+            """查询版本、包状态/候选/描述/文件/所属包、包名及描述搜索、文件提供者和索引状态。package_index传apt；package_file_search传文件名而非符号。不安装或更新索引。"""
             return json.dumps(self.execute("environment", query, kind=kind), ensure_ascii=False)
 
         return [search_build_files, inspect_build_environment]

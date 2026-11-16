@@ -1,0 +1,5 @@
+{
+  "exit_code": 0,
+  "stdout": "{\"status\": \"ok\", \"argv\": [\"apt-file\", \"search\", \"--regexp\", \"(^|/)usr/include/zlib\\\\.h$\"], \"executable\": \"/usr/bin/apt-file\", \"exit_code\": 0, \"output\": \"zlib1g-dev: /usr/include/zlib.h\\n\", \"truncated\": false, \"index_state\": {\"package_indexes\": 15, \"contents_indexes\": 4, \"packages\": \"present\", \"contents\": \"present\", \"apt_file_available\": true, \"coverage\": \"仅当前本地索引；present不证明最新或覆盖全部源/架构\", \"preparation\": \"缺包索引时在dependency步骤运行apt-get update；缺文件查询能力时安装apt-file并运行apt-file update\"}, \"evidence_scope\": \"当前可见包/文件索引，空结果不证明不存在或版本移除\"}\n",
+  "stderr": ""
+}

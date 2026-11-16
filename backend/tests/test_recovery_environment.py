@@ -2,6 +2,7 @@
 
 import json
 import subprocess
+import sys
 from dataclasses import replace
 from pathlib import Path
 
@@ -168,3 +169,58 @@ def test_environment_evidence_updates_progress_but_new_log_id_is_not_novel():
     row["output"] = "version-2"
     context.observe("inspect_build_environment", dict(kind="command", query="cc"), json.dumps(row))
     assert context.pending_reads == [True, False, True]
+
+
+def indexed_query(tmp_path, kind, query, *, package_indexes=True, contents=False, output="", exit_code=0):
+    """隔离本地APT状态，实际执行固定程序及受控包工具。"""
+    bins = tmp_path / "bin"
+    bins.mkdir(exist_ok=True)
+    lists = tmp_path / "lists"
+    lists.mkdir(exist_ok=True)
+    if package_indexes:
+        (lists / "mirror_Packages.lz4").write_bytes(b"index")
+    if contents:
+        (lists / "mirror_Contents-amd64.lz4").write_bytes(b"index")
+    for name in ["apt-cache", "apt-file"]:
+        path = bins / name
+        path.write_text(f"#!{sys.executable}\nimport sys\nsys.stdout.write({output!r})\nsys.exit({exit_code})\n")
+        path.chmod(0o755)
+    command = query_command("environment", query, kind=kind)
+    command = command.replace("/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin", str(bins)).replace("/var/lib/apt/lists", str(lists))
+    return json.loads(subprocess.check_output(["bash", "-c", command], text=True))
+
+
+def test_package_search_includes_descriptions_and_reports_index_scope(tmp_path):
+    result = indexed_query(tmp_path, "package_search", "toolkit", output="different-dev - headers for toolkit\n")
+    assert result["argv"] == ["apt-cache", "search", "toolkit"]
+    assert "different-dev" in result["output"]
+    assert result["match_scope"] == "package_name_and_description"
+    assert result["index_state"]["packages"] == "present"
+
+
+def test_empty_package_cache_is_not_negative_provider_evidence(tmp_path):
+    result = indexed_query(tmp_path, "package_search", "toolkit", package_indexes=False)
+    assert result["status"] == "index_unavailable"
+    assert result["index_state"]["package_indexes"] == 0
+    assert "不证明不存在" in result["evidence_scope"]
+
+
+@pytest.mark.parametrize("contents,expected", [(True, "no_match_in_index"), (False, "unavailable")])
+def test_file_lookup_distinguishes_no_match_from_missing_index(tmp_path, contents, expected):
+    result = indexed_query(tmp_path, "package_file_search", "missing.h", contents=contents, exit_code=1)
+    assert result["status"] == expected
+    assert result["index_state"]["contents"] == ("present" if contents else "missing")
+
+
+def test_index_readiness_and_package_description(tmp_path):
+    state = indexed_query(tmp_path, "package_index", "apt", contents=True)
+    assert state["index_state"]["package_indexes"] == state["index_state"]["contents_indexes"] == 1
+    assert state["index_state"]["apt_file_available"] is True
+    assert "present不证明最新" in state["index_state"]["coverage"]
+    details = indexed_query(tmp_path, "package_description", "different-dev", output="Package: different-dev\nDescription: toolkit development headers\n")
+    assert details["argv"] == ["apt-cache", "show", "different-dev"]
+    assert "development headers" in details["output"]
+    with pytest.raises(ValueError):
+        query_command("environment", "different-*", kind="package_description")
+    with pytest.raises(ValueError):
+        query_command("environment", "other", kind="package_index")

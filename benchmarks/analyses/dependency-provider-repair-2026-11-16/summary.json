@@ -1,0 +1,256 @@
+{
+  "status": "primary_completed",
+  "layers": {
+    "command_build_passed": true,
+    "primary_build_completed": true,
+    "delivery": "passed",
+    "author_tests": "not_required",
+    "executable_smoke": "not_applicable",
+    "final_verification_passed": true,
+    "clean_replay": "passed",
+    "full_completed": null,
+    "main_build_task_completed": true,
+    "reproducible_delivery_completed": true
+  },
+  "source_unchanged": true,
+  "cleanup": {
+    "succeeded": true,
+    "stopped": true,
+    "removed": true
+  },
+  "error": null,
+  "agent_usage": {
+    "model_requests": 7,
+    "recorded_tokens": 0,
+    "agent_steps": 13,
+    "tool_calls": 6,
+    "commands": 12,
+    "elapsed_seconds": 47.99010010994971,
+    "input_tokens": 0,
+    "output_tokens": 0,
+    "estimated_cost_usd": 0.0,
+    "unknown_usage_requests": 0,
+    "cost_and_usage_complete": true,
+    "estimated_cost_usd_completed_responses": 0.0
+  },
+  "arm_total_wall_seconds": 82.38253533095121,
+  "identity": "cpp-build-dependency-provider-repair-v2",
+  "provider_calls": 0,
+  "scientific_effect_observations": 0,
+  "scripted_responses": 7,
+  "queries": [
+    {
+      "event": "recovery.environment_query",
+      "version": "recovery-environment-v2",
+      "handoff_id": "66be4e73cdb94327ae75a190dec622ee",
+      "operation": "search",
+      "query": "LT_SYS_SYMBOL_USCORE",
+      "scope": "project",
+      "result": {
+        "status": "matches",
+        "scope": "project",
+        "roots": [
+          "/workspace/repo"
+        ],
+        "matches": [
+          {
+            "path": "/workspace/repo/configure",
+            "line": 19320,
+            "text": "LT_SYS_SYMBOL_USCORE"
+          },
+          {
+            "path": "/workspace/repo/configure.ac",
+            "line": 219,
+            "text": "LT_SYS_SYMBOL_USCORE"
+          },
+          {
+            "path": "/workspace/repo/autom4te.cache/output.0",
+            "line": 19320,
+            "text": "LT_SYS_SYMBOL_USCORE"
+          },
+          {
+            "path": "/workspace/repo/autom4te.cache/output.1",
+            "line": 19316,
+            "text": "LT_SYS_SYMBOL_USCORE"
+          },
+          {
+            "path": "/workspace/repo/autom4te.cache/output.2",
+            "line": 19320,
+            "text": "LT_SYS_SYMBOL_USCORE"
+          },
+          {
+            "path": "/workspace/repo/autom4te.cache/output.3",
+            "line": 19320,
+            "text": "LT_SYS_SYMBOL_USCORE"
+          }
+        ],
+        "files_scanned": 447,
+        "bytes_scanned": 7465985,
+        "incomplete": false,
+        "note": "仅搜索已存在的限定目录；空结果不能证明包不存在或功能已移除",
+        "command_id": "command_768de08ff91c4616b380e9825e16dee0",
+        "exit_code": 0,
+        "timed_out": false,
+        "log_path": "logs/command_768de08ff91c4616b380e9825e16dee0.log"
+      }
+    },
+    {
+      "event": "recovery.environment_query",
+      "version": "recovery-environment-v2",
+      "handoff_id": "66be4e73cdb94327ae75a190dec622ee",
+      "operation": "environment",
+      "query": "apt",
+      "kind": "package_index",
+      "result": {
+        "status": "ok",
+        "index_state": {
+          "package_indexes": 15,
+          "contents_indexes": 4,
+          "packages": "present",
+          "contents": "present",
+          "apt_file_available": true,
+          "coverage": "仅当前本地索引；present不证明最新或覆盖全部源/架构",
+          "preparation": "缺包索引时在dependency步骤运行apt-get update；缺文件查询能力时安装apt-file并运行apt-file update"
+        },
+        "command_id": "command_1a6a009d4f174cc89ac582cf4d059c4f",
+        "exit_code": 0,
+        "timed_out": false,
+        "log_path": "logs/command_1a6a009d4f174cc89ac582cf4d059c4f.log"
+      }
+    },
+    {
+      "event": "recovery.environment_query",
+      "version": "recovery-environment-v2",
+      "handoff_id": "66be4e73cdb94327ae75a190dec622ee",
+      "operation": "environment",
+      "query": "libtool",
+      "kind": "package_search",
+      "result": {
+        "status": "ok",
+        "argv": [
+          "apt-cache",
+          "search",
+          "libtool"
+        ],
+        "executable": "/usr/bin/apt-cache",
+        "exit_code": 0,
+        "output": "libltdl-dev - System independent dlopen wrapper for GNU libtool (headers)\nlibltdl7 - System independent dlopen wrapper for GNU libtool\nlibtool - Generic library support script\nlibtool-bin - Generic library support script (libtool binary)\nlibtool-doc - Generic library support script (documentation)\nlibtoolkit-perl - Keep your handy modules organized\nlibtools-analyzer-clojure - analyzer for host agnostic Clojure code\nlibtools-analyzer-jvm-clojure - analyzer for Clojure code providing additional jvm-specific passes\nlibtools-cli-clojure - command line argument parser for Clojure\nlibtools-deps-clojure - API for transitive dependency graph expansion, classpath creation\nlibtools-gitlibs-clojure - API for retrieving, caching, and programmatically accessing git libraries\nlibtools-logging-clojure - Logging macros for Clojure\nlibtools-macro-clojure - Clojure tools for writing macros\nlibtools-namespace-clojure - tools for managing namespaces in Clojure\nlibtools-nrepl-clojure - Clojure network REPL\nlibtools-reader-clojure - complete Clojure and EDN-only reader\nlibtools-trace-clojure - Clojure tracing facility in Clojure\n",
+        "truncated": false,
+        "match_scope": "package_name_and_description",
+        "index_state": {
+          "package_indexes": 15,
+          "contents_indexes": 4,
+          "packages": "present",
+          "contents": "present",
+          "apt_file_available": true,
+          "coverage": "仅当前本地索引；present不证明最新或覆盖全部源/架构",
+          "preparation": "缺包索引时在dependency步骤运行apt-get update；缺文件查询能力时安装apt-file并运行apt-file update"
+        },
+        "evidence_scope": "当前可见包/文件索引，空结果不证明不存在或版本移除",
+        "command_id": "command_bdfda4d5a2cf49bd96655f93e277e4fa",
+        "timed_out": false,
+        "log_path": "logs/command_bdfda4d5a2cf49bd96655f93e277e4fa.log"
+      }
+    },
+    {
+      "event": "recovery.environment_query",
+      "version": "recovery-environment-v2",
+      "handoff_id": "66be4e73cdb94327ae75a190dec622ee",
+      "operation": "environment",
+      "query": "libltdl-dev",
+      "kind": "package_description",
+      "result": {
+        "status": "ok",
+        "argv": [
+          "apt-cache",
+          "show",
+          "libltdl-dev"
+        ],
+        "executable": "/usr/bin/apt-cache",
+        "exit_code": 0,
+        "output": "Package: libltdl-dev\nArchitecture: amd64\nVersion: 2.4.7-7build1\nMulti-Arch: same\nPriority: optional\nSection: libdevel\nSource: libtool\nOrigin: Ubuntu\nMaintainer: Ubuntu Developers <ubuntu-devel-discuss@lists.ubuntu.com>\nOriginal-Maintainer: Alastair McKinstry <mckinstry@debian.org>\nBugs: https://bugs.launchpad.net/ubuntu/+filebug\nInstalled-Size: 940\nProvides: libltdl3-dev\nDepends: libltdl7 (= 2.4.7-7build1), automake-1.16\nRecommends: libtool\nSuggests: libtool-doc\nConflicts: libltdl3-dev\nReplaces: libbtldl3-dev\nFilename: pool/main/libt/libtool/libltdl-dev_2.4.7-7build1_amd64.deb\nSize: 168468\nMD5sum: 07084856ad90e193f43a35d4c1faa38c\nSHA1: b834252f9c4a3a5e1c9f885a79959febad0787d8\nSHA256: 3a706efe1d9d8b493bd2335fabaa9ec28549c9134750fad6c0a5aa9868c6ee9c\nSHA512: 2c99421994181541514d83e7e964f754f792be1f5393926e41bb6ac41448f724d171e444b67ad0f43b221697b08056cb4a662e4f38b514551c178f0c54b98c00\nHomepage: https://www.gnu.org/software/libtool/\nDescription: System independent dlopen wrapper for GNU libtool (headers)\nDescription-md5: a40e027e1c24ccfb7d1ea0e881e23959\n\n",
+        "truncated": false,
+        "index_state": {
+          "package_indexes": 15,
+          "contents_indexes": 4,
+          "packages": "present",
+          "contents": "present",
+          "apt_file_available": true,
+          "coverage": "仅当前本地索引；present不证明最新或覆盖全部源/架构",
+          "preparation": "缺包索引时在dependency步骤运行apt-get update；缺文件查询能力时安装apt-file并运行apt-file update"
+        },
+        "evidence_scope": "当前可见包/文件索引，空结果不证明不存在或版本移除",
+        "command_id": "command_ac0cba60fecd42aca913e7b3c7678af4",
+        "timed_out": false,
+        "log_path": "logs/command_ac0cba60fecd42aca913e7b3c7678af4.log"
+      }
+    },
+    {
+      "event": "recovery.environment_query",
+      "version": "recovery-environment-v2",
+      "handoff_id": "66be4e73cdb94327ae75a190dec622ee",
+      "operation": "environment",
+      "query": "ltdl.m4",
+      "kind": "package_file_search",
+      "result": {
+        "status": "ok",
+        "argv": [
+          "apt-file",
+          "search",
+          "--regexp",
+          "(^|/)ltdl\\.m4$"
+        ],
+        "executable": "/usr/bin/apt-file",
+        "exit_code": 0,
+        "output": "libltdl-dev: /usr/share/aclocal/ltdl.m4\n",
+        "truncated": false,
+        "index_state": {
+          "package_indexes": 15,
+          "contents_indexes": 4,
+          "packages": "present",
+          "contents": "present",
+          "apt_file_available": true,
+          "coverage": "仅当前本地索引；present不证明最新或覆盖全部源/架构",
+          "preparation": "缺包索引时在dependency步骤运行apt-get update；缺文件查询能力时安装apt-file并运行apt-file update"
+        },
+        "evidence_scope": "当前可见包/文件索引，空结果不证明不存在或版本移除",
+        "command_id": "command_35b29980745b4816b567ba69d40dbdc6",
+        "timed_out": false,
+        "log_path": "logs/command_35b29980745b4816b567ba69d40dbdc6.log"
+      }
+    },
+    {
+      "event": "recovery.environment_query",
+      "version": "recovery-environment-v2",
+      "handoff_id": "66be4e73cdb94327ae75a190dec622ee",
+      "operation": "environment",
+      "query": "libltdl-dev",
+      "kind": "package",
+      "result": {
+        "status": "ok",
+        "argv": [
+          "dpkg-query",
+          "-W",
+          "-f=${binary:Package}\t${db:Status-Abbrev}\t${Version}\n",
+          "libltdl-dev"
+        ],
+        "executable": "/usr/bin/dpkg-query",
+        "exit_code": 0,
+        "output": "libltdl-dev\tun \t\n",
+        "truncated": false,
+        "package_state": "un",
+        "installed": false,
+        "version": "",
+        "command_id": "command_214860fd5b844f4da012078c34368764",
+        "timed_out": false,
+        "log_path": "logs/command_214860fd5b844f4da012078c34368764.log"
+      }
+    }
+  ],
+  "source_review": {
+    "policy": "posthoc-review-v1",
+    "status": "pending_review",
+    "protected_inputs_unchanged": true,
+    "change_count": 185
+  }
+}

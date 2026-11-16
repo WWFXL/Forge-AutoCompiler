@@ -3,7 +3,15 @@
 论文选材固定入口：[硕士论文实验与证据索引](docs/research/THESIS_EVIDENCE_INDEX.md)，[历史材料目录](docs/research/THESIS_EVIDENCE_CATALOG.md)保留存量导航。当前完整稿为[论文v0.11工具Harness结果修订稿](docs/thesis/README.md)；E50–E52保存主构建系统及两轮Harness结果，既有完整任务、状态/恢复消融和两层经验继续按各自版本与分母使用。
 
 
-## 当前阶段（2026-11-16；#770 libffi两种宏来源的当前平台验证通过）
+## 当前阶段（2026-11-16；#772依赖提供者与索引修复完成）
+
+[工程报告](docs/research/2026-11-16-dependency-provider-repair.md)：包名＋描述检索、精确包描述及索引可见性已接入恢复工具；索引缺失不当无提供者。新查询镜像d483ffa7仅加apt-file及两依赖和Packages/Contents，不预装libltdl-dev、不改旧默认；未来各方法统一镜像。实际libtool描述检索、ltdl.m4提供者与独立zlib头文件查询通过，宽泛同名头截断保留。
+
+20相关测试/Ruff/格式通过。一条预写修复真实Workflow路径完成缺宏→6查询→系统包→主库/交付/原归档干净重建/清理，82.38秒；原输入未变，7脚本回复，0真实Provider/Token/美元/模型效果分母。4容器引用不存在。原件forge-dependency-provider-repair-2026-11-16-v2，inventory e5141d03；首次镜像FROM错误和8秒查询超时保留，文件查询调整20/25秒且受总预算限制。
+
+本轮是工程修复，不证明Flash自主诊断或费用改善，不改旧成功/失败或论文。阶段结束，下一建议是独立不提供答案的自主观察，新付费调用须新预算/时窗；旧授权不续用。发布以Issue772关联PR最新HEAD检查及科研分支合并为准。
+
+## 上一阶段（2026-11-16；#770 libffi两种宏来源的当前平台验证通过）
 
 [结果报告](docs/research/2026-11-16-libffi-functional-comparison.md)：同源码/镜像、相同文档开关的真实libltdl-dev宏与上一Agent宏各新建一次。40有效配置宏、公开头文件、42共享导出及静态全局符号一致；真实检测结果no，恰与固定值相同。整数/浮点/结构体/变参/closure五场景在两新路径及上一实际交付的静态/动态库共6程序全部通过。当前固定Linux x86_64主要库构建可以认定成功，不因未找到指定包名而判失败。
 
