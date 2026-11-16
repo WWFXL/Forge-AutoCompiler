@@ -3,7 +3,15 @@
 论文选材固定入口：[硕士论文实验与证据索引](docs/research/THESIS_EVIDENCE_INDEX.md)，[历史材料目录](docs/research/THESIS_EVIDENCE_CATALOG.md)保留存量导航。当前完整稿为[论文v0.11工具Harness结果修订稿](docs/thesis/README.md)；E50–E52保存主构建系统及两轮Harness结果，既有完整任务、状态/恢复消融和两层经验继续按各自版本与分母使用。
 
 
-## 当前阶段（2026-11-17；#809本轮Harness更新18项目比较准备完成）
+## 当前阶段（2026-11-17；#811本轮Harness更新18项目比较完成，结果待审）
+
+[结果报告](docs/research/2026-11-17-harness-update-comparison-results.md)、[全18项目/36槽分析](benchmarks/analyses/harness-update-comparison-2026-11-17/README.md)：LH_v0_common/LH_v1主构建均17/18、可复现交付均14/18；请求121/124，在线估算费0.9077391/0.7267134美元，累计1791.31/1547.16秒。新组费低19.9%、时低13.6%，初始规划60→99请求、恢复61→25，完成数不变；5项目费用更低，不作普遍降本。libffi新组补libltdl-dev、原组真实兼容宏，均完成，属开发暴露案例。
+
+smenu无PTY、quickjs/zstd错误stdout断言令两组主构建通过但交付未过；libtasn1共同175KB自动清理脚本因tests/reproducers.c误命中/repro拦截，随后必要上下文超限，两组主构建未完成。保留原失败，运行中未修、不重跑/补槽。下一决定：用户审核结果后，再决定修共同清理/上下文与轻量检查；不自动改论文或启动新实验。
+
+身份cpp-build-harness-update-comparison-flash-v1，运行bee79291、manifest e5156a46。授权10美元/UTC2026-11-16 17:27:30起8小时，本批约56.48分钟完成，无自动重试；245响应/4,915,672Token/1.6344525美元、未知0，36cleanup和128容器引用不存在已核对，正式进程已退出。原件`/home/yiwei/.codex/outputs/forge-harness-update-comparison-flash-2026-11-17-v1`，inventory148a01ee。两组从零规划，无成功指令复用/经验库检索；共同64K容量/执行器/镜像/文件后审。本轮E58待审，未写论文；发布见Issue811关联PR与CI。
+
+## 上一阶段（2026-11-17；#809本轮Harness更新18项目比较准备完成）
 
 [准备与验证](docs/research/2026-11-17-harness-update-comparison-preparation.md)、[协议](benchmarks/preregistrations/cpp-build-harness-update-comparison-flash-v1.md)：18项目含libffi×LH_v0_common/LH_v1各一次，共36槽；只汇总全18，不做17子组。两组从零规划，无成功命令复用/经验库检索；更新组启用规划依赖查询、恢复诊断/证据记忆及已审核错误经验，基线保留原P0/R2只读能力。共同修复后执行器/64K容量/查询镜像/文件后审，不估计容量修复独立效果。
 

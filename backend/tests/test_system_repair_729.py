@@ -95,7 +95,8 @@ def test_large_single_compacted_evidence_can_progress(tmp_path):
     context = PlanningContext(dict(task={"goal": "unchanged"}, handoff={"recent_commands": [dict(command="make", output_tail="linker -fPIC\\n" * 4000, exit_code=1, log_path="logs/build.log")]}, source_packet=[]))
 
     class Request:
-        messages = [HumanMessage(content="task"), HumanMessage(content="压缩证据" * 30000)]
+        # 保留超预算输入，以正常日志换行避免分词器处理巨型连续片段。
+        messages = [HumanMessage(content="task"), HumanMessage(content="压缩证据\n" * 30000)]
         system_message = None
         model_settings = {}
         tools = []

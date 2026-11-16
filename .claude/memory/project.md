@@ -633,6 +633,13 @@
   - 下一步: 等待实验负责人确认当前网络接入介质，并决定是否授权只读 endpoint 诊断和新的 canary amendment；获得确认后必须另建中文 Issue/PR 和协议 identity，保留当前失败 marker。
 
 ## 最近变更 (Recent Changes)
+- 2026-11-17 — #811完成全18项目Harness组合更新36槽比较与结果分析，先交用户审核，不自动入论文。
+  - 文件: `docs/research/2026-11-17-harness-update-comparison-results.md`、`benchmarks/analyses/harness-update-comparison-2026-11-17/`、`RESEARCH_STATUS.md`、论文证据索引/目录。
+  - 结果: 原/新主构建17/18、交付14/18相同；请求121/124、费0.9077391/0.7267134美元、累计1791.31/1547.16秒。初始60/99、恢复61/25请求；全18保留、无17项目子组。libffi新补包原兼容宏均完成，libass/libbcrypt前置依赖减少恢复；5项目降费，非普遍收益。
+  - 发布检查: PR812首轮后端CI在15分钟上限取消，停于旧test_large_single_compacted_evidence_can_progress的12万连续汉字夹具，非断言失败。本地原分词5秒超时，改成相同重复数但正常换行后21万Token/0.19秒；仅修改测试夹具，11项原测试1.66秒通过，不改冻结运行代码/任务/原件。首次CI取消保留，最新head须三CI通过再合。
+  - 边界: smenu无PTY、quickjs/zstd输出断言缺陷；libtasn1两组自动175308字节reset脚本含tests/reproducers.c，误中/repro禁令，随后必要上下文超限，非Agent补包被拦。没有运行中修改/重跑/改判。34槽原输入不变；libconfuse各4po仅自动日期/注释变化，去除后条目相同，冻结标签保留。
+  - 证据: 正式运行bee79291/manifest e5156a46，用户10美元/UTC2026-11-16 17:27:30起8小时，36/36约56.48分钟；245Flash响应/4915672Token/1.6344525美元/未知0。36cleanup与128容器引用不存在通过，进程已退出；raw forge-harness-update-comparison-flash-2026-11-17-v1、inventory148a01ee。Issue811关联结果PR/CI为发布真源；不改冻结代码/证据/论文，下一步结果审核。
+
 - 2026-11-17 — #809准备本轮Harness更新18项目36槽比较；两组从零规划，关闭成功指令复用与经验库检索，只全18汇总。共享执行器/Token容量/文件后审，对比P0/R2只读与依赖工具/诊断记忆/恢复经验组合。
   - 文件: `scripts/forge_harness_update_comparison.py`, `scripts/forge_harness_update_sources.py`, `scripts/forge_simple_system.py`, `benchmarks/fixtures/harness-update-comparison-v1/`, `benchmarks/manifests/cpp-build-harness-update-comparison-flash-v1.json`, `docs/research/2026-11-17-harness-update-comparison-preparation.md`。
   - 验证: 8相关检查、18作者引文/SHA、真实材料CLI；两组libyaml受控失败/恢复/交付/重建/cleanup通过，更新组规划恢复各查询一次，dsvpn作者原生254用法检查通过；均0Provider工程准备，非模型效果。
