@@ -633,6 +633,11 @@
   - 下一步: 等待实验负责人确认当前网络接入介质，并决定是否授权只读 endpoint 诊断和新的 canary amendment；获得确认后必须另建中文 Issue/PR 和协议 identity，保留当前失败 marker。
 
 ## 最近变更 (Recent Changes)
+- 2026-11-17 — #805准备容量修复后libffi单次自主观察并绑定本轮明确授权。
+  - 文件: `scripts/forge_libffi_context_budget.py`、同名单次协议及入口测试，当前阶段见RESEARCH_STATUS.md。
+  - 动机: 确认PR804解除上下文阻塞后，已有依赖证据能否落实为安装方案和成功重建；复用前轮条件，不重复工程资格。
+  - 验证/授权: 3装配检查/默认材料检查通过、Docker可达；一次/1美元硬上限、UTC16:12:23—17:12:23，无自动重试，结果先审不入论文。
+
 - 2026-11-16 — #803统一简洁入口Token容量并精简诊断上下文，完成旧失败零Provider回放。
   - 文件: `request_context_budget.py`, `simple_planning_context.py`, `simple_build_agents.py`, `recovery_diagnostic_memory.py`, `scripts/forge_request_capacity_replay.py`，报告及当前状态见RESEARCH_STATUS.md。
   - 动机: #801核实缺包后被49KB本地限制提前中断；新64K输入/32768输出与10万单次计量一致，费用仍按实际usage；强工具基线同步容量且不注入规划指令。

@@ -3,7 +3,11 @@
 论文选材固定入口：[硕士论文实验与证据索引](docs/research/THESIS_EVIDENCE_INDEX.md)，[历史材料目录](docs/research/THESIS_EVIDENCE_CATALOG.md)保留存量导航。当前完整稿为[论文v0.11工具Harness结果修订稿](docs/thesis/README.md)；E50–E52保存主构建系统及两轮Harness结果，既有完整任务、状态/恢复消融和两层经验继续按各自版本与分母使用。
 
 
-## 当前阶段（2026-11-16；#803上下文容量工程修复完成）
+## 当前阶段（2026-11-17；#805容量修复后单次自主观察已授权）
+
+[协议](benchmarks/preregistrations/cpp-build-libffi-context-budget-flash-v1.md)及`scripts/forge_libffi_context_budget.py`复用前轮条件，只采用PR804容量/诊断快照修复；P0规划可查依赖，恢复沿用已审核宏经验，不给完整成功命令。已完成3项入口装配检查和默认材料检查，Docker可达，未调用Provider。用户“开始执行”批准一次/硬上限1美元，UTC2026-11-16 16:12:23—17:12:23（北京时间11月17日00:12:23—01:12:23），准备计入；无自动重试，未知用量/模型异常/清理失败停止。结果先审核，不改论文/E57/独立分母。
+
+## 上一阶段（2026-11-16；#803上下文容量工程修复完成）
 
 [修复与零费用回放](docs/research/2026-11-16-request-context-capacity-repair.md)：当前简洁入口统一64K输入工作预算＋32768输出预留，system/messages/tools全部计入；cl100k估算加25%及2048余量，不替代Provider用量。诊断优先保留已核实候选、显示六项，原始查询保留；强工具基线同步容量，不接收规划收敛指令。
 
