@@ -3,7 +3,13 @@
 论文选材固定入口：[硕士论文实验与证据索引](docs/research/THESIS_EVIDENCE_INDEX.md)，[历史材料目录](docs/research/THESIS_EVIDENCE_CATALOG.md)保留存量导航。当前完整稿为[论文v0.11工具Harness结果修订稿](docs/thesis/README.md)；E50–E52保存主构建系统及两轮Harness结果，既有完整任务、状态/恢复消融和两层经验继续按各自版本与分母使用。
 
 
-## 当前阶段（2026-11-16；#789依赖诊断改进后单次自主构建完成，结果待审核）
+## 当前阶段（2026-11-16；#791已验证宏依赖经验及恢复提示提案完成，待用户审核）
+
+[经验卡与提案](docs/research/2026-11-16-verified-macro-experience-proposal.md)从旧真实包归属/宏定义/成功重建及最新未核实轨迹提取一条错误经验：LT_SYS_SYMBOL_USCORE→ltdl.m4→当前Ubuntu的libltdl-dev，核实包/安装/路径后补齐并重跑原生成流程。按错误与环境适用，不按项目名，不扩大成所有宏错误。
+
+相对当前R2诊断顺序组合只追加782字节，指导5016→5800字节，候选9de184d7；实际RecoveryHarness校验与纯追加装配通过。仅候选材料，尚未接入运行或比较，0Provider/新构建/新增费用；不改论文/E57/旧证据。已有具体包名作为经验，与之前无答案自主诊断条件不同。下一项用户审核新增原文后，再实现独立单次观察并绑定费用/时窗；当前无活动Provider。发布以Issue791关联PR/CI为准。
+
+## 上一阶段（2026-11-16；#789依赖诊断改进后单次自主构建完成，结果待审核）
 
 [结果报告](docs/research/2026-11-16-libffi-dependency-diagnosis-results.md)：11真实Flash请求（初始3/恢复8）、165621Token、0.0652518美元、162.16秒，未知0。主库、静态共享交付、原归档干净重建及cleanup通过，四容器引用不存在。原输入未变、新增187项，source_review仍pending_review；作者完整测试未执行。
 

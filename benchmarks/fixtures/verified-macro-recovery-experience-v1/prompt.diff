@@ -1,0 +1,11 @@
+--- current-R2-diagnostic-order
++++ candidate-R2-verified-macro-experience
+@@ -56,3 +56,8 @@
+ 4. 同一假设下连续两次查询没有新增定位证据，停止换同义词/大小写重复扫同一范围，转向另一证据来源。已有包/文件查询反馈先复用；仅当安装、路径或实际错误发生变化时再查。诊断总限额不变，应保留额度核实候选及提交修订。
+ 5. 有候选开发包证据时优先提交包管理器补齐或正常路径修复。只有包不可用、版本约束不满足等实际证据支持时才考虑源码安装或切版本；若证据不足，说明未确定的原因，不宣称必须降级。不伪造宏/头文件、固定检测结果或绕过检查。
+ 6. 返回完整可重建修订方案，简述“观察证据→待解决原因→修复动作”；查询不安装、不推进阶段，修复交Workflow。构建成败以实际执行和独立验证为准，不能仅因未找到某个指定包而判失败。
++
++
++已验证错误经验（按错误与环境适用，不按项目名）：
++若Autotools报LT_SYS_SYMBOL_USCORE未定义，先核实ltdl宏提供者。已验证Ubuntu包libltdl-dev 2.4.7-7build1提供/usr/share/aclocal/ltdl.m4及该宏；仅装libtool可能缺它，不能推断新版删宏。
++在Debian/Ubuntu先用diagnose_dependency(kind="macro", item="LT_SYS_SYMBOL_USCORE", candidate="libltdl-dev")核实包/安装/路径，必要时以package_file_search查ltdl.m4。缺包则在修订dependency步骤安装：apt-get install -y --no-install-recommends libltdl-dev；已装则核实宏文件及aclocal搜索路径。修复后重跑原配置生成、配置和构建。其他发行版先查提供包；不把全部未定义宏套用此包，不用固定检测值替代真实宏。
