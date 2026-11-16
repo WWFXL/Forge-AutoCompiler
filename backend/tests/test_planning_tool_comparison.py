@@ -23,6 +23,17 @@ def recorded_source_hashes(monkeypatch):
     monkeypatch.setattr(c, "digest", lambda p: hashes[p] if p in hashes else actual(p))
 
 
+@pytest.fixture(autouse=True)
+def frozen_implementation(monkeypatch, tmp_path, request):
+    # 已结束的E57仍核对真实历史文件，不把当前修复写入旧manifest。
+    if request.node.name not in {"test_prepared_no_provider_and_changed_policy_rejected", "test_missing_authorization_before_provider"}:
+        return
+    from frozen_recovery_context import install_frozen_components
+
+    manifest = c.shared.load(c.MANIFEST)
+    install_frozen_components(monkeypatch, tmp_path, c, manifest["components"], "128dd9447975542833f9c05670eeb4fbaaad5758")
+
+
 def test_three_arm_schedule_and_author_references():
     rows = c.schedule()
     assert len(rows) == 36
