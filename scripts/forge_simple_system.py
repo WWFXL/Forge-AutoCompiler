@@ -93,6 +93,7 @@ def run_simple_system(
     recovery_harness=None,
     enforce_planning_tools=False,
     retain_recovery_diagnostics=False,
+    diagnose_dependencies=False,
 ):
     """可复用执行接点；本函数不加载配置或凭据，不自行创建Provider。"""
     if method not in METHODS[:3]:
@@ -186,7 +187,7 @@ def run_simple_system(
                 finally:
                     planning_seconds += time.monotonic() - planning_start
         diagnostic_memory = None
-        if retain_recovery_diagnostics:
+        if retain_recovery_diagnostics or diagnose_dependencies:
             from deerflow.compile.recovery_diagnostic_memory import RecoveryDiagnosticMemory
 
             diagnostic_memory = RecoveryDiagnosticMemory()
@@ -223,7 +224,7 @@ def run_simple_system(
                         harness=harness,
                         recovery_harness=recovery_harness,
                         revision_validator=workflow.validate_revision,
-                        diagnostics=RecoveryEnvironment(workflow, meter, diagnostic_memory=diagnostic_memory),
+                        diagnostics=RecoveryEnvironment(workflow, meter, diagnostic_memory=diagnostic_memory, diagnose_dependencies=diagnose_dependencies),
                     )
                 finally:
                     recovery_seconds += time.monotonic() - recovery_start

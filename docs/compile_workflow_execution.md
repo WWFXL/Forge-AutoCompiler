@@ -161,3 +161,9 @@ docker build --pull=false --build-arg BASE_IMAGE=autocompiler:gcc13-https-v1 -f 
 新入口 `scripts/forge_libffi_diagnostic_memory.py` 启用 `retain_recovery_diagnostics`。记录只在单个构建任务内共享，初始规划不读取它，不使用个人知识库或旧任务答案。`PlanningContext`在每次恢复模型请求前附加`recovery_diagnostic_memory`，候选不会随旧AI/Tool组被压缩移出；对应快照保存在Agent证据目录。
 
 记录由真实查询反馈生成：最多20条候选及出处、8条近期环境/文件查询和精确候选核实状态，总计最多10000 UTF8字节；省略数量可见，完整结果仍保留于原查询日志。跨恢复交接的环境状态明确可能过期，候选名称本身不证明适用、安装或修复成功。新增提示引导核实描述、文件提供者和安装/路径，不代替Agent作安装决定，不增加工具、查询次数或模型摘要调用。原入口及默认策略保持。
+
+## 下一步依赖诊断证据（可选研究入口）
+
+`run_simple_system(..., diagnose_dependencies=True)`在恢复中启用结构化缺口、任务内候选记录及`diagnose_dependency`组合工具，默认关闭。明确缺依赖日志首次交接先做一次有界只读查询；未知/歧义交给Agent。宏组件命名线索单列为未核实，不把局部无命中解释成版本删除。Agent仍决定修复，工具不安装。
+
+组合工具逐条消费原12查询及任务命令/时间额度；查询与命令frontier/日志一起记录，不进入成功配方。头文件优先常见系统头路径，无匹配再扩大。每次恢复请求附加带来源的缺口、候选与转向提醒；无进展只提醒，新路径不自动撤销全部诊断工具，总预算仍生效。原入口行为保持。实现、验证及边界见[诊断动作改进报告](research/2026-11-16-dependency-diagnosis-selection.md)。

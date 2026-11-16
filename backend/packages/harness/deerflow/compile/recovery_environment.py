@@ -9,6 +9,7 @@ from typing import Literal
 
 from langchain_core.tools import tool
 
+from deerflow.compile.dependency_diagnosis import MissingKind
 from deerflow.compile.plan_workflow import PlanContractError, PlanStep
 
 DIAGNOSTIC_VERSION = "recovery-environment-v2"
@@ -193,11 +194,19 @@ def query_command(operation, query, *, scope=None, kind=None):
 class RecoveryEnvironment:
     """绑定一次活动恢复交接，沿用原执行通道、命令总额、日志和源码保护。"""
 
-    def __init__(self, workflow, meter, *, diagnostic_memory=None):
+    def __init__(self, workflow, meter, *, diagnostic_memory=None, diagnose_dependencies=False):
         self.workflow, self.meter = workflow, meter
         self.diagnostic_memory = diagnostic_memory
         self.handoff_id = workflow.handoff["handoff_id"]
         self.calls = 0
+        self.dependency_diagnosis = None
+        if diagnose_dependencies:
+            from deerflow.compile.dependency_diagnosis import DependencyDiagnosis
+            from deerflow.compile.recovery_diagnostic_memory import RecoveryDiagnosticMemory
+
+            if self.diagnostic_memory is None:
+                self.diagnostic_memory = RecoveryDiagnosticMemory()
+            self.dependency_diagnosis = DependencyDiagnosis(self)
 
     def execute(self, operation, query, **kwargs):
         try:
@@ -246,4 +255,13 @@ class RecoveryEnvironment:
             """查询版本、包状态/候选/描述/文件/所属包、包名及描述搜索、文件提供者和索引状态。package_index传apt；package_file_search传文件名而非符号。不安装或更新索引。"""
             return json.dumps(self.execute("environment", query, kind=kind), ensure_ascii=False)
 
-        return [search_build_files, inspect_build_environment]
+        tools = [search_build_files, inspect_build_environment]
+        if self.dependency_diagnosis is not None:
+
+            @tool
+            def diagnose_dependency(kind: MissingKind, item: str, component: str | None = None, candidate: str | None = None) -> str:
+                """组合只读依赖诊断：kind为缺失类型，item为日志名称；宏可附组件检索词component；已有真实候选时传candidate核实描述/安装/文件/路径。逐条计原预算，不安装。"""
+                return json.dumps(self.dependency_diagnosis.diagnose(kind, item, component=component, candidate=candidate), ensure_ascii=False)
+
+            tools.append(diagnose_dependency)
+        return tools

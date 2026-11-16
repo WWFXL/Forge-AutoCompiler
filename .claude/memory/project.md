@@ -633,6 +633,12 @@
   - 下一步: 等待实验负责人确认当前网络接入介质，并决定是否授权只读 endpoint 诊断和新的 canary amendment；获得确认后必须另建中文 Issue/PR 和协议 identity，保留当前失败 marker。
 
 ## 最近变更 (Recent Changes)
+
+- 2026-11-16 — #785完成依赖缺口与下一步诊断动作改进；默认关闭，0Provider费用。
+  - 文件: `backend/packages/harness/deerflow/compile/dependency_diagnosis.py`、`recovery_environment.py`、`simple_planning_context.py`、`simple_build_task.py`、`scripts/forge_simple_system.py`、`scripts/forge_dependency_diagnosis_check.py`、`backend/tests/test_dependency_diagnosis.py`。
+  - 动机: #783记录已送达但无候选，需把未安装组件索引证据前置；区分事实/线索/假设，原查询额度逐条计入，无进展只提醒转向。原入口不改，个人知识库不进入实验Agent。
+  - 验证: 63相关检查及Ruff/格式；实际容器9查询证据链通过，0Provider、不重做参考构建；v1同名头查询截断失败原件保留，v2常见头路径优先通过，两次cleanup名称/ID均不存在。报告`docs/research/2026-11-16-dependency-diagnosis-selection.md`；没有Flash效果，下一付费身份未准备/授权，不改论文或旧结果。
+
 - 2026-11-16 — #783完成诊断证据保留自主单次，128工具调用限额停止，未完成构建，结果待审核。
   - 文件: `docs/research/2026-11-16-libffi-diagnostic-memory-results.md`, `benchmarks/analyses/libffi-diagnostic-memory-2026-11-16/`
   - 动机: 检验记录是否促进候选核实；50请求/0.351267美元/722.11秒、43记录全无候选，包检索0；恢复83读/54重复，尚未解决前置动作选择。原输入未变/17新增，cleanup成功；旧单次已消费，无活动Provider，不自动改Harness/论文或扩批。
