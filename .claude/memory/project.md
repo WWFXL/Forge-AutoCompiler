@@ -634,6 +634,12 @@
 
 ## 最近变更 (Recent Changes)
 
+- 2026-11-16 — #758接入通用依赖诊断恢复指导，准备单次libffi从零观察。
+  - 文件: `scripts/forge_libffi_dependency_guidance.py`, `benchmarks/fixtures/dependency-diagnosis-guidance-v1/guidance.md`, `benchmarks/preregistrations/cpp-build-libffi-dependency-guidance-flash-v1.md`
+  - 动机: 先核实依赖提供方/安装/路径，避免错误版本推测和伪造宏；只改R2提示，不给包名或成功路径。
+  - 验证: 材料/Schema/Ruff/Docker检查通过；0Provider/新增费用，拟1美元/1小时待确认。旧运行/默认/论文保持。
+
+
 - 2026-11-16 — #756完成libffi单次从零自主规划/恢复构建。
   - 文件: `scripts/forge_libffi_autonomous.py`, `benchmarks/preregistrations/cpp-build-libffi-autonomous-flash-v1.md`, `RESEARCH_STATUS.md`
   - 动机: 前次脚本恢复仅验证执行链路，本次不注入已知修复，由Flash自主规划。

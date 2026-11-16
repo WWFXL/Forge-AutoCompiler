@@ -3,7 +3,11 @@
 论文选材固定入口：[硕士论文实验与证据索引](docs/research/THESIS_EVIDENCE_INDEX.md)，[历史材料目录](docs/research/THESIS_EVIDENCE_CATALOG.md)保留存量导航。当前完整稿为[论文v0.11工具Harness结果修订稿](docs/thesis/README.md)；E50–E52保存主构建系统及两轮Harness结果，既有完整任务、状态/恢复消融和两层经验继续按各自版本与分母使用。
 
 
-## 当前阶段（2026-11-16；#756 libffi从零自主构建完成）
+## 当前阶段（2026-11-16；#758通用依赖诊断恢复指导准备）
+
+用户要求加入通用诊断原则后再试libffi；仅追加R2恢复提示，P0/工具/Workflow/验收保持。提示不含项目答案或包名，不复用旧方案；[协议](benchmarks/preregistrations/cpp-build-libffi-dependency-guidance-flash-v1.md)固定单次从零观察，区分构建通过与修复诊断质量。材料/指导Schema、Ruff与Docker条件检查通过，0Provider/费用；拟1美元/确认起1小时，待绑定本身份预算/时窗。不改全局默认与论文，旧55请求观察保留。
+
+## 上一阶段（2026-11-16；#756 libffi从零自主构建完成）
 
 [单例报告](docs/research/2026-11-16-libffi-autonomous-build.md)：修复后共同基座、P0工具约束＋原R2、同E57源码/镜像，从零独立规划，无人工修复/旧方案/经验注入。主构建、静态/共享交付、实际干净重建、原源码保护及清理通过；573.92秒/55请求/780187Token/保守估费0.3065304美元/未知0。初始9请求、恢复46；3份接受方案、两次交接（宏错误及兼容宏heredoc删除文本被保护拒绝）。
 
