@@ -10,7 +10,8 @@ import subprocess
 from datetime import UTC, datetime, timedelta
 from pathlib import Path
 
-from forge_libffi_dependency_guidance import load, material as previous_material, save
+from forge_libffi_dependency_guidance import load, save
+from forge_libffi_dependency_guidance import material as previous_material
 from forge_simple_system import ROOT, run_simple_system
 
 from deerflow.compile.build_state_routing import BuildStateRouter

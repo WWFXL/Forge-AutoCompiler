@@ -3,7 +3,11 @@
 论文选材固定入口：[硕士论文实验与证据索引](docs/research/THESIS_EVIDENCE_INDEX.md)，[历史材料目录](docs/research/THESIS_EVIDENCE_CATALOG.md)保留存量导航。当前完整稿为[论文v0.11工具Harness结果修订稿](docs/thesis/README.md)；E50–E52保存主构建系统及两轮Harness结果，既有完整任务、状态/恢复消融和两层经验继续按各自版本与分母使用。
 
 
-## 当前阶段（2026-11-16；#766文件变化改为后验审查，工程验证完成）
+## 当前阶段（2026-11-16；#768后验文件审查下libffi单次自主观察）
+
+身份cpp-build-libffi-posthoc-review-flash-v1；用户明确授权本次，自限1美元、UTC05:14:11—06:14:11、单次无自动重试。新默认任务目标，P0工具约束＋R2通用诊断＋恢复容器查询，运行已合并posthoc-review-v1，不给已知包名、成功命令或同项目经验。入口默认材料检查通过、0Provider；正式结果先审核，不改论文或旧E57。原归档/镜像、真实构建/交付/重建及清理保持，文件审查分列。详见本身份preregistration；原件forge-libffi-posthoc-review-flash-2026-11-16-v1。未知用量、身份异常、预算/时窗不足或清理失败停止。
+
+## 上一阶段（2026-11-16；#766文件变化改为后验审查，工程验证完成）
 
 [修复报告](docs/research/2026-11-16-source-posthoc-review-repair.md)：按用户决定，当前Forge/经验Forge/共享强工具执行器不再因文件新增、原文件内容/权限/链接变化或删除中止。构建与重建按真实反馈判断；source-review.json及阶段事件记录变化，pending_review单列，不自动判功能等价。有原输入变化的方案未经审查不进入已验证经验。旧严格参考工具/CXX适配器及冻结实验保留，后续新比较先统一口径。
 
