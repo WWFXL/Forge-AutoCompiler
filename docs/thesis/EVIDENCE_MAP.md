@@ -63,3 +63,10 @@ E50运行4cabe5ca、manifest912c342f、inventory4c24f89d；精确复用来源按
 ## 工具约束与P4比较（2026-11-12，用户批准入文）
 
 第5章5.3.1/5.3.2、第6章6.5.15表6-36/37、摘要、第7章及附录I对应E57：[三组36次报告](../research/2026-11-12-planning-tool-p4-comparison-results.md)。身份为`cpp-build-planning-tool-p4-comparison-flash-v1`，12项目×三组，各一次、恢复统一原R2。完成10/12、11/12、10/12；请求132/113/152；费0.5840436/0.4971639/0.6943038美元。B总费低14.9%但共同完成10项高85.4%；C共同10项中8项低费、合计低38.0%，全批高39.7%。仅open62541触发实际工具拒绝，单次开发项目比较；共同子集解释成本，不替代固定分母。E57独立于E51/E52/E56，旧证据和失败不变。
+
+## E58组合更新及上下文机制（2026-11-17，用户批准入文）
+
+- 第5章5.3.3/5.3.4、第6章6.5.16—6.5.18表6-39/40/41、摘要、第7章及附录J使用[全18项目报告](../research/2026-11-17-harness-update-comparison-results.md)。E58身份cpp-build-harness-update-comparison-flash-v1，18项目×两组各一次36/36；主构建均17/18、交付均14/18；请求121/124，费0.9077391/0.7267134美元，累计1791.31/1547.16秒。新组总费低19.9%、时低13.6%，初始费高67.4%、恢复费低53.3%；5项目低费、8项目更快。
+- [更新清单](../research/2026-11-17-harness-update-inventory.md)解释提示、依赖工具、诊断记忆与已审核错误类经验；两组共同64K容量、镜像、执行器和文件后审，关闭复用/库检索。组合结果不拆成单组件效应。libffi是开发案例，两组均成功：原真实兼容宏，新核实并安装开发包；全18分母不删除该例。
+- 上下文链分别来自[原阻断](../research/2026-11-16-libffi-planning-dependency-results.md)、[同材料工程回放](../research/2026-11-16-request-context-capacity-repair.md)和[后续真实完成](../research/2026-11-17-libffi-context-budget-results.md)。回放0Provider，只证明材料送达；后续13请求真实构建不当独立组件消融，也不追加到E58分母。
+- 保留smenu终端、quickjs/zstd输出断言和libtasn1自动重置脚本/容量缺陷；未启动重建不计通过。libconfuse元数据变化的原source_unchanged=false、pending_review保留。全部作者测试不要求。报告与原件不改，用户批准入文登记在本轮修订记录。
