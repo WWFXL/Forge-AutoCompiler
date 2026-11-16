@@ -1,0 +1,130 @@
+{
+  "identity": "cpp-build-libffi-diagnostic-order-flash-v1",
+  "run_revision": "56cd117e1cc9d3c2578db446f89aaece183fdcaf",
+  "image_id": "sha256:d483ffa7b71b9545cff9555f6c92b6281a3f826ce006e2d09134cbdca92f8aa1",
+  "status": "primary_completed",
+  "layers": {
+    "command_build_passed": true,
+    "primary_build_completed": true,
+    "delivery": "passed",
+    "author_tests": "not_required",
+    "executable_smoke": "not_applicable",
+    "final_verification_passed": true,
+    "clean_replay": "passed",
+    "full_completed": null,
+    "main_build_task_completed": true,
+    "reproducible_delivery_completed": true
+  },
+  "cleanup": {
+    "succeeded": true,
+    "stopped": true,
+    "removed": true
+  },
+  "source_unchanged": true,
+  "source_review": "pending_review",
+  "source_change_kinds": {
+    "added": 186
+  },
+  "agent_usage": {
+    "model_requests": 51,
+    "recorded_tokens": 704206,
+    "agent_steps": 143,
+    "tool_calls": 92,
+    "commands": 37,
+    "elapsed_seconds": 439.89141755900346,
+    "input_tokens": 639623,
+    "output_tokens": 64583,
+    "estimated_cost_usd": 0.2693865,
+    "unknown_usage_requests": 0,
+    "cost_and_usage_complete": true,
+    "estimated_cost_usd_completed_responses": 0.2693865
+  },
+  "arm_total_wall_seconds": 485.48989337612875,
+  "phase_usage": {
+    "initial": {
+      "requests": 17,
+      "input_tokens": 206062,
+      "output_tokens": 5078,
+      "cost": "0.0679122",
+      "invocations": 1,
+      "reads": 13,
+      "exact_repeat_reads": 3
+    },
+    "recovery": {
+      "requests": 34,
+      "input_tokens": 433561,
+      "output_tokens": 59505,
+      "cost": "0.2014743",
+      "invocations": 3,
+      "reads": 33,
+      "exact_repeat_reads": 19
+    }
+  },
+  "tool_counts": {
+    "list_source": 17,
+    "read_source": 46,
+    "search_build_files": 16,
+    "inspect_build_environment": 13
+  },
+  "environment_query_attempts": 29,
+  "actual_environment_queries": 25,
+  "package_search_calls": 1,
+  "package_description_calls": 0,
+  "package_file_search_calls": 0,
+  "provider_candidate_returned": true,
+  "provider_candidate_used": false,
+  "package_search_request": 31,
+  "candidate_context_visibility": [
+    {
+      "request": 31,
+      "candidate_visible": false
+    },
+    {
+      "request": 32,
+      "candidate_visible": true
+    },
+    {
+      "request": 33,
+      "candidate_visible": false
+    },
+    {
+      "request": 34,
+      "candidate_visible": false
+    },
+    {
+      "request": 35,
+      "candidate_visible": false
+    },
+    {
+      "request": 36,
+      "candidate_visible": false
+    },
+    {
+      "request": 37,
+      "candidate_visible": false
+    },
+    {
+      "request": 38,
+      "candidate_visible": false
+    },
+    {
+      "request": 39,
+      "candidate_visible": false
+    },
+    {
+      "request": 40,
+      "candidate_visible": false
+    }
+  ],
+  "actual_repair": "源码安装真实Libtool2.5.4，ACLOCAL_PATH/PATH后重跑作者流程",
+  "macro_path": "libffi/.compile-sessions/simple-system/3859dce41fed/workspace/dependencies/libtool-install/share/aclocal/ltdl.m4",
+  "macro_sha256": "2242ebd05824be338a6e7158bfc6072fb57a43d3d47c48d593aaa7ba1d01e3d4",
+  "macro_definition": [
+    {
+      "line": 758,
+      "text": "AC_DEFUN([LT_SYS_SYMBOL_USCORE],"
+    }
+  ],
+  "diagnostic_commands_excluded_from_recipe": true,
+  "automatic_provider_or_attempt_retry": false
+}

@@ -633,6 +633,12 @@
   - 下一步: 等待实验负责人确认当前网络接入介质，并决定是否授权只读 endpoint 诊断和新的 canary amendment；获得确认后必须另建中文 Issue/PR 和协议 identity，保留当前失败 marker。
 
 ## 最近变更 (Recent Changes)
+- 2026-11-16 — #779完成诊断顺序指导下libffi单次自主构建及负面诊断结果分析。
+  - 文件: `docs/research/2026-11-16-libffi-diagnostic-order-results.md`, `benchmarks/analyses/libffi-diagnostic-order-2026-11-16/`, `RESEARCH_STATUS.md`。
+  - 结果: 主库/交付/原归档重建/cleanup通过，51请求/704206Token/0.2693865美元/485.49秒/未知0；原输入未变、186新增后审，4容器引用不存在，inventory36b34bad。
+  - 诊断: 初始17、恢复34请求；包描述搜索含正确候选，请求32可见、33起未保留，最终真实Libtool2.5.4源码安装。下载403与任意rm拒绝保留；未伪造宏/固定值，未执行作者测试。新提示未实现预期直接路径，不把独立P0开销波动归因提示。
+  - 边界: 1美元/UTC08:56:52—09:56:52单次结束，无活动Provider/自动重试/追加，不改论文/E57。下一候选恢复诊断事实持久保留尚未实现，先交用户审核。根用户文件保持。
+
 - 2026-11-16 — #777追加通用依赖诊断顺序指导并准备无答案自主观察。
   - 文件: `benchmarks/fixtures/dependency-diagnostic-order-v1/guidance.md`, `scripts/forge_libffi_diagnostic_order.py`, `backend/tests/test_dependency_diagnostic_order.py`, `docs/research/2026-11-16-dependency-diagnostic-order-preparation.md`。
   - 动机: #774工具可用却未用包描述、重复宏搜索后错误推断版本删除；新策略只改恢复提示，不给项目答案，不加工具/额度或改旧R2/P0/Workflow。

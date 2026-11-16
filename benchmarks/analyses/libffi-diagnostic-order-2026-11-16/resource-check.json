@@ -1,0 +1,25 @@
+{
+  "all_absent": true,
+  "resources": [
+    {
+      "reference": "deerflow-compile-simple-s-3859dce4",
+      "exists": false,
+      "exit_code": 1
+    },
+    {
+      "reference": "0cb57137e080a4a9fb0864a4ebb669b2714c940b0bbeb32876edbd4cfb213257",
+      "exists": false,
+      "exit_code": 1
+    },
+    {
+      "reference": "deerflow-replay-simple-s-3859dce4-replay_8b6e5",
+      "exists": false,
+      "exit_code": 1
+    },
+    {
+      "reference": "8003434ae6bbd6949018a781050f023d759f97ce884bc92eb8b2718b07810ed3",
+      "exists": false,
+      "exit_code": 1
+    }
+  ]
+}
