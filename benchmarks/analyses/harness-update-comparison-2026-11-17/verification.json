@@ -1,0 +1,361 @@
+{
+  "identity": "cpp-build-harness-update-comparison-flash-v1",
+  "closed_slots": 36,
+  "request_responses": {
+    "deepseek-flash": 245
+  },
+  "input_tokens": 4738171,
+  "output_tokens": 177501,
+  "total_tokens": 4915672,
+  "estimated_cost_usd": "1.6344525",
+  "unknown_usage_requests": 0,
+  "billing_recomputed": true,
+  "cleanup_passed": 36,
+  "container_references_checked": 128,
+  "container_references_present": [],
+  "source_changes": [
+    {
+      "slot": 1,
+      "project": "pocketsphinx",
+      "method": "LH_v0_common",
+      "original_input_changes": [],
+      "added": 1423,
+      "source_review": "pending_review"
+    },
+    {
+      "slot": 2,
+      "project": "pocketsphinx",
+      "method": "LH_v1",
+      "original_input_changes": [],
+      "added": 1423,
+      "source_review": "pending_review"
+    },
+    {
+      "slot": 3,
+      "project": "dsvpn",
+      "method": "LH_v1",
+      "original_input_changes": [],
+      "added": 3,
+      "source_review": "pending_review"
+    },
+    {
+      "slot": 4,
+      "project": "dsvpn",
+      "method": "LH_v0_common",
+      "original_input_changes": [],
+      "added": 3,
+      "source_review": "pending_review"
+    },
+    {
+      "slot": 5,
+      "project": "smenu",
+      "method": "LH_v0_common",
+      "original_input_changes": [],
+      "added": 29,
+      "source_review": "pending_review"
+    },
+    {
+      "slot": 6,
+      "project": "smenu",
+      "method": "LH_v1",
+      "original_input_changes": [],
+      "added": 29,
+      "source_review": "pending_review"
+    },
+    {
+      "slot": 7,
+      "project": "libuv",
+      "method": "LH_v1",
+      "original_input_changes": [],
+      "added": 2599,
+      "source_review": "pending_review"
+    },
+    {
+      "slot": 8,
+      "project": "libuv",
+      "method": "LH_v0_common",
+      "original_input_changes": [],
+      "added": 2599,
+      "source_review": "pending_review"
+    },
+    {
+      "slot": 9,
+      "project": "quickjs",
+      "method": "LH_v0_common",
+      "original_input_changes": [],
+      "added": 96,
+      "source_review": "pending_review"
+    },
+    {
+      "slot": 10,
+      "project": "quickjs",
+      "method": "LH_v1",
+      "original_input_changes": [],
+      "added": 96,
+      "source_review": "pending_review"
+    },
+    {
+      "slot": 11,
+      "project": "libffi",
+      "method": "LH_v1",
+      "original_input_changes": [],
+      "added": 187,
+      "source_review": "pending_review"
+    },
+    {
+      "slot": 12,
+      "project": "libffi",
+      "method": "LH_v0_common",
+      "original_input_changes": [],
+      "added": 187,
+      "source_review": "pending_review"
+    },
+    {
+      "slot": 13,
+      "project": "libevent",
+      "method": "LH_v0_common",
+      "original_input_changes": [],
+      "added": 951,
+      "source_review": "pending_review"
+    },
+    {
+      "slot": 14,
+      "project": "libevent",
+      "method": "LH_v1",
+      "original_input_changes": [],
+      "added": 951,
+      "source_review": "pending_review"
+    },
+    {
+      "slot": 15,
+      "project": "cc65",
+      "method": "LH_v1",
+      "original_input_changes": [],
+      "added": 51047,
+      "source_review": "pending_review"
+    },
+    {
+      "slot": 16,
+      "project": "cc65",
+      "method": "LH_v0_common",
+      "original_input_changes": [],
+      "added": 51045,
+      "source_review": "pending_review"
+    },
+    {
+      "slot": 17,
+      "project": "libunwind",
+      "method": "LH_v0_common",
+      "original_input_changes": [],
+      "added": 1433,
+      "source_review": "pending_review"
+    },
+    {
+      "slot": 18,
+      "project": "libunwind",
+      "method": "LH_v1",
+      "original_input_changes": [],
+      "added": 415,
+      "source_review": "pending_review"
+    },
+    {
+      "slot": 19,
+      "project": "libyaml",
+      "method": "LH_v1",
+      "original_input_changes": [],
+      "added": 393,
+      "source_review": "pending_review"
+    },
+    {
+      "slot": 20,
+      "project": "libyaml",
+      "method": "LH_v0_common",
+      "original_input_changes": [],
+      "added": 393,
+      "source_review": "pending_review"
+    },
+    {
+      "slot": 21,
+      "project": "zstd",
+      "method": "LH_v0_common",
+      "original_input_changes": [],
+      "added": 215,
+      "source_review": "pending_review"
+    },
+    {
+      "slot": 22,
+      "project": "zstd",
+      "method": "LH_v1",
+      "original_input_changes": [],
+      "added": 215,
+      "source_review": "pending_review"
+    },
+    {
+      "slot": 23,
+      "project": "libass",
+      "method": "LH_v1",
+      "original_input_changes": [],
+      "added": 167,
+      "source_review": "pending_review"
+    },
+    {
+      "slot": 24,
+      "project": "libass",
+      "method": "LH_v0_common",
+      "original_input_changes": [],
+      "added": 167,
+      "source_review": "pending_review"
+    },
+    {
+      "slot": 25,
+      "project": "libdeflate",
+      "method": "LH_v0_common",
+      "original_input_changes": [],
+      "added": 119,
+      "source_review": "pending_review"
+    },
+    {
+      "slot": 26,
+      "project": "libdeflate",
+      "method": "LH_v1",
+      "original_input_changes": [],
+      "added": 119,
+      "source_review": "pending_review"
+    },
+    {
+      "slot": 27,
+      "project": "libbcrypt",
+      "method": "LH_v1",
+      "original_input_changes": [],
+      "added": 19,
+      "source_review": "pending_review"
+    },
+    {
+      "slot": 28,
+      "project": "libbcrypt",
+      "method": "LH_v0_common",
+      "original_input_changes": [],
+      "added": 19,
+      "source_review": "pending_review"
+    },
+    {
+      "slot": 29,
+      "project": "libtasn1",
+      "method": "LH_v0_common",
+      "original_input_changes": [],
+      "added": 14,
+      "source_review": "pending_review"
+    },
+    {
+      "slot": 30,
+      "project": "libtasn1",
+      "method": "LH_v1",
+      "original_input_changes": [],
+      "added": 259,
+      "source_review": "pending_review"
+    },
+    {
+      "slot": 31,
+      "project": "zlib-ng",
+      "method": "LH_v1",
+      "original_input_changes": [],
+      "added": 682,
+      "source_review": "pending_review"
+    },
+    {
+      "slot": 32,
+      "project": "zlib-ng",
+      "method": "LH_v0_common",
+      "original_input_changes": [],
+      "added": 1033,
+      "source_review": "pending_review"
+    },
+    {
+      "slot": 33,
+      "project": "libcsv",
+      "method": "LH_v0_common",
+      "original_input_changes": [],
+      "added": 16,
+      "source_review": "pending_review"
+    },
+    {
+      "slot": 34,
+      "project": "libcsv",
+      "method": "LH_v1",
+      "original_input_changes": [],
+      "added": 16,
+      "source_review": "pending_review"
+    },
+    {
+      "slot": 35,
+      "project": "libconfuse",
+      "method": "LH_v1",
+      "original_input_changes": [
+        "po/de.po",
+        "po/fr.po",
+        "po/ka.po",
+        "po/sv.po"
+      ],
+      "added": 172,
+      "source_review": "pending_review"
+    },
+    {
+      "slot": 36,
+      "project": "libconfuse",
+      "method": "LH_v0_common",
+      "original_input_changes": [
+        "po/de.po",
+        "po/fr.po",
+        "po/ka.po",
+        "po/sv.po"
+      ],
+      "added": 172,
+      "source_review": "pending_review"
+    }
+  ],
+  "raw_inventory_canonical_sha256": "148a01ee78f2ff1cfbbf3e224a54a93968e264f566f64d1dc8c57ee4fc11e6a5",
+  "raw_result_sha256": "bdbb1ee228492c608e96fa3e26a44c3c05d0b4a408b8dbca30fcc52e0dbe2844",
+  "raw_analysis_sha256": "6cda37c4e35c407a8342d5f9009c2c3ec652158d7bcd8091f632f3d542ec0766",
+  "po_translation_checks": [
+    {
+      "slot": 35,
+      "path": "po/de.po",
+      "translation_content_unchanged": true
+    },
+    {
+      "slot": 35,
+      "path": "po/fr.po",
+      "translation_content_unchanged": true
+    },
+    {
+      "slot": 35,
+      "path": "po/ka.po",
+      "translation_content_unchanged": true
+    },
+    {
+      "slot": 35,
+      "path": "po/sv.po",
+      "translation_content_unchanged": true
+    },
+    {
+      "slot": 36,
+      "path": "po/de.po",
+      "translation_content_unchanged": true
+    },
+    {
+      "slot": 36,
+      "path": "po/fr.po",
+      "translation_content_unchanged": true
+    },
+    {
+      "slot": 36,
+      "path": "po/ka.po",
+      "translation_content_unchanged": true
+    },
+    {
+      "slot": 36,
+      "path": "po/sv.po",
+      "translation_content_unchanged": true
+    }
+  ]
+}
