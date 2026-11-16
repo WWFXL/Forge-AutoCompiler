@@ -1,0 +1,23 @@
+{
+  "original_artifacts": [
+    {
+      "path": "libffi.a",
+      "sha256": "8ee94aaa027088ab8532096d5284ad0e0fa73a861b0ad8c959e4c67d377425ae",
+      "matches_original_observation": true
+    },
+    {
+      "path": "libffi.so.8.1.4",
+      "sha256": "1761ffc553b73d1d655817ba9e5ab735485fba665d17b00d4f9cf1c31572a453",
+      "matches_original_observation": true
+    }
+  ],
+  "real_provider": "libltdl-dev:amd64 2.4.7-7build1 /usr/share/aclocal/ltdl.m4",
+  "reference_detected_underscore": "no",
+  "agent_assumed_underscore": "no",
+  "configuration_define_count": 40,
+  "shared_export_count": 42,
+  "run_revision": "76fc0fa7",
+  "old_evidence_readonly": true,
+  "current_platform_assessment": "当前固定Linux x86_64主要库构建成功，五类实际调用及可观察配置/公开符号一致；不证明跨平台等价",
+  "automatic_experience_promotion": false
+}
