@@ -1,0 +1,76 @@
+{
+  "identity": "cpp-build-libffi-index-autonomous-flash-v1",
+  "run_revision": "da2622bb88f39464d43f47097d432a32cbb22b69",
+  "image_id": "sha256:d483ffa7b71b9545cff9555f6c92b6281a3f826ce006e2d09134cbdca92f8aa1",
+  "status": "primary_completed",
+  "layers": {
+    "command_build_passed": true,
+    "primary_build_completed": true,
+    "delivery": "passed",
+    "author_tests": "not_required",
+    "executable_smoke": "not_applicable",
+    "final_verification_passed": true,
+    "clean_replay": "passed",
+    "full_completed": null,
+    "main_build_task_completed": true,
+    "reproducible_delivery_completed": true
+  },
+  "cleanup": {
+    "succeeded": true,
+    "stopped": true,
+    "removed": true
+  },
+  "source_unchanged": true,
+  "source_review": "pending_review",
+  "source_change_kinds": {
+    "added": 186
+  },
+  "agent_usage": {
+    "model_requests": 10,
+    "recorded_tokens": 139461,
+    "agent_steps": 36,
+    "tool_calls": 26,
+    "commands": 21,
+    "elapsed_seconds": 128.31625457014889,
+    "input_tokens": 126325,
+    "output_tokens": 13136,
+    "estimated_cost_usd": 0.0536607,
+    "unknown_usage_requests": 0,
+    "cost_and_usage_complete": true,
+    "estimated_cost_usd_completed_responses": 0.0536607
+  },
+  "arm_total_wall_seconds": 170.91611116216518,
+  "phase_requests": {
+    "initial": 3,
+    "recovery": 7
+  },
+  "phase_cost_usd": {
+    "initial": "0.0123318",
+    "recovery": "0.0413289"
+  },
+  "actual_environment_queries": 12,
+  "package_description_search_calls": 0,
+  "package_file_search_calls": 1,
+  "provider_identified": false,
+  "actual_repair": "源码安装真实Libtool2.4.6、显式ACLOCAL_PATH/PATH后重跑作者autogen/configure/default make",
+  "macro_path": "libffi/.compile-sessions/simple-system/0d3c43a57413/workspace/dependencies/libtool/share/aclocal/ltdl.m4",
+  "macro_sha256": "3811eb3a8d18345b3574edff2404b770255ed3efefd7d0a337688c014c8aff1e",
+  "macro_definition": [
+    {
+      "line": 756,
+      "text": "AC_DEFUN([LT_SYS_SYMBOL_USCORE],"
+    }
+  ],
+  "tool_counts": {
+    "list_source": 2,
+    "read_source": 8,
+    "inspect_build_environment": 7,
+    "search_build_files": 9
+  },
+  "automatic_provider_or_attempt_retry": false,
+  "diagnostic_commands_excluded_from_recipe": true,
+  "environment_query_attempts": 16,
+  "environment_queries_budget_exhausted": 4,
+  "package_search_attempts": 0,
+  "package_description_attempts": 0
+}
