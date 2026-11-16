@@ -1,5 +1,8 @@
 # 历史研究材料目录
 
+E57同项目开发负面观察（待审、不增独立分母、不入论文）：[规划依赖自主观察](2026-11-16-libffi-planning-dependency-results.md)，cpp-build-libffi-planning-dependency-flash-v1一次。8请求/0.0337203美元/35.66秒；规划10查询未提前查缺宏，恢复核实候选后本地上下文装配超限停止，主构建/交付/重建未观察、cleanup成功。原件inventorye1fdca09，不当降本或泛化效果。
+
+
 E57工程后续（不增模型效果或项目分母）：[规划阶段依赖检查](2026-11-16-planning-dependency-check.md)。零Provider真实libffi前置查询→生成补包方案→原构建/交付/重建/清理通过，无恢复；只验证接线，真实模型主动检查与效率待观察。原件inventory0ed19e2f见报告。
 
 

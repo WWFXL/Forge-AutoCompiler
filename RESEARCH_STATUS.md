@@ -3,7 +3,13 @@
 论文选材固定入口：[硕士论文实验与证据索引](docs/research/THESIS_EVIDENCE_INDEX.md)，[历史材料目录](docs/research/THESIS_EVIDENCE_CATALOG.md)保留存量导航。当前完整稿为[论文v0.11工具Harness结果修订稿](docs/thesis/README.md)；E50–E52保存主构建系统及两轮Harness结果，既有完整任务、状态/恢复消融和两层经验继续按各自版本与分母使用。
 
 
-## 当前阶段（2026-11-16；#799规划依赖真实观察入口准备完成）
+## 当前阶段（2026-11-16；#801规划依赖自主观察未完成，结果待审）
+
+[结果报告](docs/research/2026-11-16-libffi-planning-dependency-results.md)：8Flash请求（初始7/恢复1）、104610Token、0.0337203美元、35.66秒，未知0。规划实际10查询，检查工具/文档却未识别缺宏，初始未安排补包。首次autogen因LT_SYS_SYMBOL_USCORE退出1；恢复实际8查询（自动3/主动5）核实libltdl-dev未安装，但第9请求前本地49000字节上下文装配限制停止，尚无修订/安装。主构建/交付/重建未观察，cleanup成功、两个容器引用不存在；原输入保持、17新增生成项待后审。
+
+运行0700a261，原件forge-libffi-planning-dependency-flash-2026-11-16-v1，inventorye1fdca09。一次1美元/UTC15:00:43—16:00:43授权已用，无Provider活动、无自动重试/追加。结果先审核，不改论文/E57/独立分母；费用少源于提前停止，不当降本。建议下一步以冻结材料零Provider复现并精简恢复证据重复装配；本轮未修系统。发布见Issue801关联结果PR/CI。
+
+## 上一阶段（2026-11-16；#799规划依赖真实观察入口准备完成）
 
 [单次协议](benchmarks/preregistrations/cpp-build-libffi-planning-dependency-flash-v1.md)及`scripts/forge_libffi_planning_dependency.py`已准备。仅新增规划真实容器查询及通用依赖指导，不给规划具体包名、旧方案或项目经验；恢复沿用已审核宏经验。观察依赖能否前移发现并生成安装步骤，以及首次执行失败、恢复和全部开销。
 

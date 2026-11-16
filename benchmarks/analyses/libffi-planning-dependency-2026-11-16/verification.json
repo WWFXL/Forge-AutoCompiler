@@ -1,0 +1,70 @@
+{
+  "source_snapshot_files": 86,
+  "source_snapshot_hashes_valid": true,
+  "cost_recalculation_valid": true,
+  "response_models_valid": true,
+  "prompt_receipts": [
+    {
+      "request": 1,
+      "phase": "initial",
+      "planning_guidance_present": true,
+      "macro_experience_present": false
+    },
+    {
+      "request": 2,
+      "phase": "initial",
+      "planning_guidance_present": true,
+      "macro_experience_present": false
+    },
+    {
+      "request": 3,
+      "phase": "initial",
+      "planning_guidance_present": true,
+      "macro_experience_present": false
+    },
+    {
+      "request": 4,
+      "phase": "initial",
+      "planning_guidance_present": true,
+      "macro_experience_present": false
+    },
+    {
+      "request": 5,
+      "phase": "initial",
+      "planning_guidance_present": true,
+      "macro_experience_present": false
+    },
+    {
+      "request": 6,
+      "phase": "initial",
+      "planning_guidance_present": true,
+      "macro_experience_present": false
+    },
+    {
+      "request": 7,
+      "phase": "initial",
+      "planning_guidance_present": true,
+      "macro_experience_present": false
+    },
+    {
+      "request": 8,
+      "phase": "recovery",
+      "planning_guidance_present": false,
+      "macro_experience_present": true
+    }
+  ],
+  "container_absence_checks": [
+    {
+      "reference": "deerflow-compile-simple-s-ef87c524",
+      "exists": false
+    },
+    {
+      "reference": "4409a20b42a22cf23cc393647ea2a7b88cd5a5e360ee3649e6b7f32acb411dde",
+      "exists": false
+    }
+  ],
+  "original_inputs_unchanged": true,
+  "added_files": 17,
+  "replay_attempts": 0,
+  "inventory_sha256": "e1fdca09a62e2f79b3c997740443f6e1834dca73645f91c9b6396ad4881a3e75"
+}
