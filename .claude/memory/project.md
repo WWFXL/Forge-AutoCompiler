@@ -633,6 +633,11 @@
   - 下一步: 等待实验负责人确认当前网络接入介质，并决定是否授权只读 endpoint 诊断和新的 canary amendment；获得确认后必须另建中文 Issue/PR 和协议 identity，保留当前失败 marker。
 
 ## 最近变更 (Recent Changes)
+- 2026-11-16 — #795完成已审核宏依赖经验单次真实观察，结果待审核，不改论文。
+  - 文件: `docs/research/2026-11-16-libffi-macro-experience-results.md`, `benchmarks/analyses/libffi-macro-experience-2026-11-16/`, `RESEARCH_STATUS.md`。
+  - 证据: 11Flash（初始9/恢复2）/136293Token/0.0432美元/85.55秒；经验仅恢复可见，核实libltdl-dev未装和ltdl.m4归属后补包，主库/交付/原归档实际重建/cleanup通过，无替代宏/旧工具。原输入不变、186新增后审，85快照/计费及四容器引用核验通过，inventory4c21279a。
+  - 边界: 用户“授权运行”绑定已询问的一次1美元/1小时，运行已结束不续余额；无活动Provider，不自动入论文/E57或增加独立分母，待审核后再决定跨项目实验。初始规划9比旧3多，总请求仍11，不据单例费用差作泛化因果。
+
 
 - 2026-11-16 — #793接入用户已审核宏依赖经验的独立单次观察入口，正式尚未启动。
   - 文件: `scripts/forge_libffi_macro_experience.py`, `backend/tests/test_libffi_macro_experience_entry.py`, `benchmarks/preregistrations/cpp-build-libffi-macro-experience-flash-v1.md`。

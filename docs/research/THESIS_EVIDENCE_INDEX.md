@@ -1,5 +1,8 @@
 # 硕士论文实验与证据索引
 
+E57同项目经验利用观察（待审、不增独立分母、不入论文）：[已审核宏依赖经验结果](2026-11-16-libffi-macro-experience-results.md)，cpp-build-libffi-macro-experience-flash-v1一次。恢复核实并安装libltdl-dev，主库/交付/原归档重建/清理通过；初始9/恢复2共11请求、0.0432美元/85.55秒。支持本例经验被利用，历史费用差非迁移或稳定降本效果；原件inventory4c21279a见报告。
+
+
 E57同项目开发案例后续（不增独立分母、不入论文）：[依赖诊断改进后自主构建](2026-11-16-libffi-dependency-diagnosis-results.md)，cpp-build-libffi-dependency-diagnosis-flash-v1一次。11请求/0.0652518美元/162.16秒，主库/交付/干净重建/清理通过；自动候选持续送达但未核实，最终固定兼容宏，语义后审待定。不当正确依赖诊断或泛化效果；报告链接原件及inventoryb28416ae。
 
 
