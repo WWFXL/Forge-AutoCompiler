@@ -633,6 +633,11 @@
   - 下一步: 等待实验负责人确认当前网络接入介质，并决定是否授权只读 endpoint 诊断和新的 canary amendment；获得确认后必须另建中文 Issue/PR 和协议 identity，保留当前失败 marker。
 
 ## 最近变更 (Recent Changes)
+- 2026-11-16 — #803统一简洁入口Token容量并精简诊断上下文，完成旧失败零Provider回放。
+  - 文件: `request_context_budget.py`, `simple_planning_context.py`, `simple_build_agents.py`, `recovery_diagnostic_memory.py`, `scripts/forge_request_capacity_replay.py`，报告及当前状态见RESEARCH_STATUS.md。
+  - 动机: #801核实缺包后被49KB本地限制提前中断；新64K输入/32768输出与10万单次计量一致，费用仍按实际usage；强工具基线同步容量且不注入规划指令。
+  - 验证: 旧源码复现容量错误；新输入含tools为51995字节/17471估算Token/23887含余量，完整方案/AI-Tool/缺包证据保留。100相关检查/Ruff通过，0Provider/新增费，非模型效果；旧实验不续跑，下一真实观察另授权。发布见Issue803关联PR/CI。
+
 - 2026-11-16 — #801规划依赖真实观察在上下文装配停止，完整失败保留、待用户审核。
   - 文件: `docs/research/2026-11-16-libffi-planning-dependency-results.md`, `benchmarks/analyses/libffi-planning-dependency-2026-11-16/`
   - 动机: 核实新增规划查询的真实效果。8请求/104610Token/0.0337203美元/35.66秒，初始7请求10查询未识别缺宏，恢复1请求核实候选未装；第9请求前本地49KB超限，未提交修订/安装，主库/交付/重建未观察。cleanup两引用不存在、86快照/用量核验通过；原输入未改/17新增。inventorye1fdca09；一次1美元/UTC15:00:43—16:00:43已用，不自动重试/追加、不改论文/旧分母。下一建议零Provider复现证据装配，未实施。当前状态见RESEARCH_STATUS.md。

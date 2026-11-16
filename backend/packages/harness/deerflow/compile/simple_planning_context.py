@@ -8,12 +8,11 @@ import time
 from copy import deepcopy
 from dataclasses import asdict
 
-from langchain.agents.structured_output import OutputToolBinding, ToolStrategy
 from langchain_core.messages import HumanMessage
-from langchain_core.utils.function_calling import convert_to_openai_tool
 
 from deerflow.compile.plan_agent_context import normalized_read_path
 from deerflow.compile.plan_workflow import PlanContractError
+from deerflow.compile.request_context_budget import request_schemas
 
 
 def bounded_text(value, limit):
@@ -26,11 +25,12 @@ def bounded_text(value, limit):
 
 
 class PlanningContext:
-    def __init__(self, packet, *, enforce_tool_availability=False, diagnostic_memory=None, dependency_diagnosis=None):
+    def __init__(self, packet, *, enforce_tool_availability=False, diagnostic_memory=None, dependency_diagnosis=None, include_planning_progress=True):
         self.packet = deepcopy(packet)
         self.diagnostic_memory = diagnostic_memory
         self.dependency_diagnosis = dependency_diagnosis
         self.enforce_tool_availability = enforce_tool_availability
+        self.include_planning_progress = include_planning_progress
         self.available_tools = None
         self.seed_material = [dict(row) for row in packet.get("source_packet", [])]
         self.seed_compactions = 0
@@ -142,9 +142,13 @@ class PlanningContext:
         self.reads[key] = dict(tool=name, query=arguments, result_sha256=digest)
 
     def request(self, meter, request, handler):
+        budget = meter.context_budget
+        budget.validate(meter)
         if self.pending_reads:
             self.stalled_rounds = 0 if any(self.pending_reads) else self.stalled_rounds + 1
             self.pending_reads.clear()
+        finalize_only = self.stalled_rounds >= 3 and self.dependency_diagnosis is None
+        schemas = request_schemas(request, finalize_only=finalize_only)
         # 首条消息是公开任务；之后保留真实AI/Tool对话，包含结构纠错反馈。
         history = list(request.messages[1:])
         groups = []
@@ -174,9 +178,12 @@ class PlanningContext:
                 payload["planning_progress"]["instruction"] = "连续重复读取没有新增证据。请利用现有材料交付方案；确实无法规划时明确说明阻塞，不能编造依据。"
                 if self.dependency_diagnosis is not None:
                     payload["planning_progress"]["instruction"] = "连续重复读取没有新增证据；请核实已有候选或转向尚未查询的组件包索引/路径。继续同范围须有新问题；证据足够即提交修订。"
+            if not self.include_planning_progress:
+                payload.pop("planning_progress")
             messages = [HumanMessage(content=json.dumps(payload, ensure_ascii=False)), *[m for g in groups for m in g]]
             body = dict(messages=[m.model_dump(mode="json") for m in messages], system_message=request.system_message.model_dump(mode="json") if request.system_message else None)
-            if len(json.dumps(body, ensure_ascii=False).encode()) <= 49000:
+            context_usage = budget.measure(body, schemas)
+            if context_usage["reserved_input_tokens"] <= budget.max_input_tokens:
                 break
             # 初始片段可由原读取工具重新获得；优先保留最新完整交互，避免
             # 初始包与同一文件的新读取重复占用容量，挤掉唯一一次工具反馈。
@@ -221,15 +228,11 @@ class PlanningContext:
             removed_notes.extend(str(m.content)[:500] for m in removed if m.type == "ai" and m.content)
             removed_notes = removed_notes[-3:]
             self.pruned_groups += 1
-        finalize_only = self.stalled_rounds >= 3 and self.dependency_diagnosis is None
         settings = dict(request.model_settings or {})
         settings.pop("parallel_tool_calls", None)
+        output_limit = settings.get("max_tokens") or getattr(getattr(request, "model", None), "max_tokens", None) or budget.max_output_tokens
+        settings["max_tokens"] = min(output_limit, budget.max_output_tokens)
         bounded = request.override(messages=messages, tools=[] if finalize_only else request.tools, model_settings=settings)
-        schemas = [convert_to_openai_tool(t) for t in bounded.tools or []]
-        if isinstance(bounded.response_format, ToolStrategy):
-            schemas.extend(convert_to_openai_tool(OutputToolBinding.from_schema_spec(s).tool) for s in bounded.response_format.schema_specs)
-        if len(json.dumps(schemas, ensure_ascii=False).encode()) > 8000:
-            raise PlanContractError("规划工具schema超过容量")
         # 与本次真实请求绑定；结构化输出也保留在集合内。恢复默认不启用此干预。
         self.available_tools = frozenset(s["function"]["name"] for s in schemas)
         meter.ledger.save(f"request-{meter._request_sequence + 1}.json", {**body, "tools": schemas})
@@ -247,6 +250,7 @@ class PlanningContext:
             stalled_rounds=self.stalled_rounds,
             finalize_only=finalize_only,
         )
+        meter.ledger.append("model.context_budget", **context_usage)
         meter.tracker.observe_elapsed(time.monotonic() - meter.started_monotonic)
         sequence = meter._before_request()
         try:

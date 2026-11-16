@@ -19,14 +19,17 @@ from deerflow.compile.plan_agent import PlanResponseCapture
 from deerflow.compile.plan_agent_canary import StopWhenVerified
 from deerflow.compile.plan_agent_context import CONTEXT_PROMPT, ContextCanaryMeter, safe_readonly_tools
 from deerflow.compile.plan_workflow import PlanContractError, PlanStep
+from deerflow.compile.request_context_budget import RequestContextBudget
 from deerflow.compile.simple_build_runtime import generated_reset_step, primary_artifacts, validate_phase_command
+from deerflow.compile.simple_planning_context import PlanningContext
 
 
 class SimpleBuildMeter(ContextCanaryMeter):
     """沿用原始请求/响应/Token记录；新入口使用Flash价格与显式时窗。"""
 
-    def __init__(self, *args, maximum_cost_usd="1.00", pricing_by_model=None, **kwargs):
+    def __init__(self, *args, maximum_cost_usd="1.00", pricing_by_model=None, context_budget=None, **kwargs):
         super().__init__(*args, **kwargs)
+        self.context_budget = context_budget or RequestContextBudget()
         self.maximum_cost_usd = Decimal(maximum_cost_usd)
         self.pricing_by_model = pricing_by_model or {name: ("0.30", "1.20") for name in self.accepted_models}
         self.priced_sequences = set()
@@ -34,6 +37,7 @@ class SimpleBuildMeter(ContextCanaryMeter):
         self.tracker.limits = replace(self.tracker.limits, max_model_requests=96, max_recorded_tokens=1_000_000, max_agent_steps=192, max_tool_calls=128, max_commands=64, node_timeout_seconds=1200)
 
     def _before_request(self):
+        self.context_budget.validate(self)
         OperationWindow(self.deadline).request()
         maximum_rate = max(Decimal(rate) for rates in self.pricing_by_model.values() for rate in rates)
         reserve = maximum_rate * self.tracker.limits.max_recorded_tokens_per_response / 1_000_000
@@ -62,7 +66,10 @@ class SimpleBuildMeter(ContextCanaryMeter):
         context = getattr(self, "planning_context", None)
         if context is not None:
             return context.request(self, request, handler)
-        return super().wrap_model_call(request, handler)
+        # 工具基线也使用同一容量规则；仍按原入口发送动态状态和最近反馈。
+        recent = [{"name": m.name, "content": str(m.content)[-3000:]} for m in request.messages if m.type == "tool"][-3:]
+        context = PlanningContext({**self.packet(), "recent_tool_results": recent}, include_planning_progress=False)
+        return context.request(self, request.override(messages=[HumanMessage(content="依据当前状态继续构建")]), handler)
 
     def wrap_tool_call(self, request, handler):
         context = getattr(self, "planning_context", None)

@@ -69,13 +69,19 @@ class RecoveryDiagnosticMemory:
             scope="当前构建任务的观测；仅候选，不代表适用或修复成功",
             current_handoff_id=handoff["handoff_id"],
             failed_step_id=handoff.get("failed_step_id"),
-            observations=list(self.observations.values()),
-            candidates=list(self.candidates.values()),
+            observations=deepcopy(list(self.observations.values())),
+            candidates=deepcopy(list(self.candidates.values())),
             omitted_candidates=self.omitted_candidates,
             next_action="结合当前失败，核实相关候选的描述、提供文件和安装/路径；有依据再提交修订。不同交接的环境观测可能过期。",
         )
+        # 已核实候选优先，其余仅保留少量发现；完整候选始终留在任务内原件。
+        candidates = sorted(data["candidates"], key=lambda row: bool(row["checks"]), reverse=True)
+        data["omitted_candidates"] += max(0, len(candidates) - 6)
+        data["candidates"] = candidates[:6]
+        for row in data["observations"]:
+            if row["arguments"].get("kind") == "package_search":
+                row.pop("excerpt", None)  # 搜索结果已表达为候选，避免重复整段包列表。
         # 查询预算/宽检索可产生大量结果；保留候选身份及出处，避免记录膨胀挤占真实反馈。
-        data = deepcopy(data)
         for row in data["observations"]:
             row["from_current_handoff"] = row["handoff_id"] == handoff["handoff_id"]
         for candidate in data["candidates"]:

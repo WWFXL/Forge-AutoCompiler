@@ -1,0 +1,40 @@
+{
+  "scope": "从已发送request8及随后完整AI/Tool组重组，不冒称原本未发送的request9",
+  "provider_calls": 0,
+  "cost_usd": 0,
+  "legacy": {
+    "error": "公开任务与压缩后的必要证据超过规划上下文容量",
+    "model_requests": 0
+  },
+  "current": {
+    "capacity": {
+      "event": "model.context_budget",
+      "version": "build-request-context-v1",
+      "estimation": "cl100k_base×1.25＋2048协议余量；非DeepSeek精确分词",
+      "serialized_bytes": 51995,
+      "tokenizer_tokens": 17471,
+      "reserved_input_tokens": 23887,
+      "max_input_tokens": 64000,
+      "max_output_tokens": 32768,
+      "model_context_tokens": 1000000
+    },
+    "max_tokens": 32768,
+    "verified_missing_candidate_preserved": true,
+    "latest_tool_group_unchanged": true,
+    "current_plan_preserved": true
+  },
+  "summary": {
+    "model_requests": 1,
+    "recorded_tokens": 0,
+    "agent_steps": 1,
+    "tool_calls": 0,
+    "commands": 0,
+    "elapsed_seconds": 0.14514873106963933,
+    "input_tokens": 0,
+    "output_tokens": 0,
+    "estimated_cost_usd": 0.0,
+    "unknown_usage_requests": 0,
+    "cost_and_usage_complete": true,
+    "estimated_cost_usd_completed_responses": 0.0
+  }
+}

@@ -1,5 +1,8 @@
 # 硕士论文实验与证据索引
 
+E57工程后续（不增模型效果/项目分母、不入论文）：[共享请求容量修复](2026-11-16-request-context-capacity-repair.md)。旧真实失败消息零Provider重组，旧实现容量错误复现，新实现完整工具组/方案/缺包证据送达；不代表libffi自主成功，不替换原失败。
+
+
 E57同项目开发负面观察（待审、不增独立分母、不入论文）：[规划依赖自主观察](2026-11-16-libffi-planning-dependency-results.md)，cpp-build-libffi-planning-dependency-flash-v1一次。8请求/0.0337203美元/35.66秒；规划10查询未提前查缺宏，恢复核实候选后本地上下文装配超限停止，主构建/交付/重建未观察、cleanup成功。原件inventorye1fdca09，不当降本或泛化效果。
 
 
