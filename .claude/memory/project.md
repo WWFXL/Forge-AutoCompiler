@@ -634,6 +634,12 @@
 
 ## 最近变更 (Recent Changes)
 
+- 2026-11-16 — #756完成libffi单次从零自主规划/恢复构建。
+  - 文件: `scripts/forge_libffi_autonomous.py`, `benchmarks/preregistrations/cpp-build-libffi-autonomous-flash-v1.md`, `RESEARCH_STATUS.md`
+  - 动机: 前次脚本恢复仅验证执行链路，本次不注入已知修复，由Flash自主规划。
+  - 验证: 材料/Ruff与真实主构建、交付、干净重建、源码保护/清理通过；55请求/780187Token/0.3065304美元/573.92秒，未知0。用户1美元/UTC01:52:26—02:52:26授权内结束，无重试/追加付费。
+  - 结果: 初始9/恢复46请求；生成外部兼容m4并硬编码下划线检测no，没有找对libltdl-dev依赖根因，等价性未验证；原E57/论文不改。原件forge-libffi-autonomous-flash-2026-11-16-v1，inventory72e0d6aa，报告2026-11-16-libffi-autonomous-build.md，下一步先用户审核。
+
 - 2026-11-16 — 完成#754步骤标识及历史成功依赖装配修复，以libffi零Provider真实路径验证主构建、交付及干净重建。
   - 文件: `backend/packages/harness/deerflow/compile/simple_build_task.py`, `backend/tests/test_simple_recovery_assembly.py`, `scripts/forge_libffi_recovery_assembly_repair.py`, `docs/research/2026-11-16-libffi-recovery-assembly-repair.md`
   - 动机: 修复结构校验早于成功依赖合并的问题，避免纯标识点号消耗模型纠正。宏根因为缺libltdl-dev，原Libtool2.4.7保留，不采纳旧版本推断。
