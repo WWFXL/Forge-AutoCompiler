@@ -634,6 +634,12 @@
 
 ## 最近变更 (Recent Changes)
 
+- 2026-11-16 — #791整理已验证宏依赖经验及恢复提示词候选，待用户审核。
+  - 文件: `docs/research/2026-11-16-verified-macro-experience-proposal.md`, `benchmarks/fixtures/verified-macro-recovery-experience-v1/`。
+  - 动机: 候选持续送达仍未核实，将旧证据验证的宏→文件→包关联补入恢复Harness；仅错误/环境条件，不绑定项目名。
+  - 状态: 追加782字节、指导5800字节，RecoveryHarness结构/底座/纯追加装配通过，候选9de184d7。未接入入口、0Provider/新构建/新增费用，不改论文/旧结果；审核后再实现自主观察，新身份费用时窗另绑定。
+
+
 - 2026-11-16 — #789完成依赖诊断改进后libffi一次自主观察，结果先审核，不修改论文。
   - 文件: `docs/research/2026-11-16-libffi-dependency-diagnosis-results.md`, `benchmarks/analyses/libffi-dependency-diagnosis-2026-11-16/`, `RESEARCH_STATUS.md`。
   - 证据: 11请求/165621Token/$0.0652518/162.16秒，主库、交付、原归档重建、清理通过；候选已送达但未核实，最终固定宏。原输入未变、187新增项后审；原件inventoryb28416ae，运行64bf7b79。

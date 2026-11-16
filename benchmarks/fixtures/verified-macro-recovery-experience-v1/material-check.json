@@ -1,0 +1,27 @@
+{
+  "stage": "proposal_pending_user_review",
+  "runtime_integrated": false,
+  "provider_calls": 0,
+  "new_builds": 0,
+  "base_revision": "515be61c1887627072e5eb7a40d6d62b6e583c38",
+  "baseline_harness": "e50326777478126e2436a282d60656ef9cef8f0432491cfec2ca520a95f0b185",
+  "candidate_harness": "9de184d72f39866fd832a985f720293d6432ccd7c8a033e94f81f2376d4836d8",
+  "baseline_guidance_bytes": 5016,
+  "candidate_guidance_bytes": 5800,
+  "addition_bytes": 782,
+  "prompt_change": "append-only",
+  "unchanged": [
+    "initial_planning",
+    "tools",
+    "workflow",
+    "query_limits",
+    "validation",
+    "runtime_diagnostic_prompts"
+  ],
+  "files": {
+    "baseline.json": "a09a67392a8e70d15575133573929bfc813c90983a7bb713ac0cb34d345f5603",
+    "candidate.json": "b227ef3ae57d05d0e5d3b5d173caa45e0cb5d5b172044a0e5c902a252ec8a322",
+    "experience-guidance.md": "b4580ab83f621d8f06e09b129b39dc8c25d956c2cb0a4b0971a542536adcf1d5",
+    "prompt.diff": "6fe5fd49844d6fe9b46231faf14f7addaf99b68ecd4a9f07b2576b2270b8ed0a"
+  }
+}
