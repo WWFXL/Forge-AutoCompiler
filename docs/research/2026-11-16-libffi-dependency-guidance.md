@@ -66,3 +66,5 @@ make -j2
 - 原件：`/home/yiwei/.codex/outputs/forge-libffi-dependency-guidance-flash-2026-11-16-v1`，含67请求/响应、4份方案、日志、交付、实际重建、授权与源码快照。
 - 封存2202普通文件/20链接/62891940字节，inventory `d61a329034a135ac365702bb3dfec7a08ec61938f96e329aa6ffa1a0cf59f474`，类型化audit通过；67份响应Token/费用独立复算一致，未知0；cleanup-verification记录4个名称/ID不存在。
 - 材料/归档/参考/指导Schema、Ruff、Docker条件及本次真实运行通过；未修改生产代码，不重复产品全测。发布状态以PR759最新HEAD三项CI及合并为准。个人知识库不注入实验Agent。
+
+发布说明：PR初建时目标误设main，检查涉及历史格式差异；合并前已纠正为既有科研集成分支`yiwei/534-rq3-natural-failures`，实际变更11文件。不为此改无关测试文件、不发布到main；本次合并以纠正目标后的最终HEAD检查为准。
