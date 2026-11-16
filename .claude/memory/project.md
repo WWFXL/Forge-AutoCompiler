@@ -645,6 +645,12 @@
   - 边界: 0Provider/新构建/新增费用，未读凭据；拟1美元/1小时单次，本身份费用时窗待确认，无自动重试。明确经验提供包名，非无答案诊断；不改论文/旧分母。
 
 
+- 2026-11-16 — #793接入用户已审核宏依赖经验的独立单次观察入口，正式尚未启动。
+  - 文件: `scripts/forge_libffi_macro_experience.py`, `backend/tests/test_libffi_macro_experience_entry.py`, `benchmarks/preregistrations/cpp-build-libffi-macro-experience-flash-v1.md`。
+  - 验证: 3项装配检查、实际默认材料CLI、Ruff/格式通过；仅恢复采用候选9de184d7，P0/工具/Workflow/验收不变。pytest旧临时目录清理权限告警记录，不改无关目录。
+  - 边界: 0Provider/新构建/新增费用，未读凭据；拟1美元/1小时单次，本身份费用时窗待确认，无自动重试。明确经验提供包名，非无答案诊断；不改论文/旧分母。
+
+
 - 2026-11-16 — #791整理已验证宏依赖经验及恢复提示词候选，待用户审核。
   - 文件: `docs/research/2026-11-16-verified-macro-experience-proposal.md`, `benchmarks/fixtures/verified-macro-recovery-experience-v1/`。
   - 动机: 候选持续送达仍未核实，将旧证据验证的宏→文件→包关联补入恢复Harness；仅错误/环境条件，不绑定项目名。
