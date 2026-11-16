@@ -26,9 +26,10 @@ def bounded_text(value, limit):
 
 
 class PlanningContext:
-    def __init__(self, packet, *, enforce_tool_availability=False, diagnostic_memory=None):
+    def __init__(self, packet, *, enforce_tool_availability=False, diagnostic_memory=None, dependency_diagnosis=None):
         self.packet = deepcopy(packet)
         self.diagnostic_memory = diagnostic_memory
+        self.dependency_diagnosis = dependency_diagnosis
         self.enforce_tool_availability = enforce_tool_availability
         self.available_tools = None
         self.seed_material = [dict(row) for row in packet.get("source_packet", [])]
@@ -99,16 +100,19 @@ class PlanningContext:
         self.packet_compactions += 1
 
     def observe(self, name, arguments, content):
+        if name == "diagnose_dependency":
+            # 子查询已逐条写入诊断记录；这里只计算真实内容进展，不重复记账。
+            row = json.loads(content)
+            for evidence in row.get("evidence", []):
+                self._observe_query(evidence["tool"], evidence["arguments"], evidence["result"])
+            return
         if name in {"search_build_files", "inspect_build_environment"}:
             row = json.loads(content)
             if self.diagnostic_memory is not None:
                 self.diagnostic_memory.observe(name, arguments, row, handoff_id=self.packet["handoff"]["handoff_id"])
-            # 新命令ID/日志路径不是新知识，避免重复查询被误计为诊断进展。
-            evidence = {k: v for k, v in row.items() if k not in {"command_id", "log_path"}}
-            key = (name, json.dumps(arguments, sort_keys=True, ensure_ascii=False))
-            digest = hashlib.sha256(json.dumps(evidence, sort_keys=True, ensure_ascii=False).encode()).hexdigest()
-            self.pending_reads.append(self.reads.get(key, {}).get("result_sha256") != digest)
-            self.reads[key] = dict(tool=name, query=arguments, result_sha256=digest)
+            if self.dependency_diagnosis is not None:
+                self.dependency_diagnosis.observe(name, arguments, row)
+            self._observe_query(name, arguments, row)
             return
         if name not in {"read_source", "list_source", "read_failure_log"}:
             return
@@ -125,6 +129,17 @@ class PlanningContext:
         novel = self.reads.get(key, {}).get("result_sha256") != digest
         self.reads[key] = dict(tool=name, path=key[1], start_line=key[2], accepted=not bool(row.get("error")), result_sha256=digest)
         self.pending_reads.append(novel)
+
+    def _observe_query(self, name, arguments, row):
+        # 新命令ID/日志路径不是新知识，避免重复查询被误计为诊断进展。
+        ignored = {"command_id", "log_path"}
+        if self.dependency_diagnosis is not None:
+            ignored |= {"files_scanned", "bytes_scanned"}
+        evidence = {k: v for k, v in row.items() if k not in ignored}
+        key = (name, json.dumps(arguments, sort_keys=True, ensure_ascii=False))
+        digest = hashlib.sha256(json.dumps(evidence, sort_keys=True, ensure_ascii=False).encode()).hexdigest()
+        self.pending_reads.append(self.reads.get(key, {}).get("result_sha256") != digest)
+        self.reads[key] = dict(tool=name, query=arguments, result_sha256=digest)
 
     def request(self, meter, request, handler):
         if self.pending_reads:
@@ -143,6 +158,8 @@ class PlanningContext:
             payload = {**self.packet, "source_packet": self.seed_material, "remaining_budget": asdict(meter.tracker.remaining())}
             if self.diagnostic_memory is not None:
                 payload["recovery_diagnostic_memory"] = self.diagnostic_memory.snapshot(self.packet["handoff"])
+            if self.dependency_diagnosis is not None:
+                payload["dependency_diagnosis"] = self.dependency_diagnosis.snapshot()
             payload["planning_progress"] = dict(
                 recent_reads=list(self.reads.values())[-12:],
                 consecutive_rounds_without_new_evidence=self.stalled_rounds,
@@ -155,6 +172,8 @@ class PlanningContext:
             )
             if self.stalled_rounds >= 2:
                 payload["planning_progress"]["instruction"] = "连续重复读取没有新增证据。请利用现有材料交付方案；确实无法规划时明确说明阻塞，不能编造依据。"
+                if self.dependency_diagnosis is not None:
+                    payload["planning_progress"]["instruction"] = "连续重复读取没有新增证据；请核实已有候选或转向尚未查询的组件包索引/路径。继续同范围须有新问题；证据足够即提交修订。"
             messages = [HumanMessage(content=json.dumps(payload, ensure_ascii=False)), *[m for g in groups for m in g]]
             body = dict(messages=[m.model_dump(mode="json") for m in messages], system_message=request.system_message.model_dump(mode="json") if request.system_message else None)
             if len(json.dumps(body, ensure_ascii=False).encode()) <= 49000:
@@ -202,7 +221,7 @@ class PlanningContext:
             removed_notes.extend(str(m.content)[:500] for m in removed if m.type == "ai" and m.content)
             removed_notes = removed_notes[-3:]
             self.pruned_groups += 1
-        finalize_only = self.stalled_rounds >= 3
+        finalize_only = self.stalled_rounds >= 3 and self.dependency_diagnosis is None
         settings = dict(request.model_settings or {})
         settings.pop("parallel_tool_calls", None)
         bounded = request.override(messages=messages, tools=[] if finalize_only else request.tools, model_settings=settings)
@@ -216,6 +235,8 @@ class PlanningContext:
         meter.ledger.save(f"request-{meter._request_sequence + 1}.json", {**body, "tools": schemas})
         if self.diagnostic_memory is not None:
             meter.ledger.save(f"diagnostic-memory-request-{meter._request_sequence + 1}.json", payload["recovery_diagnostic_memory"])
+        if self.dependency_diagnosis is not None:
+            meter.ledger.save(f"dependency-diagnosis-request-{meter._request_sequence + 1}.json", payload["dependency_diagnosis"])
         meter.ledger.append(
             "planning.context",
             history_messages=len(messages) - 1,

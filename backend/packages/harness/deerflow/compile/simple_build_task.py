@@ -444,6 +444,12 @@ def propose_simple(
             from deerflow.compile.recovery_diagnostic_memory import MEMORY_PROMPT
 
             prompt += MEMORY_PROMPT
+        if diagnostics.dependency_diagnosis is not None:
+            from deerflow.compile.dependency_diagnosis import DIAGNOSIS_PROMPT
+
+            prompt += DIAGNOSIS_PROMPT
+            diagnostics.dependency_diagnosis.prepare()
+            packet = simple_agent_packet(task, current_plan=current_plan, handoff=handoff)
     if experience_bank is not None:
         from deerflow.compile.simple_build_experience import SIMPLE_EXPERIENCE_PROMPT, select_simple_experience
 
@@ -477,7 +483,10 @@ def propose_simple(
     evidence = meter.packet() if hasattr(meter, "packet") else {}
     # 公开材料白名单；只在任务开始固定源码包，后续通过完整工具对话携带新证据。
     context = PlanningContext(
-        {**packet, "source_packet": evidence.get("source_packet", [])}, enforce_tool_availability=enforce_planning_tools and current_plan is None, diagnostic_memory=diagnostics.diagnostic_memory if diagnostics is not None else None
+        {**packet, "source_packet": evidence.get("source_packet", [])},
+        enforce_tool_availability=enforce_planning_tools and current_plan is None,
+        diagnostic_memory=diagnostics.diagnostic_memory if diagnostics is not None else None,
+        dependency_diagnosis=diagnostics.dependency_diagnosis if diagnostics is not None else None,
     )
     meter.ledger.append("planning.tool_policy", recovery=current_plan is not None, enforce_tool_availability=context.enforce_tool_availability)
     original_context = getattr(meter, "planning_context", None)
