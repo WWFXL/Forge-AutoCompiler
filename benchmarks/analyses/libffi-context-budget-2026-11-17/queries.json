@@ -1,0 +1,513 @@
+[
+  {
+    "event": "planning.environment_query",
+    "version": "planning-dependency-check-v1",
+    "operation": "environment",
+    "query": "make",
+    "kind": "command",
+    "result": {
+      "status": "ok",
+      "argv": [
+        "make",
+        "--version"
+      ],
+      "executable": "/usr/bin/make",
+      "exit_code": 0,
+      "output": "GNU Make 4.3\nBuilt for x86_64-pc-linux-gnu\nCopyright (C) 1988-2020 Free Software Foundation, Inc.\nLicense GPLv3+: GNU GPL version 3 or later <http://gnu.org/licenses/gpl.html>\nThis is free software: you are free to change and redistribute it.\nThere is NO WARRANTY, to the extent permitted by law.\n",
+      "truncated": false,
+      "command_id": "command_71d40db83cb243a48bccd407a077cc9c",
+      "timed_out": false,
+      "log_path": "logs/command_71d40db83cb243a48bccd407a077cc9c.log"
+    }
+  },
+  {
+    "event": "planning.environment_query",
+    "version": "planning-dependency-check-v1",
+    "operation": "environment",
+    "query": "autoconf",
+    "kind": "command",
+    "result": {
+      "status": "ok",
+      "argv": [
+        "autoconf",
+        "--version"
+      ],
+      "executable": "/usr/bin/autoconf",
+      "exit_code": 0,
+      "output": "autoconf (GNU Autoconf) 2.71\nCopyright (C) 2021 Free Software Foundation, Inc.\nLicense GPLv3+/Autoconf: GNU GPL version 3 or later\n<https://gnu.org/licenses/gpl.html>, <https://gnu.org/licenses/exceptions.html>\nThis is free software: you are free to change and redistribute it.\nThere is NO WARRANTY, to the extent permitted by law.\n\nWritten by David J. MacKenzie and Akim Demaille.\n",
+      "truncated": false,
+      "command_id": "command_812f5ea928704991a9d390d3aeb567ce",
+      "timed_out": false,
+      "log_path": "logs/command_812f5ea928704991a9d390d3aeb567ce.log"
+    }
+  },
+  {
+    "event": "planning.environment_query",
+    "version": "planning-dependency-check-v1",
+    "operation": "environment",
+    "query": "automake",
+    "kind": "command",
+    "result": {
+      "status": "ok",
+      "argv": [
+        "automake",
+        "--version"
+      ],
+      "executable": "/usr/bin/automake",
+      "exit_code": 0,
+      "output": "automake (GNU automake) 1.16.5\nCopyright (C) 2021 Free Software Foundation, Inc.\nLicense GPLv2+: GNU GPL version 2 or later <https://gnu.org/licenses/gpl-2.0.html>\nThis is free software: you are free to change and redistribute it.\nThere is NO WARRANTY, to the extent permitted by law.\n\nWritten by Tom Tromey <tromey@redhat.com>\n       and Alexandre Duret-Lutz <adl@gnu.org>.\n",
+      "truncated": false,
+      "command_id": "command_e812707700764170ad8fe9e1c0e5c796",
+      "timed_out": false,
+      "log_path": "logs/command_e812707700764170ad8fe9e1c0e5c796.log"
+    }
+  },
+  {
+    "event": "planning.environment_query",
+    "version": "planning-dependency-check-v1",
+    "operation": "environment",
+    "query": "libtoolize",
+    "kind": "command",
+    "result": {
+      "status": "ok",
+      "argv": [
+        "libtoolize",
+        "--version"
+      ],
+      "executable": "/usr/bin/libtoolize",
+      "exit_code": 0,
+      "output": "libtoolize (GNU libtool) 2.4.7\nWritten by Gary V. Vaughan <gary@gnu.org>, 2003\n\nCopyright (C) 2022 Free Software Foundation, Inc.\n\n",
+      "truncated": false,
+      "command_id": "command_c7db0792d0ad46e999f1032b4eedee5e",
+      "timed_out": false,
+      "log_path": "logs/command_c7db0792d0ad46e999f1032b4eedee5e.log"
+    }
+  },
+  {
+    "event": "planning.environment_query",
+    "version": "planning-dependency-check-v1",
+    "operation": "environment",
+    "query": "makeinfo",
+    "kind": "command",
+    "result": {
+      "status": "unavailable",
+      "command": "makeinfo",
+      "reason": "查询工具未安装；未执行索引更新或安装",
+      "command_id": "command_6228f52c1ea047478a705aff3531ec26",
+      "exit_code": 0,
+      "timed_out": false,
+      "log_path": "logs/command_6228f52c1ea047478a705aff3531ec26.log"
+    }
+  },
+  {
+    "event": "planning.environment_query",
+    "version": "planning-dependency-check-v1",
+    "operation": "environment",
+    "query": "texinfo",
+    "kind": "package",
+    "result": {
+      "status": "ok",
+      "argv": [
+        "dpkg-query",
+        "-W",
+        "-f=${binary:Package}\t${db:Status-Abbrev}\t${Version}\n",
+        "texinfo"
+      ],
+      "executable": "/usr/bin/dpkg-query",
+      "exit_code": 0,
+      "output": "texinfo\tun \t\n",
+      "truncated": false,
+      "package_state": "un",
+      "installed": false,
+      "version": "",
+      "command_id": "command_bcbd7dd0d4d84c4bba10eefd2293e65f",
+      "timed_out": false,
+      "log_path": "logs/command_bcbd7dd0d4d84c4bba10eefd2293e65f.log"
+    }
+  },
+  {
+    "event": "planning.environment_query",
+    "version": "planning-dependency-check-v1",
+    "operation": "environment",
+    "query": "autoreconf",
+    "kind": "command",
+    "result": {
+      "status": "ok",
+      "argv": [
+        "autoreconf",
+        "--version"
+      ],
+      "executable": "/usr/bin/autoreconf",
+      "exit_code": 0,
+      "output": "autoreconf (GNU Autoconf) 2.71\nCopyright (C) 2021 Free Software Foundation, Inc.\nLicense GPLv3+/Autoconf: GNU GPL version 3 or later\n<https://gnu.org/licenses/gpl.html>, <https://gnu.org/licenses/exceptions.html>\nThis is free software: you are free to change and redistribute it.\nThere is NO WARRANTY, to the extent permitted by law.\n\nWritten by David J. MacKenzie and Akim Demaille.\n",
+      "truncated": false,
+      "command_id": "command_ad97768382384701941cd3d5570c3c1c",
+      "timed_out": false,
+      "log_path": "logs/command_ad97768382384701941cd3d5570c3c1c.log"
+    }
+  },
+  {
+    "event": "planning.environment_query",
+    "version": "planning-dependency-check-v1",
+    "operation": "environment",
+    "query": "apt",
+    "kind": "package_index",
+    "result": {
+      "status": "ok",
+      "index_state": {
+        "package_indexes": 15,
+        "contents_indexes": 4,
+        "packages": "present",
+        "contents": "present",
+        "apt_file_available": true,
+        "coverage": "仅当前本地索引；present不证明最新或覆盖全部源/架构",
+        "preparation": "缺包索引时在dependency步骤运行apt-get update；缺文件查询能力时安装apt-file并运行apt-file update"
+      },
+      "command_id": "command_399b427eb46345e1b54b27e812ee4268",
+      "exit_code": 0,
+      "timed_out": false,
+      "log_path": "logs/command_399b427eb46345e1b54b27e812ee4268.log"
+    }
+  },
+  {
+    "event": "planning.environment_query",
+    "version": "planning-dependency-check-v1",
+    "operation": "environment",
+    "query": "texinfo",
+    "kind": "package_policy",
+    "result": {
+      "status": "ok",
+      "argv": [
+        "apt-cache",
+        "policy",
+        "texinfo"
+      ],
+      "executable": "/usr/bin/apt-cache",
+      "exit_code": 0,
+      "output": "texinfo:\n  Installed: (none)\n  Candidate: 7.1-3build2\n  Version table:\n     7.1-3build2 500\n        500 https://mirrors.ustc.edu.cn/ubuntu noble/universe amd64 Packages\n",
+      "truncated": false,
+      "index_state": {
+        "package_indexes": 15,
+        "contents_indexes": 4,
+        "packages": "present",
+        "contents": "present",
+        "apt_file_available": true,
+        "coverage": "仅当前本地索引；present不证明最新或覆盖全部源/架构",
+        "preparation": "缺包索引时在dependency步骤运行apt-get update；缺文件查询能力时安装apt-file并运行apt-file update"
+      },
+      "evidence_scope": "当前可见包/文件索引，空结果不证明不存在或版本移除",
+      "command_id": "command_0b407dbc894a4ea09022ef3119803131",
+      "timed_out": false,
+      "log_path": "logs/command_0b407dbc894a4ea09022ef3119803131.log"
+    }
+  },
+  {
+    "event": "planning.environment_query",
+    "version": "planning-dependency-check-v1",
+    "operation": "environment",
+    "query": "gcc",
+    "kind": "command",
+    "result": {
+      "status": "ok",
+      "argv": [
+        "gcc",
+        "--version"
+      ],
+      "executable": "/usr/bin/gcc",
+      "exit_code": 0,
+      "output": "gcc (Ubuntu 13.3.0-6ubuntu2~24.04.1) 13.3.0\nCopyright (C) 2023 Free Software Foundation, Inc.\nThis is free software; see the source for copying conditions.  There is NO\nwarranty; not even for MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.\n\n",
+      "truncated": false,
+      "command_id": "command_061d06d6a53e4aa390383b9c4b08868a",
+      "timed_out": false,
+      "log_path": "logs/command_061d06d6a53e4aa390383b9c4b08868a.log"
+    }
+  },
+  {
+    "event": "recovery.environment_query",
+    "version": "recovery-environment-v2",
+    "handoff_id": "f5d085782727495b8778630242042130",
+    "operation": "search",
+    "query": "LT_SYS_SYMBOL_USCORE",
+    "scope": "macros",
+    "result": {
+      "status": "no_match_in_scope",
+      "scope": "macros",
+      "roots": [
+        "/usr/share/aclocal-1.16",
+        "/usr/share/aclocal"
+      ],
+      "matches": [],
+      "files_scanned": 55,
+      "bytes_scanned": 577876,
+      "incomplete": false,
+      "note": "仅搜索已存在的限定目录；空结果不能证明包不存在或功能已移除",
+      "command_id": "command_36562472b8b64ef99e3d46e78786a4b8",
+      "exit_code": 0,
+      "timed_out": false,
+      "log_path": "logs/command_36562472b8b64ef99e3d46e78786a4b8.log"
+    }
+  },
+  {
+    "event": "recovery.environment_query",
+    "version": "recovery-environment-v2",
+    "handoff_id": "f5d085782727495b8778630242042130",
+    "operation": "search",
+    "query": "LT_SYS_SYMBOL_USCORE",
+    "scope": "project",
+    "result": {
+      "status": "matches",
+      "scope": "project",
+      "roots": [
+        "/workspace/repo"
+      ],
+      "matches": [
+        {
+          "path": "/workspace/repo/configure",
+          "line": 19320,
+          "text": "LT_SYS_SYMBOL_USCORE"
+        },
+        {
+          "path": "/workspace/repo/configure.ac",
+          "line": 219,
+          "text": "LT_SYS_SYMBOL_USCORE"
+        },
+        {
+          "path": "/workspace/repo/autom4te.cache/output.0",
+          "line": 19320,
+          "text": "LT_SYS_SYMBOL_USCORE"
+        },
+        {
+          "path": "/workspace/repo/autom4te.cache/output.1",
+          "line": 19316,
+          "text": "LT_SYS_SYMBOL_USCORE"
+        },
+        {
+          "path": "/workspace/repo/autom4te.cache/output.2",
+          "line": 19320,
+          "text": "LT_SYS_SYMBOL_USCORE"
+        },
+        {
+          "path": "/workspace/repo/autom4te.cache/output.3",
+          "line": 19320,
+          "text": "LT_SYS_SYMBOL_USCORE"
+        }
+      ],
+      "files_scanned": 447,
+      "bytes_scanned": 7465985,
+      "incomplete": false,
+      "note": "仅搜索已存在的限定目录；空结果不能证明包不存在或功能已移除",
+      "command_id": "command_ba901408b3e94e839b5c6df6cce72dd5",
+      "exit_code": 0,
+      "timed_out": false,
+      "log_path": "logs/command_ba901408b3e94e839b5c6df6cce72dd5.log"
+    }
+  },
+  {
+    "event": "recovery.environment_query",
+    "version": "recovery-environment-v2",
+    "handoff_id": "f5d085782727495b8778630242042130",
+    "operation": "environment",
+    "query": "libtool",
+    "kind": "package_search",
+    "result": {
+      "status": "ok",
+      "argv": [
+        "apt-cache",
+        "search",
+        "libtool"
+      ],
+      "executable": "/usr/bin/apt-cache",
+      "exit_code": 0,
+      "output": "libltdl-dev - System independent dlopen wrapper for GNU libtool (headers)\nlibltdl7 - System independent dlopen wrapper for GNU libtool\nlibtool - Generic library support script\nlibtool-bin - Generic library support script (libtool binary)\nlibtool-doc - Generic library support script (documentation)\nlibtoolkit-perl - Keep your handy modules organized\nlibtools-analyzer-clojure - analyzer for host agnostic Clojure code\nlibtools-analyzer-jvm-clojure - analyzer for Clojure code providing additional jvm-specific passes\nlibtools-cli-clojure - command line argument parser for Clojure\nlibtools-deps-clojure - API for transitive dependency graph expansion, classpath creation\nlibtools-gitlibs-clojure - API for retrieving, caching, and programmatically accessing git libraries\nlibtools-logging-clojure - Logging macros for Clojure\nlibtools-macro-clojure - Clojure tools for writing macros\nlibtools-namespace-clojure - tools for managing namespaces in Clojure\nlibtools-nrepl-clojure - Clojure network REPL\nlibtools-reader-clojure - complete Clojure and EDN-only reader\nlibtools-trace-clojure - Clojure tracing facility in Clojure\n",
+      "truncated": false,
+      "match_scope": "package_name_and_description",
+      "index_state": {
+        "package_indexes": 15,
+        "contents_indexes": 4,
+        "packages": "present",
+        "contents": "present",
+        "apt_file_available": true,
+        "coverage": "仅当前本地索引；present不证明最新或覆盖全部源/架构",
+        "preparation": "缺包索引时在dependency步骤运行apt-get update；缺文件查询能力时安装apt-file并运行apt-file update"
+      },
+      "evidence_scope": "当前可见包/文件索引，空结果不证明不存在或版本移除",
+      "command_id": "command_b30896457dff4a1391429f49a3e5d4f2",
+      "timed_out": false,
+      "log_path": "logs/command_b30896457dff4a1391429f49a3e5d4f2.log"
+    }
+  },
+  {
+    "event": "recovery.environment_query",
+    "version": "recovery-environment-v2",
+    "handoff_id": "f5d085782727495b8778630242042130",
+    "operation": "environment",
+    "query": "libltdl-dev",
+    "kind": "package_description",
+    "result": {
+      "status": "ok",
+      "argv": [
+        "apt-cache",
+        "show",
+        "libltdl-dev"
+      ],
+      "executable": "/usr/bin/apt-cache",
+      "exit_code": 0,
+      "output": "Package: libltdl-dev\nArchitecture: amd64\nVersion: 2.4.7-7build1\nMulti-Arch: same\nPriority: optional\nSection: libdevel\nSource: libtool\nOrigin: Ubuntu\nMaintainer: Ubuntu Developers <ubuntu-devel-discuss@lists.ubuntu.com>\nOriginal-Maintainer: Alastair McKinstry <mckinstry@debian.org>\nBugs: https://bugs.launchpad.net/ubuntu/+filebug\nInstalled-Size: 940\nProvides: libltdl3-dev\nDepends: libltdl7 (= 2.4.7-7build1), automake-1.16\nRecommends: libtool\nSuggests: libtool-doc\nConflicts: libltdl3-dev\nReplaces: libbtldl3-dev\nFilename: pool/main/libt/libtool/libltdl-dev_2.4.7-7build1_amd64.deb\nSize: 168468\nMD5sum: 07084856ad90e193f43a35d4c1faa38c\nSHA1: b834252f9c4a3a5e1c9f885a79959febad0787d8\nSHA256: 3a706efe1d9d8b493bd2335fabaa9ec28549c9134750fad6c0a5aa9868c6ee9c\nSHA512: 2c99421994181541514d83e7e964f754f792be1f5393926e41bb6ac41448f724d171e444b67ad0f43b221697b08056cb4a662e4f38b514551c178f0c54b98c00\nHomepage: https://www.gnu.org/software/libtool/\nDescription: System independent dlopen wrapper for GNU libtool (headers)\nDescription-md5: a40e027e1c24ccfb7d1ea0e881e23959\n\n",
+      "truncated": false,
+      "index_state": {
+        "package_indexes": 15,
+        "contents_indexes": 4,
+        "packages": "present",
+        "contents": "present",
+        "apt_file_available": true,
+        "coverage": "仅当前本地索引；present不证明最新或覆盖全部源/架构",
+        "preparation": "缺包索引时在dependency步骤运行apt-get update；缺文件查询能力时安装apt-file并运行apt-file update"
+      },
+      "evidence_scope": "当前可见包/文件索引，空结果不证明不存在或版本移除",
+      "command_id": "command_5acaf1fb5e314809bd6ae0542f531283",
+      "timed_out": false,
+      "log_path": "logs/command_5acaf1fb5e314809bd6ae0542f531283.log"
+    }
+  },
+  {
+    "event": "recovery.environment_query",
+    "version": "recovery-environment-v2",
+    "handoff_id": "f5d085782727495b8778630242042130",
+    "operation": "environment",
+    "query": "libltdl-dev",
+    "kind": "package",
+    "result": {
+      "status": "ok",
+      "argv": [
+        "dpkg-query",
+        "-W",
+        "-f=${binary:Package}\t${db:Status-Abbrev}\t${Version}\n",
+        "libltdl-dev"
+      ],
+      "executable": "/usr/bin/dpkg-query",
+      "exit_code": 0,
+      "output": "libltdl-dev\tun \t\n",
+      "truncated": false,
+      "package_state": "un",
+      "installed": false,
+      "version": "",
+      "command_id": "command_c6d5ea3572c74efeacfdad0b3e566a59",
+      "timed_out": false,
+      "log_path": "logs/command_c6d5ea3572c74efeacfdad0b3e566a59.log"
+    }
+  },
+  {
+    "event": "recovery.environment_query",
+    "version": "recovery-environment-v2",
+    "handoff_id": "f5d085782727495b8778630242042130",
+    "operation": "environment",
+    "query": "libltdl-dev",
+    "kind": "package_files",
+    "result": {
+      "status": "query_failed",
+      "argv": [
+        "dpkg-query",
+        "-L",
+        "libltdl-dev"
+      ],
+      "executable": "/usr/bin/dpkg-query",
+      "exit_code": 0,
+      "output": "dpkg-query: package 'libltdl-dev' is not installed\nUse dpkg --contents (= dpkg-deb --contents) to list archive files contents.\n",
+      "truncated": false,
+      "command_id": "command_a97d9023b0564fa09c654b0c24c00f16",
+      "timed_out": false,
+      "log_path": "logs/command_a97d9023b0564fa09c654b0c24c00f16.log"
+    }
+  },
+  {
+    "event": "recovery.environment_query",
+    "version": "recovery-environment-v2",
+    "handoff_id": "f5d085782727495b8778630242042130",
+    "operation": "environment",
+    "query": "aclocal",
+    "kind": "search_paths",
+    "result": {
+      "status": "ok",
+      "argv": [
+        "aclocal",
+        "--print-ac-dir"
+      ],
+      "executable": "/usr/bin/aclocal",
+      "exit_code": 0,
+      "output": "/usr/share/aclocal\n",
+      "truncated": false,
+      "environment": {
+        "ACLOCAL_PATH": "",
+        "PKG_CONFIG_PATH": "",
+        "CMAKE_PREFIX_PATH": "",
+        "CPATH": "",
+        "LIBRARY_PATH": "",
+        "LD_LIBRARY_PATH": ""
+      },
+      "command_id": "command_28b67075c2d84e03aa64a13abdbd33a5",
+      "timed_out": false,
+      "log_path": "logs/command_28b67075c2d84e03aa64a13abdbd33a5.log"
+    }
+  },
+  {
+    "event": "recovery.environment_query",
+    "version": "recovery-environment-v2",
+    "handoff_id": "f5d085782727495b8778630242042130",
+    "operation": "environment",
+    "query": "libltdl-dev",
+    "kind": "package",
+    "result": {
+      "status": "ok",
+      "argv": [
+        "dpkg-query",
+        "-W",
+        "-f=${binary:Package}\t${db:Status-Abbrev}\t${Version}\n",
+        "libltdl-dev"
+      ],
+      "executable": "/usr/bin/dpkg-query",
+      "exit_code": 0,
+      "output": "libltdl-dev\tun \t\n",
+      "truncated": false,
+      "package_state": "un",
+      "installed": false,
+      "version": "",
+      "command_id": "command_f944c162c11644c6a42d9c5e7271c1ca",
+      "timed_out": false,
+      "log_path": "logs/command_f944c162c11644c6a42d9c5e7271c1ca.log"
+    }
+  },
+  {
+    "event": "recovery.environment_query",
+    "version": "recovery-environment-v2",
+    "handoff_id": "f5d085782727495b8778630242042130",
+    "operation": "environment",
+    "query": "ltdl.m4",
+    "kind": "package_file_search",
+    "result": {
+      "status": "ok",
+      "argv": [
+        "apt-file",
+        "search",
+        "--regexp",
+        "(^|/)ltdl\\.m4$"
+      ],
+      "executable": "/usr/bin/apt-file",
+      "exit_code": 0,
+      "output": "libltdl-dev: /usr/share/aclocal/ltdl.m4\n",
+      "truncated": false,
+      "index_state": {
+        "package_indexes": 15,
+        "contents_indexes": 4,
+        "packages": "present",
+        "contents": "present",
+        "apt_file_available": true,
+        "coverage": "仅当前本地索引；present不证明最新或覆盖全部源/架构",
+        "preparation": "缺包索引时在dependency步骤运行apt-get update；缺文件查询能力时安装apt-file并运行apt-file update"
+      },
+      "evidence_scope": "当前可见包/文件索引，空结果不证明不存在或版本移除",
+      "command_id": "command_2bf1ccab6d334cec8055edbd7591d302",
+      "timed_out": false,
+      "log_path": "logs/command_2bf1ccab6d334cec8055edbd7591d302.log"
+    }
+  }
+]

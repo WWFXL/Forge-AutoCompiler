@@ -1,0 +1,91 @@
+{
+  "source_snapshot_files": 88,
+  "source_snapshot_hashes_valid": true,
+  "provider_usage_cost_reconciled": true,
+  "response_models_valid": true,
+  "prompt_receipts": [
+    {
+      "request": 1,
+      "phase": "initial",
+      "macro_experience_present": false
+    },
+    {
+      "request": 2,
+      "phase": "initial",
+      "macro_experience_present": false
+    },
+    {
+      "request": 3,
+      "phase": "initial",
+      "macro_experience_present": false
+    },
+    {
+      "request": 4,
+      "phase": "initial",
+      "macro_experience_present": false
+    },
+    {
+      "request": 5,
+      "phase": "initial",
+      "macro_experience_present": false
+    },
+    {
+      "request": 6,
+      "phase": "initial",
+      "macro_experience_present": false
+    },
+    {
+      "request": 7,
+      "phase": "initial",
+      "macro_experience_present": false
+    },
+    {
+      "request": 8,
+      "phase": "initial",
+      "macro_experience_present": false
+    },
+    {
+      "request": 9,
+      "phase": "recovery",
+      "macro_experience_present": true
+    },
+    {
+      "request": 10,
+      "phase": "recovery",
+      "macro_experience_present": true
+    },
+    {
+      "request": 11,
+      "phase": "recovery",
+      "macro_experience_present": true
+    },
+    {
+      "request": 12,
+      "phase": "recovery",
+      "macro_experience_present": true
+    },
+    {
+      "request": 13,
+      "phase": "recovery",
+      "macro_experience_present": true
+    }
+  ],
+  "container_references": [
+    {
+      "reference": "4aef22b5d4dbd10d505b8492bd7b6def27e1ccdc3ebfc8673223a0995f3dd76b",
+      "absent": true
+    },
+    {
+      "reference": "deerflow-compile-simple-s-9554f36c",
+      "absent": true
+    },
+    {
+      "reference": "325c2cd12deece206d4084bdabe5196e461882a404a91a4a79145e1eda43be1a",
+      "absent": true
+    },
+    {
+      "reference": "deerflow-replay-simple-s-9554f36c-replay_bc7fd",
+      "absent": true
+    }
+  ]
+}
