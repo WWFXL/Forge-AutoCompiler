@@ -4,6 +4,7 @@ from __future__ import annotations
 
 import copy
 import json
+from pathlib import Path
 from typing import Literal, Self
 
 from langchain.agents import create_agent
@@ -417,6 +418,7 @@ def propose_simple(
     revision_validator=None,
     enforce_planning_tools=False,
     diagnostics=None,
+    planning_environment=None,
 ):
     """真实规划/方案恢复接点；所有读、输出、失败通过既有meter计量，无隐式重试。"""
     task = PublicBuildTask.model_validate(task)
@@ -430,6 +432,13 @@ def propose_simple(
             raise PlanContractError("容器诊断仅绑定当前恢复交接")
         tools.extend(diagnostics.tools())
         meter.ledger.append("recovery.environment_tools", version=DIAGNOSTIC_VERSION, handoff_id=diagnostics.handoff_id)
+    if planning_environment is not None:
+        from deerflow.compile.planning_environment import PLANNING_DEPENDENCY_PROMPT, PLANNING_DEPENDENCY_VERSION
+
+        if current_plan is not None or handoff is not None or planning_environment.closed or planning_environment.source_root != Path(source_root).resolve() or planning_environment.session_root != Path(session_root).resolve():
+            raise PlanContractError("规划查询必须绑定当前初始规划及源码/会话")
+        tools.extend(planning_environment.tools())
+        meter.ledger.append("planning.environment_tools", version=PLANNING_DEPENDENCY_VERSION)
     if harness is not None:
         prompt = harness.prompt(prompt, recovery=current_plan is not None)
         meter.ledger.append("harness.selected", name=harness.name, sha256=harness.fingerprint(), scope="initial_planning", applied=current_plan is None)
@@ -438,6 +447,8 @@ def propose_simple(
         meter.ledger.append("harness.selected", name=recovery_harness.name, sha256=recovery_harness.fingerprint(), scope="recovery", applied=True)
     # 当前执行策略独立追加，历史Harness共同提示与候选绑定保持原文。
     prompt += SOURCE_REVIEW_GUIDANCE
+    if planning_environment is not None:
+        prompt += PLANNING_DEPENDENCY_PROMPT
     if diagnostics is not None:
         prompt += RECOVERY_ENVIRONMENT_PROMPT
         if diagnostics.diagnostic_memory is not None:

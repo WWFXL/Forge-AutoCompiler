@@ -1,5 +1,8 @@
 # 历史研究材料目录
 
+E57工程后续（不增模型效果或项目分母）：[规划阶段依赖检查](2026-11-16-planning-dependency-check.md)。零Provider真实libffi前置查询→生成补包方案→原构建/交付/重建/清理通过，无恢复；只验证接线，真实模型主动检查与效率待观察。原件inventory0ed19e2f见报告。
+
+
 E57同项目经验利用观察（待审、不增独立分母、不入论文）：[已审核宏依赖经验结果](2026-11-16-libffi-macro-experience-results.md)，cpp-build-libffi-macro-experience-flash-v1一次。恢复核实并安装libltdl-dev，主库/交付/原归档重建/清理通过；初始9/恢复2共11请求、0.0432美元/85.55秒。支持本例经验被利用，历史费用差非迁移或稳定降本效果；原件inventory4c21279a见报告。
 
 
