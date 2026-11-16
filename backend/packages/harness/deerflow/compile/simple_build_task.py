@@ -399,18 +399,42 @@ def simple_agent_packet(task: PublicBuildTask, *, current_plan=None, handoff=Non
 
 
 def propose_simple(
-    *, model, task: PublicBuildTask, source_root, session_root, meter, current_plan=None, handoff=None, experience_bank=None, family=None, harness=None, recovery_harness=None, revision_validator=None, enforce_planning_tools=False
+    *,
+    model,
+    task: PublicBuildTask,
+    source_root,
+    session_root,
+    meter,
+    current_plan=None,
+    handoff=None,
+    experience_bank=None,
+    family=None,
+    harness=None,
+    recovery_harness=None,
+    revision_validator=None,
+    enforce_planning_tools=False,
+    diagnostics=None,
 ):
     """真实规划/方案恢复接点；所有读、输出、失败通过既有meter计量，无隐式重试。"""
     task = PublicBuildTask.model_validate(task)
     packet = simple_agent_packet(task, current_plan=current_plan, handoff=handoff)
     prompt = SIMPLE_PROMPT
+    tools = safe_readonly_tools(source_root, session_root)
+    if diagnostics is not None:
+        from deerflow.compile.recovery_environment import DIAGNOSTIC_VERSION, RECOVERY_ENVIRONMENT_PROMPT
+
+        if current_plan is None or handoff is None or diagnostics.handoff_id != handoff["handoff_id"]:
+            raise PlanContractError("容器诊断仅绑定当前恢复交接")
+        tools.extend(diagnostics.tools())
+        meter.ledger.append("recovery.environment_tools", version=DIAGNOSTIC_VERSION, handoff_id=diagnostics.handoff_id)
     if harness is not None:
         prompt = harness.prompt(prompt, recovery=current_plan is not None)
         meter.ledger.append("harness.selected", name=harness.name, sha256=harness.fingerprint(), scope="initial_planning", applied=current_plan is None)
     if recovery_harness is not None and current_plan is not None:
         prompt = recovery_harness.prompt(prompt)
         meter.ledger.append("harness.selected", name=recovery_harness.name, sha256=recovery_harness.fingerprint(), scope="recovery", applied=True)
+    if diagnostics is not None:
+        prompt += RECOVERY_ENVIRONMENT_PROMPT
     if experience_bank is not None:
         from deerflow.compile.simple_build_experience import SIMPLE_EXPERIENCE_PROMPT, select_simple_experience
 
@@ -440,7 +464,7 @@ def propose_simple(
         return "方案尚未执行。仅允许这一次" + label + "，请使用SimpleBuildActions提交完整reason字符串和steps列表；保留已读证据、任务与原测试。具体错误：" + str(error)[:4000]
 
     action_schema = simple_action_schema(current_plan, handoff)
-    agent = create_agent(model=model, tools=safe_readonly_tools(source_root, session_root), system_prompt=prompt, middleware=[meter], response_format=ToolStrategy(action_schema, handle_errors=correct_once))
+    agent = create_agent(model=model, tools=tools, system_prompt=prompt, middleware=[meter], response_format=ToolStrategy(action_schema, handle_errors=correct_once))
     evidence = meter.packet() if hasattr(meter, "packet") else {}
     # 公开材料白名单；只在任务开始固定源码包，后续通过完整工具对话携带新证据。
     context = PlanningContext({**packet, "source_packet": evidence.get("source_packet", [])}, enforce_tool_availability=enforce_planning_tools and current_plan is None)

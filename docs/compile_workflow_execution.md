@@ -117,3 +117,16 @@
 ## 初始规划工具约束消融入口
 
 研究入口可显式设置`enforce_planning_tools=True`：初始规划仅执行本次模型请求工具Schema中可用的调用；被拒调用明确反馈、计入预算，不产生新的读取证据。现有读取收敛阈值不变，产品默认关闭。此开关不影响恢复Agent。三组P0旧行为/P0约束/P4约束分别比较工具修正与提示增量，见`cpp-build-planning-tool-p4-comparison-flash-v1`；这项准备不等于模型效果已验证。
+
+## 恢复时的容器依赖查询（2026-11-16）
+
+`run_simple_system`的Forge恢复调用绑定`RecoveryEnvironment`，在原源码/日志读取之外提供两类工具；初始规划和强工具Agent不因此改变。直接调用`propose_simple`时须显式传入与活动交接绑定的`diagnostics`。
+
+- `search_build_files(query, scope)`：固定文本搜索`project/macros/headers/pkgconfig/dependencies`范围，返回路径、行号、片段及不完整标记。系统宏包含版本化aclocal目录；不依赖容器安装ripgrep。
+- `inspect_build_environment(kind, query)`：查询常见构建命令版本与实际路径、精确包状态/候选/文件/所属包、包名或文件索引、aclocal/pkg-config/编译器路径及指定开发环境变量。只读本地数据库；`apt-file`或索引不可用时明确返回`unavailable`，不自动安装或刷新索引。
+
+指导顺序为：用日志里的缺失名称搜索实际文件，核实提供者、安装状态和路径，再决定最小修复。无命中不等于功能被版本移除；证据不足不伪造宏。查询不执行任意模型Shell、不安装依赖、不修改成功阶段；修复仍提交完整方案，由Workflow继续执行。
+
+每次活动交接最多12次查询，另受原任务命令/时间预算约束。查询通过原runtime执行，按`diagnostic`保留命令、退出码、日志和耗时，同步命令frontier；不进入成功配方或重建脚本。搜索最多20条匹配、2000文件、16MB读取和5秒；单文件上限1MB，版本/包查询最多8KB输出、8秒，外层再受15秒及剩余预算限制。重复查询不因新命令ID被算作新知识。
+
+工程验证入口：`scripts/forge_recovery_environment_repair.py --output <新目录>`。使用脚本回复在真实libffi容器查询并提交预写修复，实际执行交付及干净重建；0 Provider，不能据此声称模型效率提升。细节见[修复报告](research/2026-11-16-recovery-environment-tools.md)。

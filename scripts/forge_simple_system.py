@@ -29,6 +29,7 @@ from deerflow.compile.manager import CompileSessionManager  # noqa: E402
 from deerflow.compile.plan_agent import PlanAgentLedger  # noqa: E402
 from deerflow.compile.plan_agent_canary import source_packet  # noqa: E402
 from deerflow.compile.plan_workflow import PlanBudget, PlanStep, _digest  # noqa: E402
+from deerflow.compile.recovery_environment import DIAGNOSTIC_VERSION, RecoveryEnvironment  # noqa: E402
 from deerflow.compile.simple_build_agents import SimpleBuildMeter, SimpleToolBuildService, run_simple_tool_agent  # noqa: E402
 from deerflow.compile.simple_build_experience import SimpleProjectRecipe, SimpleStateTargetBank, recipe_validation_succeeded, verified_simple_recipe  # noqa: E402
 from deerflow.compile.simple_build_runtime import SimpleBuildWorkflow  # noqa: E402
@@ -121,6 +122,7 @@ def run_simple_system(
             deadline=deadline,
             validation_scope=validation_scope,
             enforce_planning_tools=enforce_planning_tools,
+            recovery_environment_tools=DIAGNOSTIC_VERSION if method != "strong_tool_agent" else None,
             kind="zero_provider_engineering" if accepted_models == ("zero-provider-script",) else "requires_external_authorized_protocol",
         ),
     )
@@ -215,6 +217,7 @@ def run_simple_system(
                         harness=harness,
                         recovery_harness=recovery_harness,
                         revision_validator=workflow.validate_revision,
+                        diagnostics=RecoveryEnvironment(workflow, meter),
                     )
                 finally:
                     recovery_seconds += time.monotonic() - recovery_start

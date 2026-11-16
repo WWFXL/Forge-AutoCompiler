@@ -2379,6 +2379,21 @@ def test_repro_bundle_rejects_empty_explicit_recipe_without_replacing_existing_s
     assert build_path.read_text(encoding="utf-8") == "stale unsafe replay\n"
 
 
+def test_recovery_environment_queries_are_not_replay_build_steps(tmp_path: Path) -> None:
+    from deerflow.compile.recovery_environment import query_command
+
+    manager = CompileSessionManager(paths=make_test_paths(tmp_path))
+    session = manager.create_session(thread_id="recovery-query-recipe", repo_url="https://example.com/repo.git")
+    session.commit_sha = "a" * 40
+    query = BuildCommandRecord(stage="simple_postcheck", command=query_command("environment", "aclocal", kind="command"), role="diagnostic", workdir="/workspace/repo", exit_code=0)
+    session.commands.append(query)
+    ids = add_replayable_build_command(session)
+    recipe = build_explicit_recipe(session, ids)
+    assert query.command_id not in [step.command_id for step in recipe.steps]
+    with pytest.raises(operations.ReplayRecipeError):
+        build_explicit_recipe(session, [query.command_id, *ids])
+
+
 def test_repro_bundle_writes_separate_verification_script_and_fingerprints_policy(tmp_path: Path) -> None:
     manager = CompileSessionManager(paths=make_test_paths(tmp_path), parallel_jobs=3)
     session = manager.create_session(thread_id="thread-verify-recipe", repo_url="https://example.com/repo.git")
