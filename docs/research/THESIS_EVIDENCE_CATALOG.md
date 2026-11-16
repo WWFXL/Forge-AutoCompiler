@@ -1,5 +1,7 @@
 # 历史研究材料目录
 
+本轮方法演进材料（#807，不增实验分母、未入论文）：[Harness更新清单与LH-v0/LH-v1版本](2026-11-17-harness-update-inventory.md)，复用已有libffi正负轨迹，提供精确revision/组件哈希/提示与工具差异；历史环境和政策不同，未形成新增受控比较。
+
 E57同项目开发观察（结果待审、不增独立分母、不入论文）：[容量修复后libffi自主构建](2026-11-17-libffi-context-budget-results.md)，cpp-build-libffi-context-budget-flash-v1一次。初始8/恢复5共13请求、0.110703美元/120.43秒；恢复核实并安装libltdl-dev，原构建/主库/交付/干净重建/清理通过。最大实际输入42740、本地含余量62187，旧容量阻塞未再发生；不当前置规划改善或泛化降本。原件inventory4638cce7见报告。
 
 
