@@ -3,7 +3,13 @@
 论文选材固定入口：[硕士论文实验与证据索引](docs/research/THESIS_EVIDENCE_INDEX.md)，[历史材料目录](docs/research/THESIS_EVIDENCE_CATALOG.md)保留存量导航。当前完整稿为[论文v0.11工具Harness结果修订稿](docs/thesis/README.md)；E50–E52保存主构建系统及两轮Harness结果，既有完整任务、状态/恢复消融和两层经验继续按各自版本与分母使用。
 
 
-## 当前阶段（2026-11-16；#772依赖提供者与索引修复完成）
+## 当前阶段（2026-11-16；#774查询索引修复后的自主观察已准备）
+
+[协议](benchmarks/preregistrations/cpp-build-libffi-index-autonomous-flash-v1.md)、[入口](scripts/forge_libffi_index_autonomous.py)：一个libffi从零独立规划/恢复观察，固定Flash、P0工具约束、R2通用诊断/查询v2/后验文件审查，使用d483ffa7新查询镜像，不提供包名、旧方案、轨迹或经验。主库/交付/原归档干净重建/清理及依赖诊断分报；构建成功不要求找到指定包名。环境变化明确登记，不与旧单例作因果差值，不改E57或论文。
+
+默认材料检查、10相关测试及Ruff通过；Docker和不可变镜像可用。未重复上轮真实构建、未读取Provider凭据，新增模型费0。正式尚未启动；拟新增硬上限1美元、确认起1小时、一次无自动重试，未知用量/模型身份异常/清理失败停止追加调用。用户已要求执行，但旧单次授权不可复用，本身份尚待绑定费用及时窗。
+
+## 上一阶段（2026-11-16；#772依赖提供者与索引修复完成）
 
 [工程报告](docs/research/2026-11-16-dependency-provider-repair.md)：包名＋描述检索、精确包描述及索引可见性已接入恢复工具；索引缺失不当无提供者。新查询镜像d483ffa7仅加apt-file及两依赖和Packages/Contents，不预装libltdl-dev、不改旧默认；未来各方法统一镜像。实际libtool描述检索、ltdl.m4提供者与独立zlib头文件查询通过，宽泛同名头截断保留。
 
