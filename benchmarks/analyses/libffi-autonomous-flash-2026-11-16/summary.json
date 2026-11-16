@@ -1,0 +1,81 @@
+{
+  "identity": "cpp-build-libffi-autonomous-flash-v1",
+  "release_revision": "e785c5dc66beaf247cb6995bc7f06e567679b138",
+  "raw_root": "/home/yiwei/.codex/outputs/forge-libffi-autonomous-flash-2026-11-16-v1",
+  "status": "primary_completed",
+  "layers": {
+    "command_build_passed": true,
+    "primary_build_completed": true,
+    "delivery": "passed",
+    "author_tests": "not_required",
+    "executable_smoke": "not_applicable",
+    "final_verification_passed": true,
+    "clean_replay": "passed",
+    "full_completed": null,
+    "main_build_task_completed": true,
+    "reproducible_delivery_completed": true
+  },
+  "agent_usage": {
+    "model_requests": 55,
+    "recorded_tokens": 780187,
+    "agent_steps": 143,
+    "tool_calls": 88,
+    "commands": 8,
+    "elapsed_seconds": 533.2046607050579,
+    "input_tokens": 699660,
+    "output_tokens": 80527,
+    "estimated_cost_usd": 0.3065304,
+    "unknown_usage_requests": 0,
+    "cost_and_usage_complete": true,
+    "estimated_cost_usd_completed_responses": 0.3065304
+  },
+  "timings": {
+    "dependency_seconds": 11.762700720923021,
+    "configure_seconds": 18.10003908793442,
+    "recovery_execution_seconds": 16.622670197859406,
+    "build_seconds": 2.8635955781210214,
+    "result_location_seconds": 0.03884864901192486,
+    "primary_build_seconds": 536.1698719251435,
+    "time_to_primary_from_arm_start_seconds": 536.1713292449713,
+    "delivery_seconds": 0.1859217081218958,
+    "author_tests_seconds": 8.139992132782936e-05,
+    "clean_replay_seconds": 34.034400603035465,
+    "total_seconds_before_cleanup": 570.4470061659813,
+    "initial_planning_seconds": 72.36254415591247,
+    "recovery_agent_seconds": 429.651878020959
+  },
+  "wall_seconds": 573.9231127020903,
+  "source_unchanged": true,
+  "cleanup": {
+    "succeeded": true,
+    "stopped": true,
+    "removed": true
+  },
+  "phase_stats": {
+    "initial": {
+      "requests": 9,
+      "input_tokens": 101110,
+      "output_tokens": 11077,
+      "cost_usd": "0.0436254",
+      "tools": {
+        "list_source": 3,
+        "read_source": 9
+      }
+    },
+    "recovery": {
+      "requests": 46,
+      "input_tokens": 598550,
+      "output_tokens": 69450,
+      "cost_usd": "0.2629050",
+      "tools": {
+        "list_source": 8,
+        "read_source": 62,
+        "read_failure_log": 6
+      }
+    }
+  },
+  "accepted_proposals": 3,
+  "handoffs": 2,
+  "repair_method": "在/workspace/dependencies生成兼容m4，经ACLOCAL_PATH引入；最终宏将lt_cv_sys_symbol_underscore固定为no，未安装libltdl-dev",
+  "interpretation": "现有主构建/交付/重建标准通过；未正确定位缺失开发包，未验证替代宏与原检测语义等价，不外推其他平台或完整功能"
+}
