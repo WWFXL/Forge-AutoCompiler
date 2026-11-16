@@ -634,6 +634,12 @@
 
 ## 最近变更 (Recent Changes)
 
+- 2026-11-16 — #789完成依赖诊断改进后libffi一次自主观察，结果先审核，不修改论文。
+  - 文件: `docs/research/2026-11-16-libffi-dependency-diagnosis-results.md`, `benchmarks/analyses/libffi-dependency-diagnosis-2026-11-16/`, `RESEARCH_STATUS.md`。
+  - 证据: 11请求/165621Token/$0.0652518/162.16秒，主库、交付、原归档重建、清理通过；候选已送达但未核实，最终固定宏。原输入未变、187新增项后审；原件inventoryb28416ae，运行64bf7b79。
+  - 边界: 用户1美元/UTC10:42:38—11:42:38单次已消费，无活动Provider，不追加重试，不回填E57或新增独立项目。下一候选核实动作待用户审核。知识库MCP已恢复，不注入正式Agent。
+
+
 - 2026-11-16 — #787准备诊断动作改进后的libffi单次自主观察；正式0次、待新预算及时窗。
   - 文件: `scripts/forge_libffi_dependency_diagnosis.py`、`benchmarks/preregistrations/cpp-build-libffi-dependency-diagnosis-flash-v1.md`、`backend/tests/test_libffi_dependency_diagnosis_entry.py`、`RESEARCH_STATUS.md`。
   - 动机: 用户要求从零观察Flash是否采用前置诊断证据，复用已验证工程，仅检查新入口接线，不重复参考构建/全测。

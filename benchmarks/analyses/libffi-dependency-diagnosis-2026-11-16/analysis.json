@@ -1,0 +1,3847 @@
+{
+  "identity": "cpp-build-libffi-dependency-diagnosis-flash-v1",
+  "summary": {
+    "method": "forge",
+    "status": "primary_completed",
+    "source_unchanged": true,
+    "layers": {
+      "command_build_passed": true,
+      "primary_build_completed": true,
+      "delivery": "passed",
+      "author_tests": "not_required",
+      "executable_smoke": "not_applicable",
+      "final_verification_passed": true,
+      "clean_replay": "passed",
+      "full_completed": null,
+      "main_build_task_completed": true,
+      "reproducible_delivery_completed": true
+    },
+    "timings": {
+      "dependency_seconds": 14.881040298147127,
+      "recovery_diagnostic_seconds": 8.19700749637559,
+      "recovery_execution_seconds": 16.413687142077833,
+      "configure_seconds": 7.58373327087611,
+      "build_seconds": 2.668991964077577,
+      "result_location_seconds": 0.012209940003231168,
+      "primary_build_seconds": 134.86756117385812,
+      "time_to_primary_from_arm_start_seconds": 134.8694997599814,
+      "delivery_seconds": 0.49013242684304714,
+      "author_tests_seconds": 9.025516919791698e-05,
+      "clean_replay_seconds": 22.931851917877793,
+      "total_seconds_before_cleanup": 158.63929142896086,
+      "initial_planning_seconds": 13.944352491060272,
+      "recovery_agent_seconds": 92.35894676786847
+    },
+    "primary": {
+      "status": "passed",
+      "components": [
+        {
+          "name": "ffi",
+          "status": "passed",
+          "evidence": "固定作者普通主构建目标，见source_evidence；辅助示例及完整测试不列为主要交付",
+          "candidates": [
+            {
+              "alias": "libffi.so",
+              "path": "x86_64-pc-linux-gnu/.libs/libffi.so.8.1.4",
+              "kind": "shared_library",
+              "size": 72576,
+              "sha256": "1761ffc553b73d1d655817ba9e5ab735485fba665d17b00d4f9cf1c31572a453",
+              "mode": 493,
+              "platform": "x86_64",
+              "source": "new_file_after_current_source_extraction"
+            },
+            {
+              "alias": "libffi.a",
+              "path": "x86_64-pc-linux-gnu/.libs/libffi.a",
+              "kind": "static_library",
+              "size": 93406,
+              "sha256": "8ee94aaa027088ab8532096d5284ad0e0fa73a861b0ad8c959e4c67d377425ae",
+              "mode": 420,
+              "platform": "x86_64",
+              "source": "new_file_after_current_source_extraction"
+            }
+          ],
+          "selection_policy": "nearest-root-per-name-and-kind-v1",
+          "selected_paths": [
+            "x86_64-pc-linux-gnu/.libs/libffi.a",
+            "x86_64-pc-linux-gnu/.libs/libffi.so.8.1.4"
+          ]
+        }
+      ],
+      "artifacts": [
+        {
+          "alias": "libffi.a",
+          "path": "x86_64-pc-linux-gnu/.libs/libffi.a",
+          "kind": "static_library",
+          "size": 93406,
+          "sha256": "8ee94aaa027088ab8532096d5284ad0e0fa73a861b0ad8c959e4c67d377425ae",
+          "mode": 420,
+          "platform": "x86_64",
+          "source": "new_file_after_current_source_extraction"
+        },
+        {
+          "alias": "libffi.so",
+          "path": "x86_64-pc-linux-gnu/.libs/libffi.so.8.1.4",
+          "kind": "shared_library",
+          "size": 72576,
+          "sha256": "1761ffc553b73d1d655817ba9e5ab735485fba665d17b00d4f9cf1c31572a453",
+          "mode": 493,
+          "platform": "x86_64",
+          "source": "new_file_after_current_source_extraction"
+        }
+      ]
+    },
+    "author_test_records": [],
+    "author_test_selection": {
+      "route": "not_required",
+      "reason": "新主构建任务不要求完整作者测试"
+    },
+    "replayed_author_tests": false,
+    "session_status": "completed",
+    "replay_attempts": [
+      {
+        "attempt_id": "replay_a1a6947869c040e9bdc9cde84671324f",
+        "status": "passed",
+        "image": "sha256:d483ffa7b71b9545cff9555f6c92b6281a3f826ce006e2d09134cbdca92f8aa1",
+        "image_id": "sha256:d483ffa7b71b9545cff9555f6c92b6281a3f826ce006e2d09134cbdca92f8aa1",
+        "commit_sha": "3d0ce1e6fcf19f853894862abcbac0ae78a7be60",
+        "recipe_sha256": "b821d25237a445ba1221890e34a4d3007cd09bc4af0eb2fd135c0e463b41991f",
+        "comparison_policy": "successful-rebuild-v1",
+        "recipe_fingerprint": "f822391623153e19416b9038e9bd60cc902d66f223d38aa0741aeec14374d7e0",
+        "submit_attempt_id": null,
+        "primary_failure_classification": null,
+        "secondary_failure_classifications": [],
+        "timeout_seconds": 900,
+        "started_at": "2026-11-16T10:47:13.836042+00:00",
+        "completed_at": "2026-11-16T10:47:36.696934+00:00",
+        "duration_seconds": 22.861972,
+        "container_id": "f98f5db088b7927e6dcc330fa44afc63aa9343033a98c4ecacf45f7980376087",
+        "container_name": "deerflow-replay-simple-s-46e6b6a3-replay_a1a69",
+        "log_path": "simple-system/46e6b6a3c71e/replay/replay_a1a6947869c040e9bdc9cde84671324f/logs/build.log",
+        "exit_code": 0,
+        "verification_log_path": null,
+        "verification_exit_code": null,
+        "verification_recipe_sha256": null,
+        "cleanup_succeeded": true,
+        "failure_classification": null,
+        "checks": [
+          {
+            "name": "recipe_snapshot",
+            "target": "recipe/build.sh",
+            "command": "clean_replay",
+            "passed": true,
+            "exit_code": 0,
+            "log_path": null,
+            "summary": "Snapshotted the generated candidate recipe for this replay attempt.",
+            "expected": "b821d25237a445ba1221890e34a4d3007cd09bc4af0eb2fd135c0e463b41991f",
+            "actual": "b821d25237a445ba1221890e34a4d3007cd09bc4af0eb2fd135c0e463b41991f"
+          },
+          {
+            "name": "source_snapshot",
+            "target": "recipe/source.tar",
+            "command": "clean_replay",
+            "passed": true,
+            "exit_code": 0,
+            "log_path": null,
+            "summary": "Snapshotted the verified source archive for offline clean replay.",
+            "expected": "d5dd45924e8cf71d72aac04e377d7f8bc5b4d6f76d53c75522742e707e6098cd",
+            "actual": "d5dd45924e8cf71d72aac04e377d7f8bc5b4d6f76d53c75522742e707e6098cd"
+          },
+          {
+            "name": "image_identity",
+            "target": "sha256:d483ffa7b71b9545cff9555f6c92b6281a3f826ce006e2d09134cbdca92f8aa1",
+            "command": "clean_replay",
+            "passed": true,
+            "exit_code": 0,
+            "log_path": null,
+            "summary": "Replay will use the original container's immutable image ID.",
+            "expected": "sha256:d483ffa7b71b9545cff9555f6c92b6281a3f826ce006e2d09134cbdca92f8aa1",
+            "actual": "sha256:d483ffa7b71b9545cff9555f6c92b6281a3f826ce006e2d09134cbdca92f8aa1"
+          },
+          {
+            "name": "recipe_execution",
+            "target": "recipe/build.sh",
+            "command": "clean_replay",
+            "passed": true,
+            "exit_code": 0,
+            "log_path": "simple-system/46e6b6a3c71e/replay/replay_a1a6947869c040e9bdc9cde84671324f/logs/build.log",
+            "summary": "Candidate recipe completed successfully in the clean replay container.",
+            "expected": 0,
+            "actual": 0
+          },
+          {
+            "name": "artifact_set",
+            "target": "/artifacts",
+            "command": "clean_replay",
+            "passed": true,
+            "exit_code": 0,
+            "log_path": null,
+            "summary": "Replay produced the same relative artifact paths.",
+            "expected": [
+              "libffi.a",
+              "libffi.so.8",
+              "libffi.so.8.1.4"
+            ],
+            "actual": [
+              "libffi.a",
+              "libffi.so.8",
+              "libffi.so.8.1.4"
+            ]
+          },
+          {
+            "name": "artifact_1_type",
+            "target": "libffi.a",
+            "command": "clean_replay",
+            "passed": true,
+            "exit_code": 0,
+            "log_path": null,
+            "summary": "Replay artifact type check passed.",
+            "expected": "static_library",
+            "actual": "static_library"
+          },
+          {
+            "name": "artifact_1_non_empty",
+            "target": "libffi.a",
+            "command": "clean_replay",
+            "passed": true,
+            "exit_code": 0,
+            "log_path": null,
+            "summary": "Replay artifact non_empty check passed.",
+            "expected": "> 0 bytes",
+            "actual": 93406
+          },
+          {
+            "name": "artifact_1_smoke",
+            "target": "libffi.a",
+            "command": "clean_replay",
+            "passed": true,
+            "exit_code": 0,
+            "log_path": null,
+            "summary": "Replay artifact smoke check passed.",
+            "expected": {
+              "command": null,
+              "workdir": null,
+              "exit_code": null,
+              "output": null,
+              "output_sha256": null
+            },
+            "actual": {
+              "command": null,
+              "workdir": null,
+              "exit_code": null,
+              "output": null,
+              "output_sha256": null
+            }
+          },
+          {
+            "name": "artifact_2_type",
+            "target": "libffi.so.8",
+            "command": "clean_replay",
+            "passed": true,
+            "exit_code": 0,
+            "log_path": null,
+            "summary": "Replay artifact type check passed.",
+            "expected": "shared_library",
+            "actual": "shared_library"
+          },
+          {
+            "name": "artifact_2_non_empty",
+            "target": "libffi.so.8",
+            "command": "clean_replay",
+            "passed": true,
+            "exit_code": 0,
+            "log_path": null,
+            "summary": "Replay artifact non_empty check passed.",
+            "expected": "> 0 bytes",
+            "actual": 72576
+          },
+          {
+            "name": "artifact_2_smoke",
+            "target": "libffi.so.8",
+            "command": "clean_replay",
+            "passed": true,
+            "exit_code": 0,
+            "log_path": null,
+            "summary": "Replay artifact smoke check passed.",
+            "expected": {
+              "command": null,
+              "workdir": null,
+              "exit_code": null,
+              "output": null,
+              "output_sha256": null
+            },
+            "actual": {
+              "command": null,
+              "workdir": null,
+              "exit_code": null,
+              "output": null,
+              "output_sha256": null
+            }
+          },
+          {
+            "name": "artifact_3_type",
+            "target": "libffi.so.8.1.4",
+            "command": "clean_replay",
+            "passed": true,
+            "exit_code": 0,
+            "log_path": null,
+            "summary": "Replay artifact type check passed.",
+            "expected": "shared_library",
+            "actual": "shared_library"
+          },
+          {
+            "name": "artifact_3_non_empty",
+            "target": "libffi.so.8.1.4",
+            "command": "clean_replay",
+            "passed": true,
+            "exit_code": 0,
+            "log_path": null,
+            "summary": "Replay artifact non_empty check passed.",
+            "expected": "> 0 bytes",
+            "actual": 72576
+          },
+          {
+            "name": "artifact_3_smoke",
+            "target": "libffi.so.8.1.4",
+            "command": "clean_replay",
+            "passed": true,
+            "exit_code": 0,
+            "log_path": null,
+            "summary": "Replay artifact smoke check passed.",
+            "expected": {
+              "command": null,
+              "workdir": null,
+              "exit_code": null,
+              "output": null,
+              "output_sha256": null
+            },
+            "actual": {
+              "command": null,
+              "workdir": null,
+              "exit_code": null,
+              "output": null,
+              "output_sha256": null
+            }
+          },
+          {
+            "name": "container_cleanup",
+            "target": "deerflow-replay-simple-s-46e6b6a3-replay_a1a69",
+            "command": "clean_replay",
+            "passed": true,
+            "exit_code": 0,
+            "log_path": null,
+            "summary": "Replay container was removed.",
+            "expected": {
+              "stopped": true,
+              "removed": true
+            },
+            "actual": {
+              "stopped": true,
+              "removed": true
+            }
+          }
+        ],
+        "artifacts": [
+          {
+            "path": "libffi.a",
+            "expected_type": "static_library",
+            "actual_type": "static_library",
+            "expected_size_bytes": 93406,
+            "actual_size_bytes": 93406,
+            "expected_sha256": "8ee94aaa027088ab8532096d5284ad0e0fa73a861b0ad8c959e4c67d377425ae",
+            "actual_sha256": "8ee94aaa027088ab8532096d5284ad0e0fa73a861b0ad8c959e4c67d377425ae",
+            "expected_smoke_command": null,
+            "actual_smoke_command": null,
+            "expected_smoke_workdir": null,
+            "actual_smoke_workdir": null,
+            "expected_smoke_exit_code": null,
+            "actual_smoke_exit_code": null,
+            "expected_smoke_output": null,
+            "actual_smoke_output": null,
+            "expected_smoke_output_sha256": null,
+            "actual_smoke_output_sha256": null,
+            "type_matches": true,
+            "size_matches": true,
+            "sha256_matches": true,
+            "smoke_matches": true,
+            "non_empty": true,
+            "smoke_output_matches": true,
+            "diagnostic_differences": [],
+            "passed": true,
+            "mismatches": []
+          },
+          {
+            "path": "libffi.so.8",
+            "expected_type": "shared_library",
+            "actual_type": "shared_library",
+            "expected_size_bytes": 72576,
+            "actual_size_bytes": 72576,
+            "expected_sha256": "1761ffc553b73d1d655817ba9e5ab735485fba665d17b00d4f9cf1c31572a453",
+            "actual_sha256": "1761ffc553b73d1d655817ba9e5ab735485fba665d17b00d4f9cf1c31572a453",
+            "expected_smoke_command": null,
+            "actual_smoke_command": null,
+            "expected_smoke_workdir": null,
+            "actual_smoke_workdir": null,
+            "expected_smoke_exit_code": null,
+            "actual_smoke_exit_code": null,
+            "expected_smoke_output": null,
+            "actual_smoke_output": null,
+            "expected_smoke_output_sha256": null,
+            "actual_smoke_output_sha256": null,
+            "type_matches": true,
+            "size_matches": true,
+            "sha256_matches": true,
+            "smoke_matches": true,
+            "non_empty": true,
+            "smoke_output_matches": true,
+            "diagnostic_differences": [],
+            "passed": true,
+            "mismatches": []
+          },
+          {
+            "path": "libffi.so.8.1.4",
+            "expected_type": "shared_library",
+            "actual_type": "shared_library",
+            "expected_size_bytes": 72576,
+            "actual_size_bytes": 72576,
+            "expected_sha256": "1761ffc553b73d1d655817ba9e5ab735485fba665d17b00d4f9cf1c31572a453",
+            "actual_sha256": "1761ffc553b73d1d655817ba9e5ab735485fba665d17b00d4f9cf1c31572a453",
+            "expected_smoke_command": null,
+            "actual_smoke_command": null,
+            "expected_smoke_workdir": null,
+            "actual_smoke_workdir": null,
+            "expected_smoke_exit_code": null,
+            "actual_smoke_exit_code": null,
+            "expected_smoke_output": null,
+            "actual_smoke_output": null,
+            "expected_smoke_output_sha256": null,
+            "actual_smoke_output_sha256": null,
+            "type_matches": true,
+            "size_matches": true,
+            "sha256_matches": true,
+            "smoke_matches": true,
+            "non_empty": true,
+            "smoke_output_matches": true,
+            "diagnostic_differences": [],
+            "passed": true,
+            "mismatches": []
+          }
+        ],
+        "notes": []
+      }
+    ],
+    "validation_scope": "main_build",
+    "verification_issue": null,
+    "source_protection": {
+      "policy": "posthoc-review-v1",
+      "status": "pending_review",
+      "protected_inputs_unchanged": true,
+      "changes": [
+        {
+          "path": "Makefile",
+          "kind": "added",
+          "fields": [
+            "sha256",
+            "mode"
+          ],
+          "before": null,
+          "after": {
+            "sha256": "70f4e0b828352eec16b613cddd69e90ee8aeaf2628fc0adc0f6bffa0ccfaa88e",
+            "link": null,
+            "mode": 33188,
+            "inode": 27186604,
+            "ctime_ns": 1794826028974581886
+          }
+        },
+        {
+          "path": "Makefile.in",
+          "kind": "added",
+          "fields": [
+            "sha256",
+            "mode"
+          ],
+          "before": null,
+          "after": {
+            "sha256": "953ba3b871916939e75237a425787c13e9c9629542d79d17101deb7d3bf38494",
+            "link": null,
+            "mode": 33188,
+            "inode": 27186596,
+            "ctime_ns": 1794826021790482396
+          }
+        },
+        {
+          "path": "aclocal.m4",
+          "kind": "added",
+          "fields": [
+            "sha256",
+            "mode"
+          ],
+          "before": null,
+          "after": {
+            "sha256": "5d3a7542a99ebb60c282c2ee0f7667b40c8a7aabf670d8a1515ac11de0e18356",
+            "link": null,
+            "mode": 33188,
+            "inode": 27186537,
+            "ctime_ns": 1794826020275461446
+          }
+        },
+        {
+          "path": "autom4te.cache/output.0",
+          "kind": "added",
+          "fields": [
+            "sha256",
+            "mode"
+          ],
+          "before": null,
+          "after": {
+            "sha256": "1d0ba661e018b0d8518db8b2493da19850467a39eb1c11aea19af2687175454c",
+            "link": null,
+            "mode": 33188,
+            "inode": 27317275,
+            "ctime_ns": 1794826017726426219
+          }
+        },
+        {
+          "path": "autom4te.cache/output.1",
+          "kind": "added",
+          "fields": [
+            "sha256",
+            "mode"
+          ],
+          "before": null,
+          "after": {
+            "sha256": "1d0ba661e018b0d8518db8b2493da19850467a39eb1c11aea19af2687175454c",
+            "link": null,
+            "mode": 33188,
+            "inode": 27317292,
+            "ctime_ns": 1794826021220474513
+          }
+        },
+        {
+          "path": "autom4te.cache/output.2",
+          "kind": "added",
+          "fields": [
+            "sha256",
+            "mode"
+          ],
+          "before": null,
+          "after": {
+            "sha256": "1d0ba661e018b0d8518db8b2493da19850467a39eb1c11aea19af2687175454c",
+            "link": null,
+            "mode": 33188,
+            "inode": 27317284,
+            "ctime_ns": 1794826019837455390
+          }
+        },
+        {
+          "path": "autom4te.cache/output.3",
+          "kind": "added",
+          "fields": [
+            "sha256",
+            "mode"
+          ],
+          "before": null,
+          "after": {
+            "sha256": "ce4685a2adb1d5a5e44bce2cba7165ad72285123a0ff12811ca5bfde49192f2b",
+            "link": null,
+            "mode": 33188,
+            "inode": 27317286,
+            "ctime_ns": 1794826020646466575
+          }
+        },
+        {
+          "path": "autom4te.cache/requests",
+          "kind": "added",
+          "fields": [
+            "sha256",
+            "mode"
+          ],
+          "before": null,
+          "after": {
+            "sha256": "27e45a9673caca9f09c8d7af146b670b1e311fe8b5255c45237b550f2629e52b",
+            "link": null,
+            "mode": 33188,
+            "inode": 27317274,
+            "ctime_ns": 1794826021708481262
+          }
+        },
+        {
+          "path": "autom4te.cache/traces.0",
+          "kind": "added",
+          "fields": [
+            "sha256",
+            "mode"
+          ],
+          "before": null,
+          "after": {
+            "sha256": "88d6e3d5f3f9843ee142de71adc7c3b7eccef1f7a28b740bfcb36f51ca043d59",
+            "link": null,
+            "mode": 33188,
+            "inode": 27317276,
+            "ctime_ns": 1794826017725426206
+          }
+        },
+        {
+          "path": "autom4te.cache/traces.1",
+          "kind": "added",
+          "fields": [
+            "sha256",
+            "mode"
+          ],
+          "before": null,
+          "after": {
+            "sha256": "05d3f0152818b6b38d2998c0cfffe8ee0020bdbc5f90325ae90cba44cdf39965",
+            "link": null,
+            "mode": 33188,
+            "inode": 27317293,
+            "ctime_ns": 1794826021219474499
+          }
+        },
+        {
+          "path": "autom4te.cache/traces.2",
+          "kind": "added",
+          "fields": [
+            "sha256",
+            "mode"
+          ],
+          "before": null,
+          "after": {
+            "sha256": "9ee1e49bbf77bbe1642026ee232c7045f5d62b35fa484f86ea4924659bc66560",
+            "link": null,
+            "mode": 33188,
+            "inode": 27317285,
+            "ctime_ns": 1794826019837455390
+          }
+        },
+        {
+          "path": "autom4te.cache/traces.3",
+          "kind": "added",
+          "fields": [
+            "sha256",
+            "mode"
+          ],
+          "before": null,
+          "after": {
+            "sha256": "05d3f0152818b6b38d2998c0cfffe8ee0020bdbc5f90325ae90cba44cdf39965",
+            "link": null,
+            "mode": 33188,
+            "inode": 27317291,
+            "ctime_ns": 1794826020646466575
+          }
+        },
+        {
+          "path": "compile",
+          "kind": "added",
+          "fields": [
+            "sha256",
+            "mode"
+          ],
+          "before": null,
+          "after": {
+            "sha256": "c207b390aac6323062b982214a6c63448e53e6911107993abe96f35fe7a30a18",
+            "link": null,
+            "mode": 33261,
+            "inode": 27186592,
+            "ctime_ns": 1794826021716481373
+          }
+        },
+        {
+          "path": "configure",
+          "kind": "added",
+          "fields": [
+            "sha256",
+            "mode"
+          ],
+          "before": null,
+          "after": {
+            "sha256": "49aa9d0459590038dc2e5f2eb107a39be95b425ab098ac3a90267c8a1075215f",
+            "link": null,
+            "mode": 33261,
+            "inode": 27186590,
+            "ctime_ns": 1794826020821468995
+          }
+        },
+        {
+          "path": "depcomp",
+          "kind": "added",
+          "fields": [
+            "sha256",
+            "mode"
+          ],
+          "before": null,
+          "after": {
+            "sha256": "e44b49f71b265788187993090027193a6cd2b4718f9aa7be34412f537bce6873",
+            "link": null,
+            "mode": 33261,
+            "inode": 27186595,
+            "ctime_ns": 1794826021766482064
+          }
+        },
+        {
+          "path": "doc/Makefile.in",
+          "kind": "added",
+          "fields": [
+            "sha256",
+            "mode"
+          ],
+          "before": null,
+          "after": {
+            "sha256": "d340858d30ace066270ed196080255192a4694bb3ecfce2dfd61b7da88100921",
+            "link": null,
+            "mode": 33188,
+            "inode": 27186599,
+            "ctime_ns": 1794826021817482770
+          }
+        },
+        {
+          "path": "doc/mdate-sh",
+          "kind": "added",
+          "fields": [
+            "sha256",
+            "mode"
+          ],
+          "before": null,
+          "after": {
+            "sha256": "d2cdc464a268dfa3039f3c7f32f3d0901f8be3dab26645abe45a1a25c05a5a20",
+            "link": null,
+            "mode": 33261,
+            "inode": 27186597,
+            "ctime_ns": 1794826021801482549
+          }
+        },
+        {
+          "path": "doc/texinfo.tex",
+          "kind": "added",
+          "fields": [
+            "sha256",
+            "mode"
+          ],
+          "before": null,
+          "after": {
+            "sha256": "1d33f69c72e9bcd880fd02f2153c6475fc887042ae87569256cd8be009ce83b4",
+            "link": null,
+            "mode": 33188,
+            "inode": 27186598,
+            "ctime_ns": 1794826021806482618
+          }
+        },
+        {
+          "path": "fficonfig.h.in",
+          "kind": "added",
+          "fields": [
+            "sha256",
+            "mode"
+          ],
+          "before": null,
+          "after": {
+            "sha256": "df0a29670fc7047d6f947fe012443a08b2d1f19e44ff5f3d4a4ccd53edfb1f31",
+            "link": null,
+            "mode": 33188,
+            "inode": 27186591,
+            "ctime_ns": 1794826021266475149
+          }
+        },
+        {
+          "path": "include/Makefile.in",
+          "kind": "added",
+          "fields": [
+            "sha256",
+            "mode"
+          ],
+          "before": null,
+          "after": {
+            "sha256": "3338b0a6f9080a7a30e30ced78bad8c0fbd9c07351be103c5a67f7070b2d27e9",
+            "link": null,
+            "mode": 33188,
+            "inode": 27186600,
+            "ctime_ns": 1794826021833482991
+          }
+        },
+        {
+          "path": "install-sh",
+          "kind": "added",
+          "fields": [
+            "sha256",
+            "mode"
+          ],
+          "before": null,
+          "after": {
+            "sha256": "3d7488bebd0cfc9b5c440c55d5b44f1c6e2e3d3e19894821bae4a27f9307f1d2",
+            "link": null,
+            "mode": 33261,
+            "inode": 27186593,
+            "ctime_ns": 1794826021720481428
+          }
+        },
+        {
+          "path": "ltmain.sh",
+          "kind": "added",
+          "fields": [
+            "sha256",
+            "mode"
+          ],
+          "before": null,
+          "after": {
+            "sha256": "579a1445e6a9a8b0809a44aa9f908387d4a43a2a440c9b84ea979f2b4f17816c",
+            "link": null,
+            "mode": 33261,
+            "inode": 27186589,
+            "ctime_ns": 1794826018730440091
+          }
+        },
+        {
+          "path": "m4/libtool-usc-macro-compat.m4",
+          "kind": "added",
+          "fields": [
+            "sha256",
+            "mode"
+          ],
+          "before": null,
+          "after": {
+            "sha256": "21918df1273c59d38c5fb3eaf3c54fa666f589ca63b52aecf44185b71eb7f28c",
+            "link": null,
+            "mode": 33188,
+            "inode": 27317272,
+            "ctime_ns": 1794826015607396958
+          }
+        },
+        {
+          "path": "m4/libtool.m4",
+          "kind": "added",
+          "fields": [
+            "sha256",
+            "mode"
+          ],
+          "before": null,
+          "after": {
+            "sha256": "38a99c1d5072c1e0e1f45da415d39143d529b1052b73a60477e1bd6badf7e99f",
+            "link": null,
+            "mode": 33188,
+            "inode": 27317279,
+            "ctime_ns": 1794826018771440657
+          }
+        },
+        {
+          "path": "m4/ltoptions.m4",
+          "kind": "added",
+          "fields": [
+            "sha256",
+            "mode"
+          ],
+          "before": null,
+          "after": {
+            "sha256": "f3d4ed0426501308028dd7690cf343cb280479d637a2ebee6c289ec2e708df3b",
+            "link": null,
+            "mode": 33188,
+            "inode": 27317280,
+            "ctime_ns": 1794826018871442039
+          }
+        },
+        {
+          "path": "m4/ltsugar.m4",
+          "kind": "added",
+          "fields": [
+            "sha256",
+            "mode"
+          ],
+          "before": null,
+          "after": {
+            "sha256": "0896f153a5a40546566028a4272642ae291532f3e65c25fcae950c8812b8c265",
+            "link": null,
+            "mode": 33188,
+            "inode": 27317281,
+            "ctime_ns": 1794826018972443434
+          }
+        },
+        {
+          "path": "m4/ltversion.m4",
+          "kind": "added",
+          "fields": [
+            "sha256",
+            "mode"
+          ],
+          "before": null,
+          "after": {
+            "sha256": "2a6baf40b64f34234e0b76c7ff62b01a1f6bbf60089f4f74506b49f800ffaf9e",
+            "link": null,
+            "mode": 33188,
+            "inode": 27317282,
+            "ctime_ns": 1794826019071444803
+          }
+        },
+        {
+          "path": "m4/lt~obsolete.m4",
+          "kind": "added",
+          "fields": [
+            "sha256",
+            "mode"
+          ],
+          "before": null,
+          "after": {
+            "sha256": "8533006830e1ea9625fc5e4c060e653eedf9d5464a9b2f5f494244ee272e2e2f",
+            "link": null,
+            "mode": 33188,
+            "inode": 27317283,
+            "ctime_ns": 1794826019173446213
+          }
+        },
+        {
+          "path": "makefile.sed~",
+          "kind": "added",
+          "fields": [
+            "sha256",
+            "mode"
+          ],
+          "before": null,
+          "after": {
+            "sha256": "2e8f5d76f2b4d851e427749efb7f3abd09db4de19d085209951bcad352d3e0d1",
+            "link": null,
+            "mode": 33188,
+            "inode": 27186603,
+            "ctime_ns": 1794826028958581664
+          }
+        },
+        {
+          "path": "man/Makefile.in",
+          "kind": "added",
+          "fields": [
+            "sha256",
+            "mode"
+          ],
+          "before": null,
+          "after": {
+            "sha256": "31dd157a823595865bb63351a498d14079f7d847849fe9d95e455d51c15b080e",
+            "link": null,
+            "mode": 33188,
+            "inode": 27317277,
+            "ctime_ns": 1794826021847483185
+          }
+        },
+        {
+          "path": "missing",
+          "kind": "added",
+          "fields": [
+            "sha256",
+            "mode"
+          ],
+          "before": null,
+          "after": {
+            "sha256": "a9865db4f39574ff128c0312c367f070d20f81847817021ecce95fd70a610c9d",
+            "link": null,
+            "mode": 33261,
+            "inode": 27186594,
+            "ctime_ns": 1794826021724481484
+          }
+        },
+        {
+          "path": "testsuite/Makefile.in",
+          "kind": "added",
+          "fields": [
+            "sha256",
+            "mode"
+          ],
+          "before": null,
+          "after": {
+            "sha256": "c1ffb447d0c4cac0de86bda694b95843b1d7cb0744f65813b6446e911e95bf94",
+            "link": null,
+            "mode": 33188,
+            "inode": 27317278,
+            "ctime_ns": 1794826021860483364
+          }
+        },
+        {
+          "path": "x86_64-pc-linux-gnu/.libs/libffi.a",
+          "kind": "added",
+          "fields": [
+            "sha256",
+            "mode"
+          ],
+          "before": null,
+          "after": {
+            "sha256": "8ee94aaa027088ab8532096d5284ad0e0fa73a861b0ad8c959e4c67d377425ae",
+            "link": null,
+            "mode": 33188,
+            "inode": 27317520,
+            "ctime_ns": 1794826032886636161
+          }
+        },
+        {
+          "path": "x86_64-pc-linux-gnu/.libs/libffi.la",
+          "kind": "added",
+          "fields": [
+            "link",
+            "mode"
+          ],
+          "before": null,
+          "after": {
+            "sha256": null,
+            "link": "../libffi.la",
+            "mode": 41471,
+            "inode": 27317523,
+            "ctime_ns": 1794826032905636425
+          }
+        },
+        {
+          "path": "x86_64-pc-linux-gnu/.libs/libffi.lai",
+          "kind": "added",
+          "fields": [
+            "sha256",
+            "mode"
+          ],
+          "before": null,
+          "after": {
+            "sha256": "1d3e7022acfc6e9f30c585838d3e5631122e956aecd36636f6082da9573fcf20",
+            "link": null,
+            "mode": 33188,
+            "inode": 27317522,
+            "ctime_ns": 1794826032895636286
+          }
+        },
+        {
+          "path": "x86_64-pc-linux-gnu/.libs/libffi.so",
+          "kind": "added",
+          "fields": [
+            "link",
+            "mode"
+          ],
+          "before": null,
+          "after": {
+            "sha256": null,
+            "link": "libffi.so.8.1.4",
+            "mode": 41471,
+            "inode": 27317516,
+            "ctime_ns": 1794826032784634745
+          }
+        },
+        {
+          "path": "x86_64-pc-linux-gnu/.libs/libffi.so.8",
+          "kind": "added",
+          "fields": [
+            "link",
+            "mode"
+          ],
+          "before": null,
+          "after": {
+            "sha256": null,
+            "link": "libffi.so.8.1.4",
+            "mode": 41471,
+            "inode": 27317517,
+            "ctime_ns": 1794826032774634607
+          }
+        },
+        {
+          "path": "x86_64-pc-linux-gnu/.libs/libffi.so.8.1.4",
+          "kind": "added",
+          "fields": [
+            "sha256",
+            "mode"
+          ],
+          "before": null,
+          "after": {
+            "sha256": "1761ffc553b73d1d655817ba9e5ab735485fba665d17b00d4f9cf1c31572a453",
+            "link": null,
+            "mode": 33261,
+            "inode": 27317514,
+            "ctime_ns": 1794826032763634454
+          }
+        },
+        {
+          "path": "x86_64-pc-linux-gnu/.libs/libffi_convenience.a",
+          "kind": "added",
+          "fields": [
+            "sha256",
+            "mode"
+          ],
+          "before": null,
+          "after": {
+            "sha256": "336f9b10ceeab4634b6dbb644e11f7eb3eb8c2bd6db34af57d19de108080a767",
+            "link": null,
+            "mode": 33188,
+            "inode": 27317515,
+            "ctime_ns": 1794826032791634843
+          }
+        },
+        {
+          "path": "x86_64-pc-linux-gnu/.libs/libffi_convenience.la",
+          "kind": "added",
+          "fields": [
+            "link",
+            "mode"
+          ],
+          "before": null,
+          "after": {
+            "sha256": null,
+            "link": "../libffi_convenience.la",
+            "mode": 41471,
+            "inode": 27317519,
+            "ctime_ns": 1794826032823635287
+          }
+        },
+        {
+          "path": "x86_64-pc-linux-gnu/Makefile",
+          "kind": "added",
+          "fields": [
+            "sha256",
+            "mode"
+          ],
+          "before": null,
+          "after": {
+            "sha256": "e5c9fd6abd107e7051241107411b96e739c4548d242375f3fc84f13c34ada617",
+            "link": null,
+            "mode": 33188,
+            "inode": 27317309,
+            "ctime_ns": 1794826028808579585
+          }
+        },
+        {
+          "path": "x86_64-pc-linux-gnu/a.out",
+          "kind": "added",
+          "fields": [
+            "sha256",
+            "mode"
+          ],
+          "before": null,
+          "after": {
+            "sha256": "4cb8c28cc8ee5a38039c38bc50e3dedb623adb0da875c41f6e0698b70896553d",
+            "link": null,
+            "mode": 33261,
+            "inode": 27317301,
+            "ctime_ns": 1794826027235557782
+          }
+        },
+        {
+          "path": "x86_64-pc-linux-gnu/config.log",
+          "kind": "added",
+          "fields": [
+            "sha256",
+            "mode"
+          ],
+          "before": null,
+          "after": {
+            "sha256": "8b0afd31adfe84729fb839205cb0dc30ad81ac063886a3fd7012435ae5013d03",
+            "link": null,
+            "mode": 33188,
+            "inode": 27186580,
+            "ctime_ns": 1794826029846593979
+          }
+        },
+        {
+          "path": "x86_64-pc-linux-gnu/config.status",
+          "kind": "added",
+          "fields": [
+            "sha256",
+            "mode"
+          ],
+          "before": null,
+          "after": {
+            "sha256": "2f4e7dc170584946b1b4b25f7cd9702029dd8c2afd197a1569983ed0f620a487",
+            "link": null,
+            "mode": 33261,
+            "inode": 27317297,
+            "ctime_ns": 1794826028389573776
+          }
+        },
+        {
+          "path": "x86_64-pc-linux-gnu/doc/Makefile",
+          "kind": "added",
+          "fields": [
+            "sha256",
+            "mode"
+          ],
+          "before": null,
+          "after": {
+            "sha256": "05895790638766d70b71ffc2b44ac7bec25f683a37a73bdea2413a114dfe7aaf",
+            "link": null,
+            "mode": 33188,
+            "inode": 27317315,
+            "ctime_ns": 1794826028908580971
+          }
+        },
+        {
+          "path": "x86_64-pc-linux-gnu/fficonfig.h",
+          "kind": "added",
+          "fields": [
+            "sha256",
+            "mode"
+          ],
+          "before": null,
+          "after": {
+            "sha256": "cf02ff5a35ee9ea11d40bf30d8a7eb0a00bcfd6a8359a4bde99b16ff1f26ec37",
+            "link": null,
+            "mode": 33188,
+            "inode": 27317317,
+            "ctime_ns": 1794826028947581512
+          }
+        },
+        {
+          "path": "x86_64-pc-linux-gnu/include/Makefile",
+          "kind": "added",
+          "fields": [
+            "sha256",
+            "mode"
+          ],
+          "before": null,
+          "after": {
+            "sha256": "78f0e5d7d7f1717d0b85604900ef94478496682a75786585e1106a59fb70384a",
+            "link": null,
+            "mode": 33188,
+            "inode": 27317307,
+            "ctime_ns": 1794826028748578753
+          }
+        },
+        {
+          "path": "x86_64-pc-linux-gnu/include/ffi.h",
+          "kind": "added",
+          "fields": [
+            "sha256",
+            "mode"
+          ],
+          "before": null,
+          "after": {
+            "sha256": "3ee34656ccd20890b2f9a11eaec8a2ada058b371950c3f9a8e61fe3010662f19",
+            "link": null,
+            "mode": 33188,
+            "inode": 27317308,
+            "ctime_ns": 1794826028780579197
+          }
+        },
+        {
+          "path": "x86_64-pc-linux-gnu/include/ffitarget.h",
+          "kind": "added",
+          "fields": [
+            "sha256",
+            "mode"
+          ],
+          "before": null,
+          "after": {
+            "sha256": "45e4fd2585aaed711e4fa3d1377b70c8e54dcdc56bdf402fa23a8816d19cc58a",
+            "link": null,
+            "mode": 33188,
+            "inode": 27317302,
+            "ctime_ns": 1794826029737592467
+          }
+        },
+        {
+          "path": "x86_64-pc-linux-gnu/libffi.la",
+          "kind": "added",
+          "fields": [
+            "sha256",
+            "mode"
+          ],
+          "before": null,
+          "after": {
+            "sha256": "37331ee2d0b0f3a54b1dec05bd51a6f036d68527d0130702af863aadb32a9ffb",
+            "link": null,
+            "mode": 33188,
+            "inode": 27317521,
+            "ctime_ns": 1794826032893636259
+          }
+        },
+        {
+          "path": "x86_64-pc-linux-gnu/libffi.map",
+          "kind": "added",
+          "fields": [
+            "sha256",
+            "mode"
+          ],
+          "before": null,
+          "after": {
+            "sha256": "09f0a291ff4659fd6fba5922ae4be289d317d44f2c699e55b551f7beb139d1f7",
+            "link": null,
+            "mode": 33188,
+            "inode": 27317303,
+            "ctime_ns": 1794826030513603230
+          }
+        },
+        {
+          "path": "x86_64-pc-linux-gnu/libffi.pc",
+          "kind": "added",
+          "fields": [
+            "sha256",
+            "mode"
+          ],
+          "before": null,
+          "after": {
+            "sha256": "ad9e28c90f8fd38bf78e6c434a2aecd872baddb94da5af97c04a078428668eb2",
+            "link": null,
+            "mode": 33188,
+            "inode": 27317316,
+            "ctime_ns": 1794826028932581304
+          }
+        },
+        {
+          "path": "x86_64-pc-linux-gnu/libffi_convenience.la",
+          "kind": "added",
+          "fields": [
+            "sha256",
+            "mode"
+          ],
+          "before": null,
+          "after": {
+            "sha256": "f05fe2019cb35688c39c5d26088e95d43f84393851bc651009d26f0325e6dd9a",
+            "link": null,
+            "mode": 33188,
+            "inode": 27317518,
+            "ctime_ns": 1794826032798634940
+          }
+        },
+        {
+          "path": "x86_64-pc-linux-gnu/libtool",
+          "kind": "added",
+          "fields": [
+            "sha256",
+            "mode"
+          ],
+          "before": null,
+          "after": {
+            "sha256": "240f441ab57cdb2a61bbc1fc67a6b23f12bbff5e3efd68cba840800339b2dc01",
+            "link": null,
+            "mode": 33261,
+            "inode": 27317483,
+            "ctime_ns": 1794826029726592314
+          }
+        },
+        {
+          "path": "x86_64-pc-linux-gnu/local.exp",
+          "kind": "added",
+          "fields": [
+            "sha256",
+            "mode"
+          ],
+          "before": null,
+          "after": {
+            "sha256": "5f2a23b729dacbd82b0cb25cb5669dfd8a15efcb59da68e147110a06cd3af490",
+            "link": null,
+            "mode": 33188,
+            "inode": 27317296,
+            "ctime_ns": 1794826026521547889
+          }
+        },
+        {
+          "path": "x86_64-pc-linux-gnu/man/Makefile",
+          "kind": "added",
+          "fields": [
+            "sha256",
+            "mode"
+          ],
+          "before": null,
+          "after": {
+            "sha256": "9065e8e41e4874cacac052667a78baa1561e5ed4a9a7f20a2981687833ada204",
+            "link": null,
+            "mode": 33188,
+            "inode": 27317313,
+            "ctime_ns": 1794826028874580500
+          }
+        },
+        {
+          "path": "x86_64-pc-linux-gnu/src/.deps/.dirstamp",
+          "kind": "added",
+          "fields": [
+            "sha256",
+            "mode"
+          ],
+          "before": null,
+          "after": {
+            "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+            "link": null,
+            "mode": 33188,
+            "inode": 27317298,
+            "ctime_ns": 1794826030491602925
+          }
+        },
+        {
+          "path": "x86_64-pc-linux-gnu/src/.deps/closures.Plo",
+          "kind": "added",
+          "fields": [
+            "sha256",
+            "mode"
+          ],
+          "before": null,
+          "after": {
+            "sha256": "7774ca9cd23ac40011287161a7551fdb4c51ba1e9352f0c25d7dedd534ca41bc",
+            "link": null,
+            "mode": 33188,
+            "inode": 27317498,
+            "ctime_ns": 1794826032157626042
+          }
+        },
+        {
+          "path": "x86_64-pc-linux-gnu/src/.deps/debug.Plo",
+          "kind": "added",
+          "fields": [
+            "sha256",
+            "mode"
+          ],
+          "before": null,
+          "after": {
+            "sha256": "ddb1c8705176da86c285112f625f6a732bf7353b0a17835e8bcbc27c0e4243d9",
+            "link": null,
+            "mode": 33188,
+            "inode": 27317323,
+            "ctime_ns": 1794826029027582621
+          }
+        },
+        {
+          "path": "x86_64-pc-linux-gnu/src/.deps/java_raw_api.Plo",
+          "kind": "added",
+          "fields": [
+            "sha256",
+            "mode"
+          ],
+          "before": null,
+          "after": {
+            "sha256": "7c4808ecc0d5e80897d694c9abf4b01b1630678289e5af676cdab0ae80d0e4e0",
+            "link": null,
+            "mode": 33188,
+            "inode": 27317326,
+            "ctime_ns": 1794826031099611360
+          }
+        },
+        {
+          "path": "x86_64-pc-linux-gnu/src/.deps/prep_cif.Plo",
+          "kind": "added",
+          "fields": [
+            "sha256",
+            "mode"
+          ],
+          "before": null,
+          "after": {
+            "sha256": "feb3037e8277bcff78129efd7b27ff15da668410d7af0d5bce6f74fe4d59b884",
+            "link": null,
+            "mode": 33188,
+            "inode": 27317328,
+            "ctime_ns": 1794826030829607614
+          }
+        },
+        {
+          "path": "x86_64-pc-linux-gnu/src/.deps/raw_api.Plo",
+          "kind": "added",
+          "fields": [
+            "sha256",
+            "mode"
+          ],
+          "before": null,
+          "after": {
+            "sha256": "7ea0b077b30373c2e94906188e386bd63d5b87d3616b4ae8118805566d99d66b",
+            "link": null,
+            "mode": 33188,
+            "inode": 27317325,
+            "ctime_ns": 1794826030965609501
+          }
+        },
+        {
+          "path": "x86_64-pc-linux-gnu/src/.deps/tramp.Plo",
+          "kind": "added",
+          "fields": [
+            "sha256",
+            "mode"
+          ],
+          "before": null,
+          "after": {
+            "sha256": "178397f0c9a6dbc5dbd1909906aa4c8af9040016f598486ce7ce013dfd51b051",
+            "link": null,
+            "mode": 33188,
+            "inode": 27317324,
+            "ctime_ns": 1794826031432615981
+          }
+        },
+        {
+          "path": "x86_64-pc-linux-gnu/src/.deps/types.Plo",
+          "kind": "added",
+          "fields": [
+            "sha256",
+            "mode"
+          ],
+          "before": null,
+          "after": {
+            "sha256": "9715187139f05228ff507eb2a4e80fe8c134871885ab59b1a7d962cfaa4c243a",
+            "link": null,
+            "mode": 33188,
+            "inode": 27317305,
+            "ctime_ns": 1794826030707605922
+          }
+        },
+        {
+          "path": "x86_64-pc-linux-gnu/src/.dirstamp",
+          "kind": "added",
+          "fields": [
+            "sha256",
+            "mode"
+          ],
+          "before": null,
+          "after": {
+            "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+            "link": null,
+            "mode": 33188,
+            "inode": 27317295,
+            "ctime_ns": 1794826030490602912
+          }
+        },
+        {
+          "path": "x86_64-pc-linux-gnu/src/.libs/closures.o",
+          "kind": "added",
+          "fields": [
+            "sha256",
+            "mode"
+          ],
+          "before": null,
+          "after": {
+            "sha256": "542f6691a5b9af17d42971aa83a304f5db0a35e3ffac9e81f7b26f552e2606f9",
+            "link": null,
+            "mode": 33188,
+            "inode": 27317499,
+            "ctime_ns": 1794826031592618201
+          }
+        },
+        {
+          "path": "x86_64-pc-linux-gnu/src/.libs/java_raw_api.o",
+          "kind": "added",
+          "fields": [
+            "sha256",
+            "mode"
+          ],
+          "before": null,
+          "after": {
+            "sha256": "6aa25f4325ff844fd1873b9aa8c56662adac1638cde622ace20629eef6dbbbfc",
+            "link": null,
+            "mode": 33188,
+            "inode": 27317492,
+            "ctime_ns": 1794826031003610028
+          }
+        },
+        {
+          "path": "x86_64-pc-linux-gnu/src/.libs/prep_cif.o",
+          "kind": "added",
+          "fields": [
+            "sha256",
+            "mode"
+          ],
+          "before": null,
+          "after": {
+            "sha256": "1644c0e6bcdb38a29ae1c0c475981a1df1646c2a9ecf991fb194705bc7dde2e3",
+            "link": null,
+            "mode": 33188,
+            "inode": 27317486,
+            "ctime_ns": 1794826030716606047
+          }
+        },
+        {
+          "path": "x86_64-pc-linux-gnu/src/.libs/raw_api.o",
+          "kind": "added",
+          "fields": [
+            "sha256",
+            "mode"
+          ],
+          "before": null,
+          "after": {
+            "sha256": "49efc4a0e45e78d889b85683d5fdf99c82a6155745d2f69f630dc95ab03896d9",
+            "link": null,
+            "mode": 33188,
+            "inode": 27317489,
+            "ctime_ns": 1794826030873608225
+          }
+        },
+        {
+          "path": "x86_64-pc-linux-gnu/src/.libs/tramp.o",
+          "kind": "added",
+          "fields": [
+            "sha256",
+            "mode"
+          ],
+          "before": null,
+          "after": {
+            "sha256": "b0f9a761c937b60f1128ef0fff438a8a80f0501b81fc397e6e061e1a8d4a55f0",
+            "link": null,
+            "mode": 33188,
+            "inode": 27317495,
+            "ctime_ns": 1794826031310614288
+          }
+        },
+        {
+          "path": "x86_64-pc-linux-gnu/src/.libs/types.o",
+          "kind": "added",
+          "fields": [
+            "sha256",
+            "mode"
+          ],
+          "before": null,
+          "after": {
+            "sha256": "763dfa1c6eff7530836cb9ced91ffedeba9d4eca42193fd474c189e4961ee1be",
+            "link": null,
+            "mode": 33188,
+            "inode": 27317319,
+            "ctime_ns": 1794826030659605256
+          }
+        },
+        {
+          "path": "x86_64-pc-linux-gnu/src/aarch64/.deps/ffi.Plo",
+          "kind": "added",
+          "fields": [
+            "sha256",
+            "mode"
+          ],
+          "before": null,
+          "after": {
+            "sha256": "ddb1c8705176da86c285112f625f6a732bf7353b0a17835e8bcbc27c0e4243d9",
+            "link": null,
+            "mode": 33188,
+            "inode": 27317331,
+            "ctime_ns": 1794826029069583204
+          }
+        },
+        {
+          "path": "x86_64-pc-linux-gnu/src/aarch64/.deps/sysv.Plo",
+          "kind": "added",
+          "fields": [
+            "sha256",
+            "mode"
+          ],
+          "before": null,
+          "after": {
+            "sha256": "ddb1c8705176da86c285112f625f6a732bf7353b0a17835e8bcbc27c0e4243d9",
+            "link": null,
+            "mode": 33188,
+            "inode": 27317332,
+            "ctime_ns": 1794826029076583301
+          }
+        },
+        {
+          "path": "x86_64-pc-linux-gnu/src/aarch64/.deps/win64_armasm.Plo",
+          "kind": "added",
+          "fields": [
+            "sha256",
+            "mode"
+          ],
+          "before": null,
+          "after": {
+            "sha256": "ddb1c8705176da86c285112f625f6a732bf7353b0a17835e8bcbc27c0e4243d9",
+            "link": null,
+            "mode": 33188,
+            "inode": 27317333,
+            "ctime_ns": 1794826029082583384
+          }
+        },
+        {
+          "path": "x86_64-pc-linux-gnu/src/alpha/.deps/ffi.Plo",
+          "kind": "added",
+          "fields": [
+            "sha256",
+            "mode"
+          ],
+          "before": null,
+          "after": {
+            "sha256": "ddb1c8705176da86c285112f625f6a732bf7353b0a17835e8bcbc27c0e4243d9",
+            "link": null,
+            "mode": 33188,
+            "inode": 27317336,
+            "ctime_ns": 1794826029090583495
+          }
+        },
+        {
+          "path": "x86_64-pc-linux-gnu/src/alpha/.deps/osf.Plo",
+          "kind": "added",
+          "fields": [
+            "sha256",
+            "mode"
+          ],
+          "before": null,
+          "after": {
+            "sha256": "ddb1c8705176da86c285112f625f6a732bf7353b0a17835e8bcbc27c0e4243d9",
+            "link": null,
+            "mode": 33188,
+            "inode": 27317337,
+            "ctime_ns": 1794826029097583592
+          }
+        },
+        {
+          "path": "x86_64-pc-linux-gnu/src/arc/.deps/arcompact.Plo",
+          "kind": "added",
+          "fields": [
+            "sha256",
+            "mode"
+          ],
+          "before": null,
+          "after": {
+            "sha256": "ddb1c8705176da86c285112f625f6a732bf7353b0a17835e8bcbc27c0e4243d9",
+            "link": null,
+            "mode": 33188,
+            "inode": 27317340,
+            "ctime_ns": 1794826029104583689
+          }
+        },
+        {
+          "path": "x86_64-pc-linux-gnu/src/arc/.deps/ffi.Plo",
+          "kind": "added",
+          "fields": [
+            "sha256",
+            "mode"
+          ],
+          "before": null,
+          "after": {
+            "sha256": "ddb1c8705176da86c285112f625f6a732bf7353b0a17835e8bcbc27c0e4243d9",
+            "link": null,
+            "mode": 33188,
+            "inode": 27317341,
+            "ctime_ns": 1794826029110583772
+          }
+        },
+        {
+          "path": "x86_64-pc-linux-gnu/src/arm/.deps/ffi.Plo",
+          "kind": "added",
+          "fields": [
+            "sha256",
+            "mode"
+          ],
+          "before": null,
+          "after": {
+            "sha256": "ddb1c8705176da86c285112f625f6a732bf7353b0a17835e8bcbc27c0e4243d9",
+            "link": null,
+            "mode": 33188,
+            "inode": 27317344,
+            "ctime_ns": 1794826029118583883
+          }
+        },
+        {
+          "path": "x86_64-pc-linux-gnu/src/arm/.deps/sysv.Plo",
+          "kind": "added",
+          "fields": [
+            "sha256",
+            "mode"
+          ],
+          "before": null,
+          "after": {
+            "sha256": "ddb1c8705176da86c285112f625f6a732bf7353b0a17835e8bcbc27c0e4243d9",
+            "link": null,
+            "mode": 33188,
+            "inode": 27317345,
+            "ctime_ns": 1794826029125583980
+          }
+        },
+        {
+          "path": "x86_64-pc-linux-gnu/src/arm/.deps/sysv_msvc_arm32.Plo",
+          "kind": "added",
+          "fields": [
+            "sha256",
+            "mode"
+          ],
+          "before": null,
+          "after": {
+            "sha256": "ddb1c8705176da86c285112f625f6a732bf7353b0a17835e8bcbc27c0e4243d9",
+            "link": null,
+            "mode": 33188,
+            "inode": 27317346,
+            "ctime_ns": 1794826029131584063
+          }
+        },
+        {
+          "path": "x86_64-pc-linux-gnu/src/avr32/.deps/ffi.Plo",
+          "kind": "added",
+          "fields": [
+            "sha256",
+            "mode"
+          ],
+          "before": null,
+          "after": {
+            "sha256": "ddb1c8705176da86c285112f625f6a732bf7353b0a17835e8bcbc27c0e4243d9",
+            "link": null,
+            "mode": 33188,
+            "inode": 27317349,
+            "ctime_ns": 1794826029138584160
+          }
+        },
+        {
+          "path": "x86_64-pc-linux-gnu/src/avr32/.deps/sysv.Plo",
+          "kind": "added",
+          "fields": [
+            "sha256",
+            "mode"
+          ],
+          "before": null,
+          "after": {
+            "sha256": "ddb1c8705176da86c285112f625f6a732bf7353b0a17835e8bcbc27c0e4243d9",
+            "link": null,
+            "mode": 33188,
+            "inode": 27317350,
+            "ctime_ns": 1794826029146584271
+          }
+        },
+        {
+          "path": "x86_64-pc-linux-gnu/src/bfin/.deps/ffi.Plo",
+          "kind": "added",
+          "fields": [
+            "sha256",
+            "mode"
+          ],
+          "before": null,
+          "after": {
+            "sha256": "ddb1c8705176da86c285112f625f6a732bf7353b0a17835e8bcbc27c0e4243d9",
+            "link": null,
+            "mode": 33188,
+            "inode": 27317353,
+            "ctime_ns": 1794826029153584368
+          }
+        },
+        {
+          "path": "x86_64-pc-linux-gnu/src/bfin/.deps/sysv.Plo",
+          "kind": "added",
+          "fields": [
+            "sha256",
+            "mode"
+          ],
+          "before": null,
+          "after": {
+            "sha256": "ddb1c8705176da86c285112f625f6a732bf7353b0a17835e8bcbc27c0e4243d9",
+            "link": null,
+            "mode": 33188,
+            "inode": 27317354,
+            "ctime_ns": 1794826029159584451
+          }
+        },
+        {
+          "path": "x86_64-pc-linux-gnu/src/closures.lo",
+          "kind": "added",
+          "fields": [
+            "sha256",
+            "mode"
+          ],
+          "before": null,
+          "after": {
+            "sha256": "93c5cf132fbf0b694e86ff8b8fcf0a9bb835db769b23c4ebedd01e43e738c7e8",
+            "link": null,
+            "mode": 33188,
+            "inode": 27317507,
+            "ctime_ns": 1794826032154626000
+          }
+        },
+        {
+          "path": "x86_64-pc-linux-gnu/src/closures.o",
+          "kind": "added",
+          "fields": [
+            "sha256",
+            "mode"
+          ],
+          "before": null,
+          "after": {
+            "sha256": "542f6691a5b9af17d42971aa83a304f5db0a35e3ffac9e81f7b26f552e2606f9",
+            "link": null,
+            "mode": 33188,
+            "inode": 27317476,
+            "ctime_ns": 1794826032148625917
+          }
+        },
+        {
+          "path": "x86_64-pc-linux-gnu/src/cris/.deps/ffi.Plo",
+          "kind": "added",
+          "fields": [
+            "sha256",
+            "mode"
+          ],
+          "before": null,
+          "after": {
+            "sha256": "ddb1c8705176da86c285112f625f6a732bf7353b0a17835e8bcbc27c0e4243d9",
+            "link": null,
+            "mode": 33188,
+            "inode": 27317357,
+            "ctime_ns": 1794826029166584549
+          }
+        },
+        {
+          "path": "x86_64-pc-linux-gnu/src/cris/.deps/sysv.Plo",
+          "kind": "added",
+          "fields": [
+            "sha256",
+            "mode"
+          ],
+          "before": null,
+          "after": {
+            "sha256": "ddb1c8705176da86c285112f625f6a732bf7353b0a17835e8bcbc27c0e4243d9",
+            "link": null,
+            "mode": 33188,
+            "inode": 27317358,
+            "ctime_ns": 1794826029173584646
+          }
+        },
+        {
+          "path": "x86_64-pc-linux-gnu/src/csky/.deps/ffi.Plo",
+          "kind": "added",
+          "fields": [
+            "sha256",
+            "mode"
+          ],
+          "before": null,
+          "after": {
+            "sha256": "ddb1c8705176da86c285112f625f6a732bf7353b0a17835e8bcbc27c0e4243d9",
+            "link": null,
+            "mode": 33188,
+            "inode": 27317361,
+            "ctime_ns": 1794826029180584743
+          }
+        },
+        {
+          "path": "x86_64-pc-linux-gnu/src/csky/.deps/sysv.Plo",
+          "kind": "added",
+          "fields": [
+            "sha256",
+            "mode"
+          ],
+          "before": null,
+          "after": {
+            "sha256": "ddb1c8705176da86c285112f625f6a732bf7353b0a17835e8bcbc27c0e4243d9",
+            "link": null,
+            "mode": 33188,
+            "inode": 27317362,
+            "ctime_ns": 1794826029187584840
+          }
+        },
+        {
+          "path": "x86_64-pc-linux-gnu/src/frv/.deps/eabi.Plo",
+          "kind": "added",
+          "fields": [
+            "sha256",
+            "mode"
+          ],
+          "before": null,
+          "after": {
+            "sha256": "ddb1c8705176da86c285112f625f6a732bf7353b0a17835e8bcbc27c0e4243d9",
+            "link": null,
+            "mode": 33188,
+            "inode": 27317365,
+            "ctime_ns": 1794826029194584937
+          }
+        },
+        {
+          "path": "x86_64-pc-linux-gnu/src/frv/.deps/ffi.Plo",
+          "kind": "added",
+          "fields": [
+            "sha256",
+            "mode"
+          ],
+          "before": null,
+          "after": {
+            "sha256": "ddb1c8705176da86c285112f625f6a732bf7353b0a17835e8bcbc27c0e4243d9",
+            "link": null,
+            "mode": 33188,
+            "inode": 27317366,
+            "ctime_ns": 1794826029201585034
+          }
+        },
+        {
+          "path": "x86_64-pc-linux-gnu/src/ia64/.deps/ffi.Plo",
+          "kind": "added",
+          "fields": [
+            "sha256",
+            "mode"
+          ],
+          "before": null,
+          "after": {
+            "sha256": "ddb1c8705176da86c285112f625f6a732bf7353b0a17835e8bcbc27c0e4243d9",
+            "link": null,
+            "mode": 33188,
+            "inode": 27317369,
+            "ctime_ns": 1794826029208585131
+          }
+        },
+        {
+          "path": "x86_64-pc-linux-gnu/src/ia64/.deps/unix.Plo",
+          "kind": "added",
+          "fields": [
+            "sha256",
+            "mode"
+          ],
+          "before": null,
+          "after": {
+            "sha256": "ddb1c8705176da86c285112f625f6a732bf7353b0a17835e8bcbc27c0e4243d9",
+            "link": null,
+            "mode": 33188,
+            "inode": 27317370,
+            "ctime_ns": 1794826029215585228
+          }
+        },
+        {
+          "path": "x86_64-pc-linux-gnu/src/java_raw_api.lo",
+          "kind": "added",
+          "fields": [
+            "sha256",
+            "mode"
+          ],
+          "before": null,
+          "after": {
+            "sha256": "f383b76ad8a0e677e2e666e42cd2cdfc9fb12e6b3a2dd43453e8a78a46f7acf2",
+            "link": null,
+            "mode": 33188,
+            "inode": 27317494,
+            "ctime_ns": 1794826031095611305
+          }
+        },
+        {
+          "path": "x86_64-pc-linux-gnu/src/java_raw_api.o",
+          "kind": "added",
+          "fields": [
+            "sha256",
+            "mode"
+          ],
+          "before": null,
+          "after": {
+            "sha256": "462253189a86dad99fa3359da166a8512a63ad905ea1edfa78a2eaa20f0f6aa5",
+            "link": null,
+            "mode": 33188,
+            "inode": 27317493,
+            "ctime_ns": 1794826031089611221
+          }
+        },
+        {
+          "path": "x86_64-pc-linux-gnu/src/kvx/.deps/ffi.Plo",
+          "kind": "added",
+          "fields": [
+            "sha256",
+            "mode"
+          ],
+          "before": null,
+          "after": {
+            "sha256": "ddb1c8705176da86c285112f625f6a732bf7353b0a17835e8bcbc27c0e4243d9",
+            "link": null,
+            "mode": 33188,
+            "inode": 27317373,
+            "ctime_ns": 1794826029222585325
+          }
+        },
+        {
+          "path": "x86_64-pc-linux-gnu/src/kvx/.deps/sysv.Plo",
+          "kind": "added",
+          "fields": [
+            "sha256",
+            "mode"
+          ],
+          "before": null,
+          "after": {
+            "sha256": "ddb1c8705176da86c285112f625f6a732bf7353b0a17835e8bcbc27c0e4243d9",
+            "link": null,
+            "mode": 33188,
+            "inode": 27317374,
+            "ctime_ns": 1794826029229585422
+          }
+        },
+        {
+          "path": "x86_64-pc-linux-gnu/src/loongarch64/.deps/ffi.Plo",
+          "kind": "added",
+          "fields": [
+            "sha256",
+            "mode"
+          ],
+          "before": null,
+          "after": {
+            "sha256": "ddb1c8705176da86c285112f625f6a732bf7353b0a17835e8bcbc27c0e4243d9",
+            "link": null,
+            "mode": 33188,
+            "inode": 27317377,
+            "ctime_ns": 1794826029236585519
+          }
+        },
+        {
+          "path": "x86_64-pc-linux-gnu/src/loongarch64/.deps/sysv.Plo",
+          "kind": "added",
+          "fields": [
+            "sha256",
+            "mode"
+          ],
+          "before": null,
+          "after": {
+            "sha256": "ddb1c8705176da86c285112f625f6a732bf7353b0a17835e8bcbc27c0e4243d9",
+            "link": null,
+            "mode": 33188,
+            "inode": 27317378,
+            "ctime_ns": 1794826029243585617
+          }
+        },
+        {
+          "path": "x86_64-pc-linux-gnu/src/m32r/.deps/ffi.Plo",
+          "kind": "added",
+          "fields": [
+            "sha256",
+            "mode"
+          ],
+          "before": null,
+          "after": {
+            "sha256": "ddb1c8705176da86c285112f625f6a732bf7353b0a17835e8bcbc27c0e4243d9",
+            "link": null,
+            "mode": 33188,
+            "inode": 27317381,
+            "ctime_ns": 1794826029250585714
+          }
+        },
+        {
+          "path": "x86_64-pc-linux-gnu/src/m32r/.deps/sysv.Plo",
+          "kind": "added",
+          "fields": [
+            "sha256",
+            "mode"
+          ],
+          "before": null,
+          "after": {
+            "sha256": "ddb1c8705176da86c285112f625f6a732bf7353b0a17835e8bcbc27c0e4243d9",
+            "link": null,
+            "mode": 33188,
+            "inode": 27317382,
+            "ctime_ns": 1794826029257585811
+          }
+        },
+        {
+          "path": "x86_64-pc-linux-gnu/src/m68k/.deps/ffi.Plo",
+          "kind": "added",
+          "fields": [
+            "sha256",
+            "mode"
+          ],
+          "before": null,
+          "after": {
+            "sha256": "ddb1c8705176da86c285112f625f6a732bf7353b0a17835e8bcbc27c0e4243d9",
+            "link": null,
+            "mode": 33188,
+            "inode": 27317385,
+            "ctime_ns": 1794826029264585908
+          }
+        },
+        {
+          "path": "x86_64-pc-linux-gnu/src/m68k/.deps/sysv.Plo",
+          "kind": "added",
+          "fields": [
+            "sha256",
+            "mode"
+          ],
+          "before": null,
+          "after": {
+            "sha256": "ddb1c8705176da86c285112f625f6a732bf7353b0a17835e8bcbc27c0e4243d9",
+            "link": null,
+            "mode": 33188,
+            "inode": 27317386,
+            "ctime_ns": 1794826029271586005
+          }
+        },
+        {
+          "path": "x86_64-pc-linux-gnu/src/m88k/.deps/ffi.Plo",
+          "kind": "added",
+          "fields": [
+            "sha256",
+            "mode"
+          ],
+          "before": null,
+          "after": {
+            "sha256": "ddb1c8705176da86c285112f625f6a732bf7353b0a17835e8bcbc27c0e4243d9",
+            "link": null,
+            "mode": 33188,
+            "inode": 27317389,
+            "ctime_ns": 1794826029278586102
+          }
+        },
+        {
+          "path": "x86_64-pc-linux-gnu/src/m88k/.deps/obsd.Plo",
+          "kind": "added",
+          "fields": [
+            "sha256",
+            "mode"
+          ],
+          "before": null,
+          "after": {
+            "sha256": "ddb1c8705176da86c285112f625f6a732bf7353b0a17835e8bcbc27c0e4243d9",
+            "link": null,
+            "mode": 33188,
+            "inode": 27317390,
+            "ctime_ns": 1794826029284586185
+          }
+        },
+        {
+          "path": "x86_64-pc-linux-gnu/src/metag/.deps/ffi.Plo",
+          "kind": "added",
+          "fields": [
+            "sha256",
+            "mode"
+          ],
+          "before": null,
+          "after": {
+            "sha256": "ddb1c8705176da86c285112f625f6a732bf7353b0a17835e8bcbc27c0e4243d9",
+            "link": null,
+            "mode": 33188,
+            "inode": 27317393,
+            "ctime_ns": 1794826029291586282
+          }
+        },
+        {
+          "path": "x86_64-pc-linux-gnu/src/metag/.deps/sysv.Plo",
+          "kind": "added",
+          "fields": [
+            "sha256",
+            "mode"
+          ],
+          "before": null,
+          "after": {
+            "sha256": "ddb1c8705176da86c285112f625f6a732bf7353b0a17835e8bcbc27c0e4243d9",
+            "link": null,
+            "mode": 33188,
+            "inode": 27317394,
+            "ctime_ns": 1794826029298586379
+          }
+        },
+        {
+          "path": "x86_64-pc-linux-gnu/src/microblaze/.deps/ffi.Plo",
+          "kind": "added",
+          "fields": [
+            "sha256",
+            "mode"
+          ],
+          "before": null,
+          "after": {
+            "sha256": "ddb1c8705176da86c285112f625f6a732bf7353b0a17835e8bcbc27c0e4243d9",
+            "link": null,
+            "mode": 33188,
+            "inode": 27317397,
+            "ctime_ns": 1794826029305586476
+          }
+        },
+        {
+          "path": "x86_64-pc-linux-gnu/src/microblaze/.deps/sysv.Plo",
+          "kind": "added",
+          "fields": [
+            "sha256",
+            "mode"
+          ],
+          "before": null,
+          "after": {
+            "sha256": "ddb1c8705176da86c285112f625f6a732bf7353b0a17835e8bcbc27c0e4243d9",
+            "link": null,
+            "mode": 33188,
+            "inode": 27317398,
+            "ctime_ns": 1794826029312586573
+          }
+        },
+        {
+          "path": "x86_64-pc-linux-gnu/src/mips/.deps/ffi.Plo",
+          "kind": "added",
+          "fields": [
+            "sha256",
+            "mode"
+          ],
+          "before": null,
+          "after": {
+            "sha256": "ddb1c8705176da86c285112f625f6a732bf7353b0a17835e8bcbc27c0e4243d9",
+            "link": null,
+            "mode": 33188,
+            "inode": 27317401,
+            "ctime_ns": 1794826029319586670
+          }
+        },
+        {
+          "path": "x86_64-pc-linux-gnu/src/mips/.deps/n32.Plo",
+          "kind": "added",
+          "fields": [
+            "sha256",
+            "mode"
+          ],
+          "before": null,
+          "after": {
+            "sha256": "ddb1c8705176da86c285112f625f6a732bf7353b0a17835e8bcbc27c0e4243d9",
+            "link": null,
+            "mode": 33188,
+            "inode": 27317402,
+            "ctime_ns": 1794826029326586767
+          }
+        },
+        {
+          "path": "x86_64-pc-linux-gnu/src/mips/.deps/o32.Plo",
+          "kind": "added",
+          "fields": [
+            "sha256",
+            "mode"
+          ],
+          "before": null,
+          "after": {
+            "sha256": "ddb1c8705176da86c285112f625f6a732bf7353b0a17835e8bcbc27c0e4243d9",
+            "link": null,
+            "mode": 33188,
+            "inode": 27317403,
+            "ctime_ns": 1794826029333586864
+          }
+        },
+        {
+          "path": "x86_64-pc-linux-gnu/src/moxie/.deps/eabi.Plo",
+          "kind": "added",
+          "fields": [
+            "sha256",
+            "mode"
+          ],
+          "before": null,
+          "after": {
+            "sha256": "ddb1c8705176da86c285112f625f6a732bf7353b0a17835e8bcbc27c0e4243d9",
+            "link": null,
+            "mode": 33188,
+            "inode": 27317406,
+            "ctime_ns": 1794826029340586962
+          }
+        },
+        {
+          "path": "x86_64-pc-linux-gnu/src/moxie/.deps/ffi.Plo",
+          "kind": "added",
+          "fields": [
+            "sha256",
+            "mode"
+          ],
+          "before": null,
+          "after": {
+            "sha256": "ddb1c8705176da86c285112f625f6a732bf7353b0a17835e8bcbc27c0e4243d9",
+            "link": null,
+            "mode": 33188,
+            "inode": 27317407,
+            "ctime_ns": 1794826029347587059
+          }
+        },
+        {
+          "path": "x86_64-pc-linux-gnu/src/nios2/.deps/ffi.Plo",
+          "kind": "added",
+          "fields": [
+            "sha256",
+            "mode"
+          ],
+          "before": null,
+          "after": {
+            "sha256": "ddb1c8705176da86c285112f625f6a732bf7353b0a17835e8bcbc27c0e4243d9",
+            "link": null,
+            "mode": 33188,
+            "inode": 27317410,
+            "ctime_ns": 1794826029354587156
+          }
+        },
+        {
+          "path": "x86_64-pc-linux-gnu/src/nios2/.deps/sysv.Plo",
+          "kind": "added",
+          "fields": [
+            "sha256",
+            "mode"
+          ],
+          "before": null,
+          "after": {
+            "sha256": "ddb1c8705176da86c285112f625f6a732bf7353b0a17835e8bcbc27c0e4243d9",
+            "link": null,
+            "mode": 33188,
+            "inode": 27317411,
+            "ctime_ns": 1794826029361587253
+          }
+        },
+        {
+          "path": "x86_64-pc-linux-gnu/src/or1k/.deps/ffi.Plo",
+          "kind": "added",
+          "fields": [
+            "sha256",
+            "mode"
+          ],
+          "before": null,
+          "after": {
+            "sha256": "ddb1c8705176da86c285112f625f6a732bf7353b0a17835e8bcbc27c0e4243d9",
+            "link": null,
+            "mode": 33188,
+            "inode": 27317414,
+            "ctime_ns": 1794826029368587350
+          }
+        },
+        {
+          "path": "x86_64-pc-linux-gnu/src/or1k/.deps/sysv.Plo",
+          "kind": "added",
+          "fields": [
+            "sha256",
+            "mode"
+          ],
+          "before": null,
+          "after": {
+            "sha256": "ddb1c8705176da86c285112f625f6a732bf7353b0a17835e8bcbc27c0e4243d9",
+            "link": null,
+            "mode": 33188,
+            "inode": 27317415,
+            "ctime_ns": 1794826029374587433
+          }
+        },
+        {
+          "path": "x86_64-pc-linux-gnu/src/pa/.deps/ffi.Plo",
+          "kind": "added",
+          "fields": [
+            "sha256",
+            "mode"
+          ],
+          "before": null,
+          "after": {
+            "sha256": "ddb1c8705176da86c285112f625f6a732bf7353b0a17835e8bcbc27c0e4243d9",
+            "link": null,
+            "mode": 33188,
+            "inode": 27317418,
+            "ctime_ns": 1794826029382587544
+          }
+        },
+        {
+          "path": "x86_64-pc-linux-gnu/src/pa/.deps/hpux32.Plo",
+          "kind": "added",
+          "fields": [
+            "sha256",
+            "mode"
+          ],
+          "before": null,
+          "after": {
+            "sha256": "ddb1c8705176da86c285112f625f6a732bf7353b0a17835e8bcbc27c0e4243d9",
+            "link": null,
+            "mode": 33188,
+            "inode": 27317419,
+            "ctime_ns": 1794826029389587641
+          }
+        },
+        {
+          "path": "x86_64-pc-linux-gnu/src/pa/.deps/hpux64.Plo",
+          "kind": "added",
+          "fields": [
+            "sha256",
+            "mode"
+          ],
+          "before": null,
+          "after": {
+            "sha256": "ddb1c8705176da86c285112f625f6a732bf7353b0a17835e8bcbc27c0e4243d9",
+            "link": null,
+            "mode": 33188,
+            "inode": 27317420,
+            "ctime_ns": 1794826029395587724
+          }
+        },
+        {
+          "path": "x86_64-pc-linux-gnu/src/pa/.deps/linux.Plo",
+          "kind": "added",
+          "fields": [
+            "sha256",
+            "mode"
+          ],
+          "before": null,
+          "after": {
+            "sha256": "ddb1c8705176da86c285112f625f6a732bf7353b0a17835e8bcbc27c0e4243d9",
+            "link": null,
+            "mode": 33188,
+            "inode": 27317421,
+            "ctime_ns": 1794826029402587821
+          }
+        },
+        {
+          "path": "x86_64-pc-linux-gnu/src/powerpc/.deps/aix.Plo",
+          "kind": "added",
+          "fields": [
+            "sha256",
+            "mode"
+          ],
+          "before": null,
+          "after": {
+            "sha256": "ddb1c8705176da86c285112f625f6a732bf7353b0a17835e8bcbc27c0e4243d9",
+            "link": null,
+            "mode": 33188,
+            "inode": 27317424,
+            "ctime_ns": 1794826029409587919
+          }
+        },
+        {
+          "path": "x86_64-pc-linux-gnu/src/powerpc/.deps/aix_closure.Plo",
+          "kind": "added",
+          "fields": [
+            "sha256",
+            "mode"
+          ],
+          "before": null,
+          "after": {
+            "sha256": "ddb1c8705176da86c285112f625f6a732bf7353b0a17835e8bcbc27c0e4243d9",
+            "link": null,
+            "mode": 33188,
+            "inode": 27317425,
+            "ctime_ns": 1794826029416588016
+          }
+        },
+        {
+          "path": "x86_64-pc-linux-gnu/src/powerpc/.deps/darwin.Plo",
+          "kind": "added",
+          "fields": [
+            "sha256",
+            "mode"
+          ],
+          "before": null,
+          "after": {
+            "sha256": "ddb1c8705176da86c285112f625f6a732bf7353b0a17835e8bcbc27c0e4243d9",
+            "link": null,
+            "mode": 33188,
+            "inode": 27317426,
+            "ctime_ns": 1794826029423588113
+          }
+        },
+        {
+          "path": "x86_64-pc-linux-gnu/src/powerpc/.deps/darwin_closure.Plo",
+          "kind": "added",
+          "fields": [
+            "sha256",
+            "mode"
+          ],
+          "before": null,
+          "after": {
+            "sha256": "ddb1c8705176da86c285112f625f6a732bf7353b0a17835e8bcbc27c0e4243d9",
+            "link": null,
+            "mode": 33188,
+            "inode": 27317427,
+            "ctime_ns": 1794826029430588210
+          }
+        },
+        {
+          "path": "x86_64-pc-linux-gnu/src/powerpc/.deps/ffi.Plo",
+          "kind": "added",
+          "fields": [
+            "sha256",
+            "mode"
+          ],
+          "before": null,
+          "after": {
+            "sha256": "ddb1c8705176da86c285112f625f6a732bf7353b0a17835e8bcbc27c0e4243d9",
+            "link": null,
+            "mode": 33188,
+            "inode": 27317428,
+            "ctime_ns": 1794826029437588307
+          }
+        },
+        {
+          "path": "x86_64-pc-linux-gnu/src/powerpc/.deps/ffi_darwin.Plo",
+          "kind": "added",
+          "fields": [
+            "sha256",
+            "mode"
+          ],
+          "before": null,
+          "after": {
+            "sha256": "ddb1c8705176da86c285112f625f6a732bf7353b0a17835e8bcbc27c0e4243d9",
+            "link": null,
+            "mode": 33188,
+            "inode": 27317429,
+            "ctime_ns": 1794826029444588404
+          }
+        },
+        {
+          "path": "x86_64-pc-linux-gnu/src/powerpc/.deps/ffi_linux64.Plo",
+          "kind": "added",
+          "fields": [
+            "sha256",
+            "mode"
+          ],
+          "before": null,
+          "after": {
+            "sha256": "ddb1c8705176da86c285112f625f6a732bf7353b0a17835e8bcbc27c0e4243d9",
+            "link": null,
+            "mode": 33188,
+            "inode": 27317430,
+            "ctime_ns": 1794826029451588501
+          }
+        },
+        {
+          "path": "x86_64-pc-linux-gnu/src/powerpc/.deps/ffi_sysv.Plo",
+          "kind": "added",
+          "fields": [
+            "sha256",
+            "mode"
+          ],
+          "before": null,
+          "after": {
+            "sha256": "ddb1c8705176da86c285112f625f6a732bf7353b0a17835e8bcbc27c0e4243d9",
+            "link": null,
+            "mode": 33188,
+            "inode": 27317431,
+            "ctime_ns": 1794826029458588598
+          }
+        },
+        {
+          "path": "x86_64-pc-linux-gnu/src/powerpc/.deps/linux64.Plo",
+          "kind": "added",
+          "fields": [
+            "sha256",
+            "mode"
+          ],
+          "before": null,
+          "after": {
+            "sha256": "ddb1c8705176da86c285112f625f6a732bf7353b0a17835e8bcbc27c0e4243d9",
+            "link": null,
+            "mode": 33188,
+            "inode": 27317432,
+            "ctime_ns": 1794826029465588695
+          }
+        },
+        {
+          "path": "x86_64-pc-linux-gnu/src/powerpc/.deps/linux64_closure.Plo",
+          "kind": "added",
+          "fields": [
+            "sha256",
+            "mode"
+          ],
+          "before": null,
+          "after": {
+            "sha256": "ddb1c8705176da86c285112f625f6a732bf7353b0a17835e8bcbc27c0e4243d9",
+            "link": null,
+            "mode": 33188,
+            "inode": 27317433,
+            "ctime_ns": 1794826029472588792
+          }
+        },
+        {
+          "path": "x86_64-pc-linux-gnu/src/powerpc/.deps/ppc_closure.Plo",
+          "kind": "added",
+          "fields": [
+            "sha256",
+            "mode"
+          ],
+          "before": null,
+          "after": {
+            "sha256": "ddb1c8705176da86c285112f625f6a732bf7353b0a17835e8bcbc27c0e4243d9",
+            "link": null,
+            "mode": 33188,
+            "inode": 27317434,
+            "ctime_ns": 1794826029479588889
+          }
+        },
+        {
+          "path": "x86_64-pc-linux-gnu/src/powerpc/.deps/sysv.Plo",
+          "kind": "added",
+          "fields": [
+            "sha256",
+            "mode"
+          ],
+          "before": null,
+          "after": {
+            "sha256": "ddb1c8705176da86c285112f625f6a732bf7353b0a17835e8bcbc27c0e4243d9",
+            "link": null,
+            "mode": 33188,
+            "inode": 27317435,
+            "ctime_ns": 1794826029486588986
+          }
+        },
+        {
+          "path": "x86_64-pc-linux-gnu/src/prep_cif.lo",
+          "kind": "added",
+          "fields": [
+            "sha256",
+            "mode"
+          ],
+          "before": null,
+          "after": {
+            "sha256": "cfc3550181967202032e1fdd67861494b34b7f54d00729868c89da76bb44d6dc",
+            "link": null,
+            "mode": 33188,
+            "inode": 27317488,
+            "ctime_ns": 1794826030825607559
+          }
+        },
+        {
+          "path": "x86_64-pc-linux-gnu/src/prep_cif.o",
+          "kind": "added",
+          "fields": [
+            "sha256",
+            "mode"
+          ],
+          "before": null,
+          "after": {
+            "sha256": "6cf571917342129dfeb657b629ad158edaa03d3fbc41a088adc161ec9159f6a3",
+            "link": null,
+            "mode": 33188,
+            "inode": 27317487,
+            "ctime_ns": 1794826030815607420
+          }
+        },
+        {
+          "path": "x86_64-pc-linux-gnu/src/raw_api.lo",
+          "kind": "added",
+          "fields": [
+            "sha256",
+            "mode"
+          ],
+          "before": null,
+          "after": {
+            "sha256": "78d7b35165a10383cd069214c713878681383f04e8bb12ebc87c52a02bd36abc",
+            "link": null,
+            "mode": 33188,
+            "inode": 27317491,
+            "ctime_ns": 1794826030962609459
+          }
+        },
+        {
+          "path": "x86_64-pc-linux-gnu/src/raw_api.o",
+          "kind": "added",
+          "fields": [
+            "sha256",
+            "mode"
+          ],
+          "before": null,
+          "after": {
+            "sha256": "22209676b37685408731e55951dc946e5c36135741d6234e04e1338443e32238",
+            "link": null,
+            "mode": 33188,
+            "inode": 27317490,
+            "ctime_ns": 1794826030956609376
+          }
+        },
+        {
+          "path": "x86_64-pc-linux-gnu/src/riscv/.deps/ffi.Plo",
+          "kind": "added",
+          "fields": [
+            "sha256",
+            "mode"
+          ],
+          "before": null,
+          "after": {
+            "sha256": "ddb1c8705176da86c285112f625f6a732bf7353b0a17835e8bcbc27c0e4243d9",
+            "link": null,
+            "mode": 33188,
+            "inode": 27317438,
+            "ctime_ns": 1794826029493589083
+          }
+        },
+        {
+          "path": "x86_64-pc-linux-gnu/src/riscv/.deps/sysv.Plo",
+          "kind": "added",
+          "fields": [
+            "sha256",
+            "mode"
+          ],
+          "before": null,
+          "after": {
+            "sha256": "ddb1c8705176da86c285112f625f6a732bf7353b0a17835e8bcbc27c0e4243d9",
+            "link": null,
+            "mode": 33188,
+            "inode": 27317439,
+            "ctime_ns": 1794826029500589180
+          }
+        },
+        {
+          "path": "x86_64-pc-linux-gnu/src/s390/.deps/ffi.Plo",
+          "kind": "added",
+          "fields": [
+            "sha256",
+            "mode"
+          ],
+          "before": null,
+          "after": {
+            "sha256": "ddb1c8705176da86c285112f625f6a732bf7353b0a17835e8bcbc27c0e4243d9",
+            "link": null,
+            "mode": 33188,
+            "inode": 27317442,
+            "ctime_ns": 1794826029507589277
+          }
+        },
+        {
+          "path": "x86_64-pc-linux-gnu/src/s390/.deps/sysv.Plo",
+          "kind": "added",
+          "fields": [
+            "sha256",
+            "mode"
+          ],
+          "before": null,
+          "after": {
+            "sha256": "ddb1c8705176da86c285112f625f6a732bf7353b0a17835e8bcbc27c0e4243d9",
+            "link": null,
+            "mode": 33188,
+            "inode": 27317443,
+            "ctime_ns": 1794826029514589375
+          }
+        },
+        {
+          "path": "x86_64-pc-linux-gnu/src/sh/.deps/ffi.Plo",
+          "kind": "added",
+          "fields": [
+            "sha256",
+            "mode"
+          ],
+          "before": null,
+          "after": {
+            "sha256": "ddb1c8705176da86c285112f625f6a732bf7353b0a17835e8bcbc27c0e4243d9",
+            "link": null,
+            "mode": 33188,
+            "inode": 27317446,
+            "ctime_ns": 1794826029521589472
+          }
+        },
+        {
+          "path": "x86_64-pc-linux-gnu/src/sh/.deps/sysv.Plo",
+          "kind": "added",
+          "fields": [
+            "sha256",
+            "mode"
+          ],
+          "before": null,
+          "after": {
+            "sha256": "ddb1c8705176da86c285112f625f6a732bf7353b0a17835e8bcbc27c0e4243d9",
+            "link": null,
+            "mode": 33188,
+            "inode": 27317447,
+            "ctime_ns": 1794826029527589555
+          }
+        },
+        {
+          "path": "x86_64-pc-linux-gnu/src/sh64/.deps/ffi.Plo",
+          "kind": "added",
+          "fields": [
+            "sha256",
+            "mode"
+          ],
+          "before": null,
+          "after": {
+            "sha256": "ddb1c8705176da86c285112f625f6a732bf7353b0a17835e8bcbc27c0e4243d9",
+            "link": null,
+            "mode": 33188,
+            "inode": 27317450,
+            "ctime_ns": 1794826029534589652
+          }
+        },
+        {
+          "path": "x86_64-pc-linux-gnu/src/sh64/.deps/sysv.Plo",
+          "kind": "added",
+          "fields": [
+            "sha256",
+            "mode"
+          ],
+          "before": null,
+          "after": {
+            "sha256": "ddb1c8705176da86c285112f625f6a732bf7353b0a17835e8bcbc27c0e4243d9",
+            "link": null,
+            "mode": 33188,
+            "inode": 27317451,
+            "ctime_ns": 1794826029541589749
+          }
+        },
+        {
+          "path": "x86_64-pc-linux-gnu/src/sparc/.deps/ffi.Plo",
+          "kind": "added",
+          "fields": [
+            "sha256",
+            "mode"
+          ],
+          "before": null,
+          "after": {
+            "sha256": "ddb1c8705176da86c285112f625f6a732bf7353b0a17835e8bcbc27c0e4243d9",
+            "link": null,
+            "mode": 33188,
+            "inode": 27317454,
+            "ctime_ns": 1794826029548589846
+          }
+        },
+        {
+          "path": "x86_64-pc-linux-gnu/src/sparc/.deps/ffi64.Plo",
+          "kind": "added",
+          "fields": [
+            "sha256",
+            "mode"
+          ],
+          "before": null,
+          "after": {
+            "sha256": "ddb1c8705176da86c285112f625f6a732bf7353b0a17835e8bcbc27c0e4243d9",
+            "link": null,
+            "mode": 33188,
+            "inode": 27317455,
+            "ctime_ns": 1794826029556589957
+          }
+        },
+        {
+          "path": "x86_64-pc-linux-gnu/src/sparc/.deps/v8.Plo",
+          "kind": "added",
+          "fields": [
+            "sha256",
+            "mode"
+          ],
+          "before": null,
+          "after": {
+            "sha256": "ddb1c8705176da86c285112f625f6a732bf7353b0a17835e8bcbc27c0e4243d9",
+            "link": null,
+            "mode": 33188,
+            "inode": 27317456,
+            "ctime_ns": 1794826029563590054
+          }
+        },
+        {
+          "path": "x86_64-pc-linux-gnu/src/sparc/.deps/v9.Plo",
+          "kind": "added",
+          "fields": [
+            "sha256",
+            "mode"
+          ],
+          "before": null,
+          "after": {
+            "sha256": "ddb1c8705176da86c285112f625f6a732bf7353b0a17835e8bcbc27c0e4243d9",
+            "link": null,
+            "mode": 33188,
+            "inode": 27317457,
+            "ctime_ns": 1794826029569590137
+          }
+        },
+        {
+          "path": "x86_64-pc-linux-gnu/src/tile/.deps/ffi.Plo",
+          "kind": "added",
+          "fields": [
+            "sha256",
+            "mode"
+          ],
+          "before": null,
+          "after": {
+            "sha256": "ddb1c8705176da86c285112f625f6a732bf7353b0a17835e8bcbc27c0e4243d9",
+            "link": null,
+            "mode": 33188,
+            "inode": 27317460,
+            "ctime_ns": 1794826029576590234
+          }
+        },
+        {
+          "path": "x86_64-pc-linux-gnu/src/tile/.deps/tile.Plo",
+          "kind": "added",
+          "fields": [
+            "sha256",
+            "mode"
+          ],
+          "before": null,
+          "after": {
+            "sha256": "ddb1c8705176da86c285112f625f6a732bf7353b0a17835e8bcbc27c0e4243d9",
+            "link": null,
+            "mode": 33188,
+            "inode": 27317461,
+            "ctime_ns": 1794826029583590331
+          }
+        },
+        {
+          "path": "x86_64-pc-linux-gnu/src/tramp.lo",
+          "kind": "added",
+          "fields": [
+            "sha256",
+            "mode"
+          ],
+          "before": null,
+          "after": {
+            "sha256": "97d778927095243f6d46ffdacf9813d9d9ae82ab60ae7b5af088c6cdffda47c4",
+            "link": null,
+            "mode": 33188,
+            "inode": 27317497,
+            "ctime_ns": 1794826031429615939
+          }
+        },
+        {
+          "path": "x86_64-pc-linux-gnu/src/tramp.o",
+          "kind": "added",
+          "fields": [
+            "sha256",
+            "mode"
+          ],
+          "before": null,
+          "after": {
+            "sha256": "b0f9a761c937b60f1128ef0fff438a8a80f0501b81fc397e6e061e1a8d4a55f0",
+            "link": null,
+            "mode": 33188,
+            "inode": 27317496,
+            "ctime_ns": 1794826031420615814
+          }
+        },
+        {
+          "path": "x86_64-pc-linux-gnu/src/types.lo",
+          "kind": "added",
+          "fields": [
+            "sha256",
+            "mode"
+          ],
+          "before": null,
+          "after": {
+            "sha256": "15b30256ed5ba012d1f128e5fb65d4ca4de50abda7814d88d46891142778099b",
+            "link": null,
+            "mode": 33188,
+            "inode": 27317485,
+            "ctime_ns": 1794826030704605880
+          }
+        },
+        {
+          "path": "x86_64-pc-linux-gnu/src/types.o",
+          "kind": "added",
+          "fields": [
+            "sha256",
+            "mode"
+          ],
+          "before": null,
+          "after": {
+            "sha256": "472537b9733d1bdc37dd64c1f46c2caa3b33e96c4b6a2242b4b2a9c93ac2da82",
+            "link": null,
+            "mode": 33188,
+            "inode": 27317484,
+            "ctime_ns": 1794826030698605797
+          }
+        },
+        {
+          "path": "x86_64-pc-linux-gnu/src/vax/.deps/elfbsd.Plo",
+          "kind": "added",
+          "fields": [
+            "sha256",
+            "mode"
+          ],
+          "before": null,
+          "after": {
+            "sha256": "ddb1c8705176da86c285112f625f6a732bf7353b0a17835e8bcbc27c0e4243d9",
+            "link": null,
+            "mode": 33188,
+            "inode": 27317464,
+            "ctime_ns": 1794826029590590428
+          }
+        },
+        {
+          "path": "x86_64-pc-linux-gnu/src/vax/.deps/ffi.Plo",
+          "kind": "added",
+          "fields": [
+            "sha256",
+            "mode"
+          ],
+          "before": null,
+          "after": {
+            "sha256": "ddb1c8705176da86c285112f625f6a732bf7353b0a17835e8bcbc27c0e4243d9",
+            "link": null,
+            "mode": 33188,
+            "inode": 27317465,
+            "ctime_ns": 1794826029597590525
+          }
+        },
+        {
+          "path": "x86_64-pc-linux-gnu/src/wasm32/.deps/ffi.Plo",
+          "kind": "added",
+          "fields": [
+            "sha256",
+            "mode"
+          ],
+          "before": null,
+          "after": {
+            "sha256": "ddb1c8705176da86c285112f625f6a732bf7353b0a17835e8bcbc27c0e4243d9",
+            "link": null,
+            "mode": 33188,
+            "inode": 27317468,
+            "ctime_ns": 1794826029605590636
+          }
+        },
+        {
+          "path": "x86_64-pc-linux-gnu/src/x86/.deps/.dirstamp",
+          "kind": "added",
+          "fields": [
+            "sha256",
+            "mode"
+          ],
+          "before": null,
+          "after": {
+            "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+            "link": null,
+            "mode": 33188,
+            "inode": 27317299,
+            "ctime_ns": 1794826030497603009
+          }
+        },
+        {
+          "path": "x86_64-pc-linux-gnu/src/x86/.deps/ffi.Plo",
+          "kind": "added",
+          "fields": [
+            "sha256",
+            "mode"
+          ],
+          "before": null,
+          "after": {
+            "sha256": "ddb1c8705176da86c285112f625f6a732bf7353b0a17835e8bcbc27c0e4243d9",
+            "link": null,
+            "mode": 33188,
+            "inode": 27317471,
+            "ctime_ns": 1794826029612590734
+          }
+        },
+        {
+          "path": "x86_64-pc-linux-gnu/src/x86/.deps/ffi64.Plo",
+          "kind": "added",
+          "fields": [
+            "sha256",
+            "mode"
+          ],
+          "before": null,
+          "after": {
+            "sha256": "8937c0dfc0ade0698249018da009fde302f4a53dff4b59d9965dbc72dba2d78a",
+            "link": null,
+            "mode": 33188,
+            "inode": 27317500,
+            "ctime_ns": 1794826031969623433
+          }
+        },
+        {
+          "path": "x86_64-pc-linux-gnu/src/x86/.deps/ffiw64.Plo",
+          "kind": "added",
+          "fields": [
+            "sha256",
+            "mode"
+          ],
+          "before": null,
+          "after": {
+            "sha256": "483befd383593e4baf6c12b70802dc5b678e02d3d5d8f8f8cf8642150253e90e",
+            "link": null,
+            "mode": 33188,
+            "inode": 27317477,
+            "ctime_ns": 1794826032490630664
+          }
+        },
+        {
+          "path": "x86_64-pc-linux-gnu/src/x86/.deps/sysv.Plo",
+          "kind": "added",
+          "fields": [
+            "sha256",
+            "mode"
+          ],
+          "before": null,
+          "after": {
+            "sha256": "ddb1c8705176da86c285112f625f6a732bf7353b0a17835e8bcbc27c0e4243d9",
+            "link": null,
+            "mode": 33188,
+            "inode": 27317474,
+            "ctime_ns": 1794826029633591025
+          }
+        },
+        {
+          "path": "x86_64-pc-linux-gnu/src/x86/.deps/sysv_intel.Plo",
+          "kind": "added",
+          "fields": [
+            "sha256",
+            "mode"
+          ],
+          "before": null,
+          "after": {
+            "sha256": "ddb1c8705176da86c285112f625f6a732bf7353b0a17835e8bcbc27c0e4243d9",
+            "link": null,
+            "mode": 33188,
+            "inode": 27317475,
+            "ctime_ns": 1794826029640591122
+          }
+        },
+        {
+          "path": "x86_64-pc-linux-gnu/src/x86/.deps/unix64.Plo",
+          "kind": "added",
+          "fields": [
+            "sha256",
+            "mode"
+          ],
+          "before": null,
+          "after": {
+            "sha256": "99b731fd1dc767998384740970e2c40307092e64bf08e0df697291572afdd345",
+            "link": null,
+            "mode": 33188,
+            "inode": 27317472,
+            "ctime_ns": 1794826032126625612
+          }
+        },
+        {
+          "path": "x86_64-pc-linux-gnu/src/x86/.deps/win64.Plo",
+          "kind": "added",
+          "fields": [
+            "sha256",
+            "mode"
+          ],
+          "before": null,
+          "after": {
+            "sha256": "7e14fc2fd233a583e2e6540febccf70b11a116ae2b6d13a88956839b23dc6cfd",
+            "link": null,
+            "mode": 33188,
+            "inode": 27317322,
+            "ctime_ns": 1794826032317628263
+          }
+        },
+        {
+          "path": "x86_64-pc-linux-gnu/src/x86/.deps/win64_intel.Plo",
+          "kind": "added",
+          "fields": [
+            "sha256",
+            "mode"
+          ],
+          "before": null,
+          "after": {
+            "sha256": "ddb1c8705176da86c285112f625f6a732bf7353b0a17835e8bcbc27c0e4243d9",
+            "link": null,
+            "mode": 33188,
+            "inode": 27317478,
+            "ctime_ns": 1794826029660591399
+          }
+        },
+        {
+          "path": "x86_64-pc-linux-gnu/src/x86/.dirstamp",
+          "kind": "added",
+          "fields": [
+            "sha256",
+            "mode"
+          ],
+          "before": null,
+          "after": {
+            "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+            "link": null,
+            "mode": 33188,
+            "inode": 27317300,
+            "ctime_ns": 1794826030498603023
+          }
+        },
+        {
+          "path": "x86_64-pc-linux-gnu/src/x86/.libs/ffi64.o",
+          "kind": "added",
+          "fields": [
+            "sha256",
+            "mode"
+          ],
+          "before": null,
+          "after": {
+            "sha256": "8a900dfeda0dae2bd936eb4266a392116c9e59738702ffe108b30b5f0531e50a",
+            "link": null,
+            "mode": 33188,
+            "inode": 27317501,
+            "ctime_ns": 1794826031745620324
+          }
+        },
+        {
+          "path": "x86_64-pc-linux-gnu/src/x86/.libs/ffiw64.o",
+          "kind": "added",
+          "fields": [
+            "sha256",
+            "mode"
+          ],
+          "before": null,
+          "after": {
+            "sha256": "56000cf858cff26fcae3a92200e957bbcb5917c8f768384a7b5b9d3f5eaa7544",
+            "link": null,
+            "mode": 33188,
+            "inode": 27317511,
+            "ctime_ns": 1794826032353628763
+          }
+        },
+        {
+          "path": "x86_64-pc-linux-gnu/src/x86/.libs/unix64.o",
+          "kind": "added",
+          "fields": [
+            "sha256",
+            "mode"
+          ],
+          "before": null,
+          "after": {
+            "sha256": "0c65f86cc78cc496c8b22ddcbea9011169b50b28ede1b93be21b43785238b240",
+            "link": null,
+            "mode": 33188,
+            "inode": 27317504,
+            "ctime_ns": 1794826032088625084
+          }
+        },
+        {
+          "path": "x86_64-pc-linux-gnu/src/x86/.libs/win64.o",
+          "kind": "added",
+          "fields": [
+            "sha256",
+            "mode"
+          ],
+          "before": null,
+          "after": {
+            "sha256": "0fe973982e613e4504e36df4bb144961b1e2f91e19b35a4efc309e60df65f4a5",
+            "link": null,
+            "mode": 33188,
+            "inode": 27317508,
+            "ctime_ns": 1794826032278627722
+          }
+        },
+        {
+          "path": "x86_64-pc-linux-gnu/src/x86/ffi64.lo",
+          "kind": "added",
+          "fields": [
+            "sha256",
+            "mode"
+          ],
+          "before": null,
+          "after": {
+            "sha256": "61238cd49dcc2a268dc8d263bccdbf86029bad91456d28c97eb696ca78f7ab9c",
+            "link": null,
+            "mode": 33188,
+            "inode": 27317503,
+            "ctime_ns": 1794826031966623391
+          }
+        },
+        {
+          "path": "x86_64-pc-linux-gnu/src/x86/ffi64.o",
+          "kind": "added",
+          "fields": [
+            "sha256",
+            "mode"
+          ],
+          "before": null,
+          "after": {
+            "sha256": "ac91024708de5f7763334f11009f2851192dc69041f509b6c8d3d25c8f30aa48",
+            "link": null,
+            "mode": 33188,
+            "inode": 27317502,
+            "ctime_ns": 1794826031961623322
+          }
+        },
+        {
+          "path": "x86_64-pc-linux-gnu/src/x86/ffiw64.lo",
+          "kind": "added",
+          "fields": [
+            "sha256",
+            "mode"
+          ],
+          "before": null,
+          "after": {
+            "sha256": "102553130fff17d9ed8a7ad8e44a5610e0c96fe1ed8d6f0c1e25261ddc55c0e4",
+            "link": null,
+            "mode": 33188,
+            "inode": 27317513,
+            "ctime_ns": 1794826032486630609
+          }
+        },
+        {
+          "path": "x86_64-pc-linux-gnu/src/x86/ffiw64.o",
+          "kind": "added",
+          "fields": [
+            "sha256",
+            "mode"
+          ],
+          "before": null,
+          "after": {
+            "sha256": "56000cf858cff26fcae3a92200e957bbcb5917c8f768384a7b5b9d3f5eaa7544",
+            "link": null,
+            "mode": 33188,
+            "inode": 27317512,
+            "ctime_ns": 1794826032481630540
+          }
+        },
+        {
+          "path": "x86_64-pc-linux-gnu/src/x86/unix64.lo",
+          "kind": "added",
+          "fields": [
+            "sha256",
+            "mode"
+          ],
+          "before": null,
+          "after": {
+            "sha256": "d8f09e83a8ee7db97668bc4444c67ab03a1d9d7f86b74ba4b523adc336ed85d0",
+            "link": null,
+            "mode": 33188,
+            "inode": 27317506,
+            "ctime_ns": 1794826032123625570
+          }
+        },
+        {
+          "path": "x86_64-pc-linux-gnu/src/x86/unix64.o",
+          "kind": "added",
+          "fields": [
+            "sha256",
+            "mode"
+          ],
+          "before": null,
+          "after": {
+            "sha256": "0c65f86cc78cc496c8b22ddcbea9011169b50b28ede1b93be21b43785238b240",
+            "link": null,
+            "mode": 33188,
+            "inode": 27317505,
+            "ctime_ns": 1794826032117625487
+          }
+        },
+        {
+          "path": "x86_64-pc-linux-gnu/src/x86/win64.lo",
+          "kind": "added",
+          "fields": [
+            "sha256",
+            "mode"
+          ],
+          "before": null,
+          "after": {
+            "sha256": "440650b9c3395c79fb9fb9ce98736f9f7ac3d8c60816eb7f2f20597af580f5d8",
+            "link": null,
+            "mode": 33188,
+            "inode": 27317510,
+            "ctime_ns": 1794826032313628208
+          }
+        },
+        {
+          "path": "x86_64-pc-linux-gnu/src/x86/win64.o",
+          "kind": "added",
+          "fields": [
+            "sha256",
+            "mode"
+          ],
+          "before": null,
+          "after": {
+            "sha256": "0fe973982e613e4504e36df4bb144961b1e2f91e19b35a4efc309e60df65f4a5",
+            "link": null,
+            "mode": 33188,
+            "inode": 27317509,
+            "ctime_ns": 1794826032308628138
+          }
+        },
+        {
+          "path": "x86_64-pc-linux-gnu/src/xtensa/.deps/ffi.Plo",
+          "kind": "added",
+          "fields": [
+            "sha256",
+            "mode"
+          ],
+          "before": null,
+          "after": {
+            "sha256": "ddb1c8705176da86c285112f625f6a732bf7353b0a17835e8bcbc27c0e4243d9",
+            "link": null,
+            "mode": 33188,
+            "inode": 27317481,
+            "ctime_ns": 1794826029667591496
+          }
+        },
+        {
+          "path": "x86_64-pc-linux-gnu/src/xtensa/.deps/sysv.Plo",
+          "kind": "added",
+          "fields": [
+            "sha256",
+            "mode"
+          ],
+          "before": null,
+          "after": {
+            "sha256": "ddb1c8705176da86c285112f625f6a732bf7353b0a17835e8bcbc27c0e4243d9",
+            "link": null,
+            "mode": 33188,
+            "inode": 27317482,
+            "ctime_ns": 1794826029674591593
+          }
+        },
+        {
+          "path": "x86_64-pc-linux-gnu/stamp-h1",
+          "kind": "added",
+          "fields": [
+            "sha256",
+            "mode"
+          ],
+          "before": null,
+          "after": {
+            "sha256": "cd2e260b72aceff79500716845157c9ae908d8474ea2dc9c8daef61a323e193f",
+            "link": null,
+            "mode": 33188,
+            "inode": 27317318,
+            "ctime_ns": 1794826028950581554
+          }
+        },
+        {
+          "path": "x86_64-pc-linux-gnu/testsuite/Makefile",
+          "kind": "added",
+          "fields": [
+            "sha256",
+            "mode"
+          ],
+          "before": null,
+          "after": {
+            "sha256": "dc0868c461c502442bb2d6963427b3e7cddb2074914c7e7765db09b7b9fafcba",
+            "link": null,
+            "mode": 33188,
+            "inode": 27317311,
+            "ctime_ns": 1794826028841580042
+          }
+        }
+      ]
+    },
+    "source_review": "pending_review",
+    "cleanup": {
+      "succeeded": true,
+      "stopped": true,
+      "removed": true
+    },
+    "agent_usage": {
+      "model_requests": 11,
+      "recorded_tokens": 165621,
+      "agent_steps": 36,
+      "tool_calls": 25,
+      "commands": 19,
+      "elapsed_seconds": 131.98306539398618,
+      "input_tokens": 148326,
+      "output_tokens": 17295,
+      "estimated_cost_usd": 0.0652518,
+      "unknown_usage_requests": 0,
+      "cost_and_usage_complete": true,
+      "estimated_cost_usd_completed_responses": 0.0652518
+    },
+    "arm_total_wall_seconds": 162.15615548589267,
+    "router_usage": {
+      "model_requests": 0,
+      "input_tokens": 0,
+      "output_tokens": 0,
+      "estimated_cost_usd_completed_responses": "0",
+      "unknown_usage_requests": 0,
+      "identity_mismatch": false,
+      "wall_seconds": 0,
+      "method": "rule",
+      "decision_count": 1,
+      "local_actions": 0,
+      "agent_routes": 1
+    }
+  },
+  "groups": [
+    {
+      "phase": "initial",
+      "revision": 1,
+      "requests": 3,
+      "input_tokens": 34559,
+      "output_tokens": 2177,
+      "cost_usd": "0.0129801"
+    },
+    {
+      "phase": "recovery",
+      "revision": 2,
+      "requests": 8,
+      "input_tokens": 113767,
+      "output_tokens": 15118,
+      "cost_usd": "0.0522717"
+    }
+  ],
+  "response_usage": {
+    "input_tokens": 148326,
+    "output_tokens": 17295,
+    "requests": 11
+  },
+  "models": {
+    "deepseek-flash": 11
+  },
+  "recomputed_cost_usd": "0.0652518",
+  "actual_queries": 12,
+  "query_kinds": {
+    "search:macros": 4,
+    "search:project": 4,
+    "package_search": 1,
+    "search:dependencies": 2,
+    "package_files": 1
+  },
+  "tool_attempts": {
+    "list_source": 4,
+    "read_source": 10,
+    "search_build_files": 9,
+    "read_failure_log": 1,
+    "inspect_build_environment": 1
+  },
+  "reads": [
+    {
+      "phase": "initial",
+      "name": "list_source",
+      "arguments": {
+        "directory": "."
+      }
+    },
+    {
+      "phase": "initial",
+      "name": "read_source",
+      "arguments": {
+        "path": "autogen.sh"
+      }
+    },
+    {
+      "phase": "initial",
+      "name": "read_source",
+      "arguments": {
+        "path": "Makefile.am"
+      }
+    },
+    {
+      "phase": "recovery",
+      "name": "read_source",
+      "arguments": {
+        "path": "configure.ac",
+        "start_line": 195
+      }
+    },
+    {
+      "phase": "recovery",
+      "name": "list_source",
+      "arguments": {
+        "directory": "m4"
+      }
+    },
+    {
+      "phase": "recovery",
+      "name": "read_source",
+      "arguments": {
+        "path": "configure.ac",
+        "start_line": 90
+      }
+    },
+    {
+      "phase": "recovery",
+      "name": "read_source",
+      "arguments": {
+        "path": "configure.ac",
+        "start_line": 205
+      }
+    },
+    {
+      "phase": "recovery",
+      "name": "read_source",
+      "arguments": {
+        "path": "autogen.sh"
+      }
+    },
+    {
+      "phase": "recovery",
+      "name": "read_source",
+      "arguments": {
+        "path": "acinclude.m4"
+      }
+    },
+    {
+      "phase": "recovery",
+      "name": "read_failure_log",
+      "arguments": {
+        "path": "/home/yiwei/.codex/outputs/forge-libffi-dependency-diagnosis-flash-2026-11-16-v1/libffi/.compile-sessions/simple-system/46e6b6a3c71e/logs/command_a8c2d575a1c5452ba070b2f8614d0e5a.log",
+        "start_line": 1
+      }
+    },
+    {
+      "phase": "recovery",
+      "name": "read_source",
+      "arguments": {
+        "path": "configure.ac",
+        "start_line": 210
+      }
+    },
+    {
+      "phase": "recovery",
+      "name": "list_source",
+      "arguments": {
+        "directory": "m4"
+      }
+    },
+    {
+      "phase": "recovery",
+      "name": "read_source",
+      "arguments": {
+        "path": "configure.ac",
+        "start_line": 1
+      }
+    },
+    {
+      "phase": "recovery",
+      "name": "read_source",
+      "arguments": {
+        "path": "configure.ac",
+        "start_line": 195
+      }
+    },
+    {
+      "phase": "recovery",
+      "name": "list_source",
+      "arguments": {
+        "directory": "m4"
+      }
+    }
+  ],
+  "memory_snapshots": [
+    {
+      "request": 4,
+      "handoff_id": "50a80e1c22854d78944d1c8b913f17b3",
+      "candidate_names": [
+        "libltdl-dev",
+        "libltdl7",
+        "libtool",
+        "libtool-bin",
+        "libtool-doc",
+        "libtoolkit-perl",
+        "libtools-analyzer-clojure",
+        "libtools-analyzer-jvm-clojure",
+        "libtools-cli-clojure",
+        "libtools-deps-clojure",
+        "libtools-gitlibs-clojure",
+        "libtools-logging-clojure",
+        "libtools-macro-clojure",
+        "libtools-namespace-clojure",
+        "libtools-nrepl-clojure",
+        "libtools-reader-clojure",
+        "libtools-trace-clojure"
+      ],
+      "observations": 3
+    },
+    {
+      "request": 5,
+      "handoff_id": "50a80e1c22854d78944d1c8b913f17b3",
+      "candidate_names": [
+        "libltdl-dev",
+        "libltdl7",
+        "libtool",
+        "libtool-bin",
+        "libtool-doc",
+        "libtoolkit-perl",
+        "libtools-analyzer-clojure",
+        "libtools-analyzer-jvm-clojure",
+        "libtools-cli-clojure",
+        "libtools-deps-clojure",
+        "libtools-gitlibs-clojure",
+        "libtools-logging-clojure",
+        "libtools-macro-clojure",
+        "libtools-namespace-clojure",
+        "libtools-nrepl-clojure",
+        "libtools-reader-clojure",
+        "libtools-trace-clojure"
+      ],
+      "observations": 4
+    },
+    {
+      "request": 6,
+      "handoff_id": "50a80e1c22854d78944d1c8b913f17b3",
+      "candidate_names": [
+        "libltdl-dev",
+        "libltdl7",
+        "libtool",
+        "libtool-bin",
+        "libtool-doc",
+        "libtoolkit-perl",
+        "libtools-analyzer-clojure",
+        "libtools-analyzer-jvm-clojure",
+        "libtools-cli-clojure",
+        "libtools-deps-clojure",
+        "libtools-gitlibs-clojure",
+        "libtools-logging-clojure",
+        "libtools-macro-clojure",
+        "libtools-namespace-clojure",
+        "libtools-nrepl-clojure",
+        "libtools-reader-clojure",
+        "libtools-trace-clojure"
+      ],
+      "observations": 4
+    },
+    {
+      "request": 7,
+      "handoff_id": "50a80e1c22854d78944d1c8b913f17b3",
+      "candidate_names": [
+        "libltdl-dev",
+        "libltdl7",
+        "libtool",
+        "libtool-bin",
+        "libtool-doc",
+        "libtoolkit-perl",
+        "libtools-analyzer-clojure",
+        "libtools-analyzer-jvm-clojure",
+        "libtools-cli-clojure",
+        "libtools-deps-clojure",
+        "libtools-gitlibs-clojure",
+        "libtools-logging-clojure",
+        "libtools-macro-clojure",
+        "libtools-namespace-clojure",
+        "libtools-nrepl-clojure",
+        "libtools-reader-clojure",
+        "libtools-trace-clojure"
+      ],
+      "observations": 4
+    },
+    {
+      "request": 8,
+      "handoff_id": "50a80e1c22854d78944d1c8b913f17b3",
+      "candidate_names": [
+        "libltdl-dev",
+        "libltdl7",
+        "libtool",
+        "libtool-bin",
+        "libtool-doc",
+        "libtoolkit-perl",
+        "libtools-analyzer-clojure",
+        "libtools-analyzer-jvm-clojure",
+        "libtools-cli-clojure",
+        "libtools-deps-clojure",
+        "libtools-gitlibs-clojure",
+        "libtools-logging-clojure",
+        "libtools-macro-clojure",
+        "libtools-namespace-clojure",
+        "libtools-nrepl-clojure",
+        "libtools-reader-clojure",
+        "libtools-trace-clojure"
+      ],
+      "observations": 5
+    },
+    {
+      "request": 9,
+      "handoff_id": "50a80e1c22854d78944d1c8b913f17b3",
+      "candidate_names": [
+        "libltdl-dev",
+        "libltdl7",
+        "libtool",
+        "libtool-bin",
+        "libtool-doc",
+        "libtoolkit-perl",
+        "libtools-analyzer-clojure",
+        "libtools-analyzer-jvm-clojure",
+        "libtools-cli-clojure",
+        "libtools-deps-clojure",
+        "libtools-gitlibs-clojure",
+        "libtools-logging-clojure",
+        "libtools-macro-clojure",
+        "libtools-namespace-clojure",
+        "libtools-nrepl-clojure",
+        "libtools-reader-clojure",
+        "libtools-trace-clojure"
+      ],
+      "observations": 6
+    },
+    {
+      "request": 10,
+      "handoff_id": "50a80e1c22854d78944d1c8b913f17b3",
+      "candidate_names": [
+        "libltdl-dev",
+        "libltdl7",
+        "libtool",
+        "libtool-bin",
+        "libtool-doc",
+        "libtoolkit-perl",
+        "libtools-analyzer-clojure",
+        "libtools-analyzer-jvm-clojure",
+        "libtools-cli-clojure",
+        "libtools-deps-clojure",
+        "libtools-gitlibs-clojure",
+        "libtools-logging-clojure",
+        "libtools-macro-clojure",
+        "libtools-namespace-clojure",
+        "libtools-nrepl-clojure",
+        "libtools-reader-clojure",
+        "libtools-trace-clojure"
+      ],
+      "observations": 6
+    },
+    {
+      "request": 11,
+      "handoff_id": "50a80e1c22854d78944d1c8b913f17b3",
+      "candidate_names": [
+        "libltdl-dev",
+        "libltdl7",
+        "libtool",
+        "libtool-bin",
+        "libtool-doc",
+        "libtoolkit-perl",
+        "libtools-analyzer-clojure",
+        "libtools-analyzer-jvm-clojure",
+        "libtools-cli-clojure",
+        "libtools-deps-clojure",
+        "libtools-gitlibs-clojure",
+        "libtools-logging-clojure",
+        "libtools-macro-clojure",
+        "libtools-namespace-clojure",
+        "libtools-nrepl-clojure",
+        "libtools-reader-clojure",
+        "libtools-trace-clojure"
+      ],
+      "observations": 6
+    }
+  ],
+  "failures": [
+    {
+      "command_id": "command_a8c2d575a1c5452ba070b2f8614d0e5a",
+      "command": "./autogen.sh",
+      "role": "dependency",
+      "exit_code": 1,
+      "timed_out": false,
+      "log_path": "/home/yiwei/.codex/outputs/forge-libffi-dependency-diagnosis-flash-2026-11-16-v1/libffi/.compile-sessions/simple-system/46e6b6a3c71e/logs/command_a8c2d575a1c5452ba070b2f8614d0e5a.log"
+    }
+  ],
+  "resources": [
+    {
+      "reference": "deerflow-compile-simple-s-46e6b6a3",
+      "absent": true
+    },
+    {
+      "reference": "cbe8d10f6d69edf94c0e1c1325884c5206489738ff5991b7c9a68b292083cb96",
+      "absent": true
+    },
+    {
+      "reference": "deerflow-replay-simple-s-46e6b6a3-replay_a1a69",
+      "absent": true
+    },
+    {
+      "reference": "f98f5db088b7927e6dcc330fa44afc63aa9343033a98c4ecacf45f7980376087",
+      "absent": true
+    }
+  ]
+}

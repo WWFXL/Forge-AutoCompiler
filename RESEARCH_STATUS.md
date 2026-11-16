@@ -3,11 +3,17 @@
 论文选材固定入口：[硕士论文实验与证据索引](docs/research/THESIS_EVIDENCE_INDEX.md)，[历史材料目录](docs/research/THESIS_EVIDENCE_CATALOG.md)保留存量导航。当前完整稿为[论文v0.11工具Harness结果修订稿](docs/thesis/README.md)；E50–E52保存主构建系统及两轮Harness结果，既有完整任务、状态/恢复消融和两层经验继续按各自版本与分母使用。
 
 
-## 当前阶段（2026-11-16；#787诊断动作改进后的单次自主观察准备完成，待本次预算及时窗）
+## 当前阶段（2026-11-16；#789依赖诊断改进后单次自主构建完成，结果待审核）
 
-用户要求执行下一步自主构建。[协议](benchmarks/preregistrations/cpp-build-libffi-dependency-diagnosis-flash-v1.md)及`scripts/forge_libffi_dependency_diagnosis.py`复用原材料/Flash/P0/R2/Workflow/验收，仅开启PR786已验证的依赖诊断流程及任务内记录，不给包名/旧方案/经验。一次、拟1美元硬上限及确认起1小时，无自动重试，未知用量/标识异常/清理失败停止。
+[结果报告](docs/research/2026-11-16-libffi-dependency-diagnosis-results.md)：11真实Flash请求（初始3/恢复8）、165621Token、0.0652518美元、162.16秒，未知0。主库、静态共享交付、原归档干净重建及cleanup通过，四容器引用不存在。原输入未变、新增187项，source_review仍pending_review；作者完整测试未执行。
 
-3项入口装配/授权检查、实际默认材料CLI及Ruff/格式通过，未重复参考构建或产品全测；0Provider/模型Token/新增费用，正式未启动，不读凭据。旧单次授权已消费，本身份新预算及时窗尚未绑定；结果先汇报，不改论文/E57或独立项目分母。知识库MCP本轮search_notes返回Transport closed，待恢复后同步，不从聊天重建历史。发布/检查以Issue787关联PR为准。
+自动3查询取得libltdl-dev候选，第4—11实际请求持续可见，但Agent没有核实/采用，也未调用diagnose_dependency。12实际查询仍以本地范围为主，最终自建固定sys_symbol_underscore=no的兼容宏；构建通过不等于依赖诊断正确，不将旧功能验证自动当新文件语义批准。
+
+用户1美元/UTC10:42:38—11:42:38单次已结束，无自动重试或追加，无活动Provider。原件forge-libffi-dependency-diagnosis-flash-2026-11-16-v1，inventoryb28416ae；83源快照及计费核对通过。结果先审核，不改论文/E57或独立分母。下一建议聚焦候选核实动作，暂不实施/继续单例。发布以Issue789关联PR及CI为准；知识库连接恢复，个人笔记不注入正式Agent。
+
+## 上一阶段（2026-11-16；#787诊断动作改进单次观察入口准备完成）
+
+PR788三项CI通过并合科研分支64bf7b79，入口和协议用于本次独立运行。此前默认材料检查与3项装配检查为零Provider工程证据，不计模型效果。
 
 ## 上一阶段（2026-11-16；#785下一步依赖诊断动作改进完成，尚无新增自主模型结果）
 

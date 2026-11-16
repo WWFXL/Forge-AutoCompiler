@@ -1,0 +1,438 @@
+[
+  {
+    "event": "recovery.environment_query",
+    "version": "recovery-environment-v2",
+    "handoff_id": "50a80e1c22854d78944d1c8b913f17b3",
+    "operation": "search",
+    "query": "LT_SYS_SYMBOL_USCORE",
+    "scope": "macros",
+    "result": {
+      "status": "no_match_in_scope",
+      "scope": "macros",
+      "roots": [
+        "/usr/share/aclocal-1.16",
+        "/usr/share/aclocal"
+      ],
+      "matches": [],
+      "files_scanned": 55,
+      "bytes_scanned": 577876,
+      "incomplete": false,
+      "note": "仅搜索已存在的限定目录；空结果不能证明包不存在或功能已移除",
+      "command_id": "command_064570f0cac94888ab01069d5dd72771",
+      "exit_code": 0,
+      "timed_out": false,
+      "log_path": "logs/command_064570f0cac94888ab01069d5dd72771.log"
+    }
+  },
+  {
+    "event": "recovery.environment_query",
+    "version": "recovery-environment-v2",
+    "handoff_id": "50a80e1c22854d78944d1c8b913f17b3",
+    "operation": "search",
+    "query": "LT_SYS_SYMBOL_USCORE",
+    "scope": "project",
+    "result": {
+      "status": "matches",
+      "scope": "project",
+      "roots": [
+        "/workspace/repo"
+      ],
+      "matches": [
+        {
+          "path": "/workspace/repo/configure",
+          "line": 19320,
+          "text": "LT_SYS_SYMBOL_USCORE"
+        },
+        {
+          "path": "/workspace/repo/configure.ac",
+          "line": 219,
+          "text": "LT_SYS_SYMBOL_USCORE"
+        },
+        {
+          "path": "/workspace/repo/autom4te.cache/output.0",
+          "line": 19320,
+          "text": "LT_SYS_SYMBOL_USCORE"
+        },
+        {
+          "path": "/workspace/repo/autom4te.cache/output.1",
+          "line": 19316,
+          "text": "LT_SYS_SYMBOL_USCORE"
+        },
+        {
+          "path": "/workspace/repo/autom4te.cache/output.2",
+          "line": 19320,
+          "text": "LT_SYS_SYMBOL_USCORE"
+        },
+        {
+          "path": "/workspace/repo/autom4te.cache/output.3",
+          "line": 19320,
+          "text": "LT_SYS_SYMBOL_USCORE"
+        }
+      ],
+      "files_scanned": 447,
+      "bytes_scanned": 7465985,
+      "incomplete": false,
+      "note": "仅搜索已存在的限定目录；空结果不能证明包不存在或功能已移除",
+      "command_id": "command_e0a110646e6e464c95e71b10e152ee77",
+      "exit_code": 0,
+      "timed_out": false,
+      "log_path": "logs/command_e0a110646e6e464c95e71b10e152ee77.log"
+    }
+  },
+  {
+    "event": "recovery.environment_query",
+    "version": "recovery-environment-v2",
+    "handoff_id": "50a80e1c22854d78944d1c8b913f17b3",
+    "operation": "environment",
+    "query": "libtool",
+    "kind": "package_search",
+    "result": {
+      "status": "ok",
+      "argv": [
+        "apt-cache",
+        "search",
+        "libtool"
+      ],
+      "executable": "/usr/bin/apt-cache",
+      "exit_code": 0,
+      "output": "libltdl-dev - System independent dlopen wrapper for GNU libtool (headers)\nlibltdl7 - System independent dlopen wrapper for GNU libtool\nlibtool - Generic library support script\nlibtool-bin - Generic library support script (libtool binary)\nlibtool-doc - Generic library support script (documentation)\nlibtoolkit-perl - Keep your handy modules organized\nlibtools-analyzer-clojure - analyzer for host agnostic Clojure code\nlibtools-analyzer-jvm-clojure - analyzer for Clojure code providing additional jvm-specific passes\nlibtools-cli-clojure - command line argument parser for Clojure\nlibtools-deps-clojure - API for transitive dependency graph expansion, classpath creation\nlibtools-gitlibs-clojure - API for retrieving, caching, and programmatically accessing git libraries\nlibtools-logging-clojure - Logging macros for Clojure\nlibtools-macro-clojure - Clojure tools for writing macros\nlibtools-namespace-clojure - tools for managing namespaces in Clojure\nlibtools-nrepl-clojure - Clojure network REPL\nlibtools-reader-clojure - complete Clojure and EDN-only reader\nlibtools-trace-clojure - Clojure tracing facility in Clojure\n",
+      "truncated": false,
+      "match_scope": "package_name_and_description",
+      "index_state": {
+        "package_indexes": 15,
+        "contents_indexes": 4,
+        "packages": "present",
+        "contents": "present",
+        "apt_file_available": true,
+        "coverage": "仅当前本地索引；present不证明最新或覆盖全部源/架构",
+        "preparation": "缺包索引时在dependency步骤运行apt-get update；缺文件查询能力时安装apt-file并运行apt-file update"
+      },
+      "evidence_scope": "当前可见包/文件索引，空结果不证明不存在或版本移除",
+      "command_id": "command_951f936087044497a148d1faab67e2c7",
+      "timed_out": false,
+      "log_path": "logs/command_951f936087044497a148d1faab67e2c7.log"
+    }
+  },
+  {
+    "event": "recovery.environment_query",
+    "version": "recovery-environment-v2",
+    "handoff_id": "50a80e1c22854d78944d1c8b913f17b3",
+    "operation": "search",
+    "query": "USCORE",
+    "scope": "project",
+    "result": {
+      "status": "matches",
+      "scope": "project",
+      "roots": [
+        "/workspace/repo"
+      ],
+      "matches": [
+        {
+          "path": "/workspace/repo/configure",
+          "line": 19320,
+          "text": "LT_SYS_SYMBOL_USCORE"
+        },
+        {
+          "path": "/workspace/repo/configure.ac",
+          "line": 219,
+          "text": "LT_SYS_SYMBOL_USCORE"
+        },
+        {
+          "path": "/workspace/repo/autom4te.cache/output.0",
+          "line": 19320,
+          "text": "LT_SYS_SYMBOL_USCORE"
+        },
+        {
+          "path": "/workspace/repo/autom4te.cache/output.1",
+          "line": 19316,
+          "text": "LT_SYS_SYMBOL_USCORE"
+        },
+        {
+          "path": "/workspace/repo/autom4te.cache/output.2",
+          "line": 19320,
+          "text": "LT_SYS_SYMBOL_USCORE"
+        },
+        {
+          "path": "/workspace/repo/autom4te.cache/output.3",
+          "line": 19320,
+          "text": "LT_SYS_SYMBOL_USCORE"
+        },
+        {
+          "path": "/workspace/repo/m4/libtool.m4",
+          "line": 1832,
+          "text": "# _LT_TRY_DLOPEN_SELF (ACTION-IF-TRUE, ACTION-IF-TRUE-W-USCORE,"
+        }
+      ],
+      "files_scanned": 447,
+      "bytes_scanned": 7465985,
+      "incomplete": false,
+      "note": "仅搜索已存在的限定目录；空结果不能证明包不存在或功能已移除",
+      "command_id": "command_d64b1a179738441ba653fafef8bf29cf",
+      "exit_code": 0,
+      "timed_out": false,
+      "log_path": "logs/command_d64b1a179738441ba653fafef8bf29cf.log"
+    }
+  },
+  {
+    "event": "recovery.environment_query",
+    "version": "recovery-environment-v2",
+    "handoff_id": "50a80e1c22854d78944d1c8b913f17b3",
+    "operation": "search",
+    "query": "LT_SYS_SYMBOL_USCORE",
+    "scope": "macros",
+    "result": {
+      "status": "no_match_in_scope",
+      "scope": "macros",
+      "roots": [
+        "/usr/share/aclocal-1.16",
+        "/usr/share/aclocal"
+      ],
+      "matches": [],
+      "files_scanned": 55,
+      "bytes_scanned": 577876,
+      "incomplete": false,
+      "note": "仅搜索已存在的限定目录；空结果不能证明包不存在或功能已移除",
+      "command_id": "command_5561f3ae0c0e4cb29d4ffd6e48b20b4d",
+      "exit_code": 0,
+      "timed_out": false,
+      "log_path": "logs/command_5561f3ae0c0e4cb29d4ffd6e48b20b4d.log"
+    }
+  },
+  {
+    "event": "recovery.environment_query",
+    "version": "recovery-environment-v2",
+    "handoff_id": "50a80e1c22854d78944d1c8b913f17b3",
+    "operation": "search",
+    "query": "LT_SYS_SYMBOL_USCORE",
+    "scope": "dependencies",
+    "result": {
+      "status": "no_match_in_scope",
+      "scope": "dependencies",
+      "roots": [
+        "/workspace/dependencies"
+      ],
+      "matches": [],
+      "files_scanned": 0,
+      "bytes_scanned": 0,
+      "incomplete": false,
+      "note": "仅搜索已存在的限定目录；空结果不能证明包不存在或功能已移除",
+      "command_id": "command_0ef9986bb6c14baaa54ceb26feffdf42",
+      "exit_code": 0,
+      "timed_out": false,
+      "log_path": "logs/command_0ef9986bb6c14baaa54ceb26feffdf42.log"
+    }
+  },
+  {
+    "event": "recovery.environment_query",
+    "version": "recovery-environment-v2",
+    "handoff_id": "50a80e1c22854d78944d1c8b913f17b3",
+    "operation": "search",
+    "query": "LT_SYS_SYMBOL_USCORE",
+    "scope": "project",
+    "result": {
+      "status": "matches",
+      "scope": "project",
+      "roots": [
+        "/workspace/repo"
+      ],
+      "matches": [
+        {
+          "path": "/workspace/repo/configure",
+          "line": 19320,
+          "text": "LT_SYS_SYMBOL_USCORE"
+        },
+        {
+          "path": "/workspace/repo/configure.ac",
+          "line": 219,
+          "text": "LT_SYS_SYMBOL_USCORE"
+        },
+        {
+          "path": "/workspace/repo/autom4te.cache/output.0",
+          "line": 19320,
+          "text": "LT_SYS_SYMBOL_USCORE"
+        },
+        {
+          "path": "/workspace/repo/autom4te.cache/output.1",
+          "line": 19316,
+          "text": "LT_SYS_SYMBOL_USCORE"
+        },
+        {
+          "path": "/workspace/repo/autom4te.cache/output.2",
+          "line": 19320,
+          "text": "LT_SYS_SYMBOL_USCORE"
+        },
+        {
+          "path": "/workspace/repo/autom4te.cache/output.3",
+          "line": 19320,
+          "text": "LT_SYS_SYMBOL_USCORE"
+        }
+      ],
+      "files_scanned": 447,
+      "bytes_scanned": 7465985,
+      "incomplete": false,
+      "note": "仅搜索已存在的限定目录；空结果不能证明包不存在或功能已移除",
+      "command_id": "command_18ce2f0936424533b861543537e621af",
+      "exit_code": 0,
+      "timed_out": false,
+      "log_path": "logs/command_18ce2f0936424533b861543537e621af.log"
+    }
+  },
+  {
+    "event": "recovery.environment_query",
+    "version": "recovery-environment-v2",
+    "handoff_id": "50a80e1c22854d78944d1c8b913f17b3",
+    "operation": "search",
+    "query": "LT_SYS_SYMBOL",
+    "scope": "project",
+    "result": {
+      "status": "matches",
+      "scope": "project",
+      "roots": [
+        "/workspace/repo"
+      ],
+      "matches": [
+        {
+          "path": "/workspace/repo/configure",
+          "line": 19320,
+          "text": "LT_SYS_SYMBOL_USCORE"
+        },
+        {
+          "path": "/workspace/repo/configure.ac",
+          "line": 219,
+          "text": "LT_SYS_SYMBOL_USCORE"
+        },
+        {
+          "path": "/workspace/repo/autom4te.cache/output.0",
+          "line": 19320,
+          "text": "LT_SYS_SYMBOL_USCORE"
+        },
+        {
+          "path": "/workspace/repo/autom4te.cache/output.1",
+          "line": 19316,
+          "text": "LT_SYS_SYMBOL_USCORE"
+        },
+        {
+          "path": "/workspace/repo/autom4te.cache/output.2",
+          "line": 19320,
+          "text": "LT_SYS_SYMBOL_USCORE"
+        },
+        {
+          "path": "/workspace/repo/autom4te.cache/output.3",
+          "line": 19320,
+          "text": "LT_SYS_SYMBOL_USCORE"
+        }
+      ],
+      "files_scanned": 447,
+      "bytes_scanned": 7465985,
+      "incomplete": false,
+      "note": "仅搜索已存在的限定目录；空结果不能证明包不存在或功能已移除",
+      "command_id": "command_b29a1b2ef5db4a4cbd6c8645cde61c33",
+      "exit_code": 0,
+      "timed_out": false,
+      "log_path": "logs/command_b29a1b2ef5db4a4cbd6c8645cde61c33.log"
+    }
+  },
+  {
+    "event": "recovery.environment_query",
+    "version": "recovery-environment-v2",
+    "handoff_id": "50a80e1c22854d78944d1c8b913f17b3",
+    "operation": "search",
+    "query": "AC_DEFUN([LT_SYS_SYMBOL_USCORE]",
+    "scope": "macros",
+    "result": {
+      "status": "no_match_in_scope",
+      "scope": "macros",
+      "roots": [
+        "/usr/share/aclocal-1.16",
+        "/usr/share/aclocal"
+      ],
+      "matches": [],
+      "files_scanned": 55,
+      "bytes_scanned": 577876,
+      "incomplete": false,
+      "note": "仅搜索已存在的限定目录；空结果不能证明包不存在或功能已移除",
+      "command_id": "command_38ab7192fb964383a7d56727b2cc6554",
+      "exit_code": 0,
+      "timed_out": false,
+      "log_path": "logs/command_38ab7192fb964383a7d56727b2cc6554.log"
+    }
+  },
+  {
+    "event": "recovery.environment_query",
+    "version": "recovery-environment-v2",
+    "handoff_id": "50a80e1c22854d78944d1c8b913f17b3",
+    "operation": "search",
+    "query": "USCORE",
+    "scope": "macros",
+    "result": {
+      "status": "matches",
+      "scope": "macros",
+      "roots": [
+        "/usr/share/aclocal-1.16",
+        "/usr/share/aclocal"
+      ],
+      "matches": [
+        {
+          "path": "/usr/share/aclocal/libtool.m4",
+          "line": 1832,
+          "text": "# _LT_TRY_DLOPEN_SELF (ACTION-IF-TRUE, ACTION-IF-TRUE-W-USCORE,"
+        }
+      ],
+      "files_scanned": 55,
+      "bytes_scanned": 577876,
+      "incomplete": false,
+      "note": "仅搜索已存在的限定目录；空结果不能证明包不存在或功能已移除",
+      "command_id": "command_c4ec53de4b514ded8af015c0a41d605f",
+      "exit_code": 0,
+      "timed_out": false,
+      "log_path": "logs/command_c4ec53de4b514ded8af015c0a41d605f.log"
+    }
+  },
+  {
+    "event": "recovery.environment_query",
+    "version": "recovery-environment-v2",
+    "handoff_id": "50a80e1c22854d78944d1c8b913f17b3",
+    "operation": "search",
+    "query": "USCORE",
+    "scope": "dependencies",
+    "result": {
+      "status": "no_match_in_scope",
+      "scope": "dependencies",
+      "roots": [
+        "/workspace/dependencies"
+      ],
+      "matches": [],
+      "files_scanned": 0,
+      "bytes_scanned": 0,
+      "incomplete": false,
+      "note": "仅搜索已存在的限定目录；空结果不能证明包不存在或功能已移除",
+      "command_id": "command_db17f02fb1a24dc1861ea757a76edce0",
+      "exit_code": 0,
+      "timed_out": false,
+      "log_path": "logs/command_db17f02fb1a24dc1861ea757a76edce0.log"
+    }
+  },
+  {
+    "event": "recovery.environment_query",
+    "version": "recovery-environment-v2",
+    "handoff_id": "50a80e1c22854d78944d1c8b913f17b3",
+    "operation": "environment",
+    "query": "libtool",
+    "kind": "package_files",
+    "result": {
+      "status": "ok",
+      "argv": [
+        "dpkg-query",
+        "-L",
+        "libtool"
+      ],
+      "executable": "/usr/bin/dpkg-query",
+      "exit_code": 0,
+      "output": "/.\n/usr\n/usr/bin\n/usr/bin/libtoolize\n/usr/share\n/usr/share/aclocal\n/usr/share/aclocal/libtool.m4\n/usr/share/aclocal/ltargz.m4\n/usr/share/aclocal/ltoptions.m4\n/usr/share/aclocal/ltsugar.m4\n/usr/share/aclocal/ltversion.m4\n/usr/share/aclocal/lt~obsolete.m4\n/usr/share/doc\n/usr/share/doc/libtool\n/usr/share/doc/libtool/README.Debian\n/usr/share/doc/libtool/changelog.Debian.gz\n/usr/share/doc/libtool/copyright\n/usr/share/libtool\n/usr/share/libtool/build-aux\n/usr/share/libtool/build-aux/compile\n/usr/share/libtool/build-aux/depcomp\n/usr/share/libtool/build-aux/install-sh\n/usr/share/libtool/build-aux/ltmain.sh\n/usr/share/libtool/build-aux/missing\n/usr/share/man\n/usr/share/man/man1\n/usr/share/man/man1/libtoolize.1.gz\n/usr/share/libtool/build-aux/config.guess\n/usr/share/libtool/build-aux/config.sub\n",
+      "truncated": false,
+      "command_id": "command_2c9a27faef4c4b58bc2caadc68252728",
+      "timed_out": false,
+      "log_path": "logs/command_2c9a27faef4c4b58bc2caadc68252728.log"
+    }
+  }
+]
