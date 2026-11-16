@@ -633,6 +633,10 @@
   - 下一步: 等待实验负责人确认当前网络接入介质，并决定是否授权只读 endpoint 诊断和新的 canary amendment；获得确认后必须另建中文 Issue/PR 和协议 identity，保留当前失败 marker。
 
 ## 最近变更 (Recent Changes)
+- 2026-11-16 — #783完成诊断证据保留自主单次，128工具调用限额停止，未完成构建，结果待审核。
+  - 文件: `docs/research/2026-11-16-libffi-diagnostic-memory-results.md`, `benchmarks/analyses/libffi-diagnostic-memory-2026-11-16/`
+  - 动机: 检验记录是否促进候选核实；50请求/0.351267美元/722.11秒、43记录全无候选，包检索0；恢复83读/54重复，尚未解决前置动作选择。原输入未变/17新增，cleanup成功；旧单次已消费，无活动Provider，不自动改Harness/论文或扩批。
+
 - 2026-11-16 — #781实现恢复诊断证据跨压缩保留；45相关检查及真实容器预写修复/主库交付/干净重建/cleanup通过。
   - 文件: `backend/packages/harness/deerflow/compile/recovery_diagnostic_memory.py`, `scripts/forge_libffi_diagnostic_memory.py`, `docs/research/2026-11-16-recovery-diagnostic-memory.md`
   - 动机: 上轮已查到候选但未核实，后续请求失去候选；新入口记录真实证据及候选状态，不预填答案。0真实Provider/Token/美元，不证明模型效果。新自主单次拟1美元/1小时待授权，旧授权不续用；当前事实见RESEARCH_STATUS.md。
