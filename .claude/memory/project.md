@@ -634,6 +634,11 @@
 
 ## 最近变更 (Recent Changes)
 
+- 2026-11-16 — #762完成容器查询工具下libffi单次自主观察准备，待新预算。
+  - 文件: `scripts/forge_libffi_environment_autonomous.py`, `backend/tests/test_libffi_environment_autonomous.py`, `benchmarks/preregistrations/cpp-build-libffi-environment-tools-flash-v1.md`, `docs/research/2026-11-16-libffi-environment-autonomous-preparation.md`。
+  - 动机: 区分上轮预写修复接线与Flash真实自主诊断；沿用R2通用原则、不提供包名或成功方案，不改核心和论文。
+  - 验证: 默认材料CLI/9项门禁/Ruff通过；未创建正式尝试，0Provider/Token/费用。拟1美元/用户确认起1小时、无自动重试，旧单次授权已消费。当前状态见RESEARCH_STATUS.md，发布终态以关联PR三CI及科研集成分支为准。
+
 - 2026-11-16 — 完成#760恢复Agent容器搜索与依赖环境查询修复。
   - 文件: `compile/recovery_environment.py`, `compile/simple_build_task.py`, `compile/simple_planning_context.py`, `scripts/forge_simple_system.py`, `scripts/forge_recovery_environment_repair.py`, `docs/research/2026-11-16-recovery-environment-tools.md`。
   - 动机: 旧恢复只有源码/日志读取，新增实际包状态/路径与有界搜索，修复仍走方案→Workflow。
