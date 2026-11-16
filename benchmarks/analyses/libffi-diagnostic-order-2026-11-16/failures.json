@@ -1,0 +1,26 @@
+[
+  {
+    "command_id": "command_1ea550926012447489095dd8be3a6d6c",
+    "role": "configure",
+    "command": "sh ./autogen.sh",
+    "exit_code": 1,
+    "timed_out": false,
+    "output_tail": "f: configure.ac: tracing\nautoreconf: running: libtoolize --copy\nautoreconf: configure.ac: not using Intltool\nautoreconf: configure.ac: not using Gtkdoc\nautoreconf: running: aclocal -I m4\nautoreconf: running: /usr/bin/autoconf\nconfigure.ac:88: warning: The preprocessor macro `STDC_HEADERS' is obsolete.\nconfigure.ac:88:   Except in unusual embedded environments, you can safely include all\nconfigure.ac:88:   ISO C90 headers unconditionally.\nconfigure.ac:123: warning: The macro `AC_TRY_COMPILE' is obsolete.\nconfigure.ac:123: You should run autoupdate.\n./lib/autoconf/general.m4:2847: AC_TRY_COMPILE is expanded from...\nlib/m4sugar/m4sh.m4:692: _AS_IF_ELSE is expanded from...\nlib/m4sugar/m4sh.m4:699: AS_IF is expanded from...\n./lib/autoconf/general.m4:2249: AC_CACHE_VAL is expanded from...\n./lib/autoconf/general.m4:2270: AC_CACHE_CHECK is expanded from...\nm4/asmcfi.m4:1: GCC_AS_CFI_PSEUDO_OP is expanded from...\nconfigure.ac:123: the top level\nconfigure.ac:219: error: possibly undefined macro: LT_SYS_SYMBOL_USCORE\n      If this token and others are legitimate, please use m4_pattern_allow.\n      See the Autoconf documentation.\nautoreconf: error: /usr/bin/autoconf failed with exit status: 1\n"
+  },
+  {
+    "command_id": "command_e70e61d94c834ef8b451177c4baff7dd",
+    "role": "dependency",
+    "command": "mkdir -p /workspace/dependencies && curl -fsSL https://ftpmirror.gnu.org/libtool/libtool-2.5.4.tar.gz -o /workspace/dependencies/libtool-2.5.4.tar.gz && tar -xzf /workspace/dependencies/libtool-2.5.4.tar.gz -C /workspace/dependencies",
+    "exit_code": 22,
+    "timed_out": false,
+    "output_tail": "curl: (22) The requested URL returned error: 403\n"
+  },
+  {
+    "command_id": "command_845d8d37138c4dad8de90769ec5800e6",
+    "role": "dependency",
+    "command": "mkdir -p /workspace/dependencies && cd /workspace/dependencies && rm -f libtool.tar.gz && for u in https://ftp.gnu.org/gnu/libtool/libtool-2.5.4.tar.gz https://mirrors.kernel.org/gnu/libtool/libtool-2.5.4.tar.gz; do echo \"trying $u\"; if curl -fsSL \"$u\" -o libtool.tar.gz; then break; fi; done && tar -tzf libtool.tar.gz >/dev/null && rm -rf libtool && tar -xzf libtool.tar.gz -C /workspace/dependencies && mv /workspace/dependencies/libtool-2.5.4 /workspace/dependencies/libtool",
+    "exit_code": 126,
+    "timed_out": false,
+    "output_tail": "生成物清理由系统或作者clean目标执行，不能提交任意删除"
+  }
+]

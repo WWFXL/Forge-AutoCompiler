@@ -626,3 +626,7 @@ E54共同工程后续：[验证、依赖工具链及文件保护修复](2026-11-
 ### #774 查询索引修复后自主单例（开发观察，待审不自动入文）
 
 [报告](2026-11-16-libffi-index-autonomous.md)/[分析](../../benchmarks/analyses/libffi-index-autonomous-2026-11-16/README.md)：一个libffi独立从零观察，10Flash请求/139461Token/0.0536607美元/170.92秒，主库/交付/实际重建/cleanup通过。未定位系统开发包，源码安装真实Libtool2.4.6；16诊断尝试/12实际/4限额，描述搜索0，一次文件提供者有效。新查询镜像与初始方案不同，历史差值不作因果、不增E57独立分母，不改论文。原件forge-libffi-index-autonomous-flash-2026-11-16-v1，inventory3a43fdf2，保留失败与文件后审。
+
+### #779 诊断顺序指导自主单例（开发观察，待审不自动入文）
+
+[报告](2026-11-16-libffi-diagnostic-order-results.md)/[分析](../../benchmarks/analyses/libffi-diagnostic-order-2026-11-16/README.md)：一个libffi从零单次，51请求/704206Token/0.2693865美元/485.49秒，主库/交付/实际重建/cleanup通过。29诊断尝试/25实际/4限额；包搜索包含正确候选但未核实使用，请求32可见、33起未持续保留，最终真实Libtool2.5.4源码安装。下载403和rm规则拒绝保留；初始P0未改却17请求，不把全部差值归因新增恢复提示。未获预期诊断收益，候选证据保留为下一方向；原件forge-libffi-diagnostic-order-flash-2026-11-16-v1、inventory36b34bad。不改E57/论文、不增独立项目分母。

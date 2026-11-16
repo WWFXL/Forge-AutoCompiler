@@ -3,7 +3,15 @@
 论文选材固定入口：[硕士论文实验与证据索引](docs/research/THESIS_EVIDENCE_INDEX.md)，[历史材料目录](docs/research/THESIS_EVIDENCE_CATALOG.md)保留存量导航。当前完整稿为[论文v0.11工具Harness结果修订稿](docs/thesis/README.md)；E50–E52保存主构建系统及两轮Harness结果，既有完整任务、状态/恢复消融和两层经验继续按各自版本与分母使用。
 
 
-## 当前阶段（2026-11-16；#777诊断顺序指导已实现，自主观察待新授权）
+## 当前阶段（2026-11-16；#779诊断顺序自主观察构建成功，未获预期诊断收益）
+
+[结果报告](docs/research/2026-11-16-libffi-diagnostic-order-results.md)：Flash从零libffi一次，51请求（初始17/恢复34）、704206Token/0.2693865美元/485.49秒/未知0。主库、静态共享交付、原归档干净重建/cleanup通过，四容器引用不存在；原输入未变、新增186生成文件后审。真实Libtool2.5.4的ltdl.m4提供宏，未伪造宏/固定值；作者测试未执行。
+
+29诊断尝试/25实际/4限额；第31请求包描述搜索结果包含libltdl-dev，第32可见、第33起不在发送上下文，未核实/采用候选。三次恢复先后遇下载403、既有任意rm规则拒绝126，最终源码安装成功。提示实际送达，但未使此例诊断直接；恢复33次源码读取/19完全重复。初始P0未改却17请求，不把全部开销增加归因于恢复指导，亦不作单例泛化因果。
+
+新1美元/UTC08:56:52—09:56:52授权单次已结束，无活动Provider，无Provider/整次自动重试或追加。原件forge-libffi-diagnostic-order-flash-2026-11-16-v1，inventory36b34bad。结果先交用户审核，不改论文/E57；下一候选是压缩后持续保留简短恢复诊断事实与候选证据，尚未实现，不自动再加提示或重跑。结果发布以Issue779关联PR最新HEAD检查和科研合并为准。
+
+## 上一阶段（2026-11-16；#777诊断顺序指导已实现，自主观察待新授权）
 
 [准备报告](docs/research/2026-11-16-dependency-diagnostic-order-preparation.md)及[新协议](benchmarks/preregistrations/cpp-build-libffi-diagnostic-order-flash-v1.md)：仅在本轮恢复Harness追加通用诊断顺序，区分缺组件/路径/版本，局部无定义后转组件包描述/提供者；同假设两次无新证据换方向，源码安装或切版本需实际依据。不给具体项目答案，不增工具/查询额度，不改P0、原R2、Workflow或验收，不改变旧入口/全局默认。
 
