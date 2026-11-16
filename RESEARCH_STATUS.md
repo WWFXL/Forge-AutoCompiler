@@ -3,7 +3,11 @@
 论文选材固定入口：[硕士论文实验与证据索引](docs/research/THESIS_EVIDENCE_INDEX.md)，[历史材料目录](docs/research/THESIS_EVIDENCE_CATALOG.md)保留存量导航。当前完整稿为[论文v0.11工具Harness结果修订稿](docs/thesis/README.md)；E50–E52保存主构建系统及两轮Harness结果，既有完整任务、状态/恢复消融和两层经验继续按各自版本与分母使用。
 
 
-## 当前阶段（2026-11-16；#754恢复装配修复及libffi真实重建完成）
+## 当前阶段（2026-11-16；#756 libffi从零自主构建准备）
+
+用户要求从零验证规划/恢复Agent的自主能力。单例[协议](benchmarks/preregistrations/cpp-build-libffi-autonomous-flash-v1.md)与入口已准备，原E57源码/镜像、P0工具约束＋R2，不注入旧方案/人工修复/经验。材料检查、Ruff与Docker运行条件已通过；0Provider/新增费。拟1美元/确认起1小时、单路径无自动重试，尚待本轮预算时窗确认；不回填E57、不改论文。
+
+## 上一阶段（2026-11-16；#754恢复装配修复及libffi真实重建完成）
 
 [修复报告](docs/research/2026-11-16-libffi-recovery-assembly-repair.md)：步骤标识点号规范化/引用同步、从真实交接补回成功依赖后进行完整图校验；错误引用与安全保护保持。libffi同E57源码/镜像的独立零Provider工程路径实际复现宏错误，补装libltdl-dev后主要库、交付、干净重建与原源码保护均通过，74.43秒，4个容器引用确认不存在。无需降级Libtool，2.4.7的ltdl.m4实际提供宏；旧Agent版本推断不成立。
 
