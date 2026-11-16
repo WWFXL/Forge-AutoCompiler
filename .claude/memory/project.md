@@ -633,6 +633,11 @@
   - 下一步: 等待实验负责人确认当前网络接入介质，并决定是否授权只读 endpoint 诊断和新的 canary amendment；获得确认后必须另建中文 Issue/PR 和协议 identity，保留当前失败 marker。
 
 ## 最近变更 (Recent Changes)
+- 2026-11-17 — #809准备本轮Harness更新18项目36槽比较；两组从零规划，关闭成功指令复用与经验库检索，只全18汇总。共享执行器/Token容量/文件后审，对比P0/R2只读与依赖工具/诊断记忆/恢复经验组合。
+  - 文件: `scripts/forge_harness_update_comparison.py`, `scripts/forge_harness_update_sources.py`, `scripts/forge_simple_system.py`, `benchmarks/fixtures/harness-update-comparison-v1/`, `benchmarks/manifests/cpp-build-harness-update-comparison-flash-v1.json`, `docs/research/2026-11-17-harness-update-comparison-preparation.md`。
+  - 验证: 8相关检查、18作者引文/SHA、真实材料CLI；两组libyaml受控失败/恢复/交付/重建/cleanup通过，更新组规划恢复各查询一次，dsvpn作者原生254用法检查通过；均0Provider工程准备，非模型效果。
+  - 当前: 正式0/36、未读凭据/费用0，本批拟10美元/8小时待确认，不续旧单次。结果先审核，不自动入论文或改E57；当前阶段以RESEARCH_STATUS.md为准。#808已三CI通过合并74b95620，不再待发布。
+
 
 - 2026-11-17 — #807整理本轮离线Harness更新与LH-v0/LH-v1历史版本。
   - 文件: `docs/research/2026-11-17-harness-update-inventory.md`、`benchmarks/analyses/harness-update-inventory-2026-11-17/versions.json`、`RESEARCH_STATUS.md`。
