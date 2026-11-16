@@ -3,9 +3,11 @@
 论文选材固定入口：[硕士论文实验与证据索引](docs/research/THESIS_EVIDENCE_INDEX.md)，[历史材料目录](docs/research/THESIS_EVIDENCE_CATALOG.md)保留存量导航。当前完整稿为[论文v0.11工具Harness结果修订稿](docs/thesis/README.md)；E50–E52保存主构建系统及两轮Harness结果，既有完整任务、状态/恢复消融和两层经验继续按各自版本与分母使用。
 
 
-## 当前阶段（2026-11-17；#805容量修复后单次自主观察已授权）
+## 当前阶段（2026-11-17；#805容量修复后自主构建完成，结果待审）
 
-[协议](benchmarks/preregistrations/cpp-build-libffi-context-budget-flash-v1.md)及`scripts/forge_libffi_context_budget.py`复用前轮条件，只采用PR804容量/诊断快照修复；P0规划可查依赖，恢复沿用已审核宏经验，不给完整成功命令。已完成3项入口装配检查和默认材料检查，Docker可达，未调用Provider。用户“开始执行”批准一次/硬上限1美元，UTC2026-11-16 16:12:23—17:12:23（北京时间11月17日00:12:23—01:12:23），准备计入；无自动重试，未知用量/模型异常/清理失败停止。结果先审核，不改论文/E57/独立分母。
+[结果](docs/research/2026-11-17-libffi-context-budget-results.md)：13Flash请求（初始8/恢复5）、350032Token、0.110703美元、120.43秒，未知0。规划10查询只补texinfo，首次autogen仍缺LT_SYS_SYMBOL_USCORE；恢复9查询核实libltdl-dev未装及ltdl.m4归属后提交补包，原autogen/configure/make、主库/静态共享交付/原归档干净重建/cleanup通过。原输入保持，187新增项待后审；完整作者测试未要求。
+
+最大单次Provider输入42740Token，本地含余量62187/64000；未发生旧49KB中断，不代表前置规划已解决或泛化降本。原件forge-libffi-context-budget-flash-2026-11-17-v1，inventory4638cce7；88快照、逐响应计费/身份、恢复提示送达及四容器引用不存在核验通过。运行a459eafd，用户一次/1美元/北京时间00:12:23—01:12:23授权已用，正式进程退出，无自动重试/追加/活动Provider。结果先审核，不改论文/E57/独立分母；建议结束同项目调试后再选不同依赖场景。发布见Issue805关联PR/CI。
 
 ## 上一阶段（2026-11-16；#803上下文容量工程修复完成）
 

@@ -633,6 +633,11 @@
   - 下一步: 等待实验负责人确认当前网络接入介质，并决定是否授权只读 endpoint 诊断和新的 canary amendment；获得确认后必须另建中文 Issue/PR 和协议 identity，保留当前失败 marker。
 
 ## 最近变更 (Recent Changes)
+- 2026-11-17 — #805完成修复容量后libffi自主构建并保留结果，待用户审核。
+  - 文件: `docs/research/2026-11-17-libffi-context-budget-results.md`、分析目录及RESEARCH_STATUS.md。
+  - 结果: 初始8/恢复5共13请求，350032Token/0.110703美元/120.43秒；初始只补texinfo，恢复核实libltdl-dev后安装，原构建/主库交付/原归档重建/cleanup通过。88快照/计费/经验送达/四容器引用核验通过，inventory4638cce7。
+  - 边界: 最大实际输入42740、本地含余量62187/64000；原输入保持、187新增项待后审，非完整作者测试或泛化效果。旧失败/论文/E57不改；一次授权已执行，无重试/追加/活动Provider，发布见Issue805关联PR/CI。
+
 - 2026-11-17 — #805准备容量修复后libffi单次自主观察并绑定本轮明确授权。
   - 文件: `scripts/forge_libffi_context_budget.py`、同名单次协议及入口测试，当前阶段见RESEARCH_STATUS.md。
   - 动机: 确认PR804解除上下文阻塞后，已有依赖证据能否落实为安装方案和成功重建；复用前轮条件，不重复工程资格。
