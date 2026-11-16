@@ -66,3 +66,4 @@
   - [G E51离线Harness更新的角色与版本](chapters/09-附录.md)
   - [H E52第二轮Harness比较的任务与版本](chapters/09-附录.md)
   - [I E57初始工具约束与P4三组比较](chapters/09-附录.md)
+  - [J E58领域Harness更新的版本、任务与案例证据](chapters/09-附录.md)

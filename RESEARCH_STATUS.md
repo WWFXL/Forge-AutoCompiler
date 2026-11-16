@@ -1,9 +1,17 @@
 # Forge Research Status
 
-论文选材固定入口：[硕士论文实验与证据索引](docs/research/THESIS_EVIDENCE_INDEX.md)，[历史材料目录](docs/research/THESIS_EVIDENCE_CATALOG.md)保留存量导航。当前完整稿为[论文v0.11工具Harness结果修订稿](docs/thesis/README.md)；E50–E52保存主构建系统及两轮Harness结果，既有完整任务、状态/恢复消融和两层经验继续按各自版本与分母使用。
+论文选材固定入口：[硕士论文实验与证据索引](docs/research/THESIS_EVIDENCE_INDEX.md)，[历史材料目录](docs/research/THESIS_EVIDENCE_CATALOG.md)保留存量导航。当前完整稿为[论文v0.12领域Harness结果与机制修订稿](docs/thesis/README.md)；E50–E52保存主构建系统及两轮Harness结果，既有完整任务、状态/恢复消融和两层经验继续按各自版本与分母使用。
 
 
-## 当前阶段（2026-11-17；#811本轮Harness更新18项目比较完成，结果待审）
+## 当前阶段（2026-11-17；#813用户批准E58入文，论文v0.12完成）
+
+[论文入口](docs/thesis/README.md)、[修订与验证](docs/research/2026-11-17-thesis-harness-update-revision.md)：沿用七章，第5章新增依赖诊断/证据记忆/宏经验与Token上下文管理，第6章新增E58全18结果、阶段成本、libffi及容量机制（表6-39至41），摘要/结论/附录J同步。用户已明确批准本轮结果入文；原报告待审措辞保留为历史状态。
+
+E58双方主构建均17/18、交付均14/18，新组费低19.9%、累计时低13.6%，更多初始投入与较少恢复并存。容量修复是共同底座，单独使用失败材料回放与后续实跑解释；libffi为开发案例、两组都成功。保留共同清理脚本/上下文与三项目检查问题，未启动重建不补通过。本轮0Provider/0新实验，旧原件不改，不自动更新产品默认。
+
+仅Word：`/home/yiwei/.codex/outputs/forge-thesis-harness-update-word-2026-11-17/Forge-硕士论文阶段初稿-v0.12.docx`。实际导出并重新打开核对785段/64表/12嵌图、全18逐项表、费用和本地链接；未逐页渲染。下一项由用户审阅论文，再决定共同修复；发布见Issue813关联PR/CI。
+
+## 上一阶段（2026-11-17；#811本轮Harness更新18项目比较完成，结果待审）
 
 [结果报告](docs/research/2026-11-17-harness-update-comparison-results.md)、[全18项目/36槽分析](benchmarks/analyses/harness-update-comparison-2026-11-17/README.md)：LH_v0_common/LH_v1主构建均17/18、可复现交付均14/18；请求121/124，在线估算费0.9077391/0.7267134美元，累计1791.31/1547.16秒。新组费低19.9%、时低13.6%，初始规划60→99请求、恢复61→25，完成数不变；5项目费用更低，不作普遍降本。libffi新组补libltdl-dev、原组真实兼容宏，均完成，属开发暴露案例。
 

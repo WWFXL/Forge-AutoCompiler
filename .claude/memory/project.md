@@ -633,6 +633,9 @@
   - 下一步: 等待实验负责人确认当前网络接入介质，并决定是否授权只读 endpoint 诊断和新的 canary amendment；获得确认后必须另建中文 Issue/PR 和协议 identity，保留当前失败 marker。
 
 ## 最近变更 (Recent Changes)
+- 2026-11-17 — 将用户批准的E58全18项目结果与上下文、libffi机制写入论文v0.12。
+  - 文件: `docs/thesis/chapters/`, `docs/thesis/EVIDENCE_MAP.md`, `docs/research/2026-11-17-thesis-harness-update-revision.md`, `RESEARCH_STATUS.md`
+  - 动机: 沿状态执行→轨迹诊断→Harness更新→完整成本论证；容量为E58共同底座，libffi开发案例不增分母，保留全部失败。实际Word导出785段/64表/12图，数据/表号/文件链接核对；仅Word无PDF/HTML，0Provider/新实验，不自动切换默认。发布见Issue813关联PR/CI。
 - 2026-11-17 — #811完成全18项目Harness组合更新36槽比较与结果分析，先交用户审核，不自动入论文。
   - 文件: `docs/research/2026-11-17-harness-update-comparison-results.md`、`benchmarks/analyses/harness-update-comparison-2026-11-17/`、`RESEARCH_STATUS.md`、论文证据索引/目录。
   - 结果: 原/新主构建17/18、交付14/18相同；请求121/124、费0.9077391/0.7267134美元、累计1791.31/1547.16秒。初始60/99、恢复61/25请求；全18保留、无17项目子组。libffi新补包原兼容宏均完成，libass/libbcrypt前置依赖减少恢复；5项目降费，非普遍收益。
