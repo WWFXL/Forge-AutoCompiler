@@ -3,7 +3,13 @@
 论文选材固定入口：[硕士论文实验与证据索引](docs/research/THESIS_EVIDENCE_INDEX.md)，[历史材料目录](docs/research/THESIS_EVIDENCE_CATALOG.md)保留存量导航。当前完整稿为[论文v0.11工具Harness结果修订稿](docs/thesis/README.md)；E50–E52保存主构建系统及两轮Harness结果，既有完整任务、状态/恢复消融和两层经验继续按各自版本与分母使用。
 
 
-## 当前阶段（2026-11-16；#797规划依赖检查实现与工程验证完成）
+## 当前阶段（2026-11-16；#799规划依赖真实观察入口准备完成）
+
+[单次协议](benchmarks/preregistrations/cpp-build-libffi-planning-dependency-flash-v1.md)及`scripts/forge_libffi_planning_dependency.py`已准备。仅新增规划真实容器查询及通用依赖指导，不给规划具体包名、旧方案或项目经验；恢复沿用已审核宏经验。观察依赖能否前移发现并生成安装步骤，以及首次执行失败、恢复和全部开销。
+
+6项相关检查、默认实际材料CLI、Ruff/格式通过，0Provider/新增费用，未读取凭据。复用PR798真实工程构建，不重复资格。旧临时pytest目录权限告警与本轮构建清理无关。拟新增1美元/确认起1小时一次，无自动重试；未知用量、模型标识异常或清理失败停止。本身份新预算及时窗待确认，不续旧单次；不改论文/E57或独立项目分母，结果先审核。
+
+## 上一阶段（2026-11-16；#797规划依赖检查实现与工程验证完成）
 
 [实现与验证](docs/research/2026-11-16-planning-dependency-check.md)：初始规划可查询真实容器工具/包/文件提供者/路径，依据作者声明生成dependency安装步骤；执行仍交Workflow。复用原查询，无虚假失败交接。显式inspect_planning_dependencies开启，旧入口保持；查询计原命令/时间额度，结束关闭，不进入重建配方。
 
