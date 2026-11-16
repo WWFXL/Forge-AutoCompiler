@@ -1,0 +1,357 @@
+{
+  "input_events_sha256": "4b46b8c8cf583ca090415bc57095ebd522e05111462192c4c4c6865f7a4e7eb9",
+  "actual_queries": 25,
+  "original_candidate_visible": {
+    "32": true,
+    "33": false,
+    "40": false
+  },
+  "new_memory": {
+    "version": "recovery-diagnostic-memory-v1",
+    "scope": "当前构建任务的观测；仅候选，不代表适用或修复成功",
+    "current_handoff_id": "d65c7f8149134284a9455b856e5b65ac",
+    "failed_step_id": null,
+    "observations": [
+      {
+        "tool": "inspect_build_environment",
+        "arguments": {
+          "query": "libtoolize",
+          "kind": "command"
+        },
+        "handoff_id": "d65c7f8149134284a9455b856e5b65ac",
+        "command_id": "command_bb9006c650f0453a9be61bbbce5e4cc5",
+        "log_path": "logs/command_bb9006c650f0453a9be61bbbce5e4cc5.log",
+        "status": "ok",
+        "repeat_count": 1,
+        "excerpt": "libtoolize (GNU libtool) 2.4.7\nWritten by Gary V. Vaughan <gary@gnu.org>, 2003\n\nCopyright (C) 2022 Free Software Foundation, Inc.\n\n"
+      },
+      {
+        "tool": "search_build_files",
+        "arguments": {
+          "query": "SYMBOL_USCORE",
+          "scope": "macros"
+        },
+        "handoff_id": "d65c7f8149134284a9455b856e5b65ac",
+        "command_id": "command_2fa54d5968d24808a0abd221e17b24da",
+        "log_path": "logs/command_2fa54d5968d24808a0abd221e17b24da.log",
+        "status": "no_match_in_scope",
+        "repeat_count": 1,
+        "incomplete": false,
+        "matches": []
+      },
+      {
+        "tool": "search_build_files",
+        "arguments": {
+          "query": "LT_SYS_SYMBOL_USCORE",
+          "scope": "dependencies"
+        },
+        "handoff_id": "d65c7f8149134284a9455b856e5b65ac",
+        "command_id": "command_ead8159a69474d74b7772627cf4fa976",
+        "log_path": "logs/command_ead8159a69474d74b7772627cf4fa976.log",
+        "status": "no_match_in_scope",
+        "repeat_count": 1,
+        "incomplete": false,
+        "matches": []
+      },
+      {
+        "tool": "search_build_files",
+        "arguments": {
+          "query": "LT_INIT",
+          "scope": "project"
+        },
+        "handoff_id": "d65c7f8149134284a9455b856e5b65ac",
+        "command_id": "command_27be2f08116c4704b10be391f1815aef",
+        "log_path": "logs/command_27be2f08116c4704b10be391f1815aef.log",
+        "status": "matches",
+        "repeat_count": 1,
+        "incomplete": false,
+        "matches": [
+          {
+            "path": "/workspace/repo/configure.ac",
+            "line": 42,
+            "text": "LT_INIT"
+          }
+        ]
+      },
+      {
+        "tool": "inspect_build_environment",
+        "arguments": {
+          "query": "libtool",
+          "kind": "package"
+        },
+        "handoff_id": "d65c7f8149134284a9455b856e5b65ac",
+        "command_id": "command_d69839ddb99d49bcaf57d52373748b29",
+        "log_path": "logs/command_d69839ddb99d49bcaf57d52373748b29.log",
+        "status": "ok",
+        "repeat_count": 1,
+        "excerpt": "libtool\tii \t2.4.7-7build1\n",
+        "installed": true,
+        "version": "2.4.7-7build1"
+      },
+      {
+        "tool": "search_build_files",
+        "arguments": {
+          "query": "LT_SYS_SYMBOL_USCORE",
+          "scope": "project"
+        },
+        "handoff_id": "d65c7f8149134284a9455b856e5b65ac",
+        "command_id": "command_ce3679b94d7f488893b286866e7adb78",
+        "log_path": "logs/command_ce3679b94d7f488893b286866e7adb78.log",
+        "status": "matches",
+        "repeat_count": 5,
+        "incomplete": false,
+        "matches": [
+          {
+            "path": "/workspace/repo/configure.ac",
+            "line": 219,
+            "text": "LT_SYS_SYMBOL_USCORE"
+          }
+        ]
+      },
+      {
+        "tool": "inspect_build_environment",
+        "arguments": {
+          "query": "libtool",
+          "kind": "package_policy"
+        },
+        "handoff_id": "d65c7f8149134284a9455b856e5b65ac",
+        "command_id": "command_23c1e56f680d4f37ad458100cbe3591f",
+        "log_path": "logs/command_23c1e56f680d4f37ad458100cbe3591f.log",
+        "status": "ok",
+        "repeat_count": 5,
+        "excerpt": "libtool:\n  Installed: 2.4.7-7build1\n  Candidate: 2.4.7-7build1\n  Version table:\n *** 2.4.7-7build1 500\n        500 https://mirrors.ustc.edu.cn/ubuntu noble/main amd64 Packages\n        100 /var/lib/dpkg/status\n",
+        "index_state": {
+          "package_indexes": 15,
+          "contents_indexes": 4,
+          "packages": "present",
+          "contents": "present",
+          "apt_file_available": true,
+          "coverage": "仅当前本地索引；present不证明最新或覆盖全部源/架构",
+          "preparation": "缺包索引时在dependency步骤运行apt-get update；缺文件查询能力时安装apt-file并运行apt-file update"
+        }
+      }
+    ],
+    "candidates": [
+      {
+        "package": "libltdl-dev",
+        "query": {
+          "query": "libtool",
+          "kind": "package_search"
+        },
+        "evidence_handoff_id": "c5b12a4015424ebdba82b62353e88294",
+        "command_id": "command_59ec847194594d2f812e1664f7ec5b5b",
+        "log_path": "logs/command_59ec847194594d2f812e1664f7ec5b5b.log",
+        "excerpt": "System independent dlopen wrapper for GNU libtool (headers)",
+        "checks": {}
+      },
+      {
+        "package": "libltdl7",
+        "query": {
+          "query": "libtool",
+          "kind": "package_search"
+        },
+        "evidence_handoff_id": "c5b12a4015424ebdba82b62353e88294",
+        "command_id": "command_59ec847194594d2f812e1664f7ec5b5b",
+        "log_path": "logs/command_59ec847194594d2f812e1664f7ec5b5b.log",
+        "excerpt": "System independent dlopen wrapper for GNU libtool",
+        "checks": {}
+      },
+      {
+        "package": "libtool",
+        "query": {
+          "query": "libtool",
+          "kind": "package_search"
+        },
+        "evidence_handoff_id": "c5b12a4015424ebdba82b62353e88294",
+        "command_id": "command_59ec847194594d2f812e1664f7ec5b5b",
+        "log_path": "logs/command_59ec847194594d2f812e1664f7ec5b5b.log",
+        "excerpt": "Generic library support script",
+        "checks": {
+          "package_policy": {
+            "handoff_id": "d65c7f8149134284a9455b856e5b65ac",
+            "command_id": "command_23c1e56f680d4f37ad458100cbe3591f",
+            "status": "ok",
+            "installed": null
+          },
+          "package": {
+            "handoff_id": "d65c7f8149134284a9455b856e5b65ac",
+            "command_id": "command_d69839ddb99d49bcaf57d52373748b29",
+            "status": "ok",
+            "installed": true
+          }
+        }
+      },
+      {
+        "package": "libtool-bin",
+        "query": {
+          "query": "libtool",
+          "kind": "package_search"
+        },
+        "evidence_handoff_id": "c5b12a4015424ebdba82b62353e88294",
+        "command_id": "command_59ec847194594d2f812e1664f7ec5b5b",
+        "log_path": "logs/command_59ec847194594d2f812e1664f7ec5b5b.log",
+        "excerpt": "Generic library support script (libtool binary)",
+        "checks": {}
+      },
+      {
+        "package": "libtool-doc",
+        "query": {
+          "query": "libtool",
+          "kind": "package_search"
+        },
+        "evidence_handoff_id": "c5b12a4015424ebdba82b62353e88294",
+        "command_id": "command_59ec847194594d2f812e1664f7ec5b5b",
+        "log_path": "logs/command_59ec847194594d2f812e1664f7ec5b5b.log",
+        "excerpt": "Generic library support script (documentation)",
+        "checks": {}
+      },
+      {
+        "package": "libtoolkit-perl",
+        "query": {
+          "query": "libtool",
+          "kind": "package_search"
+        },
+        "evidence_handoff_id": "c5b12a4015424ebdba82b62353e88294",
+        "command_id": "command_59ec847194594d2f812e1664f7ec5b5b",
+        "log_path": "logs/command_59ec847194594d2f812e1664f7ec5b5b.log",
+        "excerpt": "Keep your handy modules organized",
+        "checks": {}
+      },
+      {
+        "package": "libtools-analyzer-clojure",
+        "query": {
+          "query": "libtool",
+          "kind": "package_search"
+        },
+        "evidence_handoff_id": "c5b12a4015424ebdba82b62353e88294",
+        "command_id": "command_59ec847194594d2f812e1664f7ec5b5b",
+        "log_path": "logs/command_59ec847194594d2f812e1664f7ec5b5b.log",
+        "excerpt": "analyzer for host agnostic Clojure code",
+        "checks": {}
+      },
+      {
+        "package": "libtools-analyzer-jvm-clojure",
+        "query": {
+          "query": "libtool",
+          "kind": "package_search"
+        },
+        "evidence_handoff_id": "c5b12a4015424ebdba82b62353e88294",
+        "command_id": "command_59ec847194594d2f812e1664f7ec5b5b",
+        "log_path": "logs/command_59ec847194594d2f812e1664f7ec5b5b.log",
+        "excerpt": "analyzer for Clojure code providing additional jvm-specific passes",
+        "checks": {}
+      },
+      {
+        "package": "libtools-cli-clojure",
+        "query": {
+          "query": "libtool",
+          "kind": "package_search"
+        },
+        "evidence_handoff_id": "c5b12a4015424ebdba82b62353e88294",
+        "command_id": "command_59ec847194594d2f812e1664f7ec5b5b",
+        "log_path": "logs/command_59ec847194594d2f812e1664f7ec5b5b.log",
+        "excerpt": "command line argument parser for Clojure",
+        "checks": {}
+      },
+      {
+        "package": "libtools-deps-clojure",
+        "query": {
+          "query": "libtool",
+          "kind": "package_search"
+        },
+        "evidence_handoff_id": "c5b12a4015424ebdba82b62353e88294",
+        "command_id": "command_59ec847194594d2f812e1664f7ec5b5b",
+        "log_path": "logs/command_59ec847194594d2f812e1664f7ec5b5b.log",
+        "excerpt": "API for transitive dependency graph expansion, classpath creation",
+        "checks": {}
+      },
+      {
+        "package": "libtools-gitlibs-clojure",
+        "query": {
+          "query": "libtool",
+          "kind": "package_search"
+        },
+        "evidence_handoff_id": "c5b12a4015424ebdba82b62353e88294",
+        "command_id": "command_59ec847194594d2f812e1664f7ec5b5b",
+        "log_path": "logs/command_59ec847194594d2f812e1664f7ec5b5b.log",
+        "excerpt": "API for retrieving, caching, and programmatically accessing git libraries",
+        "checks": {}
+      },
+      {
+        "package": "libtools-logging-clojure",
+        "query": {
+          "query": "libtool",
+          "kind": "package_search"
+        },
+        "evidence_handoff_id": "c5b12a4015424ebdba82b62353e88294",
+        "command_id": "command_59ec847194594d2f812e1664f7ec5b5b",
+        "log_path": "logs/command_59ec847194594d2f812e1664f7ec5b5b.log",
+        "excerpt": "Logging macros for Clojure",
+        "checks": {}
+      },
+      {
+        "package": "libtools-macro-clojure",
+        "query": {
+          "query": "libtool",
+          "kind": "package_search"
+        },
+        "evidence_handoff_id": "c5b12a4015424ebdba82b62353e88294",
+        "command_id": "command_59ec847194594d2f812e1664f7ec5b5b",
+        "log_path": "logs/command_59ec847194594d2f812e1664f7ec5b5b.log",
+        "excerpt": "Clojure tools for writing macros",
+        "checks": {}
+      },
+      {
+        "package": "libtools-namespace-clojure",
+        "query": {
+          "query": "libtool",
+          "kind": "package_search"
+        },
+        "evidence_handoff_id": "c5b12a4015424ebdba82b62353e88294",
+        "command_id": "command_59ec847194594d2f812e1664f7ec5b5b",
+        "log_path": "logs/command_59ec847194594d2f812e1664f7ec5b5b.log",
+        "excerpt": "tools for managing namespaces in Clojure",
+        "checks": {}
+      },
+      {
+        "package": "libtools-nrepl-clojure",
+        "query": {
+          "query": "libtool",
+          "kind": "package_search"
+        },
+        "evidence_handoff_id": "c5b12a4015424ebdba82b62353e88294",
+        "command_id": "command_59ec847194594d2f812e1664f7ec5b5b",
+        "log_path": "logs/command_59ec847194594d2f812e1664f7ec5b5b.log",
+        "excerpt": "Clojure network REPL",
+        "checks": {}
+      },
+      {
+        "package": "libtools-reader-clojure",
+        "query": {
+          "query": "libtool",
+          "kind": "package_search"
+        },
+        "evidence_handoff_id": "c5b12a4015424ebdba82b62353e88294",
+        "command_id": "command_59ec847194594d2f812e1664f7ec5b5b",
+        "log_path": "logs/command_59ec847194594d2f812e1664f7ec5b5b.log",
+        "excerpt": "complete Clojure and EDN-only reader",
+        "checks": {}
+      },
+      {
+        "package": "libtools-trace-clojure",
+        "query": {
+          "query": "libtool",
+          "kind": "package_search"
+        },
+        "evidence_handoff_id": "c5b12a4015424ebdba82b62353e88294",
+        "command_id": "command_59ec847194594d2f812e1664f7ec5b5b",
+        "log_path": "logs/command_59ec847194594d2f812e1664f7ec5b5b.log",
+        "excerpt": "Clojure tracing facility in Clojure",
+        "checks": {}
+      }
+    ],
+    "omitted_candidates": 0,
+    "next_action": "结合当前失败，核实相关候选的描述、提供文件和安装/路径；有依据再提交修订。不同交接的环境观测可能过期。"
+  },
+  "effect_claim": false
+}

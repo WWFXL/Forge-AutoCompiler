@@ -26,8 +26,9 @@ def bounded_text(value, limit):
 
 
 class PlanningContext:
-    def __init__(self, packet, *, enforce_tool_availability=False):
+    def __init__(self, packet, *, enforce_tool_availability=False, diagnostic_memory=None):
         self.packet = deepcopy(packet)
+        self.diagnostic_memory = diagnostic_memory
         self.enforce_tool_availability = enforce_tool_availability
         self.available_tools = None
         self.seed_material = [dict(row) for row in packet.get("source_packet", [])]
@@ -100,6 +101,8 @@ class PlanningContext:
     def observe(self, name, arguments, content):
         if name in {"search_build_files", "inspect_build_environment"}:
             row = json.loads(content)
+            if self.diagnostic_memory is not None:
+                self.diagnostic_memory.observe(name, arguments, row, handoff_id=self.packet["handoff"]["handoff_id"])
             # 新命令ID/日志路径不是新知识，避免重复查询被误计为诊断进展。
             evidence = {k: v for k, v in row.items() if k not in {"command_id", "log_path"}}
             key = (name, json.dumps(arguments, sort_keys=True, ensure_ascii=False))
@@ -138,6 +141,8 @@ class PlanningContext:
         self.pruned_groups = 0
         while True:
             payload = {**self.packet, "source_packet": self.seed_material, "remaining_budget": asdict(meter.tracker.remaining())}
+            if self.diagnostic_memory is not None:
+                payload["recovery_diagnostic_memory"] = self.diagnostic_memory.snapshot(self.packet["handoff"])
             payload["planning_progress"] = dict(
                 recent_reads=list(self.reads.values())[-12:],
                 consecutive_rounds_without_new_evidence=self.stalled_rounds,
@@ -209,6 +214,8 @@ class PlanningContext:
         # 与本次真实请求绑定；结构化输出也保留在集合内。恢复默认不启用此干预。
         self.available_tools = frozenset(s["function"]["name"] for s in schemas)
         meter.ledger.save(f"request-{meter._request_sequence + 1}.json", {**body, "tools": schemas})
+        if self.diagnostic_memory is not None:
+            meter.ledger.save(f"diagnostic-memory-request-{meter._request_sequence + 1}.json", payload["recovery_diagnostic_memory"])
         meter.ledger.append(
             "planning.context",
             history_messages=len(messages) - 1,

@@ -1,0 +1,24 @@
+{
+  "provider_calls": 0,
+  "cost_usd": 0,
+  "scripted_responses": 7,
+  "historical_candidate_retained": true,
+  "candidate_checked_in_real_container": true,
+  "layers": {
+    "command_build_passed": true,
+    "primary_build_completed": true,
+    "delivery": "passed",
+    "author_tests": "not_required",
+    "executable_smoke": "not_applicable",
+    "final_verification_passed": true,
+    "clean_replay": "passed",
+    "full_completed": null,
+    "main_build_task_completed": true,
+    "reproducible_delivery_completed": true
+  },
+  "cleanup": {
+    "succeeded": true,
+    "stopped": true,
+    "removed": true
+  }
+}

@@ -193,8 +193,9 @@ def query_command(operation, query, *, scope=None, kind=None):
 class RecoveryEnvironment:
     """绑定一次活动恢复交接，沿用原执行通道、命令总额、日志和源码保护。"""
 
-    def __init__(self, workflow, meter):
+    def __init__(self, workflow, meter, *, diagnostic_memory=None):
         self.workflow, self.meter = workflow, meter
+        self.diagnostic_memory = diagnostic_memory
         self.handoff_id = workflow.handoff["handoff_id"]
         self.calls = 0
 

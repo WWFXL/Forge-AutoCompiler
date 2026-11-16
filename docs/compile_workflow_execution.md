@@ -155,3 +155,9 @@ docker build --pull=false --build-arg BASE_IMAGE=autocompiler:gcc13-https-v1 -f 
 ```
 
 构建前核验本地基础镜像；新任务冻结实际image_id。新镜像装查询工具并保留索引，不预装项目答案。旧默认与冻结实验保持，后续各比较方法统一镜像与准备条件；索引存在不代表始终最新。[真实查询及零Provider恢复](research/2026-11-16-dependency-provider-repair.md)。
+
+## 恢复诊断证据保留（可选研究入口）
+
+新入口 `scripts/forge_libffi_diagnostic_memory.py` 启用 `retain_recovery_diagnostics`。记录只在单个构建任务内共享，初始规划不读取它，不使用个人知识库或旧任务答案。`PlanningContext`在每次恢复模型请求前附加`recovery_diagnostic_memory`，候选不会随旧AI/Tool组被压缩移出；对应快照保存在Agent证据目录。
+
+记录由真实查询反馈生成：最多20条候选及出处、8条近期环境/文件查询和精确候选核实状态，总计最多10000 UTF8字节；省略数量可见，完整结果仍保留于原查询日志。跨恢复交接的环境状态明确可能过期，候选名称本身不证明适用、安装或修复成功。新增提示引导核实描述、文件提供者和安装/路径，不代替Agent作安装决定，不增加工具、查询次数或模型摘要调用。原入口及默认策略保持。
