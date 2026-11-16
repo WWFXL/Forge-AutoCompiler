@@ -1,0 +1,10 @@
+{
+  "status": "pending_review",
+  "original_inputs_changed": [],
+  "original_input_count": 454,
+  "added_files": 189,
+  "critical_added_file": "m4/lt_sys_symbol_uscore_compat.m4",
+  "critical_file_content": "# Local compat: libtool 2.4.7 no longer ships LT_SYS_SYMBOL_USCORE,\n# but configure.ac:219 still calls it. Reproduce the historical check.\nAC_DEFUN([LT_SYS_SYMBOL_USCORE],\n[AC_CACHE_CHECK([for underscore before symbol names],\n  [lt_cv_sys_symbol_underscore],\n  [lt_cv_sys_symbol_underscore=no\n   AC_COMPILE_IFELSE([AC_LANG_PROGRAM([], [])], [:], [:])])\n sys_symbol_underscore=$lt_cv_sys_symbol_underscore])\n",
+  "assessment": "原输入未变；新增宏将lt_cv_sys_symbol_underscore固定为no，AC_COMPILE_IFELSE两个分支均为空，不构成原符号下划线检测。当前x86_64主库及重建通过不能证明替代宏等价，不批准为已验证成功经验。--disable-docs为作者公开选项，不更改主库任务；没有运行完整作者测试。",
+  "automatic_experience_approval": false
+}

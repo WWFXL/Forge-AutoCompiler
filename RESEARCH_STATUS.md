@@ -3,7 +3,15 @@
 论文选材固定入口：[硕士论文实验与证据索引](docs/research/THESIS_EVIDENCE_INDEX.md)，[历史材料目录](docs/research/THESIS_EVIDENCE_CATALOG.md)保留存量导航。当前完整稿为[论文v0.11工具Harness结果修订稿](docs/thesis/README.md)；E50–E52保存主构建系统及两轮Harness结果，既有完整任务、状态/恢复消融和两层经验继续按各自版本与分母使用。
 
 
-## 当前阶段（2026-11-16；#766文件变化改为后验审查，工程验证完成）
+## 当前阶段（2026-11-16；#768后验审查下libffi自主观察结束，结果待用户审核）
+
+[结果报告](docs/research/2026-11-16-libffi-posthoc-review-autonomous.md)：主库/交付/原归档实际干净重建/清理均通过，31请求、408399Token、0.1493766美元、246.06秒，未知0。P0工具约束＋R2通用诊断＋恢复查询，未给答案或旧经验，3次恢复。454原输入内容/权限/链接未变，189新增；但Agent自建宏最终固定下划线检测值no，未找对真实开发包。source_unchanged=true不代表语义等价，source_review=pending_review，不批准为已验证经验；本轮无经验库。
+
+未触发上轮config.guess/config.sub变化，不能作为该拦截点的直接自主修复证据；一次宏命令因仍保留的任意删除约束退出126，随后修订执行。--disable-docs是作者开关、保留主库范围。报告/分析保存完整方案、查询、文件语义审查；原件forge-libffi-posthoc-review-flash-2026-11-16-v1，inventory95fd3887；31响应费用/78快照/4容器引用核验通过。
+
+用户本次授权、自限1美元/UTC05:14:11—06:14:11内单次结束，无活动Provider、无自动重试或追加运行；不改旧E57或论文、不新增独立项目。下一步先审核依赖提供者诊断及避免退化宏替代的建议，不自动修改Harness或扩大比较。发布以关联PR最新HEAD检查及科研分支合并为准。
+
+## 上一阶段（2026-11-16；#766文件变化改为后验审查，工程验证完成）
 
 [修复报告](docs/research/2026-11-16-source-posthoc-review-repair.md)：按用户决定，当前Forge/经验Forge/共享强工具执行器不再因文件新增、原文件内容/权限/链接变化或删除中止。构建与重建按真实反馈判断；source-review.json及阶段事件记录变化，pending_review单列，不自动判功能等价。有原输入变化的方案未经审查不进入已验证经验。旧严格参考工具/CXX适配器及冻结实验保留，后续新比较先统一口径。
 
