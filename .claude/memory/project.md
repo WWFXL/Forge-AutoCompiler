@@ -634,6 +634,9 @@
 
 ## 最近变更 (Recent Changes)
 
+- 2026-11-16 — #774查询索引修复后libffi自主观察准备：新身份cpp-build-libffi-index-autonomous-flash-v1，P0/R2及简洁目标不变，仅新查询镜像d483ffa7，无答案/旧方案/经验。10测试/Ruff、默认材料、Docker/镜像检查通过，0Provider/费用；不重复真实工程构建。一次无自动重试，拟1美元/确认起1小时，未知用量/身份/cleanup异常停止；尚待新付费授权，不改论文/E57。入口scripts/forge_libffi_index_autonomous.py，协议同身份。
+
+
 - 2026-11-16 — #772通用依赖提供者修复：包名/描述、精确描述与APT索引状态；新d483ffa7查询镜像仅apt-file及两依赖，不预装libltdl-dev，不改旧默认。20测试/Ruff/格式通过，零Provider真实缺宏→6查询→预写补包→主库/交付/原归档重建/清理通过，82.38秒，4容器引用不存在，inventorye5141d03。v1 FROM错误/初次8秒查询超时保留，文件查询20/25秒受总预算。0效果分母、不改论文，报告2026-11-16-dependency-provider-repair.md；下一独立自主观察须新授权。
 
 
