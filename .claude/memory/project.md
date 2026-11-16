@@ -634,6 +634,12 @@
 
 ## 最近变更 (Recent Changes)
 
+- 2026-11-16 — #787准备诊断动作改进后的libffi单次自主观察；正式0次、待新预算及时窗。
+  - 文件: `scripts/forge_libffi_dependency_diagnosis.py`、`benchmarks/preregistrations/cpp-build-libffi-dependency-diagnosis-flash-v1.md`、`backend/tests/test_libffi_dependency_diagnosis_entry.py`、`RESEARCH_STATUS.md`。
+  - 动机: 用户要求从零观察Flash是否采用前置诊断证据，复用已验证工程，仅检查新入口接线，不重复参考构建/全测。
+  - 边界: cpp-build-libffi-dependency-diagnosis-flash-v1，拟1美元/确认起1小时、一次无自动重试；旧单次已消费，不读凭据、不调用Provider、不改论文。3项入口检查、实际默认CLI及Ruff/格式通过，0新增模型费；知识库search_notes Transport closed，未写服务器副本，恢复后同步。发布以Issue787关联PR为准。
+
+
 - 2026-11-16 — #785完成依赖缺口与下一步诊断动作改进；默认关闭，0Provider费用。
   - 文件: `backend/packages/harness/deerflow/compile/dependency_diagnosis.py`、`recovery_environment.py`、`simple_planning_context.py`、`simple_build_task.py`、`scripts/forge_simple_system.py`、`scripts/forge_dependency_diagnosis_check.py`、`backend/tests/test_dependency_diagnosis.py`。
   - 动机: #783记录已送达但无候选，需把未安装组件索引证据前置；区分事实/线索/假设，原查询额度逐条计入，无进展只提醒转向。原入口不改，个人知识库不进入实验Agent。

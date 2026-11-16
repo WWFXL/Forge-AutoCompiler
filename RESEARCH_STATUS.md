@@ -3,7 +3,13 @@
 论文选材固定入口：[硕士论文实验与证据索引](docs/research/THESIS_EVIDENCE_INDEX.md)，[历史材料目录](docs/research/THESIS_EVIDENCE_CATALOG.md)保留存量导航。当前完整稿为[论文v0.11工具Harness结果修订稿](docs/thesis/README.md)；E50–E52保存主构建系统及两轮Harness结果，既有完整任务、状态/恢复消融和两层经验继续按各自版本与分母使用。
 
 
-## 当前阶段（2026-11-16；#785下一步依赖诊断动作改进完成，尚无新增自主模型结果）
+## 当前阶段（2026-11-16；#787诊断动作改进后的单次自主观察准备完成，待本次预算及时窗）
+
+用户要求执行下一步自主构建。[协议](benchmarks/preregistrations/cpp-build-libffi-dependency-diagnosis-flash-v1.md)及`scripts/forge_libffi_dependency_diagnosis.py`复用原材料/Flash/P0/R2/Workflow/验收，仅开启PR786已验证的依赖诊断流程及任务内记录，不给包名/旧方案/经验。一次、拟1美元硬上限及确认起1小时，无自动重试，未知用量/标识异常/清理失败停止。
+
+3项入口装配/授权检查、实际默认材料CLI及Ruff/格式通过，未重复参考构建或产品全测；0Provider/模型Token/新增费用，正式未启动，不读凭据。旧单次授权已消费，本身份新预算及时窗尚未绑定；结果先汇报，不改论文/E57或独立项目分母。知识库MCP本轮search_notes返回Transport closed，待恢复后同步，不从聊天重建历史。发布/检查以Issue787关联PR为准。
+
+## 上一阶段（2026-11-16；#785下一步依赖诊断动作改进完成，尚无新增自主模型结果）
 
 [改进报告](docs/research/2026-11-16-dependency-diagnosis-selection.md)：可选`diagnose_dependencies=True`将明确失败缺口/组件线索/未决项分开，首次恢复前组合只读查询；新增诊断工具核实候选描述、安装/文件/路径，无进展提示转向。每条子查询消费原额度，默认关闭，不注入个人知识库或项目答案。
 
