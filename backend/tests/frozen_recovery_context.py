@@ -27,6 +27,7 @@ def install_frozen_recovery_context(monkeypatch, tmp_path, script, test_module, 
     from deerflow.compile import simple_build_task
 
     monkeypatch.setattr(simple_build_task, "SIMPLE_PROMPT", prompt)
+    monkeypatch.setattr(simple_build_task, "SOURCE_REVIEW_GUIDANCE", "")  # 历史请求不注入当前执行策略。
     monkeypatch.setattr(script, "SIMPLE_PROMPT", prompt)
     if hasattr(test_module, "SIMPLE_PROMPT"):
         monkeypatch.setattr(test_module, "SIMPLE_PROMPT", prompt)

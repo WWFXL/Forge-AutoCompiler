@@ -633,7 +633,7 @@
   - 下一步: 等待实验负责人确认当前网络接入介质，并决定是否授权只读 endpoint 诊断和新的 canary amendment；获得确认后必须另建中文 Issue/PR 和协议 identity，保留当前失败 marker。
 
 ## 最近变更 (Recent Changes)
-- 2026-11-16 — #766按用户决定将简洁构建文件保护改为非阻断观察与后验审查；构建/重建结果不再绑定source_unchanged。86项相关检查及libffi零Provider实际主库/交付/原归档干净重建/清理通过，67.17秒，config.guess权限和config.sub内容变化保留pending_review，原输入改动未审查不入成功经验。报告2026-11-16-source-posthoc-review-repair.md，旧正式失败/论文不改；历史CXX适配器待未来比较统一。
+- 2026-11-16 — #766按用户决定将简洁构建文件保护改为非阻断观察与后验审查；构建/重建结果不再绑定source_unchanged。105项相关检查及libffi零Provider实际主库/交付/原归档干净重建/清理通过，67.17秒，config.guess权限和config.sub内容变化保留pending_review，原输入改动未审查不入成功经验。报告2026-11-16-source-posthoc-review-repair.md，旧正式失败/论文不改；历史CXX适配器待未来比较统一。
 
 - 2026-11-16 — #764完成libffi恢复查询工具单次自主观察与分析，未完成任务，停止追加调用。
   - 文件: `docs/research/2026-11-16-libffi-environment-tools-autonomous.md`, `benchmarks/analyses/libffi-environment-tools-2026-11-16/`, `RESEARCH_STATUS.md`。

@@ -12,7 +12,7 @@ from deerflow.compile.plan_agent import PlanAgentLedger
 from deerflow.compile.plan_workflow import PlanContractError, _digest
 from deerflow.compile.recovery_harness import RecoveryHarness, RecoveryHarnessProposal
 from deerflow.compile.simple_build_agents import SimpleBuildMeter
-from deerflow.compile.simple_build_task import SIMPLE_PROMPT, assemble_simple_plan, propose_simple
+from deerflow.compile.simple_build_task import SIMPLE_PROMPT, SOURCE_REVIEW_GUIDANCE, assemble_simple_plan, propose_simple
 
 sys.path.insert(0, str(Path(__file__).resolve().parents[2] / "scripts"))
 import forge_recovery_harness_proposal as offline  # noqa: E402
@@ -52,8 +52,9 @@ def test_actual_agent_request_keeps_initial_prompt_unchanged(tmp_path, recovery)
     actual = json.loads((tmp_path / "agent/request-1.json").read_text())
     system = actual["system_message"]["content"]
     assert (candidate().recovery_guidance in system) == recovery
+    assert SOURCE_REVIEW_GUIDANCE in system
     if not recovery:
-        assert system == SIMPLE_PROMPT
+        assert system == SIMPLE_PROMPT + SOURCE_REVIEW_GUIDANCE
     assert meter.summary()["model_requests"] == 1
 
 
