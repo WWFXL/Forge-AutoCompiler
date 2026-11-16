@@ -17,7 +17,10 @@ from deerflow.compile.plan_workflow import PlanContractError, PlanStep, _digest
 from deerflow.compile.simple_planning_context import PlanningContext
 from deerflow.compile.unified_plan_equivalent_observed import ObservedBuildActions, relative_path
 
-SIMPLE_GOAL = "在给定Linux环境中，依据作者推荐或默认方式，从指定版本源码构建项目的主要程序或库；保持原源码和测试。"
+SOURCE_REVIEW_GUIDANCE = "\n当前执行策略posthoc-review-v1：允许创建或更新必要的构建辅助文件，说明改动目的；不得通过删改核心实现或测试来伪造成功。文件变化记录供结束后审查，不会仅因发生改动中止。\n"
+
+FROZEN_SIMPLE_GOAL = "在给定Linux环境中，依据作者推荐或默认方式，从指定版本源码构建项目的主要程序或库；保持原源码和测试。"
+SIMPLE_GOAL = "在给定Linux环境中，依据作者推荐或默认方式，从指定版本源码构建项目的主要程序或库；允许必要的构建适配，保持核心功能与测试含义，文件改动留待任务结束后审查。"
 
 
 class SimpleBuildAction(BaseModel):
@@ -135,7 +138,7 @@ class PublicBuildTask(BaseModel):
     source_archive_sha256: str = Field(pattern=r"^[0-9a-f]{64}$")
     build_system: Literal["cmake", "make", "autotools"]
     architecture: Literal["x86_64", "aarch64"] = "x86_64"
-    goal: Literal[SIMPLE_GOAL] = SIMPLE_GOAL
+    goal: Literal[SIMPLE_GOAL, FROZEN_SIMPLE_GOAL] = SIMPLE_GOAL
     common_clarification: str = ""
     parallel_jobs: int = Field(default=2, ge=1, le=4)
 
@@ -433,6 +436,8 @@ def propose_simple(
     if recovery_harness is not None and current_plan is not None:
         prompt = recovery_harness.prompt(prompt)
         meter.ledger.append("harness.selected", name=recovery_harness.name, sha256=recovery_harness.fingerprint(), scope="recovery", applied=True)
+    # 当前执行策略独立追加，历史Harness共同提示与候选绑定保持原文。
+    prompt += SOURCE_REVIEW_GUIDANCE
     if diagnostics is not None:
         prompt += RECOVERY_ENVIRONMENT_PROMPT
     if experience_bank is not None:

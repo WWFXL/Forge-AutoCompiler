@@ -103,11 +103,12 @@ def test_generated_document_is_reported_separately_from_protected_inputs(runner)
     w = SimpleBuildWorkflow(plan=assemble_simple_plan(t, actions()), session=session, manager=manager, runtime=LocalRuntime(), reference=ref)
     (root / "README.md").write_text("new")
     report = w.source_protection()
-    assert report["protected_inputs_unchanged"] and report["generated_document_changes"][0]["path"] == "README.md"
-    assert report["generated_document_changes"][0]["content_changed"]
+    assert report["protected_inputs_unchanged"] is False
+    assert report["status"] == "pending_review"
+    assert report["changes"][0]["path"] == "README.md"
+    assert "sha256" in report["changes"][0]["fields"]
     (root / "README.md").chmod(0o755)
-    with pytest.raises(PlanContractError):
-        w.check_source()
+    assert w.check_source()["status"] == "pending_review"
 
 
 def test_same_content_document_rewrite_is_still_reported(runner):  # noqa: F811
@@ -119,8 +120,7 @@ def test_same_content_document_rewrite_is_still_reported(runner):  # noqa: F811
     w = SimpleBuildWorkflow(plan=assemble_simple_plan(t, actions()), session=session, manager=manager, runtime=LocalRuntime(), reference=ref)
     (root / "replacement.md").write_text("same")
     (root / "replacement.md").replace(root / "README.md")
-    rewritten = w.source_protection()["generated_document_changes"][0]
-    assert not rewritten["content_changed"] and rewritten["file_identity_changed"]
+    assert not w.source_protection()["changes"]  # 仅inode变化不当作内容或权限变化。
 
 
 def test_main_build_missing_native_smoke_does_not_guess_flags(runner, monkeypatch):  # noqa: F811

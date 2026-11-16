@@ -23,7 +23,13 @@ def recipe_validation_succeeded(task: PublicBuildTask, validation: dict) -> bool
     """按来源的真实任务范围保存方案；主构建成功不能冒称旧完整任务通过。"""
     layers = validation.get("layers", {})
     completed = validation.get("validation_scope") == "main_build" and layers.get("main_build_task_completed") is True and layers.get("delivery") == "passed" if task.task_version == "main-build-v1" else layers.get("full_completed") is True
-    return bool(completed and validation.get("source_unchanged") is True and validation.get("cleanup", {}).get("succeeded") is True and layers.get("clean_replay") == "passed" and layers.get("delivery") in {None, "passed"})
+    return bool(
+        completed
+        and (validation.get("source_review") == "approved" or (validation.get("source_review") != "unobserved" and validation.get("source_unchanged") is True))
+        and validation.get("cleanup", {}).get("succeeded") is True
+        and layers.get("clean_replay") == "passed"
+        and layers.get("delivery") in {None, "passed"}
+    )
 
 
 class SimpleProjectRecipe(BaseModel):

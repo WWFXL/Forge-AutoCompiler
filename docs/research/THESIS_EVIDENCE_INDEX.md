@@ -1,5 +1,7 @@
 # 硕士论文实验与证据索引
 
+E57工程后续（不增效果分母、不入论文）：[文件保护改为后验审查](2026-11-16-source-posthoc-review-repair.md)。零Provider libffi主库/交付/原归档干净重建/清理通过，文件变化与构建结果分列、审查待定；仅验证执行机制，不替换旧自主失败。
+
 E57独立诊断案例后续（同项目、未入论文）：[容器查询工具下libffi自主观察](2026-11-16-libffi-environment-tools-autonomous.md)。身份`cpp-build-libffi-environment-tools-flash-v1`，1次，54请求/0.2957706美元/497.67秒；36真实查询仍未定位开发包，源码安装旧Libtool后原辅助脚本变化触发保护，主构建/交付/重建未观察、总任务未完成。费用低不能当同等完成降本。原件、分析及inventory77569aef见报告；不回填E57或增加独立项目分母。
 
 

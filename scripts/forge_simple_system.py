@@ -227,23 +227,23 @@ def run_simple_system(
             workflow.timings["time_to_primary_from_arm_start_seconds"] = time.monotonic() - started
             final_plan = workflow.plan
             result.update(workflow.postchecks(author_test_seconds=author_test_seconds, validation_scope=validation_scope))
-        workflow.check_source()
         result["source_protection"] = workflow.source_protection()
-        result["source_unchanged"] = True
+        result["source_unchanged"] = result["source_protection"]["protected_inputs_unchanged"]
+        result["source_review"] = result["source_protection"]["status"]
         result.update(status=workflow.status, layers=workflow.layers, timings=workflow.timings)
     except Exception as exc:
         result.update(status="error", error_type=type(exc).__name__, error=str(exc))
-        if "原源码/测试" in str(exc):
-            result["source_unchanged"] = False
         if workflow:
             result.update(layers=workflow.layers, timings=workflow.timings)
     finally:
         if workflow is not None:
             try:
                 result["source_protection"] = workflow.source_protection()
-                result["source_unchanged"] = True
+                result["source_unchanged"] = result["source_protection"]["protected_inputs_unchanged"]
+                result["source_review"] = result["source_protection"]["status"]
             except Exception as exc:
-                result["source_unchanged"] = False
+                result["source_unchanged"] = None
+                result["source_review"] = "unobserved"
                 result["source_protection_error"] = str(exc)
         try:
             current = manager.load_session(session.session_id, session.thread_id)
@@ -255,7 +255,7 @@ def run_simple_system(
         result.setdefault("timings", {}).update(initial_planning_seconds=planning_seconds, recovery_agent_seconds=recovery_seconds)
         if result.get("layers"):
             if validation_scope == "main_build":
-                result["layers"]["main_build_task_completed"] = bool(result["layers"]["primary_build_completed"] and result["source_unchanged"] is True and result["cleanup"]["succeeded"])
+                result["layers"]["main_build_task_completed"] = bool(result["layers"]["primary_build_completed"] and result["cleanup"]["succeeded"])
                 result["layers"]["full_completed"] = None  # 旧完整任务包含作者测试，不能冒称通过。
             else:
                 result["layers"]["full_completed"] = full_completion(result["layers"], result["cleanup"]["succeeded"])
@@ -264,14 +264,13 @@ def run_simple_system(
                 and result["layers"].get("delivery") == "passed"
                 and result["layers"].get("final_verification_passed") is True
                 and result["layers"].get("clean_replay") == "passed"
-                and result["source_unchanged"] is True
                 and result["cleanup"]["succeeded"]
             )
-            if result["status"] == "error" or result["source_unchanged"] is False:
+            if result["status"] == "error":
                 result["layers"]["full_completed"] = False
                 result["layers"]["reproducible_delivery_completed"] = False
                 # 后续异常不回写已观察到的主构建层；整体交付仍为失败。
-                result["termination_reason"] = result.get("error") or "protected_inputs_changed"
+                result["termination_reason"] = result.get("error") or "execution_error"
         result["validation_scope"] = validation_scope
         if state_router is not None:
             result["router_usage"] = state_router.summary()

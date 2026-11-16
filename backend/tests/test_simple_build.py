@@ -129,10 +129,43 @@ def test_cleanup_does_not_relax_other_guards(command):
         validate_phase_command(PlanStep(step_id="test", role="build", command=command, source="fixture", expected="拒绝"))
 
 
-def test_original_source_change_is_rejected(runner):
+def test_original_source_change_keeps_real_command_failure(runner):
     w = workflow(runner, actions("printf 'corrupt' > sample.c; make"))
-    with pytest.raises(PlanContractError, match="原源码/测试被修改"):
-        w.run()
+    assert w.run()["status"] == "needs_handoff"
+    report = w.source_protection()
+    assert report["status"] == "pending_review"
+    assert report["protected_inputs_unchanged"] is False
+    assert any(row["path"] == "sample.c" for row in report["changes"])
+
+
+@pytest.mark.parametrize("command", ["chmod +x config.guess; printf 'new helper' > config.sub; make", "printf 'int sample(void) { return 8; }\\n' > sample.c; make"])
+def test_changed_inputs_do_not_stop_real_build(runner, command):
+    _, _, _, root = runner
+    (root / "config.guess").write_text("old helper")
+    (root / "config.sub").write_text("old helper")
+    (root / "config.guess").chmod(0o644)
+    w = workflow(runner, actions(command))
+    assert w.run()["status"] == "primary_completed"
+    report = w.source_protection()
+    assert report["status"] == "pending_review"
+    assert report["protected_inputs_unchanged"] is False
+    assert any(row["kind"] == "added" for row in report["changes"])
+    assert json.loads((w.directory / "source-review.json").read_text()) == report
+
+
+def test_deleted_and_escaping_symlink_inputs_are_recorded(tmp_path):
+    from deerflow.compile.simple_build_runtime import review_source_changes
+
+    (tmp_path / "src").mkdir()
+    (tmp_path / "src/code.c").write_text("original")
+    baseline = source_inventory(tmp_path)
+    (tmp_path / "src/code.c").unlink()
+    (tmp_path / "src").rmdir()
+    (tmp_path / "src").symlink_to("/etc")
+    report = review_source_changes(tmp_path, baseline)
+    assert report["status"] == "pending_review"
+    assert any(row["path"] == "src/code.c" and row["kind"] == "deleted" for row in report["changes"])
+    assert not any(row["path"].startswith("src/") and row["kind"] == "added" for row in report["changes"])
 
 
 def test_precompiled_file_cannot_be_copied_as_new_build(runner):

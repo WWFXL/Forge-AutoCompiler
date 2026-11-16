@@ -129,7 +129,7 @@ def test_po_policy_is_shared_by_workflow_and_primary_observation(runner):  # noq
     w = workflow(runner, actions())
     p.write_bytes(PO.replace(b"2020-01-01", b"2026-11-11"))
     assert w.run()["status"] == "primary_completed"
-    assert w.source_protection()["generated_metadata_changes"][0]["path"] == "po/lv.po"
+    assert any(row["path"] == "po/lv.po" for row in w.source_protection()["changes"])
 
 
 def test_matching_version_output_with_wrong_code_does_not_loop_to_agent(runner):  # noqa: F811
