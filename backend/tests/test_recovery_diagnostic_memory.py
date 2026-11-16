@@ -11,6 +11,7 @@ from test_simple_build import actions, simple_actions, workflow
 
 from deerflow.compile.recovery_diagnostic_memory import MEMORY_PROMPT, RecoveryDiagnosticMemory
 from deerflow.compile.recovery_environment import RecoveryEnvironment
+from deerflow.compile.request_context_budget import RequestContextBudget
 from deerflow.compile.simple_build_task import propose_simple
 from deerflow.compile.simple_planning_context import PlanningContext
 
@@ -73,6 +74,7 @@ def test_actual_capacity_pruning_keeps_candidate_and_tool_pairs(tmp_path):
             return SimpleNamespace(**kwargs, response_format=None)
 
     meter = meter_at(tmp_path)
+    meter.context_budget = RequestContextBudget(max_input_tokens=5000)
     sent = []
 
     def handler(request):

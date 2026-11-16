@@ -12,14 +12,15 @@ from test_plan_agent import ScriptedPlanModel, response
 from test_simple_build import reference, simple_actions, task
 
 from deerflow.compile.plan_agent import PlanAgentLedger
+from deerflow.compile.request_context_budget import RequestContextBudget
 from deerflow.compile.simple_author_tests import resolve_author_tests
 from deerflow.compile.simple_build_agents import SimpleBuildMeter
 from deerflow.compile.simple_build_experience import SimpleStateTargetBank
 from deerflow.compile.simple_build_task import SimpleBuildActions, propose_simple
 
 
-def run(root, replies):
-    meter = SimpleBuildMeter(PlanAgentLedger(root / "agent"), accepted_models=("test-model",), deadline="2099-01-01T00:00:00+00:00", packet=lambda: dict(source_packet=[], private_reference="NEVER_SEND"))
+def run(root, replies, *, context_budget=None):
+    meter = SimpleBuildMeter(PlanAgentLedger(root / "agent"), accepted_models=("test-model",), deadline="2099-01-01T00:00:00+00:00", packet=lambda: dict(source_packet=[], private_reference="NEVER_SEND"), context_budget=context_budget)
     model = ScriptedPlanModel(responses=replies)
     plan, _ = propose_simple(model=model, task=task(), source_root=root, session_root=root, meter=meter)
     return plan, meter
@@ -159,10 +160,10 @@ def test_context_compacts_whole_interactions_and_keeps_latest_evidence(tmp_path)
         (tmp_path / f"large-{i}.txt").write_text(f"LATEST-{i}\n" + "payload" * 1100)
         replies.append(response("read_source", dict(path=f"large-{i}.txt")))
     replies.append(response("SimpleBuildActions", simple_actions().model_dump(mode="json")))
-    run(tmp_path, replies)
+    run(tmp_path, replies, context_budget=RequestContextBudget(max_input_tokens=12000))
     sent = request(tmp_path, 9)
     assert "LATEST-7" in json.dumps(sent) and "LATEST-0" not in json.dumps(sent)
-    assert len(json.dumps({k: v for k, v in sent.items() if k != "tools"}, ensure_ascii=False).encode()) <= 49000
+    assert RequestContextBudget().measure({k: v for k, v in sent.items() if k != "tools"}, sent["tools"])["reserved_input_tokens"] <= 12000
     assert sent["messages"][1]["type"] == "ai"
 
 
@@ -170,7 +171,9 @@ def test_large_initial_packet_does_not_displace_latest_multi_tool_results(tmp_pa
     for i in range(3):
         (tmp_path / f"part-{i}.txt").write_text(f"LATEST-{i}\n" + "data" * 1800)
     initial = dict(path="README.md", sha256="a" * 64, content="SEED " * 4400)
-    meter = SimpleBuildMeter(PlanAgentLedger(tmp_path / "agent"), accepted_models=("test-model",), deadline="2099-01-01T00:00:00+00:00", packet=lambda: dict(source_packet=[initial]))
+    meter = SimpleBuildMeter(
+        PlanAgentLedger(tmp_path / "agent"), accepted_models=("test-model",), deadline="2099-01-01T00:00:00+00:00", packet=lambda: dict(source_packet=[initial]), context_budget=RequestContextBudget(max_input_tokens=12000)
+    )
     batch = body_response("", tool_calls=[dict(name="read_source", args=dict(path=f"part-{i}.txt"), id=f"read-{i}") for i in range(3)])
     model = ScriptedPlanModel(responses=[batch, response("SimpleBuildActions", simple_actions().model_dump(mode="json"))])
     propose_simple(model=model, task=task(), source_root=tmp_path, session_root=tmp_path, meter=meter)
@@ -180,7 +183,7 @@ def test_large_initial_packet_does_not_displace_latest_multi_tool_results(tmp_pa
     assert packet["source_packet"][0]["sha256"] == "a" * 64 and packet["source_packet"][0]["content"] == ""
     assert packet["planning_progress"]["initial_material_compactions"] == 1
     assert initial["content"] == "SEED " * 4400
-    assert len(json.dumps({k: v for k, v in sent.items() if k != "tools"}, ensure_ascii=False).encode()) <= 49000
+    assert RequestContextBudget().measure({k: v for k, v in sent.items() if k != "tools"}, sent["tools"])["reserved_input_tokens"] <= 12000
 
 
 def test_rejected_read_remains_feedback_instead_of_aborting_planning(tmp_path):

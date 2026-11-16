@@ -12,6 +12,7 @@ from test_simple_planning import request, run
 from deerflow.compile import operations
 from deerflow.compile.plan_agent import PlanAgentLedger
 from deerflow.compile.plan_workflow import PlanContractError
+from deerflow.compile.request_context_budget import RequestContextBudget
 from deerflow.compile.simple_build_agents import SimpleBuildMeter
 from deerflow.compile.simple_build_runtime import SimpleBuildWorkflow, source_inventory, source_unchanged
 from deerflow.compile.simple_build_task import BuildReference, GeneratedDocument, SimpleBuildActions, assemble_simple_plan, propose_simple, simple_agent_packet
@@ -25,10 +26,10 @@ def test_latest_oversized_reasoning_group_is_preserved_offline_and_compacted(tmp
     (tmp_path / "README.md").write_text("Use make to build the main library")
     first = response("read_source", dict(path="README.md"))
     first.additional_kwargs["reasoning_content"] = "真实原始推理" * 8000
-    plan, meter = run(tmp_path, [first, response("SimpleBuildActions", simple_actions().model_dump(mode="json"))])
+    plan, meter = run(tmp_path, [first, response("SimpleBuildActions", simple_actions().model_dump(mode="json"))], context_budget=RequestContextBudget(max_input_tokens=12000))
     sent = request(tmp_path, 2)
     assert plan.steps[-1].command == "make" and meter.summary()["model_requests"] == 2
-    assert len(json.dumps({k: v for k, v in sent.items() if k != "tools"}, ensure_ascii=False).encode()) <= 49000
+    assert meter.context_budget.measure({k: v for k, v in sent.items() if k != "tools"}, sent["tools"])["reserved_input_tokens"] <= 12000
     assert all(m["type"] != "tool" for m in sent["messages"])
     compact = json.loads(sent["messages"][-1]["content"])
     assert compact["context_compaction"] and "Use make" in compact["evidence"][0]["result"]["content"]
