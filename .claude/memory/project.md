@@ -634,6 +634,12 @@
 
 ## 最近变更 (Recent Changes)
 
+- 2026-11-16 — 完成#754步骤标识及历史成功依赖装配修复，以libffi零Provider真实路径验证主构建、交付及干净重建。
+  - 文件: `backend/packages/harness/deerflow/compile/simple_build_task.py`, `backend/tests/test_simple_recovery_assembly.py`, `scripts/forge_libffi_recovery_assembly_repair.py`, `docs/research/2026-11-16-libffi-recovery-assembly-repair.md`
+  - 动机: 修复结构校验早于成功依赖合并的问题，避免纯标识点号消耗模型纠正。宏根因为缺libltdl-dev，原Libtool2.4.7保留，不采纳旧版本推断。
+  - 验证: 77相关回归、Ruff及实际原失败→补开发包→重建通过，74.43秒/1脚本响应/0Provider；4个容器引用不存在。E57不回填，论文/产品默认不改，修复阶段结束。
+
+
 - 2026-11-12 — 完成#752核心论证及最终系统组件方案，实际导出单份Word；保留v0.11正文、冻结证据和产品默认。
   - 文件: `docs/thesis/ARGUMENT_BLUEPRINT.md`, `docs/thesis/FINAL_SYSTEM_DESIGN.md`, `RESEARCH_STATUS.md`
   - 动机: 将历史结果组织为两项研究工作的证据链，明确P0工具约束＋R2已在E57 B组实测，避免拼接版本成绩；精确复用扩展与新项目综合评价另列。

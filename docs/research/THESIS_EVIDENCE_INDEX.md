@@ -1,5 +1,8 @@
 # 硕士论文实验与证据索引
 
+E57工程后续（不增加效果分母）：[2026-11-16恢复装配与libffi宏开发包修复](2026-11-16-libffi-recovery-assembly-repair.md)。同源码/镜像，原失败→补libltdl-dev→主要库/交付/实际重建通过；0Provider，不回填旧槽。
+
+
 论文收束方案（#752）：[核心论证—证据表](../thesis/ARGUMENT_BLUEPRINT.md)、[最终系统组件](../thesis/FINAL_SYSTEM_DESIGN.md)。仅组织现有证据，不新增实验分母；P0工具约束＋R2为E57 B组已测配置。
 
 

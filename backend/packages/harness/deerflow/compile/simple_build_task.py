@@ -2,6 +2,7 @@
 
 from __future__ import annotations
 
+import copy
 import json
 from typing import Literal, Self
 
@@ -48,6 +49,25 @@ class SimpleBuildActions(BaseModel):
     build_directory: str | None = Field(default=None, description="有作者依据时提供主项目构建目录，使用/workspace/repo内规范绝对路径；仅辅助观察，不改变workdir或作为成功断言")
     discard_dependencies: dict[str, str] = Field(default_factory=dict, description="仅恢复时使用：显式废弃或替换已成功依赖步骤的step_id及非空理由；未声明的成功依赖由系统保留，不能因当前容器已有而省掉重放安装")
 
+    @model_validator(mode="before")
+    @classmethod
+    def normalize_step_ids(cls, value):
+        """仅规范化点号标识并同步引用；冲突不猜测，命令和路径保持原文。"""
+        if not isinstance(value, dict) or not isinstance(value.get("steps"), list):
+            return value
+        value = copy.deepcopy(value)
+        identifiers = [s.get("step_id") for s in value["steps"] if isinstance(s, dict)]
+        mapping = {name: name.replace(".", "_") for name in identifiers if isinstance(name, str)}
+        if len(set(mapping.values())) != len(mapping):
+            raise ValueError("步骤标识规范化后冲突，必须提供唯一标识")
+        for step in value["steps"]:
+            if isinstance(step, dict):
+                if isinstance(step.get("step_id"), str):
+                    step["step_id"] = mapping[step["step_id"]]
+                if isinstance(step.get("requires"), (list, tuple)):
+                    step["requires"] = [mapping.get(name, name) if isinstance(name, str) else name for name in step["requires"]]
+        return value
+
     @field_validator("discard_dependencies")
     @classmethod
     def valid_discards(cls, value):
@@ -71,6 +91,35 @@ class SimpleBuildActions(BaseModel):
         if any(s.step_id.startswith("forge-") for s in self.steps):
             raise ValueError("不能占用系统步骤标识")
         return self
+
+
+def simple_action_schema(current_plan=None, handoff=None):
+    """把交接中实际成功的原依赖先装配，再执行原有完整图校验。"""
+    if current_plan is None:
+        return SimpleBuildActions
+    records = {r["step_id"]: r for r in (handoff or {}).get("successful_dependencies", [])}
+    known = {s.step_id: s for s in current_plan.steps if s.role == "dependency" and not s.step_id.startswith("forge-")}
+    if not set(records) <= known.keys() or any(not r.get("command_id") or r.get("command") != known[name].command or r.get("workdir") != known[name].workdir for name, r in records.items()):
+        raise PlanContractError("成功依赖记录与当前方案不匹配")
+    retained = [s for s in current_plan.steps if s.step_id in records]
+
+    class RecoveryActions(SimpleBuildActions):
+        @model_validator(mode="before")
+        @classmethod
+        def assemble_dependencies(cls, value):
+            if not isinstance(value, dict) or not isinstance(value.get("steps"), list):
+                return value
+            value = copy.deepcopy(value)
+            incoming = {s.get("step_id"): s for s in value["steps"] if isinstance(s, dict)}
+            discarded = value.get("discard_dependencies", {})
+            prefix = [incoming.get(s.step_id, s.model_dump(exclude={"required_output", "diagnostic_paths"})) for s in retained if s.step_id not in discarded]
+            # 不移动显式给出的步骤；仅补回遗漏项，避免掩盖重复和前向引用。
+            value["steps"] = [s for s in prefix if s["step_id"] not in incoming] + value["steps"]
+            return value
+
+    # 沿用正式工具名；类仅绑定当前交接，不共享全局/线程状态。
+    RecoveryActions.__name__ = "SimpleBuildActions"
+    return RecoveryActions
 
 
 class PublicBuildTask(BaseModel):
@@ -313,7 +362,7 @@ class PlanOutputError(ValueError):
     """已计量的规划响应没有交付可校验方案，需要显式反馈。"""
 
 
-def proposal_from_body(message: AIMessage) -> SimpleBuildActions:
+def proposal_from_body(message: AIMessage, schema=SimpleBuildActions) -> SimpleBuildActions:
     """只接收单一完整JSON，不补字段、猜括号或从散文中抽取命令。"""
     if message.invalid_tool_calls:
         details = [{k: call.get(k) for k in ("name", "args", "error")} for call in message.invalid_tool_calls]
@@ -323,7 +372,7 @@ def proposal_from_body(message: AIMessage) -> SimpleBuildActions:
     text = message.text.strip()
     if text.startswith("```json\n") and text.endswith("\n```"):
         text = text[8:-4].strip()
-    return SimpleBuildActions.model_validate(json.loads(text))
+    return schema.model_validate(json.loads(text))
 
 
 def correction_history(messages, feedback):
@@ -390,7 +439,8 @@ def propose_simple(
         label = "结构纠正" if category == "structure" else "恢复方案执行约束纠正"
         return "方案尚未执行。仅允许这一次" + label + "，请使用SimpleBuildActions提交完整reason字符串和steps列表；保留已读证据、任务与原测试。具体错误：" + str(error)[:4000]
 
-    agent = create_agent(model=model, tools=safe_readonly_tools(source_root, session_root), system_prompt=prompt, middleware=[meter], response_format=ToolStrategy(SimpleBuildActions, handle_errors=correct_once))
+    action_schema = simple_action_schema(current_plan, handoff)
+    agent = create_agent(model=model, tools=safe_readonly_tools(source_root, session_root), system_prompt=prompt, middleware=[meter], response_format=ToolStrategy(action_schema, handle_errors=correct_once))
     evidence = meter.packet() if hasattr(meter, "packet") else {}
     # 公开材料白名单；只在任务开始固定源码包，后续通过完整工具对话携带新证据。
     context = PlanningContext({**packet, "source_packet": evidence.get("source_packet", [])}, enforce_tool_availability=enforce_planning_tools and current_plan is None)
@@ -406,7 +456,7 @@ def propose_simple(
             if not isinstance(proposal, SimpleBuildActions):
                 final = result["messages"][-1]
                 try:
-                    proposal = proposal_from_body(final)
+                    proposal = proposal_from_body(final, action_schema)
                     channel = "json_body"
                 except (ValueError, TypeError) as error:
                     feedback = correct_once(error)
