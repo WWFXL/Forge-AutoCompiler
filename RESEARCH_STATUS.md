@@ -3,7 +3,13 @@
 论文选材固定入口：[硕士论文实验与证据索引](docs/research/THESIS_EVIDENCE_INDEX.md)，[历史材料目录](docs/research/THESIS_EVIDENCE_CATALOG.md)保留存量导航。当前完整稿为[论文v0.11工具Harness结果修订稿](docs/thesis/README.md)；E50–E52保存主构建系统及两轮Harness结果，既有完整任务、状态/恢复消融和两层经验继续按各自版本与分母使用。
 
 
-## 当前阶段（2026-11-16；#764容器查询工具自主单例结束，未完成，待用户审核）
+## 当前阶段（2026-11-16；#766文件变化改为后验审查，工程验证完成）
+
+[修复报告](docs/research/2026-11-16-source-posthoc-review-repair.md)：按用户决定，当前Forge/经验Forge/共享强工具执行器不再因文件新增、原文件内容/权限/链接变化或删除中止。构建与重建按真实反馈判断；source-review.json及阶段事件记录变化，pending_review单列，不自动判功能等价。有原输入变化的方案未经审查不进入已验证经验。旧严格参考工具/CXX适配器及冻结实验保留，后续新比较先统一口径。
+
+60项相关检查及libffi零Provider工程路径通过：autoreconf更新config.guess权限、config.sub内容后继续完成默认主库/交付/实际干净重建/清理，67.17秒，0模型费用；原输入两变化＋187新增均留存，source_unchanged=false与reproducible_delivery_completed=true分列、审查待定。原件forge-source-posthoc-review-repair-2026-11-16-v2；首版目标校验失败原件保留。没有新增自主模型观察，不改上一轮失败、论文或E57；下一步可在独立新授权下观察Agent是否实际越过原拦截点。发布以关联PR最新HEAD检查及合并记录为准。
+
+## 上一阶段（2026-11-16；#764容器查询工具自主单例结束，未完成，待用户审核）
 
 [结果报告](docs/research/2026-11-16-libffi-environment-tools-autonomous.md)：原P0＋工具约束＋规则路由＋R2通用原则，增加恢复容器查询，libffi从零独立规划一次、无答案/旧方案/经验。54请求/754230Token/0.2957706美元/497.67秒/未知0；初始3请求，恢复12＋20＋19。49查询尝试中36次实际执行，仍未找对libltdl-dev，未用候选包/提供者检索；本地空结果再次被错误解释成版本移除。
 

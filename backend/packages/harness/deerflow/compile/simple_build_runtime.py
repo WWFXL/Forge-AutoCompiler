@@ -25,17 +25,34 @@ def file_hash(path):
         return hashlib.file_digest(handle, "sha256").hexdigest()
 
 
-def source_inventory(root: Path) -> dict:
+def source_inventory(root: Path, *, names=None) -> dict:
     """记录原文件/链接的内容和文件身份；不宣称覆盖所有瞬时写入事件。"""
     rows = {}
-    for directory, dirs, files in os.walk(root, followlinks=False):
-        dirs[:] = [d for d in dirs if d != ".git"]
-        for name in files + [d for d in dirs if (Path(directory) / d).is_symlink()]:
-            p = Path(directory) / name
-            s = p.lstat()
-            if not stat.S_ISREG(s.st_mode) and not stat.S_ISLNK(s.st_mode):
-                raise PlanContractError("源码包含不支持的特殊文件")
-            rows[p.relative_to(root).as_posix()] = dict(sha256=None if p.is_symlink() else file_hash(p), link=os.readlink(p) if p.is_symlink() else None, mode=s.st_mode, inode=s.st_ino, ctime_ns=s.st_ctime_ns)
+
+    def inventory_paths():
+        if names is not None:
+            for name in names:
+                path = root / name
+                # 不跟随被替换的父目录链接；该路径记为原输入缺失。
+                if any(parent.is_symlink() for parent in path.parents if parent != root and parent.is_relative_to(root)):
+                    continue
+                if path.exists() or path.is_symlink():
+                    yield path
+            return
+
+        def fail(error):
+            raise error
+
+        for directory, dirs, files in os.walk(root, followlinks=False, onerror=fail):
+            dirs[:] = [d for d in dirs if d != ".git"]
+            for name in files + [d for d in dirs if (Path(directory) / d).is_symlink()]:
+                yield Path(directory) / name
+
+    for p in inventory_paths():
+        s = p.lstat()
+        if not stat.S_ISREG(s.st_mode) and not stat.S_ISLNK(s.st_mode):
+            raise PlanContractError("源码包含不支持的特殊文件")
+        rows[p.relative_to(root).as_posix()] = dict(sha256=None if p.is_symlink() else file_hash(p), link=os.readlink(p) if p.is_symlink() else None, mode=s.st_mode, inode=s.st_ino, ctime_ns=s.st_ctime_ns)
     return rows
 
 
@@ -76,6 +93,22 @@ def source_unchanged(root, baseline, generated_documents=(), po_headers=None):
             if document is not None and actual["link"] is None and actual["mode"] == row["mode"] and stat.S_ISREG(s.st_mode) and actual["sha256"] == document.sha256:
                 continue
             raise PlanContractError("原源码/测试被修改：" + name)
+
+
+def review_source_changes(root: Path, baseline: dict, *, include_added=True) -> dict:
+    """只记录文件事实，不以路径或扩展名推断功能等价，不阻止构建。"""
+    try:
+        current = source_inventory(root, names=None if include_added else baseline)
+    except (OSError, PlanContractError) as exc:
+        return dict(policy="posthoc-review-v1", status="unobserved", protected_inputs_unchanged=None, changes=[], error=str(exc))
+    changes = []
+    for name in sorted(baseline.keys() | current.keys()):
+        before, after = baseline.get(name), current.get(name)
+        fields = [key for key in ("sha256", "link", "mode") if (before or {}).get(key) != (after or {}).get(key)]
+        if before is None or after is None or fields:
+            changes.append(dict(path=name, kind="added" if before is None else "deleted" if after is None else "modified", fields=fields, before=before, after=after))
+    unchanged = not any(row["kind"] != "added" for row in changes)
+    return dict(policy="posthoc-review-v1", status="pending_review" if changes else "not_required", protected_inputs_unchanged=unchanged, changes=changes)
 
 
 def observe_configuration(root: Path, system: str, *, directory: str | None = None) -> dict:
@@ -217,15 +250,7 @@ def primary_artifacts(*, task, reference, root, baseline, deadline, po_headers=N
     """独立组件覆盖＋结构/平台/来源检查；路径定位不改变构建动作。"""
     if reference.task_sha256 != _digest(task.model_dump(mode="json")):
         raise PlanContractError("独立参考与公开任务身份不一致")
-    source_unchanged(root, baseline, reference.generated_documents, po_headers)
-    precompiled = set()
-    for name, row in baseline.items():
-        p = root / name
-        if not p.is_symlink():
-            with p.open("rb") as stream:
-                magic = stream.read(8)
-            if magic.startswith(b"\x7fELF") or magic == b"!<arch>\n":
-                precompiled.add(row["sha256"])
+    precompiled = {row["sha256"] for row in baseline.values() if row["sha256"]}
     names = {n for c in reference.components for n in c.artifact_names}
     candidates = []
     machine = {"x86_64": "Advanced Micro Devices X86-64", "aarch64": "AArch64"}[task.architecture]
@@ -308,25 +333,20 @@ class SimpleBuildWorkflow(PlanWorkflow):
         (self.directory / "source-baseline.json").write_text(json.dumps(self.baseline, ensure_ascii=False, indent=2) + "\n")
 
     def check_source(self):
-        source_unchanged(self.root, self.baseline, self.reference.generated_documents, self.po_headers)
+        """保留调用点作为非阻断观察；完整新增文件清单在终态生成。"""
+        report = review_source_changes(self.root, self.baseline, include_added=False)
+        # 原文件变化可由正常生成产生，也可能影响功能，统一留给后验审查。
+        original_changes = [row for row in report["changes"] if row["kind"] != "added"]
+        if original_changes != getattr(self, "_last_source_changes", None):
+            self.manager.log_event(self._session, "simple.source_changes_observed", changes=original_changes, review_status=report["status"])
+            self._last_source_changes = original_changes
+        return report
 
     def source_protection(self):
-        """保护输入与明确授权的文档生成分列，不把文档变化说成所有原文件字节未变。"""
-        self.check_source()
-        changes = []
-        for document in self.reference.generated_documents:
-            path = self.root / document.path
-            actual = file_hash(path)
-            original = self.baseline[document.path]
-            identity = path.lstat()
-            content_changed = actual != original["sha256"]
-            identity_changed = identity.st_ino != original["inode"] or identity.st_ctime_ns != original["ctime_ns"]
-            if content_changed or identity_changed:
-                changes.append(dict(path=document.path, template=document.template, source=document.source, before_sha256=original["sha256"], after_sha256=actual, content_changed=content_changed, file_identity_changed=identity_changed))
-        metadata_changes = [
-            dict(path=name, before_sha256=self.baseline[name]["sha256"], after_sha256=file_hash(self.root / name), policy="po-header-metadata-v1") for name in self.po_headers if file_hash(self.root / name) != self.baseline[name]["sha256"]
-        ]
-        return dict(protected_inputs_unchanged=True, generated_document_changes=changes, generated_metadata_changes=metadata_changes)
+        """旧结果字段保留真实未变事实；策略改为后验审查，不能伪报审查通过。"""
+        report = review_source_changes(self.root, self.baseline)
+        (self.directory / "source-review.json").write_text(json.dumps(report, ensure_ascii=False, indent=2) + "\n")
+        return report
 
     def snapshot(self):
         return {**super().snapshot(), "configuration_state": self.configuration, "layers": dict(self.layers), "dependency_generated_paths": dict(self.dependency_outputs)}

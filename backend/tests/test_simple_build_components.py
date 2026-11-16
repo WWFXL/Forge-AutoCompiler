@@ -30,6 +30,10 @@ def test_recipe_keeps_all_public_identity_except_run_label():
     with pytest.raises(PlanContractError):
         verified_simple_recipe(source_id="partial", plan=p, validation=validation | dict(source_unchanged=False))
     assert recipe.materialize(t).steps == p.steps
+    with pytest.raises(PlanContractError):
+        verified_simple_recipe(source_id="unreviewed", plan=p, validation=validation | dict(source_unchanged=False, source_review="pending_review"))
+    approved = verified_simple_recipe(source_id="reviewed", plan=p, validation=validation | dict(source_unchanged=False, source_review="approved"))
+    assert approved.materialize(t).steps == p.steps
 
 
 def test_cross_project_retrieval_uses_visible_source_and_failure_only():

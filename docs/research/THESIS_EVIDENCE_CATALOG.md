@@ -69,6 +69,7 @@ E54共同工程后续：[验证、依赖工具链及文件保护修复](2026-11-
 
 |文件|论文登记|
 |---|---|
+|[2026-11-16-source-posthoc-review-repair.md](2026-11-16-source-posthoc-review-repair.md)|#766文件变化后验审查工程验证，0Provider、不增效果分母、不改论文|
 |[2026-11-11-recovery-harness-r2-comparison-results.md](2026-11-11-recovery-harness-r2-comparison-results.md)|[E54](THESIS_EVIDENCE_INDEX.md#e54)，已审核候选的新项目完整比较；结果待审、不自动入文|
 |[2026-11-10-common-recovery-repair.md](2026-11-10-common-recovery-repair.md)|#715共同工程修复，不增加模型效果分母；旧E53及论文不改|
 |[2026-11-10-recovery-harness-comparison-results.md](2026-11-10-recovery-harness-comparison-results.md)|[E53](THESIS_EVIDENCE_INDEX.md#e53)，18新项目/36次同初始方案恢复比较，完整成本、失败分层及未采用决定；结果待审、论文未改|
