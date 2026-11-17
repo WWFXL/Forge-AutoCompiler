@@ -636,6 +636,11 @@
 
 ## 最近变更 (Recent Changes)
 
+- 2026-11-17 — #826统一基座36槽获授权并启动真实比较
+  - 身份: cpp-build-unified-base-harness-comparison-flash-v1，manifest31ee49a2；用户10美元/8小时，保守UTC05:23—13:23，无自动重试、不补槽。
+  - 发布与运行: PR827三CI通过并合并52e80e08，运行代码同版本；新输出forge-unified-base-harness-comparison-flash-2026-11-17-v1，终端会话76357。未知用量/模型标识异常/cleanup失败即停；不启动并行或追加付费。
+
+
 - 2026-11-17 — #826准备统一修复基座上的原18项目完整Harness比较
   - 文件: `scripts/forge_unified_base_harness_comparison.py`, `backend/tests/test_unified_base_harness_comparison.py`, `benchmarks/preregistrations/cpp-build-unified-base-harness-comparison-flash-v1.md`
   - 动机: 用户同意完整36槽比较，不将仅新组重跑的三次观察拼接旧分母；沿用E59两组差异与参考，共同使用PR822基座，不改Harness。
