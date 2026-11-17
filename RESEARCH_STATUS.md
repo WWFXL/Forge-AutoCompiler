@@ -3,11 +3,15 @@
 论文选材固定入口：[硕士论文实验与证据索引](docs/research/THESIS_EVIDENCE_INDEX.md)，[历史材料目录](docs/research/THESIS_EVIDENCE_CATALOG.md)保留存量导航。当前完整稿为[论文v0.12领域Harness结果与机制修订稿](docs/thesis/README.md)；E50–E52保存主构建系统及两轮Harness结果，既有完整任务、状态/恢复消融和两层经验继续按各自版本与分母使用。
 
 
-## 当前阶段（2026-11-17；#826统一基座18项目完整比较运行中）
+## 当前阶段（2026-11-17；#828统一基座18项目完整比较结束，结果待审）
 
-用户同意在当前统一基座上对原18项目各运行LH_v0_common/LH_v1一次，共36槽。[协议](benchmarks/preregistrations/cpp-build-unified-base-harness-comparison-flash-v1.md)、[准备记录](docs/research/2026-11-17-unified-base-harness-comparison-preparation.md)，入口`scripts/forge_unified_base_harness_comparison.py`。任务/源码/镜像/独立参考/AB或BA顺序及两版Harness差异均沿用E59，两组共同使用PR822修复后执行器，不复用成功方案或检索动态经验。只呈现全部18项目，旧失败和三项目观察不拼接、不回填、不增独立样本。
+[完整报告](docs/research/2026-11-17-unified-base-harness-comparison-results.md)、[全18表/阶段开销/复算](benchmarks/analyses/unified-base-harness-comparison-2026-11-17/README.md)：LH_v0_common/LH_v1完成18/18、15/18，请求97/132、费用0.5923218/0.8198265美元，累计2278.72/1569.16秒。更新组费增38.4%，更短耗时包含三个失败，不支持整体优势。初始请求59→113，恢复38→19，前期费用增长超过恢复节省。
 
-新身份cpp-build-unified-base-harness-comparison-flash-v1，manifest31ee49a2；3项必要检查、源码SHA与Docker检查通过。准备0Provider；用户已授权10美元/8小时，保守UTC05:23—13:23；PR827三CI通过并合并52e80e08，36槽已启动，新输出forge-unified-base-harness-comparison-flash-2026-11-17-v1，无自动重试、不补槽，未知用量/模型异常/cleanup失败即停。结果先用户审核、不自动入文。复用既有构建资格，不再扩展系统；本轮之后按证据收束论文。发布见Issue826关联PR/CI。
+更新组dsvpn/zstd两次方案JSON均在build_directory字段后不完整，纠正后仍失败，未启动构建；libtasn1先gnulib补丁不匹配，修发布说明补丁后丢失GNULIB_SRCDIR导致autopull依赖.git，继续诊断触达累计Token预算。libffi更新组安装libltdl-dev、原组兼容宏，两组成功；更新组14/21请求、0.106014/0.2134017美元、109.21/465.42秒，有局部路径收益。
+
+身份cpp-build-unified-base-harness-comparison-flash-v1，manifest31ee49a2；PR827三CI通过并合并52e80e08，运行同版本，启动记录8e93b1ca仅文档。用户10美元/保守UTC05:23—13:23授权，36槽结束，无自动重试/补槽、进程退出0，无活动付费；229响应/4112438Token/1.4121483美元，约65分钟，未知0、36cleanup及138容器引用不存在。只读封存核验通过，inventorya5e98c40。原件forge-unified-base-harness-comparison-flash-2026-11-17-v1。
+
+原输入后审及兼容宏保存，不改核心源码/测试的判读见报告；旧E58/E59与三项目观察不回填、不拼接，不增独立样本。结果先用户审核，未修改论文；建议以完整负面比较和libffi局部收益推进论文收束，不追加修补重测。结果发布见Issue828关联PR/CI。
 
 ## 上一阶段（2026-11-17；#823 修复后三项目真实自主观察完成，结果待审）
 

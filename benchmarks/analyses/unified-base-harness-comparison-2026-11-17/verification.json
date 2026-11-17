@@ -1,0 +1,20 @@
+{
+  "identity": "cpp-build-unified-base-harness-comparison-flash-v1",
+  "closed_slots": 36,
+  "planned_slots": 36,
+  "models": {
+    "deepseek-flash": 229
+  },
+  "input_tokens": 3914197,
+  "output_tokens": 198241,
+  "requests": 229,
+  "cost_usd": "1.4121483",
+  "unknown_usage_requests": 0,
+  "cleanup_passed": 36,
+  "absent_container_references": 138,
+  "inventory_sha256": "a5e98c4039efb92d466db5cdef142477732b2c2f71ea064c214a66025378f2af",
+  "original_input_changes": 11,
+  "unclosed_slot": null,
+  "billing_complete": true,
+  "batch_wall_seconds": 3898.774023348931
+}

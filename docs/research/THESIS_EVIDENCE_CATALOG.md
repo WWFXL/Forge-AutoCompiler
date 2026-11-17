@@ -1,5 +1,8 @@
 # 历史研究材料目录
 
+E60（#828，结果待审、未入论文）：[统一基座18项目Harness完整比较](2026-11-17-unified-base-harness-comparison-results.md)，cpp-build-unified-base-harness-comparison-flash-v1，36/36原项目重评。原/新完成18/18、15/18，请求97/132、费0.5923218/0.8198265美元，时2278.72/1569.16秒；新组费增38.4%，时间下降含失败，不支持整体优势。初始请求59→113超过恢复38→19的节省；libffi有补依赖局部收益。新组dsvpn/zstd连续不完整JSON、libtasn1恢复Token预算停止。229响应、未知0、36cleanup；[全18/后审/原件](../../benchmarks/analyses/unified-base-harness-comparison-2026-11-17/README.md)，inventorya5e98c40。旧E58/E59及三项目观察不回填，不增独立项目样本。论文用途为组合更新收益与代价及局部机制分析，待用户审核。
+
+
 E59修复后真实观察（#823，结果待审、未入论文）：[更新Harness三项目自主构建](2026-11-17-failed-project-observation-results.md)，cpp-build-failed-project-harness-observation-flash-v1，dsvpn/libass/libtasn1各一次LH_v1，3/3主构建与可复现交付通过；30请求/0.2490891美元/累计618.35秒，未知0、3cleanup。无工具参数错误或结构拒绝，不单独归因PR822；libtasn1旧失败来自基线，不是配对对照，不回填E59或增加未见分母。[完整轨迹/复算](../../benchmarks/analyses/failed-project-observation-2026-11-17/README.md)，inventory1b819422。
 
 E59工程后续（#821，不增模型效果分母、未入论文）：[工具错误反馈与方案输出修复](2026-11-17-tool-output-feedback-repair.md)。原libass文本错误对封存/新观察器回放，四份非法方案及真实Agent图纠正验证，0Provider；后续响应由脚本提供，不证明自主成功率提升，E59原结果不改。

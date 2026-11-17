@@ -636,6 +636,13 @@
 
 ## 最近变更 (Recent Changes)
 
+- 2026-11-17 — #828完成统一基座原18项目36槽完整比较，结果待审
+  - 文件: `docs/research/2026-11-17-unified-base-harness-comparison-results.md`, `benchmarks/analyses/unified-base-harness-comparison-2026-11-17/`, `RESEARCH_STATUS.md`
+  - 结果: 原/新完成18/18、15/18，请求97/132，费0.5923218/0.8198265美元，累计2278.72/1569.16秒。初始59→113、恢复38→19；不支持整体优势，libffi补依赖有局部收益。
+  - 失败: 更新组dsvpn/zstd两次不完整JSON，纠正后仍止于build_directory；libtasn1先gnulib补丁失败，修补后未保留GNULIB_SRCDIR，再诊断至1030408累计Token停止。原失败保留，不回填/补槽。
+  - 核验与边界: 229响应/4112438Token/1.4121483美元，未知0、36cleanup/138容器引用不存在，进程退出0、类型化audit通过，inventorya5e98c40；原件forge-unified-base-harness-comparison-flash-2026-11-17-v1。原输入diff/兼容宏后审单独存储。10美元/UTC05:23—13:23授权固定36槽已完成，无活动Provider；不入论文，下一步用户审核。发布见Issue828关联PR/CI。
+
+
 - 2026-11-17 — #826统一基座36槽获授权并启动真实比较
   - 身份: cpp-build-unified-base-harness-comparison-flash-v1，manifest31ee49a2；用户10美元/8小时，保守UTC05:23—13:23，无自动重试、不补槽。
   - 发布与运行: PR827三CI通过并合并52e80e08，运行代码同版本；新输出forge-unified-base-harness-comparison-flash-2026-11-17-v1，终端会话76357。未知用量/模型标识异常/cleanup失败即停；不启动并行或追加付费。
