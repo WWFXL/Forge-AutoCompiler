@@ -1,0 +1,325 @@
+{
+  "identity": "cpp-build-harness-update-repaired-comparison-flash-v1",
+  "closed_slots": 36,
+  "request_responses": {
+    "deepseek-flash": 201
+  },
+  "input_tokens": 3020586,
+  "output_tokens": 121983,
+  "total_tokens": 3142569,
+  "estimated_cost_usd": "1.0525554",
+  "unknown_usage_requests": 0,
+  "billing_recomputed": true,
+  "cleanup_passed": 36,
+  "container_references_checked": 138,
+  "container_references_present": [],
+  "source_changes": [
+    {
+      "slot": 1,
+      "project": "pocketsphinx",
+      "method": "LH_v0_common",
+      "original_input_changes": [],
+      "added": 1423,
+      "source_review": "pending_review"
+    },
+    {
+      "slot": 2,
+      "project": "pocketsphinx",
+      "method": "LH_v1",
+      "original_input_changes": [],
+      "added": 1423,
+      "source_review": "pending_review"
+    },
+    {
+      "slot": 3,
+      "project": "dsvpn",
+      "method": "LH_v1",
+      "original_input_changes": [],
+      "added": 0,
+      "source_review": null
+    },
+    {
+      "slot": 4,
+      "project": "dsvpn",
+      "method": "LH_v0_common",
+      "original_input_changes": [],
+      "added": 3,
+      "source_review": "pending_review"
+    },
+    {
+      "slot": 5,
+      "project": "smenu",
+      "method": "LH_v0_common",
+      "original_input_changes": [],
+      "added": 29,
+      "source_review": "pending_review"
+    },
+    {
+      "slot": 6,
+      "project": "smenu",
+      "method": "LH_v1",
+      "original_input_changes": [],
+      "added": 29,
+      "source_review": "pending_review"
+    },
+    {
+      "slot": 7,
+      "project": "libuv",
+      "method": "LH_v1",
+      "original_input_changes": [],
+      "added": 2599,
+      "source_review": "pending_review"
+    },
+    {
+      "slot": 8,
+      "project": "libuv",
+      "method": "LH_v0_common",
+      "original_input_changes": [],
+      "added": 1207,
+      "source_review": "pending_review"
+    },
+    {
+      "slot": 9,
+      "project": "quickjs",
+      "method": "LH_v0_common",
+      "original_input_changes": [],
+      "added": 96,
+      "source_review": "pending_review"
+    },
+    {
+      "slot": 10,
+      "project": "quickjs",
+      "method": "LH_v1",
+      "original_input_changes": [],
+      "added": 96,
+      "source_review": "pending_review"
+    },
+    {
+      "slot": 11,
+      "project": "libffi",
+      "method": "LH_v1",
+      "original_input_changes": [],
+      "added": 187,
+      "source_review": "pending_review"
+    },
+    {
+      "slot": 12,
+      "project": "libffi",
+      "method": "LH_v0_common",
+      "original_input_changes": [
+        "configure.ac"
+      ],
+      "added": 184,
+      "source_review": "pending_review"
+    },
+    {
+      "slot": 13,
+      "project": "libevent",
+      "method": "LH_v0_common",
+      "original_input_changes": [],
+      "added": 951,
+      "source_review": "pending_review"
+    },
+    {
+      "slot": 14,
+      "project": "libevent",
+      "method": "LH_v1",
+      "original_input_changes": [],
+      "added": 951,
+      "source_review": "pending_review"
+    },
+    {
+      "slot": 15,
+      "project": "cc65",
+      "method": "LH_v1",
+      "original_input_changes": [],
+      "added": 51047,
+      "source_review": "pending_review"
+    },
+    {
+      "slot": 16,
+      "project": "cc65",
+      "method": "LH_v0_common",
+      "original_input_changes": [],
+      "added": 51047,
+      "source_review": "pending_review"
+    },
+    {
+      "slot": 17,
+      "project": "libunwind",
+      "method": "LH_v0_common",
+      "original_input_changes": [],
+      "added": 1431,
+      "source_review": "pending_review"
+    },
+    {
+      "slot": 18,
+      "project": "libunwind",
+      "method": "LH_v1",
+      "original_input_changes": [],
+      "added": 415,
+      "source_review": "pending_review"
+    },
+    {
+      "slot": 19,
+      "project": "libyaml",
+      "method": "LH_v1",
+      "original_input_changes": [],
+      "added": 393,
+      "source_review": "pending_review"
+    },
+    {
+      "slot": 20,
+      "project": "libyaml",
+      "method": "LH_v0_common",
+      "original_input_changes": [],
+      "added": 393,
+      "source_review": "pending_review"
+    },
+    {
+      "slot": 21,
+      "project": "zstd",
+      "method": "LH_v0_common",
+      "original_input_changes": [],
+      "added": 215,
+      "source_review": "pending_review"
+    },
+    {
+      "slot": 22,
+      "project": "zstd",
+      "method": "LH_v1",
+      "original_input_changes": [],
+      "added": 215,
+      "source_review": "pending_review"
+    },
+    {
+      "slot": 23,
+      "project": "libass",
+      "method": "LH_v1",
+      "original_input_changes": [],
+      "added": 0,
+      "source_review": null
+    },
+    {
+      "slot": 24,
+      "project": "libass",
+      "method": "LH_v0_common",
+      "original_input_changes": [],
+      "added": 167,
+      "source_review": "pending_review"
+    },
+    {
+      "slot": 25,
+      "project": "libdeflate",
+      "method": "LH_v0_common",
+      "original_input_changes": [],
+      "added": 119,
+      "source_review": "pending_review"
+    },
+    {
+      "slot": 26,
+      "project": "libdeflate",
+      "method": "LH_v1",
+      "original_input_changes": [],
+      "added": 119,
+      "source_review": "pending_review"
+    },
+    {
+      "slot": 27,
+      "project": "libbcrypt",
+      "method": "LH_v1",
+      "original_input_changes": [],
+      "added": 19,
+      "source_review": "pending_review"
+    },
+    {
+      "slot": 28,
+      "project": "libbcrypt",
+      "method": "LH_v0_common",
+      "original_input_changes": [],
+      "added": 19,
+      "source_review": "pending_review"
+    },
+    {
+      "slot": 29,
+      "project": "libtasn1",
+      "method": "LH_v0_common",
+      "original_input_changes": [],
+      "added": 13,
+      "source_review": "pending_review"
+    },
+    {
+      "slot": 30,
+      "project": "libtasn1",
+      "method": "LH_v1",
+      "original_input_changes": [
+        "fuzz/corpus2array.c"
+      ],
+      "added": 623,
+      "source_review": "pending_review"
+    },
+    {
+      "slot": 31,
+      "project": "zlib-ng",
+      "method": "LH_v1",
+      "original_input_changes": [],
+      "added": 682,
+      "source_review": "pending_review"
+    },
+    {
+      "slot": 32,
+      "project": "zlib-ng",
+      "method": "LH_v0_common",
+      "original_input_changes": [],
+      "added": 1033,
+      "source_review": "pending_review"
+    },
+    {
+      "slot": 33,
+      "project": "libcsv",
+      "method": "LH_v0_common",
+      "original_input_changes": [],
+      "added": 16,
+      "source_review": "pending_review"
+    },
+    {
+      "slot": 34,
+      "project": "libcsv",
+      "method": "LH_v1",
+      "original_input_changes": [],
+      "added": 16,
+      "source_review": "pending_review"
+    },
+    {
+      "slot": 35,
+      "project": "libconfuse",
+      "method": "LH_v1",
+      "original_input_changes": [
+        "po/de.po",
+        "po/fr.po",
+        "po/ka.po",
+        "po/sv.po"
+      ],
+      "added": 172,
+      "source_review": "pending_review"
+    },
+    {
+      "slot": 36,
+      "project": "libconfuse",
+      "method": "LH_v0_common",
+      "original_input_changes": [
+        "po/de.po",
+        "po/fr.po",
+        "po/ka.po",
+        "po/sv.po"
+      ],
+      "added": 172,
+      "source_review": "pending_review"
+    }
+  ],
+  "raw_inventory_canonical_sha256": "88527cf899deda76a5bdf886c47eab7bc52f90659a54caf5c32cc407fe60b832",
+  "raw_result_sha256": "c0e2a7fb8d110823046775c32fcddaa93fd55226d46da4f3f2df787f0c2dfb90",
+  "raw_analysis_sha256": "5fb3e5b20b8de72533df2144f165f142119793fe989afe3dcac114b905f6da6c",
+  "source_review_file": "source-review.json",
+  "tool_error_replay_file": "tool-error-replay.json"
+}
