@@ -3,7 +3,13 @@
 论文选材固定入口：[硕士论文实验与证据索引](docs/research/THESIS_EVIDENCE_INDEX.md)，[历史材料目录](docs/research/THESIS_EVIDENCE_CATALOG.md)保留存量导航。当前完整稿为[论文v0.12领域Harness结果与机制修订稿](docs/thesis/README.md)；E50–E52保存主构建系统及两轮Harness结果，既有完整任务、状态/恢复消融和两层经验继续按各自版本与分母使用。
 
 
-## 当前阶段（2026-11-17；#823 修复后三项目真实自主观察完成，结果待审）
+## 当前阶段（2026-11-17；#826统一基座18项目完整比较已准备，待本批费用及时窗）
+
+用户同意在当前统一基座上对原18项目各运行LH_v0_common/LH_v1一次，共36槽。[协议](benchmarks/preregistrations/cpp-build-unified-base-harness-comparison-flash-v1.md)、[准备记录](docs/research/2026-11-17-unified-base-harness-comparison-preparation.md)，入口`scripts/forge_unified_base_harness_comparison.py`。任务/源码/镜像/独立参考/AB或BA顺序及两版Harness差异均沿用E59，两组共同使用PR822修复后执行器，不复用成功方案或检索动态经验。只呈现全部18项目，旧失败和三项目观察不拼接、不回填、不增独立样本。
+
+新身份cpp-build-unified-base-harness-comparison-flash-v1，manifest31ee49a2；3项必要检查、源码SHA与Docker检查通过。0Provider、0凭据读取、无活动付费；拟10美元/确认起8小时，尚待本批新费用和时窗授权，无自动重试、不补槽，未知用量/模型异常/cleanup失败即停。结果先用户审核、不自动入文。复用既有构建资格，不再扩展系统；本轮之后按证据收束论文。发布见Issue826关联PR/CI。
+
+## 上一阶段（2026-11-17；#823 修复后三项目真实自主观察完成，结果待审）
 
 [报告](docs/research/2026-11-17-failed-project-observation-results.md)、[三项目/证据](benchmarks/analyses/failed-project-observation-2026-11-17/README.md)：更新LH_v1从零完成dsvpn/libass/libtasn1，3/3主构建、交付与干净重建通过。请求3/5/22，共30；费用0.0070356/0.0218202/0.2202333，共0.2490891美元；累计618.35秒（含重建）。规划17、恢复13；全部恢复发生于libtasn1，自主补gtk-doc-tools后，辅助程序仅增加config.h包含，默认make通过，原输入后审通过。
 
