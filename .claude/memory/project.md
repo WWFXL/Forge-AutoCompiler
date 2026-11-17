@@ -636,6 +636,11 @@
 
 ## 最近变更 (Recent Changes)
 
+- 2026-11-17 — #823三项目观察获授权，准备启动真实运行
+  - 授权: 用户确认2美元/2小时，保守UTC04:28—06:28；cpp-build-failed-project-harness-observation-flash-v1，manifest6b139f89，固定3槽、无自动重试。
+  - 状态: PR824三CI通过并合并a5ca9289；独立新目录forge-failed-project-observation-flash-2026-11-17-v1。未知用量/身份异常/清理失败即停，原证据和论文不改。
+
+
 - 2026-11-17 — #823准备更新Harness对三个未完成项目的自主构建观察
   - 文件: `scripts/forge_failed_project_observation.py`, `backend/tests/test_failed_project_observation.py`, `benchmarks/preregistrations/cpp-build-failed-project-harness-observation-flash-v1.md`, `docs/research/2026-11-17-failed-project-observation-preparation.md`
   - 动机: 用户要求修复后重跑未完成项目；固定dsvpn/libass/libtasn1各一次LH_v1、独立新身份，不注入已知修复或复用指令，不回填E59。

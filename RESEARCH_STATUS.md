@@ -3,11 +3,11 @@
 论文选材固定入口：[硕士论文实验与证据索引](docs/research/THESIS_EVIDENCE_INDEX.md)，[历史材料目录](docs/research/THESIS_EVIDENCE_CATALOG.md)保留存量导航。当前完整稿为[论文v0.12领域Harness结果与机制修订稿](docs/thesis/README.md)；E50–E52保存主构建系统及两轮Harness结果，既有完整任务、状态/恢复消融和两层经验继续按各自版本与分母使用。
 
 
-## 当前阶段（2026-11-17；#823 修复后三个未完成项目自主观察准备）
+## 当前阶段（2026-11-17；#823 三个未完成项目自主观察已授权）
 
 [准备说明](docs/research/2026-11-17-failed-project-observation-preparation.md)、[协议](benchmarks/preregistrations/cpp-build-failed-project-harness-observation-flash-v1.md)：dsvpn/libass/libtasn1各一次LH_v1，从零规划、相同源码/镜像/参考，使用PR #822后的工具错误反馈和完整重交。无成功方案复用、不注入已知修复。libtasn1原基线失败、更新组曾成功；本次是已知失败项目的描述性观察，不回填E59，不作组件因果结论、不自动入论文。
 
-3项必要检查、源码归档SHA及Docker就绪；0/3正式运行、0Provider、未读凭据。manifest6b139f89，拟新增模型费硬上限2美元、确认起2小时，deepseek-flash、无自动重试，未知用量/模型身份异常/清理失败即停。用户已要求重新构建，新增费用及时窗待确认，旧36槽授权不续用。准备发布见Issue823关联PR/CI。
+PR #824三项CI通过并合并a5ca9289；用户已授权2美元/2小时，保守UTC04:28—06:28。manifest6b139f89，deepseek-flash、无自动重试，未知用量/模型身份异常/清理失败即停。准备3项检查/源码归档SHA/Docker及固定镜像通过，正式3槽即启动；新目录forge-failed-project-observation-flash-2026-11-17-v1，原36槽授权不续用。执行结束前不宣告结果。
 
 ## 上一阶段（2026-11-17；#821 工具错误反馈与方案输出共同修复）
 
