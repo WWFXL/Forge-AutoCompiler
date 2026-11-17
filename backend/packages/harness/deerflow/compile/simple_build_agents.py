@@ -90,7 +90,7 @@ class SimpleBuildMeter(ContextCanaryMeter):
             return result
         result = super().wrap_tool_call(request, handler)
         if context is not None:
-            context.observe(request.tool_call["name"], request.tool_call["args"], result.content)
+            context.observe(request.tool_call["name"], request.tool_call["args"], result.content, status=result.status)
         return result
 
 

@@ -1,0 +1,14 @@
+{
+  "provider_calls": 0,
+  "original_event": "slot-23-libass-LH_v1/agent/events.jsonl",
+  "original_event_file_sha256": "6541d5948eda02f60e3cad68698ae25a6aba035838e51d691351695cba1e92ad",
+  "frozen_observer": {
+    "error": "JSONDecodeError",
+    "detail": "Expecting value: line 1 column 1 (char 0)"
+  },
+  "repaired_observer": {
+    "exception": null,
+    "new_evidence": false
+  },
+  "note": "真实Agent图的后续响应由脚本提供；不证明Flash自主纠正或成功率提升。"
+}

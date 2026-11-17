@@ -10,7 +10,7 @@ from typing import Literal, Self
 from langchain.agents import create_agent
 from langchain.agents.structured_output import StructuredOutputValidationError, ToolStrategy
 from langchain_core.messages import AIMessage, HumanMessage
-from pydantic import BaseModel, ConfigDict, Field, field_validator, model_validator
+from pydantic import BaseModel, ConfigDict, Field, ValidationError, field_validator, model_validator
 
 from deerflow.compile.plan_agent import PlanResponseCapture
 from deerflow.compile.plan_agent_context import safe_readonly_tools
@@ -369,8 +369,15 @@ class PlanOutputError(ValueError):
 def proposal_from_body(message: AIMessage, schema=SimpleBuildActions) -> SimpleBuildActions:
     """只接收单一完整JSON，不补字段、猜括号或从散文中抽取命令。"""
     if message.invalid_tool_calls:
-        details = [{k: call.get(k) for k in ("name", "args", "error")} for call in message.invalid_tool_calls]
-        raise PlanOutputError("工具参数不是合法JSON：" + json.dumps(details, ensure_ascii=False)[:4000])
+        details = []
+        for call in message.invalid_tool_calls:
+            try:
+                json.loads(call.get("args") or "")
+            except (ValueError, TypeError) as error:
+                details.append(str(call.get("name")) + ": " + output_error_summary(error))
+            else:
+                details.append(str(call.get("name")) + ": 工具参数未被解析为有效调用")
+        raise PlanOutputError("工具参数不是合法JSON：" + "; ".join(details)[:1200])
     if message.tool_calls:
         raise PlanOutputError("最终响应未通过SimpleBuildActions交付方案")
     text = message.text.strip()
@@ -379,12 +386,25 @@ def proposal_from_body(message: AIMessage, schema=SimpleBuildActions) -> SimpleB
     return schema.model_validate(json.loads(text))
 
 
+def output_error_summary(error):
+    """反馈语法位置/字段，不把整段命令和转义JSON重新复制为纠正指令。"""
+    source = error.source if isinstance(error, StructuredOutputValidationError) else error
+    # LangChain会将Pydantic异常包装为ValueError，原异常保留在cause中。
+    while source.__cause__ is not None:
+        source = source.__cause__
+    if isinstance(source, ValidationError):
+        return json.dumps(source.errors(include_input=False, include_url=False, include_context=False), ensure_ascii=False)[:1200]
+    if isinstance(source, json.JSONDecodeError):
+        return f"JSON语法错误：{source.msg}（第{source.lineno}行，第{source.colno}列，字符{source.pos}）"
+    return str(source)[:1200]
+
+
 def correction_history(messages, feedback):
-    """错误工具调用作为诊断数据发送，避免产生悬空tool_call_id；原响应独立保留。"""
+    """原响应独立保留；损坏输出只留下交付状态，避免再次嵌套转义坏参数。"""
     history = list(messages)
     last = history[-1]
-    if isinstance(last, AIMessage) and last.invalid_tool_calls:
-        history[-1] = AIMessage(content="上次输出的无效工具参数（仅为错误数据）：\n" + json.dumps(dict(content=last.content, invalid_tool_calls=last.invalid_tool_calls), ensure_ascii=False))
+    if isinstance(last, AIMessage) and (last.invalid_tool_calls or not last.tool_calls):
+        history[-1] = AIMessage(content="上次方案未通过结构校验，未执行；原始输出已独立保存。请根据已有构建证据重新提交完整方案。")
     return [*history, HumanMessage(content=feedback)]
 
 
@@ -487,7 +507,11 @@ def propose_simple(
         corrected_categories.add(category)
         corrections += 1
         label = "结构纠正" if category == "structure" else "恢复方案执行约束纠正"
-        return "方案尚未执行。仅允许这一次" + label + "，请使用SimpleBuildActions提交完整reason字符串和steps列表；保留已读证据、任务与原测试。具体错误：" + str(error)[:4000]
+        return (
+            "方案尚未执行。仅允许这一次" + label + "，请使用SimpleBuildActions重新提交一份完整JSON对象，不提交补丁或接续上次残片；reason是字符串，steps是步骤列表。"
+            "命令中的引号、反斜杠和换行必须正确进行JSON转义；不输出Markdown或额外说明。"
+            "保留已读证据、任务与原测试，字段以当前工具schema为准。具体错误：" + output_error_summary(error)
+        )
 
     action_schema = simple_action_schema(current_plan, handoff)
     agent = create_agent(model=model, tools=tools, system_prompt=prompt, middleware=[meter], response_format=ToolStrategy(action_schema, handle_errors=correct_once))

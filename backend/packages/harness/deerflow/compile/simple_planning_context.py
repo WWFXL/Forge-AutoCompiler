@@ -99,15 +99,25 @@ class PlanningContext:
         handoff["context_note"] = "旧记录已压缩；当前方案和最后失败命令未截断。缺少诊断时使用read_failure_log按行补读原日志。"
         self.packet_compactions += 1
 
-    def observe(self, name, arguments, content):
+    def observe(self, name, arguments, content, *, status=None):
+        if name not in {"diagnose_dependency", "search_build_files", "inspect_build_environment", "read_source", "list_source", "read_failure_log"}:
+            return
+        # ToolNode的参数校验失败返回纯文本；观察器不替代原ToolMessage，
+        # 仅记录合法成功结果的进展，让原始错误继续反馈给Agent纠正。
+        try:
+            row = json.loads(content)
+        except (ValueError, TypeError):
+            self.pending_reads.append(False)
+            return
+        if status == "error" or not isinstance(row, dict) or row.get("error"):
+            self.pending_reads.append(False)
+            return
         if name == "diagnose_dependency":
             # 子查询已逐条写入诊断记录；这里只计算真实内容进展，不重复记账。
-            row = json.loads(content)
             for evidence in row.get("evidence", []):
                 self._observe_query(evidence["tool"], evidence["arguments"], evidence["result"])
             return
         if name in {"search_build_files", "inspect_build_environment"}:
-            row = json.loads(content)
             if self.diagnostic_memory is not None:
                 self.diagnostic_memory.observe(name, arguments, row, handoff_id=self.packet["handoff"]["handoff_id"])
             if self.dependency_diagnosis is not None:
@@ -116,7 +126,6 @@ class PlanningContext:
             return
         if name not in {"read_source", "list_source", "read_failure_log"}:
             return
-        row = json.loads(content)
         args = row.get("read_request", arguments)
         path = args.get("path", args.get("directory", "."))
         try:
