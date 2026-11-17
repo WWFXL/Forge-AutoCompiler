@@ -1,0 +1,214 @@
+{
+  "identity": "cpp-build-failed-project-harness-observation-flash-v1",
+  "arms": {
+    "LH_v1": {
+      "planned": 3,
+      "observed": 3,
+      "unobserved": 0,
+      "main_build_completed": 3,
+      "reproducible_delivery_completed": 3,
+      "requests": 30,
+      "input_tokens": 721161,
+      "output_tokens": 27284,
+      "estimated_cost_usd": "0.2490891",
+      "wall_seconds": 618.3497523502447,
+      "phases": {
+        "initial": {
+          "requests": 17,
+          "estimated_cost_usd": "0.0818166"
+        },
+        "recovery": {
+          "requests": 13,
+          "estimated_cost_usd": "0.1672725"
+        }
+      }
+    }
+  },
+  "slots": [
+    {
+      "slot": 1,
+      "project": "dsvpn",
+      "method": "LH_v1",
+      "status": "primary_completed",
+      "layers": {
+        "command_build_passed": true,
+        "primary_build_completed": true,
+        "delivery": "passed",
+        "author_tests": "not_required",
+        "executable_smoke": "passed",
+        "final_verification_passed": true,
+        "clean_replay": "passed",
+        "full_completed": null,
+        "main_build_task_completed": true,
+        "reproducible_delivery_completed": true
+      },
+      "wall_seconds": 16.70126876211725,
+      "phases": {
+        "initial": {
+          "requests": 3,
+          "input_tokens": 20040,
+          "output_tokens": 853,
+          "reads": 0,
+          "exact_repeat_reads": 0,
+          "invocations": 1,
+          "estimated_cost_usd": "0.0070356"
+        },
+        "recovery": {
+          "requests": 0,
+          "input_tokens": 0,
+          "output_tokens": 0,
+          "reads": 0,
+          "exact_repeat_reads": 0,
+          "invocations": 0,
+          "estimated_cost_usd": "0"
+        }
+      },
+      "tool_behavior": {
+        "initial": {
+          "finalize_only_requests": 0,
+          "rejected_tool_calls": 0,
+          "executed_read_calls": 1,
+          "attempted_read_calls": 1
+        },
+        "recovery": {
+          "finalize_only_requests": 0,
+          "rejected_tool_calls": 0,
+          "executed_read_calls": 0,
+          "attempted_read_calls": 0
+        }
+      },
+      "usage": {
+        "requests": 3,
+        "input_tokens": 20040,
+        "output_tokens": 853,
+        "cost": "0.0070356",
+        "unknown": 0
+      }
+    },
+    {
+      "slot": 2,
+      "project": "libass",
+      "method": "LH_v1",
+      "status": "primary_completed",
+      "layers": {
+        "command_build_passed": true,
+        "primary_build_completed": true,
+        "delivery": "passed",
+        "author_tests": "not_required",
+        "executable_smoke": "not_applicable",
+        "final_verification_passed": true,
+        "clean_replay": "passed",
+        "full_completed": null,
+        "main_build_task_completed": true,
+        "reproducible_delivery_completed": true
+      },
+      "wall_seconds": 147.45085288514383,
+      "phases": {
+        "initial": {
+          "requests": 5,
+          "input_tokens": 63674,
+          "output_tokens": 2265,
+          "reads": 1,
+          "exact_repeat_reads": 0,
+          "invocations": 1,
+          "estimated_cost_usd": "0.0218202"
+        },
+        "recovery": {
+          "requests": 0,
+          "input_tokens": 0,
+          "output_tokens": 0,
+          "reads": 0,
+          "exact_repeat_reads": 0,
+          "invocations": 0,
+          "estimated_cost_usd": "0"
+        }
+      },
+      "tool_behavior": {
+        "initial": {
+          "finalize_only_requests": 0,
+          "rejected_tool_calls": 0,
+          "executed_read_calls": 2,
+          "attempted_read_calls": 2
+        },
+        "recovery": {
+          "finalize_only_requests": 0,
+          "rejected_tool_calls": 0,
+          "executed_read_calls": 0,
+          "attempted_read_calls": 0
+        }
+      },
+      "usage": {
+        "requests": 5,
+        "input_tokens": 63674,
+        "output_tokens": 2265,
+        "cost": "0.0218202",
+        "unknown": 0
+      }
+    },
+    {
+      "slot": 3,
+      "project": "libtasn1",
+      "method": "LH_v1",
+      "status": "primary_completed",
+      "layers": {
+        "command_build_passed": true,
+        "primary_build_completed": true,
+        "delivery": "passed",
+        "author_tests": "not_required",
+        "executable_smoke": "not_applicable",
+        "final_verification_passed": true,
+        "clean_replay": "passed",
+        "full_completed": null,
+        "main_build_task_completed": true,
+        "reproducible_delivery_completed": true
+      },
+      "wall_seconds": 454.1976307029836,
+      "phases": {
+        "initial": {
+          "requests": 9,
+          "input_tokens": 142136,
+          "output_tokens": 8600,
+          "reads": 8,
+          "exact_repeat_reads": 0,
+          "invocations": 1,
+          "estimated_cost_usd": "0.0529608"
+        },
+        "recovery": {
+          "requests": 13,
+          "input_tokens": 495311,
+          "output_tokens": 15566,
+          "reads": 12,
+          "exact_repeat_reads": 1,
+          "invocations": 2,
+          "estimated_cost_usd": "0.1672725"
+        }
+      },
+      "tool_behavior": {
+        "initial": {
+          "finalize_only_requests": 0,
+          "rejected_tool_calls": 0,
+          "executed_read_calls": 12,
+          "attempted_read_calls": 12
+        },
+        "recovery": {
+          "finalize_only_requests": 0,
+          "rejected_tool_calls": 0,
+          "executed_read_calls": 17,
+          "attempted_read_calls": 17
+        }
+      },
+      "usage": {
+        "requests": 22,
+        "input_tokens": 637447,
+        "output_tokens": 24166,
+        "cost": "0.2202333",
+        "unknown": 0
+      }
+    }
+  ],
+  "unobserved": [],
+  "unclosed_slot": null,
+  "billing_complete": true,
+  "online_cost_usd": "0.2490891",
+  "boundary": "修复后已知失败项目的描述性观察；不回填E59，不作因果或总体成功率结论。"
+}
