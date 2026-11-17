@@ -636,6 +636,12 @@
 
 ## 最近变更 (Recent Changes)
 
+- 2026-11-17 — #830接入已审核P5并准备三构建系统流程观察。
+  - 文件: `scripts/forge_planning_evidence_order_observation.py`, `scripts/forge_harness_update_comparison.py`, `backend/tests/test_planning_evidence_order.py`, `docs/research/2026-11-17-planning-evidence-order-integration.md`。
+  - 动机: 用现有PlanningHarness参数切换P0/P5，保持LH_v1工具和恢复一致；不新增Workflow或解析器。
+  - 验证: 12项相关测试、Ruff及CLI真实归档哈希核对通过，Agent图P5送达，候选指纹不变。仅工程接线证据，0Provider/新增费，无新Docker构建。
+  - 下一步: 新身份cpp-build-planning-evidence-order-observation-flash-v1，libuv/quickjs/libunwind三槽待新2美元/2小时授权；先分析真实路径，再决定新项目比较。不改论文或旧证据。
+
 - 2026-11-17 — #830整理证据顺序规划Harness版本及完整提示提案，待用户审核。
   - 文件: `docs/research/2026-11-17-planning-evidence-order-proposal.md`, `benchmarks/fixtures/planning-evidence-order-v1/`, `RESEARCH_STATUS.md`。
   - 动机: E60前期调查增加未抵消恢复节省，按用户要求以当前LH_v1/P0为共同基线，仅追加P5证据获取顺序与停止条件，保持工具和恢复一致。

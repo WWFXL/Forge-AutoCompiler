@@ -3,11 +3,11 @@
 论文选材固定入口：[硕士论文实验与证据索引](docs/research/THESIS_EVIDENCE_INDEX.md)，[历史材料目录](docs/research/THESIS_EVIDENCE_CATALOG.md)保留存量导航。当前完整稿为[论文v0.12领域Harness结果与机制修订稿](docs/thesis/README.md)；E50–E52保存主构建系统及两轮Harness结果，既有完整任务、状态/恢复消融和两层经验继续按各自版本与分母使用。
 
 
-## 当前阶段（2026-11-17；#830按证据顺序规划的Harness提案待审）
+## 当前阶段（2026-11-17；#830已审核P5接入，三系统观察准备完成）
 
-用户确认把证据顺序流程作为一次Harness更新，并要求先完成版本整理与提示词提案。[审核正文与完整差异](docs/research/2026-11-17-planning-evidence-order-proposal.md)、[候选及指纹](benchmarks/fixtures/planning-evidence-order-v1/review-metadata.json)已保存：以当前LH_v1中的P0为基线，仅追加P5_evidence_order的planning_guidance，按说明→入口→必要依赖→方案→收敛组织证据；已有source_packet不重复读，构建系统按实际选择。两组工具/恢复/模型/执行器/验收拟保持一致，不与旧LH_v0_common混作单因素比较。
+用户审核通过[P5证据顺序规划提案](docs/research/2026-11-17-planning-evidence-order-proposal.md)。[接入报告](docs/research/2026-11-17-planning-evidence-order-integration.md)记录现有executor显式接收PlanningHarness，初始使用P5，默认P0及当前LH_v1恢复/工具/模型/Workflow/验收保持。12项相关测试、真实Agent图提示送达和源码哈希核对通过，仅支持接入；新增模型费用0，无模型凭据读取，无真实模型或新Docker构建。
 
-本阶段仅方案准备，0Provider/新增费用，不读取模型凭据，未接入运行、未启动比较或修改论文。候选由现有PlanningHarness装配，恢复提示不变；本地检查不证明真实效果。dsvpn/zstd输出不完整根因另查，不声称本候选已解决。下一步先由用户审核完整提示，再实施接入、小规模观察及新项目公平比较；样本与新费用授权尚未确定。E60完整结果及旧证据继续保留。
+新身份cpp-build-planning-evidence-order-observation-flash-v1：[协议](benchmarks/preregistrations/cpp-build-planning-evidence-order-observation-flash-v1.md)固定libuv/quickjs/libunwind各一次共3槽，已知项目只观察读取顺序与收敛，不估P5相对收益。候选568429c4保持，无成功方案复用/动态经验检索/项目修复答案；拟2美元/确认起2小时，尚无本身份付费授权，3槽均未观察，旧授权不续用。未知用量/模型标识异常/清理失败停止，无自动重试、不补槽。下一步绑定新授权后采集固定三槽，再设计与开发轨迹隔离的新项目公平比较。dsvpn/zstd输出根因另查，E60及旧证据保持，不改论文。
 
 ## 上一阶段（2026-11-17；#828统一基座18项目完整比较结束，结果待审）
 
