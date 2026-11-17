@@ -1,0 +1,11 @@
+[
+  {
+    "project": "libtasn1",
+    "path": "fuzz/corpus2array.c",
+    "kind": "modified",
+    "assessment": "辅助生成程序仅增加config.h包含，属构建适配；未更改核心逻辑或测试含义",
+    "original_sha256": "efd31e545dacc0bca73a36bfe93ad9d5b5d962ecd8f4250163fcc4248def37c7",
+    "observed_sha256": "a4d332a527e0c9661355677d0f78062922e35ab71c867d90dcfb48c0a8fbaf37",
+    "diff": "--- original/fuzz/corpus2array.c\n+++ observed/fuzz/corpus2array.c\n@@ -30,6 +30,7 @@\n    };   cat leak-d69d42ff01f6c3acca35dee27538a99e6821fced | ./corpus2array\n  */\n \n+#include <config.h>\n #include <stdio.h>\n #include <string.h>\n #include <ctype.h>\n"
+  }
+]

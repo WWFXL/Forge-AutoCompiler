@@ -3,11 +3,13 @@
 论文选材固定入口：[硕士论文实验与证据索引](docs/research/THESIS_EVIDENCE_INDEX.md)，[历史材料目录](docs/research/THESIS_EVIDENCE_CATALOG.md)保留存量导航。当前完整稿为[论文v0.12领域Harness结果与机制修订稿](docs/thesis/README.md)；E50–E52保存主构建系统及两轮Harness结果，既有完整任务、状态/恢复消融和两层经验继续按各自版本与分母使用。
 
 
-## 当前阶段（2026-11-17；#823 修复后三个未完成项目自主观察准备）
+## 当前阶段（2026-11-17；#823 修复后三项目真实自主观察完成，结果待审）
 
-[准备说明](docs/research/2026-11-17-failed-project-observation-preparation.md)、[协议](benchmarks/preregistrations/cpp-build-failed-project-harness-observation-flash-v1.md)：dsvpn/libass/libtasn1各一次LH_v1，从零规划、相同源码/镜像/参考，使用PR #822后的工具错误反馈和完整重交。无成功方案复用、不注入已知修复。libtasn1原基线失败、更新组曾成功；本次是已知失败项目的描述性观察，不回填E59，不作组件因果结论、不自动入论文。
+[报告](docs/research/2026-11-17-failed-project-observation-results.md)、[三项目/证据](benchmarks/analyses/failed-project-observation-2026-11-17/README.md)：更新LH_v1从零完成dsvpn/libass/libtasn1，3/3主构建、交付与干净重建通过。请求3/5/22，共30；费用0.0070356/0.0218202/0.2202333，共0.2490891美元；累计618.35秒（含重建）。规划17、恢复13；全部恢复发生于libtasn1，自主补gtk-doc-tools后，辅助程序仅增加config.h包含，默认make通过，原输入后审通过。
 
-3项必要检查、源码归档SHA及Docker就绪；0/3正式运行、0Provider、未读凭据。manifest6b139f89，拟新增模型费硬上限2美元、确认起2小时，deepseek-flash、无自动重试，未知用量/模型身份异常/清理失败即停。用户已要求重新构建，新增费用及时窗待确认，旧36槽授权不续用。准备发布见Issue823关联PR/CI。
+身份cpp-build-failed-project-harness-observation-flash-v1，manifest6b139f89；用户2美元/保守UTC04:28—06:28授权，3槽已完成且封存、进程退出0，未知用量0，3cleanup及12容器引用不存在，inventory1b819422。PR824合并a5ca9289、运行cf994207，原件forge-failed-project-observation-flash-2026-11-17-v1。没有活动付费或追加尝试。
+
+本轮没有工具参数错误或方案结构拒绝，不能单独量化PR822效果；libtasn1旧失败属于基线、LH_v1曾成功，本次为描述性观察。原E59的17/18、16/18及失败保留，不拼接新18项目率、不自动入论文。下一步用户审核结果，再决定集中比较。发布见Issue823关联结果PR/CI。
 
 ## 上一阶段（2026-11-17；#821 工具错误反馈与方案输出共同修复）
 

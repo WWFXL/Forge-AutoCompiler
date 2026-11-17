@@ -1,0 +1,89 @@
+[
+  {
+    "project": "dsvpn",
+    "status": "primary_completed",
+    "layers": {
+      "command_build_passed": true,
+      "primary_build_completed": true,
+      "delivery": "passed",
+      "author_tests": "not_required",
+      "executable_smoke": "passed",
+      "final_verification_passed": true,
+      "clean_replay": "passed",
+      "full_completed": null,
+      "main_build_task_completed": true,
+      "reproducible_delivery_completed": true
+    },
+    "requests": 3,
+    "input_tokens": 20040,
+    "output_tokens": 853,
+    "cost_usd": "0.0070356",
+    "wall_seconds": 16.70126876211725,
+    "proposal_rejections": [],
+    "tool_errors": [],
+    "error": null,
+    "cleanup": {
+      "succeeded": true,
+      "stopped": true,
+      "removed": true
+    }
+  },
+  {
+    "project": "libass",
+    "status": "primary_completed",
+    "layers": {
+      "command_build_passed": true,
+      "primary_build_completed": true,
+      "delivery": "passed",
+      "author_tests": "not_required",
+      "executable_smoke": "not_applicable",
+      "final_verification_passed": true,
+      "clean_replay": "passed",
+      "full_completed": null,
+      "main_build_task_completed": true,
+      "reproducible_delivery_completed": true
+    },
+    "requests": 5,
+    "input_tokens": 63674,
+    "output_tokens": 2265,
+    "cost_usd": "0.0218202",
+    "wall_seconds": 147.45085288514383,
+    "proposal_rejections": [],
+    "tool_errors": [],
+    "error": null,
+    "cleanup": {
+      "succeeded": true,
+      "stopped": true,
+      "removed": true
+    }
+  },
+  {
+    "project": "libtasn1",
+    "status": "primary_completed",
+    "layers": {
+      "command_build_passed": true,
+      "primary_build_completed": true,
+      "delivery": "passed",
+      "author_tests": "not_required",
+      "executable_smoke": "not_applicable",
+      "final_verification_passed": true,
+      "clean_replay": "passed",
+      "full_completed": null,
+      "main_build_task_completed": true,
+      "reproducible_delivery_completed": true
+    },
+    "requests": 22,
+    "input_tokens": 637447,
+    "output_tokens": 24166,
+    "cost_usd": "0.2202333",
+    "wall_seconds": 454.1976307029836,
+    "proposal_rejections": [],
+    "tool_errors": [],
+    "error": null,
+    "cleanup": {
+      "succeeded": true,
+      "stopped": true,
+      "removed": true
+    }
+  }
+]

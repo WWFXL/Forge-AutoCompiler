@@ -636,6 +636,17 @@
 
 ## 最近变更 (Recent Changes)
 
+- 2026-11-17 — #823完成更新Harness的三个未完成项目真实自主观察，结果待审
+  - 文件: `docs/research/2026-11-17-failed-project-observation-results.md`, `benchmarks/analyses/failed-project-observation-2026-11-17/`, `RESEARCH_STATUS.md`
+  - 结果: dsvpn/libass/libtasn1均主构建/交付/干净重建通过，30请求/0.2490891美元/累计618.35秒，未知0，3cleanup及12容器引用不存在，inventory1b819422，进程退出0。libtasn1补gtk-doc-tools及辅助程序一行config.h包含；默认make保留。
+  - 边界: 本次没有工具参数错误/方案结构拒绝，不单独归因PR822；不回填E59、不拼接18项目率、不入论文，无活动付费。2美元/UTC04:28—06:28授权固定3槽已用完，发布见Issue823关联结果PR/CI。
+
+
+- 2026-11-17 — #823三项目观察获授权，准备启动真实运行
+  - 授权: 用户确认2美元/2小时，保守UTC04:28—06:28；cpp-build-failed-project-harness-observation-flash-v1，manifest6b139f89，固定3槽、无自动重试。
+  - 状态: PR824三CI通过并合并a5ca9289；独立新目录forge-failed-project-observation-flash-2026-11-17-v1。未知用量/身份异常/清理失败即停，原证据和论文不改。
+
+
 - 2026-11-17 — #823准备更新Harness对三个未完成项目的自主构建观察
   - 文件: `scripts/forge_failed_project_observation.py`, `backend/tests/test_failed_project_observation.py`, `benchmarks/preregistrations/cpp-build-failed-project-harness-observation-flash-v1.md`, `docs/research/2026-11-17-failed-project-observation-preparation.md`
   - 动机: 用户要求修复后重跑未完成项目；固定dsvpn/libass/libtasn1各一次LH_v1、独立新身份，不注入已知修复或复用指令，不回填E59。

@@ -1,5 +1,7 @@
 # 硕士论文实验与证据索引
 
+E59修复后真实观察（#823，结果待审、未入论文）：[更新Harness三项目自主构建](2026-11-17-failed-project-observation-results.md)，cpp-build-failed-project-harness-observation-flash-v1，dsvpn/libass/libtasn1各一次LH_v1，3/3主构建与可复现交付通过；30请求/0.2490891美元/累计618.35秒，未知0、3cleanup。无工具参数错误或结构拒绝，不单独归因PR822；libtasn1旧失败来自基线，不是配对对照，不回填E59或增加未见分母。[完整轨迹/复算](../../benchmarks/analyses/failed-project-observation-2026-11-17/README.md)，inventory1b819422。
+
 E59工程后续（#821，不增模型效果分母、未入论文）：[工具错误反馈与方案输出修复](2026-11-17-tool-output-feedback-repair.md)。原libass文本错误对封存/新观察器回放，四份非法方案及真实Agent图纠正验证，0Provider；后续响应由脚本提供，不证明自主成功率提升，E59原结果不改。
 
 E59（#819，结果待审、未入论文）：[共同修复后18项目Harness重新测量](2026-11-17-harness-remeasurement-results.md)，cpp-build-harness-update-repaired-comparison-flash-v1，36/36、原18项目重评。原/新完成17/18、16/18；请求95/106，费0.5317215/0.5208339美元，时1696.91/1625.56秒。新组libtasn1成功，但dsvpn格式失败、libass工具文本错误解析失败；少费/少时含早期失败，不作同等质量效率提升。201响应、未知0、36cleanup；[全18/后审/原件指针](../../benchmarks/analyses/harness-update-remeasurement-2026-11-17/README.md)，inventory88527cf8。E58与论文v0.12不回填，不增加独立项目样本。
