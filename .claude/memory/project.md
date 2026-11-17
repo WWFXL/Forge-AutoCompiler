@@ -3,6 +3,8 @@
 跨 Claude Code session 的项目状态流水。按 CLAUDE.md §7 维护。
 
 ## 进行中 (In Progress)
+
+
 - 2026-11-11 — #744共同准备/交付修复及四项目最终真实重建完成；0Provider/新增费，P4候选7686c24b待用户审核，尚未接入或比较，下一步共同工具分派方案及短指导审核。当前事实见RESEARCH_STATUS.md，旧E56与论文不改。
 - 2026-11-11 — #742 P0/P3同R2的36/36正式比较完成，结果待用户审核；主构建17/18、15/18，交付11/18、10/18，费0.3982293/0.9390357美元，P3不采纳。335响应/1.337265美元/未知0；inventory479ce9ab，36cleanup/57容器114引用不存在，正式进程已退出。报告/E56已保存，不入论文、不追加调用；当前事实见RESEARCH_STATUS.md。
 - 2026-11-11 — #739已审核P3与P0的固定R2比较准备；18项目36槽、各自独立规划，正式0/36、新增模型费0。预算/时窗尚未绑定，旧提案一次额度不续用；PR740三CI通过并合c151dbac、Issue739关闭，知识库入口已同步；7项检查及两条受控接线通过，详见RESEARCH_STATUS.md。
@@ -633,6 +635,11 @@
   - 下一步: 等待实验负责人确认当前网络接入介质，并决定是否授权只读 endpoint 诊断和新的 canary amendment；获得确认后必须另建中文 Issue/PR 和协议 identity，保留当前失败 marker。
 
 ## 最近变更 (Recent Changes)
+
+- 2026-11-17 — 完成修复基座后18项目/36槽Harness重新测量与归因（Issue #819）
+  - 文件: `docs/research/2026-11-17-harness-remeasurement-results.md`, `benchmarks/analyses/harness-update-remeasurement-2026-11-17/`, `RESEARCH_STATUS.md`, `docs/research/THESIS_EVIDENCE_INDEX.md`, `docs/research/THESIS_EVIDENCE_CATALOG.md`
+  - 动机: 用户授权10美元/8小时执行；原/新完成17/18与16/18，请求95/106、费0.5317215/0.5208339、时1696.91/1625.56。201实际响应/3142569Token，未知0；36cleanup/138容器引用不存在，运行已退出并封存inventory88527cf8。两个新组早期失败不能当同等完成降本。libtasn1新组自主加config.h重建成功；旧清理/三CLI阻断未再发生。libass非法工具kind返回文本导致观察器JSON解析退出已零Provider复现，另两槽连续两次非法方案输出；失败保留。原输入完整diff及po翻译不变后审已存。原18重评不增独立样本，新结果先审、不写论文、不追加实验。
+
 
 - 2026-11-17 — 准备共同修复后18项目Harness重新测量（Issue #817）
   - 文件: `scripts/forge_harness_update_remeasurement.py`, `benchmarks/fixtures/harness-update-repaired-comparison-v1/`, `benchmarks/preregistrations/cpp-build-harness-update-repaired-comparison-flash-v1.md`, `backend/tests/test_harness_update_remeasurement.py`
