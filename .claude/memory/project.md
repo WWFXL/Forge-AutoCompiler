@@ -636,6 +636,11 @@
 
 ## 最近变更 (Recent Changes)
 
+- 2026-11-17 — #830完成P5三系统真实观察与轨迹分析，待用户审核。
+  - 文件: `docs/research/2026-11-17-planning-evidence-order-observation-results.md`, `benchmarks/analyses/planning-evidence-order-observation-2026-11-17/`, `RESEARCH_STATUS.md`。
+  - 证据: libuv/quickjs/libunwind各一次3/3主构建及重建，17规划/0恢复，费0.0983376美元，原输入未改，未知0、3cleanup、12容器引用不存在，inventory2bbec0c4。单组已知项目不估P5相对收益；libuv参数误用自纠，libunwind10请求调查偏长。
+  - 边界: 用户2美元/UTC15:44:40—17:44:40，运行254dfd1f，固定3槽结束，无活动Provider，不扩批、不改论文。下一步用户审核后再定新项目P0/P5公平比较。
+
 - 2026-11-17 — #830接入已审核P5并准备三构建系统流程观察。
   - 文件: `scripts/forge_planning_evidence_order_observation.py`, `scripts/forge_harness_update_comparison.py`, `backend/tests/test_planning_evidence_order.py`, `docs/research/2026-11-17-planning-evidence-order-integration.md`。
   - 动机: 用现有PlanningHarness参数切换P0/P5，保持LH_v1工具和恢复一致；不新增Workflow或解析器。

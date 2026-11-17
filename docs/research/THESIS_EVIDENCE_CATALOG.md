@@ -1,5 +1,8 @@
 # 历史研究材料目录
 
+E60后续P5流程观察（#830，待审、未入论文）：[按证据顺序规划的三系统观察](2026-11-17-planning-evidence-order-observation-results.md)，cpp-build-planning-evidence-order-observation-flash-v1，libuv/quickjs/libunwind各一次，3/3主构建及干净重建、规划请求3/4/10、恢复0，共0.0983376美元/334.34秒。libuv两次工具参数误用后自纠；libunwind仍长调查。原输入未变、未知0、3cleanup、12容器引用不存在；[分项/轨迹/原件指针](../../benchmarks/analyses/planning-evidence-order-observation-2026-11-17/README.md)，inventory2bbec0c4。单组已知项目仅供流程案例，不证P5优于P0或增加独立样本。
+
+
 E60（#828，结果待审、未入论文）：[统一基座18项目Harness完整比较](2026-11-17-unified-base-harness-comparison-results.md)，cpp-build-unified-base-harness-comparison-flash-v1，36/36原项目重评。原/新完成18/18、15/18，请求97/132、费0.5923218/0.8198265美元，时2278.72/1569.16秒；新组费增38.4%，时间下降含失败，不支持整体优势。初始请求59→113超过恢复38→19的节省；libffi有补依赖局部收益。新组dsvpn/zstd连续不完整JSON、libtasn1恢复Token预算停止。229响应、未知0、36cleanup；[全18/后审/原件](../../benchmarks/analyses/unified-base-harness-comparison-2026-11-17/README.md)，inventorya5e98c40。旧E58/E59及三项目观察不回填，不增独立项目样本。论文用途为组合更新收益与代价及局部机制分析，待用户审核。
 
 

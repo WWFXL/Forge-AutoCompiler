@@ -3,11 +3,11 @@
 论文选材固定入口：[硕士论文实验与证据索引](docs/research/THESIS_EVIDENCE_INDEX.md)，[历史材料目录](docs/research/THESIS_EVIDENCE_CATALOG.md)保留存量导航。当前完整稿为[论文v0.12领域Harness结果与机制修订稿](docs/thesis/README.md)；E50–E52保存主构建系统及两轮Harness结果，既有完整任务、状态/恢复消融和两层经验继续按各自版本与分母使用。
 
 
-## 当前阶段（2026-11-17；#830已审核P5接入，三系统观察准备完成）
+## 当前阶段（2026-11-17；#830 P5三系统真实观察完成，结果待审）
 
-用户审核通过[P5证据顺序规划提案](docs/research/2026-11-17-planning-evidence-order-proposal.md)。[接入报告](docs/research/2026-11-17-planning-evidence-order-integration.md)记录现有executor显式接收PlanningHarness，初始使用P5，默认P0及当前LH_v1恢复/工具/模型/Workflow/验收保持。12项相关测试、真实Agent图提示送达和源码哈希核对通过，仅支持接入；新增模型费用0，无模型凭据读取，无真实模型或新Docker构建。
+[结果报告](docs/research/2026-11-17-planning-evidence-order-observation-results.md)、[动作轨迹与复算](benchmarks/analyses/planning-evidence-order-observation-2026-11-17/README.md)：libuv/quickjs/libunwind各一次P5，3/3主构建、交付和干净重建通过，规划3/4/10共17请求，恢复0、费0.0983376美元、整批334.34秒。无相同参数read_source重复；libuv两次查询参数误用后自行纠正，libunwind连续补读configure.ac、10次规划，收敛仍待比较。原输入未改，不证明P5相对P0收益或缺包安装能力。
 
-新身份cpp-build-planning-evidence-order-observation-flash-v1：[协议](benchmarks/preregistrations/cpp-build-planning-evidence-order-observation-flash-v1.md)固定libuv/quickjs/libunwind各一次共3槽，已知项目只观察读取顺序与收敛，不估P5相对收益。候选568429c4保持，无成功方案复用/动态经验检索/项目修复答案；拟2美元/确认起2小时，尚无本身份付费授权，3槽均未观察，旧授权不续用。未知用量/模型标识异常/清理失败停止，无自动重试、不补槽。下一步绑定新授权后采集固定三槽，再设计与开发轨迹隔离的新项目公平比较。dsvpn/zstd输出根因另查，E60及旧证据保持，不改论文。
+身份cpp-build-planning-evidence-order-observation-flash-v1，manifest a6c5322f、P5 568429c4、运行254dfd1f。用户授权2美元/UTC15:44:40—17:44:40；固定3槽全部结束、进程退出0，17响应/311208Token/未知0、3cleanup、12容器引用不存在，封存只读核对通过，inventory2bbec0c4。原件forge-planning-evidence-order-observation-flash-2026-11-17-v1；无活动付费、不追加/重试/补槽，结果先审核、不改论文。E60及旧证据保持，本批不增独立样本。下一步用户审核后，固定新项目集在当前LH_v1相同底座下公平比较P0/P5；不先叠加CCScanner或提示修改。
 
 ## 上一阶段（2026-11-17；#828统一基座18项目完整比较结束，结果待审）
 

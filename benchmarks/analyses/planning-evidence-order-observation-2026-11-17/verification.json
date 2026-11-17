@@ -1,0 +1,27 @@
+{
+  "container_references_checked": 12,
+  "remaining_container_references": [],
+  "original_input_reviews": [
+    {
+      "slot": "slot-02-quickjs-LH_v1",
+      "protected_inputs_unchanged": true,
+      "original_file_changes": [],
+      "added_file_count": 96,
+      "review": "原输入未变；新增为构建生成文件/产物，规划指令未包含源码或测试补丁"
+    },
+    {
+      "slot": "slot-01-libuv-LH_v1",
+      "protected_inputs_unchanged": true,
+      "original_file_changes": [],
+      "added_file_count": 2599,
+      "review": "原输入未变；新增为构建生成文件/产物，规划指令未包含源码或测试补丁"
+    },
+    {
+      "slot": "slot-03-libunwind-LH_v1",
+      "protected_inputs_unchanged": true,
+      "original_file_changes": [],
+      "added_file_count": 1431,
+      "review": "原输入未变；新增为构建生成文件/产物，规划指令未包含源码或测试补丁"
+    }
+  ]
+}
