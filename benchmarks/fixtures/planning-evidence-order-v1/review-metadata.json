@@ -1,0 +1,22 @@
+{
+  "status": "draft_awaiting_user_review",
+  "source_revision": "1de5fcf6ebf9334f4cbf8d7b228e820aa794c486",
+  "baseline_fingerprint": "cb957463be8c3d0382df84971fd458fd5608e75d75fcb63f463f55e15f7f8d2d",
+  "candidate_fingerprint": "568429c41480d2208cc9bbfb14b0a1a173331d0e9874629fc550793a017f98b4",
+  "guidance_utf8_bytes": 2728,
+  "planning_only": true,
+  "recovery_prompt_unchanged": true,
+  "persisted_candidate_roundtrip": true,
+  "prompt_assembly_matches_current_propose_simple": true,
+  "provider_calls": 0,
+  "runtime_integration": false,
+  "effectiveness": "unobserved",
+  "files": {
+    "baseline.json": "88943316cabb5d5281f89237cc0c6547b13a1ca8cddbf219d3e88e01c60d80e0",
+    "candidate.json": "0ec5e4b1d75940c95df4bb839a41c8642fe0fd701c493325dff81b1332446b48",
+    "guidance.txt": "1187652ca0b1cbb6994aa5220d009b3f049cbbb533e5856cf819555b683ad161",
+    "planning-after.txt": "91aa492f17c6f0459d2d6f939e0795b9f77e69b07585244acebe4fae6d1a5620",
+    "planning-before.txt": "13b599adbeefa7a72619876c4f0a67ac5c77c3e7ab6699173fbc8ed03e57718c",
+    "planning.diff": "300ba6e435c85fd05654d26c8705dba1aa77a28770cfa2fdc1b5bcbc4d962d3b"
+  }
+}

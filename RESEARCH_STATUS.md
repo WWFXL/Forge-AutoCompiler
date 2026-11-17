@@ -3,7 +3,13 @@
 论文选材固定入口：[硕士论文实验与证据索引](docs/research/THESIS_EVIDENCE_INDEX.md)，[历史材料目录](docs/research/THESIS_EVIDENCE_CATALOG.md)保留存量导航。当前完整稿为[论文v0.12领域Harness结果与机制修订稿](docs/thesis/README.md)；E50–E52保存主构建系统及两轮Harness结果，既有完整任务、状态/恢复消融和两层经验继续按各自版本与分母使用。
 
 
-## 当前阶段（2026-11-17；#828统一基座18项目完整比较结束，结果待审）
+## 当前阶段（2026-11-17；#830 P5三系统真实观察完成，结果待审）
+
+[结果报告](docs/research/2026-11-17-planning-evidence-order-observation-results.md)、[动作轨迹与复算](benchmarks/analyses/planning-evidence-order-observation-2026-11-17/README.md)：libuv/quickjs/libunwind各一次P5，3/3主构建、交付和干净重建通过，规划3/4/10共17请求，恢复0、费0.0983376美元、整批334.34秒。无相同参数read_source重复；libuv两次查询参数误用后自行纠正，libunwind连续补读configure.ac、10次规划，收敛仍待比较。原输入未改，不证明P5相对P0收益或缺包安装能力。
+
+身份cpp-build-planning-evidence-order-observation-flash-v1，manifest a6c5322f、P5 568429c4、运行254dfd1f。用户授权2美元/UTC15:44:40—17:44:40；固定3槽全部结束、进程退出0，17响应/311208Token/未知0、3cleanup、12容器引用不存在，封存只读核对通过，inventory2bbec0c4。原件forge-planning-evidence-order-observation-flash-2026-11-17-v1；无活动付费、不追加/重试/补槽，结果先审核、不改论文。E60及旧证据保持，本批不增独立样本。下一步用户审核后，固定新项目集在当前LH_v1相同底座下公平比较P0/P5；不先叠加CCScanner或提示修改。
+
+## 上一阶段（2026-11-17；#828统一基座18项目完整比较结束，结果待审）
 
 [完整报告](docs/research/2026-11-17-unified-base-harness-comparison-results.md)、[全18表/阶段开销/复算](benchmarks/analyses/unified-base-harness-comparison-2026-11-17/README.md)：LH_v0_common/LH_v1完成18/18、15/18，请求97/132、费用0.5923218/0.8198265美元，累计2278.72/1569.16秒。更新组费增38.4%，更短耗时包含三个失败，不支持整体优势。初始请求59→113，恢复38→19，前期费用增长超过恢复节省。
 

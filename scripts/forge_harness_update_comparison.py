@@ -162,9 +162,9 @@ def validate(value, *, check_sources=True):
             raise PlanContractError("源码归档变化：" + p["name"])
 
 
-def executor(model):
+def executor(model, *, planning_harness=None):
     recovery = harnesses()
-    planning = PlanningHarness(name="P0", base_prompt_sha256=_digest(SIMPLE_PROMPT))
+    planning = planning_harness or PlanningHarness(name="P0", base_prompt_sha256=_digest(SIMPLE_PROMPT))
 
     def run(*, slot, item, folder, available, deadline):
         end = min(
