@@ -636,6 +636,12 @@
 
 ## 最近变更 (Recent Changes)
 
+- 2026-11-17 — #823准备更新Harness对三个未完成项目的自主构建观察
+  - 文件: `scripts/forge_failed_project_observation.py`, `backend/tests/test_failed_project_observation.py`, `benchmarks/preregistrations/cpp-build-failed-project-harness-observation-flash-v1.md`, `docs/research/2026-11-17-failed-project-observation-preparation.md`
+  - 动机: 用户要求修复后重跑未完成项目；固定dsvpn/libass/libtasn1各一次LH_v1、独立新身份，不注入已知修复或复用指令，不回填E59。
+  - 状态: 3项必要检查/归档SHA/Docker通过，manifest6b139f89，0Provider；拟2美元/确认起2小时尚待费用时窗确认，旧额度不续用。发布状态见Issue823关联PR/CI。
+
+
 - 2026-11-17 — #821修复工具文本错误反馈与方案结构纠正
   - 文件: `simple_planning_context.py`, `simple_build_agents.py`, `simple_build_task.py`, `backend/tests/test_tool_output_feedback.py`, `docs/research/2026-11-17-tool-output-feedback-repair.md`
   - 动机: E59 libass工具参数误用后观察器崩溃，dsvpn/libtasn1连续非法方案；保留真实错误回馈、反馈短语法/字段诊断并要求完整重交，一次纠正上限不变。

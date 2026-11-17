@@ -3,7 +3,13 @@
 论文选材固定入口：[硕士论文实验与证据索引](docs/research/THESIS_EVIDENCE_INDEX.md)，[历史材料目录](docs/research/THESIS_EVIDENCE_CATALOG.md)保留存量导航。当前完整稿为[论文v0.12领域Harness结果与机制修订稿](docs/thesis/README.md)；E50–E52保存主构建系统及两轮Harness结果，既有完整任务、状态/恢复消融和两层经验继续按各自版本与分母使用。
 
 
-## 当前阶段（2026-11-17；#821 工具错误反馈与方案输出共同修复）
+## 当前阶段（2026-11-17；#823 修复后三个未完成项目自主观察准备）
+
+[准备说明](docs/research/2026-11-17-failed-project-observation-preparation.md)、[协议](benchmarks/preregistrations/cpp-build-failed-project-harness-observation-flash-v1.md)：dsvpn/libass/libtasn1各一次LH_v1，从零规划、相同源码/镜像/参考，使用PR #822后的工具错误反馈和完整重交。无成功方案复用、不注入已知修复。libtasn1原基线失败、更新组曾成功；本次是已知失败项目的描述性观察，不回填E59，不作组件因果结论、不自动入论文。
+
+3项必要检查、源码归档SHA及Docker就绪；0/3正式运行、0Provider、未读凭据。manifest6b139f89，拟新增模型费硬上限2美元、确认起2小时，deepseek-flash、无自动重试，未知用量/模型身份异常/清理失败即停。用户已要求重新构建，新增费用及时窗待确认，旧36槽授权不续用。准备发布见Issue823关联PR/CI。
+
+## 上一阶段（2026-11-17；#821 工具错误反馈与方案输出共同修复）
 
 [修复报告](docs/research/2026-11-17-tool-output-feedback-repair.md)：工具参数错误/纯文本/非对象JSON不再使观察器退出，原反馈继续交给Agent且不冒充成功证据；方案纠正改为语法位置/字段反馈与完整重交，不再次嵌套坏JSON，保留一次结构纠正上限与严格校验。libass封存实现重现旧失败，新实现及真实Agent图通过；四份真实坏输出及恢复入口完成受控纠正，连续无效仍停止。0Provider，不修改E59/论文，不证明模型自主输出改善；本轮工程验证与发布见Issue821关联PR。
 
