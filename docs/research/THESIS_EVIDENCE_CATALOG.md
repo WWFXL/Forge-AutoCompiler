@@ -1,5 +1,7 @@
 # 历史研究材料目录
 
+E59工程后续（#821，不增模型效果分母、未入论文）：[工具错误反馈与方案输出修复](2026-11-17-tool-output-feedback-repair.md)。原libass文本错误对封存/新观察器回放，四份非法方案及真实Agent图纠正验证，0Provider；后续响应由脚本提供，不证明自主成功率提升，E59原结果不改。
+
 E59（#819，结果待审、未入论文）：[共同修复后18项目Harness重新测量](2026-11-17-harness-remeasurement-results.md)，cpp-build-harness-update-repaired-comparison-flash-v1，36/36、原18项目重评。原/新完成17/18、16/18；请求95/106，费0.5317215/0.5208339美元，时1696.91/1625.56秒。新组libtasn1成功，但dsvpn格式失败、libass工具文本错误解析失败；少费/少时含早期失败，不作同等质量效率提升。201响应、未知0、36cleanup；[全18/后审/原件指针](../../benchmarks/analyses/harness-update-remeasurement-2026-11-17/README.md)，inventory88527cf8。E58与论文v0.12不回填，不增加独立项目样本。
 
 

@@ -636,6 +636,12 @@
 
 ## 最近变更 (Recent Changes)
 
+- 2026-11-17 — #821修复工具文本错误反馈与方案结构纠正
+  - 文件: `simple_planning_context.py`, `simple_build_agents.py`, `simple_build_task.py`, `backend/tests/test_tool_output_feedback.py`, `docs/research/2026-11-17-tool-output-feedback-repair.md`
+  - 动机: E59 libass工具参数误用后观察器崩溃，dsvpn/libtasn1连续非法方案；保留真实错误回馈、反馈短语法/字段诊断并要求完整重交，一次纠正上限不变。
+  - 验证: 封存观察器旧失败/新实现无异常，真实Agent图与原坏输出回放，0Provider；不改E59/论文、不新增效果分母。发布状态见Issue821关联PR/CI，下一步小规模真实观察待用户决定。
+
+
 - 2026-11-17 — 完成修复基座后18项目/36槽Harness重新测量与归因（Issue #819）
   - 文件: `docs/research/2026-11-17-harness-remeasurement-results.md`, `benchmarks/analyses/harness-update-remeasurement-2026-11-17/`, `RESEARCH_STATUS.md`, `docs/research/THESIS_EVIDENCE_INDEX.md`, `docs/research/THESIS_EVIDENCE_CATALOG.md`
   - 动机: 用户授权10美元/8小时执行；原/新完成17/18与16/18，请求95/106、费0.5317215/0.5208339、时1696.91/1625.56。201实际响应/3142569Token，未知0；36cleanup/138容器引用不存在，运行已退出并封存inventory88527cf8。两个新组早期失败不能当同等完成降本。libtasn1新组自主加config.h重建成功；旧清理/三CLI阻断未再发生。libass非法工具kind返回文本导致观察器JSON解析退出已零Provider复现，另两槽连续两次非法方案输出；失败保留。原输入完整diff及po翻译不变后审已存。原18重评不增独立样本，新结果先审、不写论文、不追加实验。
