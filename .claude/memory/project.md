@@ -634,6 +634,11 @@
 
 ## 最近变更 (Recent Changes)
 
+- 2026-11-17 — 准备共同修复后18项目Harness重新测量（Issue #817）
+  - 文件: `scripts/forge_harness_update_remeasurement.py`, `benchmarks/fixtures/harness-update-repaired-comparison-v1/`, `benchmarks/preregistrations/cpp-build-harness-update-repaired-comparison-flash-v1.md`, `backend/tests/test_harness_update_remeasurement.py`
+  - 动机: 用户要求重新测量；复用原36槽入口但隔离身份/manifest，保留两组Harness、任务、顺序和源码，仅统一#816基座与三个已验证CLI参考。8项必要检查、归档SHA和Docker通过，未读凭据/未调用Provider；拟10美元/8小时等待本批授权，旧E58授权已用。新结果先审核、不入论文。
+
+
 - 2026-11-17 — #815完成E58四项目失败归因、共同清理修复及真实构建/原归档干净重建；工程阶段结束，0Provider/费用。
   - 文件: `backend/packages/harness/deerflow/compile/generated_inputs.py`, `simple_build_runtime.py`, `operations.py`, `scripts/forge_e58_failure_repair.py`, `docs/research/2026-11-17-e58-failure-repair.md`。
   - 动机: 三项原构建成功但独立参考不匹配；libtasn1补包方案被175KB清理脚本误命中/repro阻断。改为执行侧带摘要原输入清单，清理命令859字节，重建同样初始化；普通reproducers路径允许、真实/repro限制保留。
