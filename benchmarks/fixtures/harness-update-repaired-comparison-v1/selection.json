@@ -1,0 +1,268 @@
+{
+  "identity": "cpp-build-harness-update-comparison-source-v1",
+  "projects": [
+    {
+      "name": "pocketsphinx",
+      "repository_url": "https://github.com/cmusphinx/pocketsphinx",
+      "proposed_build_system": "cmake",
+      "sources": [
+        {
+          "name": "pocketsphinx",
+          "topic": "NN",
+          "guide": "in_repo",
+          "source": "compileagent",
+          "source_url": "https://arxiv.org/html/2505.04254v1#A3.T4",
+          "row": 32,
+          "source_html_sha256": "f61b0a20cd65fa2191ffd722ac922d59b6673b485c6f460c209e1e4bcffa56a0"
+        }
+      ],
+      "source_role": "论文目录项目",
+      "historical_exposure_pointers": [],
+      "exposure": "本轮优化未使用；历史目录或旧实验接触另登记，不称全历史未见"
+    },
+    {
+      "name": "libuv",
+      "repository_url": "https://github.com/libuv/libuv",
+      "proposed_build_system": "cmake",
+      "sources": [],
+      "source_role": "公开仓库补充项目",
+      "historical_exposure_pointers": [],
+      "exposure": "本轮优化未使用；历史目录或旧实验接触另登记，不称全历史未见"
+    },
+    {
+      "name": "libevent",
+      "repository_url": "https://github.com/libevent/libevent",
+      "proposed_build_system": "cmake",
+      "sources": [],
+      "source_role": "公开仓库补充项目",
+      "historical_exposure_pointers": [],
+      "exposure": "本轮优化未使用；历史目录或旧实验接触另登记，不称全历史未见"
+    },
+    {
+      "name": "libyaml",
+      "repository_url": "https://github.com/yaml/libyaml",
+      "proposed_build_system": "cmake",
+      "sources": [],
+      "source_role": "公开仓库补充项目",
+      "historical_exposure_pointers": [],
+      "exposure": "本轮优化未使用；历史目录或旧实验接触另登记，不称全历史未见"
+    },
+    {
+      "name": "libdeflate",
+      "repository_url": "https://github.com/ebiggers/libdeflate",
+      "proposed_build_system": "cmake",
+      "sources": [],
+      "source_role": "公开仓库补充项目",
+      "historical_exposure_pointers": [],
+      "exposure": "本轮优化未使用；历史目录或旧实验接触另登记，不称全历史未见"
+    },
+    {
+      "name": "zlib-ng",
+      "repository_url": "https://github.com/zlib-ng/zlib-ng",
+      "proposed_build_system": "cmake",
+      "sources": [],
+      "source_role": "公开仓库补充项目",
+      "historical_exposure_pointers": [],
+      "exposure": "本轮优化未使用；历史目录或旧实验接触另登记，不称全历史未见"
+    },
+    {
+      "name": "dsvpn",
+      "repository_url": "https://github.com/jedisct1/dsvpn",
+      "proposed_build_system": "make",
+      "sources": [
+        {
+          "name": "dsvpn",
+          "topic": "Networking",
+          "guide": "in_repo",
+          "source": "compileagent",
+          "source_url": "https://arxiv.org/html/2505.04254v1#A3.T4",
+          "row": 22,
+          "source_html_sha256": "f61b0a20cd65fa2191ffd722ac922d59b6673b485c6f460c209e1e4bcffa56a0"
+        }
+      ],
+      "source_role": "论文目录项目",
+      "historical_exposure_pointers": [],
+      "exposure": "本轮优化未使用；历史目录或旧实验接触另登记，不称全历史未见"
+    },
+    {
+      "name": "quickjs",
+      "repository_url": "https://github.com/bellard/quickjs",
+      "proposed_build_system": "make",
+      "sources": [
+        {
+          "name": "quickjs",
+          "topic": "Programming",
+          "guide": "outside_repo",
+          "source": "compileagent",
+          "source_url": "https://arxiv.org/html/2505.04254v1#A3.T4",
+          "row": 35,
+          "source_html_sha256": "f61b0a20cd65fa2191ffd722ac922d59b6673b485c6f460c209e1e4bcffa56a0"
+        }
+      ],
+      "source_role": "论文目录项目",
+      "historical_exposure_pointers": [
+        "benchmarks/manifests/cpp-jev-formal-comparison-v4.json",
+        "benchmarks/manifests/cpp-jev-formal-comparison-v5.json",
+        "benchmarks/manifests/cpp-jev-formal-comparison-v6.json"
+      ],
+      "exposure": "本轮优化未使用；历史目录或旧实验接触另登记，不称全历史未见"
+    },
+    {
+      "name": "cc65",
+      "repository_url": "https://github.com/cc65/cc65",
+      "proposed_build_system": "make",
+      "sources": [
+        {
+          "name": "cc65",
+          "topic": "Embedded",
+          "guide": "outside_repo",
+          "source": "compileagent",
+          "source_url": "https://arxiv.org/html/2505.04254v1#A3.T4",
+          "row": 42,
+          "source_html_sha256": "f61b0a20cd65fa2191ffd722ac922d59b6673b485c6f460c209e1e4bcffa56a0"
+        }
+      ],
+      "source_role": "论文目录项目",
+      "historical_exposure_pointers": [
+        "benchmarks/manifests/cpp-jev-formal-comparison-v1.json",
+        "benchmarks/manifests/cpp-jev-formal-comparison-v2.json",
+        "benchmarks/manifests/cpp-jev-formal-comparison-v3.json",
+        "benchmarks/manifests/cpp-jev-formal-comparison-v4.json",
+        "benchmarks/manifests/cpp-jev-formal-comparison-v5.json",
+        "benchmarks/manifests/cpp-jev-formal-comparison-v6.json"
+      ],
+      "exposure": "本轮优化未使用；历史目录或旧实验接触另登记，不称全历史未见"
+    },
+    {
+      "name": "smenu",
+      "repository_url": "https://github.com/p-gen/smenu",
+      "proposed_build_system": "make",
+      "sources": [
+        {
+          "name": "smenu",
+          "topic": "Terminal",
+          "guide": "in_repo",
+          "source": "compileagent",
+          "source_url": "https://arxiv.org/html/2505.04254v1#A3.T4",
+          "row": 47,
+          "source_html_sha256": "f61b0a20cd65fa2191ffd722ac922d59b6673b485c6f460c209e1e4bcffa56a0"
+        }
+      ],
+      "source_role": "论文目录项目",
+      "historical_exposure_pointers": [],
+      "exposure": "本轮优化未使用；历史目录或旧实验接触另登记，不称全历史未见"
+    },
+    {
+      "name": "zstd",
+      "repository_url": "https://github.com/facebook/zstd",
+      "proposed_build_system": "make",
+      "sources": [
+        {
+          "name": "zstd",
+          "topic": "Compression",
+          "guide": "in_repo",
+          "source": "compileagent",
+          "source_url": "https://arxiv.org/html/2505.04254v1#A3.T4",
+          "row": 7,
+          "source_html_sha256": "f61b0a20cd65fa2191ffd722ac922d59b6673b485c6f460c209e1e4bcffa56a0"
+        }
+      ],
+      "source_role": "论文目录项目",
+      "historical_exposure_pointers": [
+        "benchmarks/fixtures/cpp-jev-offline-qualification-source-pool-v1.json",
+        "benchmarks/fixtures/cpp-jev-offline-qualification-source-pool-v2.json",
+        "benchmarks/fixtures/cpp-typed-action-benchmark-source-pool-v1.json",
+        "benchmarks/manifests/cpp-build-plan-cross-system-v1.json",
+        "benchmarks/manifests/cpp-build-plan-cross-system-v2.json"
+      ],
+      "exposure": "本轮优化未使用；历史目录或旧实验接触另登记，不称全历史未见"
+    },
+    {
+      "name": "libbcrypt",
+      "repository_url": "https://github.com/rg3/libbcrypt",
+      "proposed_build_system": "make",
+      "sources": [
+        {
+          "name": "libbcrypt",
+          "topic": "Crypto",
+          "guide": "in_repo",
+          "source": "compileagent",
+          "source_url": "https://arxiv.org/html/2505.04254v1#A3.T4",
+          "row": 17,
+          "source_html_sha256": "f61b0a20cd65fa2191ffd722ac922d59b6673b485c6f460c209e1e4bcffa56a0"
+        }
+      ],
+      "source_role": "论文目录项目",
+      "historical_exposure_pointers": [],
+      "exposure": "本轮优化未使用；历史目录或旧实验接触另登记，不称全历史未见"
+    },
+    {
+      "name": "libffi",
+      "repository_url": "https://github.com/libffi/libffi",
+      "proposed_build_system": "autotools",
+      "sources": [
+        {
+          "name": "libffi",
+          "topic": "Embedded",
+          "guide": "in_repo",
+          "source": "compileagent",
+          "source_url": "https://arxiv.org/html/2505.04254v1#A3.T4",
+          "row": 43,
+          "source_html_sha256": "f61b0a20cd65fa2191ffd722ac922d59b6673b485c6f460c209e1e4bcffa56a0"
+        }
+      ],
+      "source_role": "论文目录项目",
+      "historical_exposure_pointers": [
+        "benchmarks/fixtures/cpp-typed-action-benchmark-source-pool-v1.json",
+        "benchmarks/manifests/cpp-build-reference-expansion-v1.json"
+      ],
+      "exposure": "libffi参与本轮经验开发"
+    },
+    {
+      "name": "libunwind",
+      "repository_url": "https://github.com/libunwind/libunwind",
+      "proposed_build_system": "autotools",
+      "sources": [],
+      "source_role": "公开仓库补充项目",
+      "historical_exposure_pointers": [],
+      "exposure": "本轮优化未使用；历史目录或旧实验接触另登记，不称全历史未见"
+    },
+    {
+      "name": "libass",
+      "repository_url": "https://github.com/libass/libass",
+      "proposed_build_system": "autotools",
+      "sources": [],
+      "source_role": "公开仓库补充项目",
+      "historical_exposure_pointers": [],
+      "exposure": "本轮优化未使用；历史目录或旧实验接触另登记，不称全历史未见"
+    },
+    {
+      "name": "libtasn1",
+      "repository_url": "https://github.com/gnutls/libtasn1",
+      "proposed_build_system": "autotools",
+      "sources": [],
+      "source_role": "公开仓库补充项目",
+      "historical_exposure_pointers": [],
+      "exposure": "本轮优化未使用；历史目录或旧实验接触另登记，不称全历史未见"
+    },
+    {
+      "name": "libcsv",
+      "repository_url": "https://github.com/rgamble/libcsv",
+      "proposed_build_system": "autotools",
+      "sources": [],
+      "source_role": "公开仓库补充项目",
+      "historical_exposure_pointers": [],
+      "exposure": "本轮优化未使用；历史目录或旧实验接触另登记，不称全历史未见"
+    },
+    {
+      "name": "libconfuse",
+      "repository_url": "https://github.com/libconfuse/libconfuse",
+      "proposed_build_system": "autotools",
+      "sources": [],
+      "source_role": "公开仓库补充项目",
+      "historical_exposure_pointers": [],
+      "exposure": "本轮优化未使用；历史目录或旧实验接触另登记，不称全历史未见"
+    }
+  ],
+  "selection_basis": "按构建系统覆盖、主要库或CLI规模及源码可获取性选取；未执行模型或按方法结果选样。每项目两组一次，总18项目/36槽。"
+}

@@ -3,7 +3,13 @@
 论文选材固定入口：[硕士论文实验与证据索引](docs/research/THESIS_EVIDENCE_INDEX.md)，[历史材料目录](docs/research/THESIS_EVIDENCE_CATALOG.md)保留存量导航。当前完整稿为[论文v0.12领域Harness结果与机制修订稿](docs/thesis/README.md)；E50–E52保存主构建系统及两轮Harness结果，既有完整任务、状态/恢复消融和两层经验继续按各自版本与分母使用。
 
 
-## 当前阶段（2026-11-17；#815 E58四项目共同修复及真实重建完成）
+## 当前阶段（2026-11-17；#817 修复基座后18项目重新测量准备完成）
+
+[新协议](benchmarks/preregistrations/cpp-build-harness-update-repaired-comparison-flash-v1.md)、入口`scripts/forge_harness_update_remeasurement.py`：原18项目×LH_v0_common/LH_v1共36槽，两组Harness/模型/任务/源码/顺序不变，统一PR #816执行基座，仅纠正smenu/quickjs/zstd独立检查；libtasn1不给已知修复答案。每槽从零规划，无方案复用或动态经验检索。新结果属于原项目集重新评价，不增加独立样本，原E58与论文不回填。
+
+8项必要检查及材料/归档核对通过，Docker就绪；复用四项目已有真实工程结果，不重复资格构建。新manifest `04c8d26e8838a96f38b9be1f6c2cac11e30975dae022c4968df4f4ce3d7d89aa`。本轮0Provider/0费用，拟10美元/8小时尚待新批预算与时窗绑定；旧E58授权不续用。结果先审核，不自动入论文。准备说明见[本轮记录](docs/research/2026-11-17-harness-remeasurement-preparation.md)。
+
+## 上一阶段（2026-11-17；#815 E58四项目共同修复及真实重建完成）
 
 [归因与修复报告](docs/research/2026-11-17-e58-failure-repair.md)、[四项目工程结果](benchmarks/analyses/e58-failure-repair-2026-11-17/summary.json)：smenu/quickjs/zstd原构建动作不变，修正PTY与真实输出参考后，主构建、交付、原归档干净重建通过；libtasn1复现缺gtkdocize→原补包方案→默认make的config.h包含错误→正常编译参数补救，最终默认构建/静态共享库/重建通过。四项原输入均未变，20个本轮容器引用不存在。
 

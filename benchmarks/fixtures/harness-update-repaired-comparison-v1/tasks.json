@@ -1,0 +1,1174 @@
+{
+  "identity": "cpp-build-harness-update-repaired-comparison-fixture-v1",
+  "source_collection": "/home/yiwei/.codex/outputs/forge-harness-update-sources-2026-11-17-v1",
+  "projects": [
+    {
+      "name": "pocketsphinx",
+      "family": "https://github.com/cmusphinx/pocketsphinx",
+      "task": {
+        "task_version": "main-build-v1",
+        "plan_id": "harness-update-pocketsphinx",
+        "repository_url": "https://github.com/cmusphinx/pocketsphinx",
+        "commit_sha": "f20ff1b7a5db64c5e892a798479e20df86e79a35",
+        "image_id": "sha256:d483ffa7b71b9545cff9555f6c92b6281a3f826ce006e2d09134cbdca92f8aa1",
+        "source_archive_sha256": "7b7f1d012a464e10ccb86601ee27003bdd2cda9035f1c026ac85e7480e025cd9",
+        "build_system": "cmake",
+        "architecture": "x86_64",
+        "goal": "在给定Linux环境中，依据作者推荐或默认方式，从指定版本源码构建项目的主要程序或库；允许必要的构建适配，保持核心功能与测试含义，文件改动留待任务结束后审查。",
+        "common_clarification": "",
+        "parallel_jobs": 2
+      },
+      "reference": {
+        "task_sha256": "7e81cbdb9e8674cac7ee15cee128881755343dedc49587e3d4b132b6fee7f5c4",
+        "components": [
+          {
+            "name": "pocketsphinx",
+            "artifact_names": [
+              "libpocketsphinx.a",
+              "libpocketsphinx.so",
+              "libpocketsphinx.so.5"
+            ],
+            "kinds": [
+              "static_library",
+              "shared_library"
+            ],
+            "evidence": "src/CMakeLists.txt:1 add_library(pocketsphinx; 主要组件，其他语言绑定/示例不列为要求"
+          }
+        ],
+        "author_tests": [],
+        "tests_not_applicable_reason": "main-build-v1仅主项目构建、CLI轻量验证和干净重建，不要求完整作者测试",
+        "executable_smokes": [],
+        "generated_documents": []
+      },
+      "source_archive": "/home/yiwei/.codex/outputs/forge-harness-update-sources-2026-11-17-v1/pocketsphinx/source.tar",
+      "source_evidence": [
+        {
+          "path": "src/CMakeLists.txt",
+          "line": 1,
+          "quote": "add_library(pocketsphinx",
+          "sha256": "4b2ff83bca6e6cf1b5fce3228ccdeb5f4681f8fbe9ac07b94ae9e3685930a14c"
+        }
+      ],
+      "paper_sources": [
+        {
+          "name": "pocketsphinx",
+          "topic": "NN",
+          "guide": "in_repo",
+          "source": "compileagent",
+          "source_url": "https://arxiv.org/html/2505.04254v1#A3.T4",
+          "row": 32,
+          "source_html_sha256": "f61b0a20cd65fa2191ffd722ac922d59b6673b485c6f460c209e1e4bcffa56a0"
+        }
+      ],
+      "source_role": "论文目录项目",
+      "historical_exposure_pointers": [],
+      "exposure": "本轮优化未使用；历史目录或旧实验接触另登记，不称全历史未见",
+      "structural_review": "依据源码入口确认"
+    },
+    {
+      "name": "dsvpn",
+      "family": "https://github.com/jedisct1/dsvpn",
+      "task": {
+        "task_version": "main-build-v1",
+        "plan_id": "harness-update-dsvpn",
+        "repository_url": "https://github.com/jedisct1/dsvpn",
+        "commit_sha": "4a498b2dcb842e892c4060233710478cd30ecbf8",
+        "image_id": "sha256:d483ffa7b71b9545cff9555f6c92b6281a3f826ce006e2d09134cbdca92f8aa1",
+        "source_archive_sha256": "05794172a8a0dedd0badc7104b7eb15bb0d73d3bd4710116a3dcfa427dc16715",
+        "build_system": "make",
+        "architecture": "x86_64",
+        "goal": "在给定Linux环境中，依据作者推荐或默认方式，从指定版本源码构建项目的主要程序或库；允许必要的构建适配，保持核心功能与测试含义，文件改动留待任务结束后审查。",
+        "common_clarification": "",
+        "parallel_jobs": 2
+      },
+      "reference": {
+        "task_sha256": "72eb84cca81d4358b2d86f4de87db7e0aa52ab19538af01dcc1d9db5bda08250",
+        "components": [
+          {
+            "name": "dsvpn",
+            "artifact_names": [
+              "dsvpn"
+            ],
+            "kinds": [
+              "executable"
+            ],
+            "evidence": "Makefile:5 all: dsvpn; 主要组件，其他语言绑定/示例不列为要求"
+          }
+        ],
+        "author_tests": [],
+        "tests_not_applicable_reason": "main-build-v1仅主项目构建、CLI轻量验证和干净重建，不要求完整作者测试",
+        "executable_smokes": [
+          {
+            "artifact_name": "dsvpn",
+            "accepted_exit_codes": [
+              0
+            ],
+            "step": {
+              "step_id": "smoke-dsvpn",
+              "role": "smoke",
+              "command": "python3 -c 'import subprocess; p=subprocess.run([\"/artifacts/dsvpn\"],capture_output=True); print(p.stdout.decode(errors=\"replace\")); assert p.returncode == 254 and b\"DSVPN\" in p.stdout and b\"usage:\" in p.stdout'",
+              "source": "src/vpn.c:547; 作者版本或用法入口；dsvpn按原生254及用法输出独立断言，非接受任意非零",
+              "expected": "执行交付的主要程序并验证原生版本/用法或简单表达式",
+              "workdir": "/artifacts",
+              "requires": [],
+              "required_output": [
+                "dsvpn"
+              ],
+              "diagnostic_paths": []
+            }
+          }
+        ],
+        "generated_documents": []
+      },
+      "source_archive": "/home/yiwei/.codex/outputs/forge-harness-update-sources-2026-11-17-v1/dsvpn/source.tar",
+      "source_evidence": [
+        {
+          "path": "Makefile",
+          "line": 5,
+          "quote": "all: dsvpn",
+          "sha256": "5ee2321273326ca2caf33c227e5033aad9298722d6645bbc8c5085ad46253158"
+        },
+        {
+          "path": "src/vpn.c",
+          "line": 547,
+          "quote": "exit(254);",
+          "sha256": "f563678901833a236fbf7a5ca87a044f8eba6f5052de4a7ab4ea974518f1a7ca"
+        }
+      ],
+      "paper_sources": [
+        {
+          "name": "dsvpn",
+          "topic": "Networking",
+          "guide": "in_repo",
+          "source": "compileagent",
+          "source_url": "https://arxiv.org/html/2505.04254v1#A3.T4",
+          "row": 22,
+          "source_html_sha256": "f61b0a20cd65fa2191ffd722ac922d59b6673b485c6f460c209e1e4bcffa56a0"
+        }
+      ],
+      "source_role": "论文目录项目",
+      "historical_exposure_pointers": [],
+      "exposure": "本轮优化未使用；历史目录或旧实验接触另登记，不称全历史未见",
+      "structural_review": "依据源码入口确认"
+    },
+    {
+      "name": "smenu",
+      "family": "https://github.com/p-gen/smenu",
+      "task": {
+        "task_version": "main-build-v1",
+        "plan_id": "harness-update-smenu",
+        "repository_url": "https://github.com/p-gen/smenu",
+        "commit_sha": "04b85ad5549258f06304739d54b2501d00670c3d",
+        "image_id": "sha256:d483ffa7b71b9545cff9555f6c92b6281a3f826ce006e2d09134cbdca92f8aa1",
+        "source_archive_sha256": "baa890b405f7bd42a7b99b47e5312c470d3e8ef8e7a7dbfc986671e8b4fb4dc2",
+        "build_system": "autotools",
+        "architecture": "x86_64",
+        "goal": "在给定Linux环境中，依据作者推荐或默认方式，从指定版本源码构建项目的主要程序或库；允许必要的构建适配，保持核心功能与测试含义，文件改动留待任务结束后审查。",
+        "common_clarification": "",
+        "parallel_jobs": 2
+      },
+      "reference": {
+        "task_sha256": "fcde5e410f989b5208086a87034823ba5d637df9deec71776f59c6215005279b",
+        "components": [
+          {
+            "name": "smenu",
+            "artifact_names": [
+              "smenu"
+            ],
+            "kinds": [
+              "executable"
+            ],
+            "evidence": "Makefile.am:1 bin_PROGRAMS = smenu; 主要组件，其他语言绑定/示例不列为要求"
+          }
+        ],
+        "author_tests": [],
+        "tests_not_applicable_reason": "main-build-v1仅主项目构建、CLI轻量验证和干净重建，不要求完整作者测试",
+        "executable_smokes": [
+          {
+            "artifact_name": "smenu",
+            "accepted_exit_codes": [
+              0
+            ],
+            "step": {
+              "step_id": "smoke-smenu",
+              "role": "smoke",
+              "command": "TERM=xterm script -qec '/artifacts/smenu -V' /dev/null",
+              "source": "smenu.c:10457-10472先打开/dev/tty；8892-8906版本动作输出Version并退出0",
+              "expected": "提供原生PTY后，作者版本入口退出0并输出版本",
+              "workdir": "/artifacts",
+              "requires": [],
+              "required_output": [
+                "Version:"
+              ],
+              "diagnostic_paths": []
+            }
+          }
+        ],
+        "generated_documents": []
+      },
+      "source_archive": "/home/yiwei/.codex/outputs/forge-harness-update-sources-2026-11-17-v1/smenu/source.tar",
+      "source_evidence": [
+        {
+          "path": "Makefile.am",
+          "line": 1,
+          "quote": "bin_PROGRAMS = smenu",
+          "sha256": "ede623e22e815d3d9783652dfdab64784e97dcbe0ae6f76f0eb1653283e7eb40"
+        },
+        {
+          "path": "smenu.1",
+          "line": 24,
+          "quote": "[\\fB*-V\\fP|\\fB-version\\fP]",
+          "sha256": "270dc92c9880172341bba34e40cf3a4184b43fdd53ece384d1a00b7ca1baf966"
+        }
+      ],
+      "paper_sources": [
+        {
+          "name": "smenu",
+          "topic": "Terminal",
+          "guide": "in_repo",
+          "source": "compileagent",
+          "source_url": "https://arxiv.org/html/2505.04254v1#A3.T4",
+          "row": 47,
+          "source_html_sha256": "f61b0a20cd65fa2191ffd722ac922d59b6673b485c6f460c209e1e4bcffa56a0"
+        }
+      ],
+      "source_role": "论文目录项目",
+      "historical_exposure_pointers": [],
+      "exposure": "本轮优化未使用；历史目录或旧实验接触另登记，不称全历史未见",
+      "structural_review": "源码含configure.ac/configure，按Autotools而非初步Make标签"
+    },
+    {
+      "name": "libuv",
+      "family": "https://github.com/libuv/libuv",
+      "task": {
+        "task_version": "main-build-v1",
+        "plan_id": "harness-update-libuv",
+        "repository_url": "https://github.com/libuv/libuv",
+        "commit_sha": "e5dab8432177f43af97bbe032037d273234642ac",
+        "image_id": "sha256:d483ffa7b71b9545cff9555f6c92b6281a3f826ce006e2d09134cbdca92f8aa1",
+        "source_archive_sha256": "87e8c60066d28e2aa8de32ff07388281cd2f6b6777f3c4c4766a64b8cea583a1",
+        "build_system": "cmake",
+        "architecture": "x86_64",
+        "goal": "在给定Linux环境中，依据作者推荐或默认方式，从指定版本源码构建项目的主要程序或库；允许必要的构建适配，保持核心功能与测试含义，文件改动留待任务结束后审查。",
+        "common_clarification": "",
+        "parallel_jobs": 2
+      },
+      "reference": {
+        "task_sha256": "31e5462fc5621e52fb9ca29a2f3baf1b7f5fcd7062ec6b5854841377f7c46200",
+        "components": [
+          {
+            "name": "libuv",
+            "artifact_names": [
+              "libuv.a",
+              "libuv.so",
+              "libuv.so.1"
+            ],
+            "kinds": [
+              "static_library",
+              "shared_library"
+            ],
+            "evidence": "CMakeLists.txt:512 add_library(uv_a STATIC ${uv_sources}); 主要组件，其他语言绑定/示例不列为要求"
+          }
+        ],
+        "author_tests": [],
+        "tests_not_applicable_reason": "main-build-v1仅主项目构建、CLI轻量验证和干净重建，不要求完整作者测试",
+        "executable_smokes": [],
+        "generated_documents": []
+      },
+      "source_archive": "/home/yiwei/.codex/outputs/forge-harness-update-sources-2026-11-17-v1/libuv/source.tar",
+      "source_evidence": [
+        {
+          "path": "CMakeLists.txt",
+          "line": 512,
+          "quote": "add_library(uv_a STATIC ${uv_sources})",
+          "sha256": "2dd1d08839c88ed4534d34d770d304b20138260c36a6c5a4efefd8168423056e"
+        }
+      ],
+      "paper_sources": [],
+      "source_role": "公开仓库补充项目",
+      "historical_exposure_pointers": [],
+      "exposure": "本轮优化未使用；历史目录或旧实验接触另登记，不称全历史未见",
+      "structural_review": "依据源码入口确认"
+    },
+    {
+      "name": "quickjs",
+      "family": "https://github.com/bellard/quickjs",
+      "task": {
+        "task_version": "main-build-v1",
+        "plan_id": "harness-update-quickjs",
+        "repository_url": "https://github.com/bellard/quickjs",
+        "commit_sha": "e585640ffa2cf88ce7c2d587583c6fe15928ec2f",
+        "image_id": "sha256:d483ffa7b71b9545cff9555f6c92b6281a3f826ce006e2d09134cbdca92f8aa1",
+        "source_archive_sha256": "0129fb81521d8a848b41db9aa7788f956ae8971fc88abec8ce2d8c37ee6cf91f",
+        "build_system": "make",
+        "architecture": "x86_64",
+        "goal": "在给定Linux环境中，依据作者推荐或默认方式，从指定版本源码构建项目的主要程序或库；允许必要的构建适配，保持核心功能与测试含义，文件改动留待任务结束后审查。",
+        "common_clarification": "",
+        "parallel_jobs": 2
+      },
+      "reference": {
+        "task_sha256": "13e3b2eda734deec01efa6a9bf41a433a7393898c8bf751584d4a582ffe39f18",
+        "components": [
+          {
+            "name": "quickjs",
+            "artifact_names": [
+              "qjs"
+            ],
+            "kinds": [
+              "executable"
+            ],
+            "evidence": "Makefile:225 PROGS=qjs$(EXE) qjsc$(EXE) run-test262$(EXE); 主要组件，其他语言绑定/示例不列为要求"
+          }
+        ],
+        "author_tests": [],
+        "tests_not_applicable_reason": "main-build-v1仅主项目构建、CLI轻量验证和干净重建，不要求完整作者测试",
+        "executable_smokes": [
+          {
+            "artifact_name": "qjs",
+            "accepted_exit_codes": [
+              0
+            ],
+            "step": {
+              "step_id": "smoke-quickjs",
+              "role": "smoke",
+              "command": "/artifacts/qjs -e 'if (1 + 1 !== 2) throw new Error(\"arithmetic\"); print(1 + 1)'",
+              "source": "qjs.c表达式入口；原运算命令仅print(1+1)，真实输出2",
+              "expected": "算术表达式无异常，输出2并退出0",
+              "workdir": "/artifacts",
+              "requires": [],
+              "required_output": [
+                "2"
+              ],
+              "diagnostic_paths": []
+            }
+          }
+        ],
+        "generated_documents": []
+      },
+      "source_archive": "/home/yiwei/.codex/outputs/forge-harness-update-sources-2026-11-17-v1/quickjs/source.tar",
+      "source_evidence": [
+        {
+          "path": "Makefile",
+          "line": 225,
+          "quote": "PROGS=qjs$(EXE) qjsc$(EXE) run-test262$(EXE)",
+          "sha256": "bbd9bfdc9764cdd80f2e1154aab6a7e1ecb728423e6e34bd91f977a9ce3a60b3"
+        },
+        {
+          "path": "Makefile",
+          "line": 225,
+          "quote": "PROGS=qjs$(EXE) qjsc$(EXE) run-test262$(EXE)",
+          "sha256": "bbd9bfdc9764cdd80f2e1154aab6a7e1ecb728423e6e34bd91f977a9ce3a60b3"
+        }
+      ],
+      "paper_sources": [
+        {
+          "name": "quickjs",
+          "topic": "Programming",
+          "guide": "outside_repo",
+          "source": "compileagent",
+          "source_url": "https://arxiv.org/html/2505.04254v1#A3.T4",
+          "row": 35,
+          "source_html_sha256": "f61b0a20cd65fa2191ffd722ac922d59b6673b485c6f460c209e1e4bcffa56a0"
+        }
+      ],
+      "source_role": "论文目录项目",
+      "historical_exposure_pointers": [
+        "benchmarks/manifests/cpp-jev-formal-comparison-v4.json",
+        "benchmarks/manifests/cpp-jev-formal-comparison-v5.json",
+        "benchmarks/manifests/cpp-jev-formal-comparison-v6.json"
+      ],
+      "exposure": "本轮优化未使用；历史目录或旧实验接触另登记，不称全历史未见",
+      "structural_review": "依据源码入口确认"
+    },
+    {
+      "name": "libffi",
+      "family": "https://github.com/libffi/libffi",
+      "task": {
+        "task_version": "main-build-v1",
+        "plan_id": "harness-update-libffi",
+        "repository_url": "https://github.com/libffi/libffi",
+        "commit_sha": "3d0ce1e6fcf19f853894862abcbac0ae78a7be60",
+        "image_id": "sha256:d483ffa7b71b9545cff9555f6c92b6281a3f826ce006e2d09134cbdca92f8aa1",
+        "source_archive_sha256": "d5dd45924e8cf71d72aac04e377d7f8bc5b4d6f76d53c75522742e707e6098cd",
+        "build_system": "autotools",
+        "architecture": "x86_64",
+        "goal": "在给定Linux环境中，依据作者推荐或默认方式，从指定版本源码构建项目的主要程序或库；允许必要的构建适配，保持核心功能与测试含义，文件改动留待任务结束后审查。",
+        "common_clarification": "",
+        "parallel_jobs": 2
+      },
+      "reference": {
+        "task_sha256": "d8c2b7cb5fd1ff13aac5737ef84f1ca52faad324625982c986d8997cf1116865",
+        "components": [
+          {
+            "name": "libffi",
+            "artifact_names": [
+              "libffi.a",
+              "libffi.so"
+            ],
+            "kinds": [
+              "static_library",
+              "shared_library"
+            ],
+            "evidence": "Makefile.am:38 toolexeclib_LTLIBRARIES = libffi.la; 主要组件，其他语言绑定/示例不列为要求"
+          }
+        ],
+        "author_tests": [],
+        "tests_not_applicable_reason": "main-build-v1仅主项目构建、CLI轻量验证和干净重建，不要求完整作者测试",
+        "executable_smokes": [],
+        "generated_documents": []
+      },
+      "source_archive": "/home/yiwei/.codex/outputs/forge-harness-update-sources-2026-11-17-v1/libffi/source.tar",
+      "source_evidence": [
+        {
+          "path": "Makefile.am",
+          "line": 38,
+          "quote": "toolexeclib_LTLIBRARIES = libffi.la",
+          "sha256": "7ff2842499a927c7e1c3a86a1195909fda1cb4fc8564e38e2254e5fe0c89d46c"
+        }
+      ],
+      "paper_sources": [
+        {
+          "name": "libffi",
+          "topic": "Embedded",
+          "guide": "in_repo",
+          "source": "compileagent",
+          "source_url": "https://arxiv.org/html/2505.04254v1#A3.T4",
+          "row": 43,
+          "source_html_sha256": "f61b0a20cd65fa2191ffd722ac922d59b6673b485c6f460c209e1e4bcffa56a0"
+        }
+      ],
+      "source_role": "论文目录项目",
+      "historical_exposure_pointers": [
+        "benchmarks/fixtures/cpp-typed-action-benchmark-source-pool-v1.json",
+        "benchmarks/manifests/cpp-build-reference-expansion-v1.json"
+      ],
+      "exposure": "libffi参与本轮经验开发",
+      "structural_review": "依据源码入口确认"
+    },
+    {
+      "name": "libevent",
+      "family": "https://github.com/libevent/libevent",
+      "task": {
+        "task_version": "main-build-v1",
+        "plan_id": "harness-update-libevent",
+        "repository_url": "https://github.com/libevent/libevent",
+        "commit_sha": "d82464a277d0f42703702c4dfd9af6af38595a83",
+        "image_id": "sha256:d483ffa7b71b9545cff9555f6c92b6281a3f826ce006e2d09134cbdca92f8aa1",
+        "source_archive_sha256": "6956a153fe892d46971b0c157286eac1c546fa8b97ee7f383d7217164ddd057d",
+        "build_system": "cmake",
+        "architecture": "x86_64",
+        "goal": "在给定Linux环境中，依据作者推荐或默认方式，从指定版本源码构建项目的主要程序或库；允许必要的构建适配，保持核心功能与测试含义，文件改动留待任务结束后审查。",
+        "common_clarification": "",
+        "parallel_jobs": 2
+      },
+      "reference": {
+        "task_sha256": "80c9f5ef73d899f25972549f1694c603e89a6975bbf8d1bf4a9c92da96208a79",
+        "components": [
+          {
+            "name": "libevent",
+            "artifact_names": [
+              "libevent.a",
+              "libevent.so",
+              "libevent-2.2.so.1"
+            ],
+            "kinds": [
+              "static_library",
+              "shared_library"
+            ],
+            "evidence": "Makefile.am:156 LIBEVENT_LIBS_LA = libevent.la libevent_core.la libevent_extra.la; 主要组件，其他语言绑定/示例不列为要求"
+          }
+        ],
+        "author_tests": [],
+        "tests_not_applicable_reason": "main-build-v1仅主项目构建、CLI轻量验证和干净重建，不要求完整作者测试",
+        "executable_smokes": [],
+        "generated_documents": []
+      },
+      "source_archive": "/home/yiwei/.codex/outputs/forge-harness-update-sources-2026-11-17-v1/libevent/source.tar",
+      "source_evidence": [
+        {
+          "path": "Makefile.am",
+          "line": 156,
+          "quote": "LIBEVENT_LIBS_LA = libevent.la libevent_core.la libevent_extra.la",
+          "sha256": "975189554ced5784d1bedc3863d104b2600f0c68517cfb3de9e6bee712d7ca98"
+        }
+      ],
+      "paper_sources": [],
+      "source_role": "公开仓库补充项目",
+      "historical_exposure_pointers": [],
+      "exposure": "本轮优化未使用；历史目录或旧实验接触另登记，不称全历史未见",
+      "structural_review": "依据源码入口确认"
+    },
+    {
+      "name": "cc65",
+      "family": "https://github.com/cc65/cc65",
+      "task": {
+        "task_version": "main-build-v1",
+        "plan_id": "harness-update-cc65",
+        "repository_url": "https://github.com/cc65/cc65",
+        "commit_sha": "eebf54af545f4ae52f8489a2f6d4d5f93e7942d2",
+        "image_id": "sha256:d483ffa7b71b9545cff9555f6c92b6281a3f826ce006e2d09134cbdca92f8aa1",
+        "source_archive_sha256": "24e4335d638c65f31668cd2f3a3633c2a8284fd8c45ba584d2113e4236ec1249",
+        "build_system": "make",
+        "architecture": "x86_64",
+        "goal": "在给定Linux环境中，依据作者推荐或默认方式，从指定版本源码构建项目的主要程序或库；允许必要的构建适配，保持核心功能与测试含义，文件改动留待任务结束后审查。",
+        "common_clarification": "",
+        "parallel_jobs": 2
+      },
+      "reference": {
+        "task_sha256": "86eff96af714ef0a37f1b8ca984c989fc7d935f29a86f28d3ed3078fb11ce844",
+        "components": [
+          {
+            "name": "cc65",
+            "artifact_names": [
+              "cc65"
+            ],
+            "kinds": [
+              "executable"
+            ],
+            "evidence": "src/cc65/main.c:142 \"  --version\\t\\t\\tPrint the compiler version number\\n\"; 主要组件，其他语言绑定/示例不列为要求"
+          }
+        ],
+        "author_tests": [],
+        "tests_not_applicable_reason": "main-build-v1仅主项目构建、CLI轻量验证和干净重建，不要求完整作者测试",
+        "executable_smokes": [
+          {
+            "artifact_name": "cc65",
+            "accepted_exit_codes": [
+              0
+            ],
+            "step": {
+              "step_id": "smoke-cc65",
+              "role": "smoke",
+              "command": "/artifacts/cc65 --version",
+              "source": "src/cc65/main.c:142; 作者版本或用法入口；dsvpn按原生254及用法输出独立断言，非接受任意非零",
+              "expected": "执行交付的主要程序并验证原生版本/用法或简单表达式",
+              "workdir": "/artifacts",
+              "requires": [],
+              "required_output": [
+                "cc65"
+              ],
+              "diagnostic_paths": []
+            }
+          }
+        ],
+        "generated_documents": []
+      },
+      "source_archive": "/home/yiwei/.codex/outputs/forge-harness-update-sources-2026-11-17-v1/cc65/source.tar",
+      "source_evidence": [
+        {
+          "path": "src/cc65/main.c",
+          "line": 142,
+          "quote": "\"  --version\\t\\t\\tPrint the compiler version number\\n\"",
+          "sha256": "2b7eb3528ae18aeb92e490f5394bd15256d18bbdce6b6d7d895ae0348393d820"
+        },
+        {
+          "path": "src/cc65/main.c",
+          "line": 142,
+          "quote": "\"  --version\\t\\t\\tPrint the compiler version number\\n\"",
+          "sha256": "2b7eb3528ae18aeb92e490f5394bd15256d18bbdce6b6d7d895ae0348393d820"
+        }
+      ],
+      "paper_sources": [
+        {
+          "name": "cc65",
+          "topic": "Embedded",
+          "guide": "outside_repo",
+          "source": "compileagent",
+          "source_url": "https://arxiv.org/html/2505.04254v1#A3.T4",
+          "row": 42,
+          "source_html_sha256": "f61b0a20cd65fa2191ffd722ac922d59b6673b485c6f460c209e1e4bcffa56a0"
+        }
+      ],
+      "source_role": "论文目录项目",
+      "historical_exposure_pointers": [
+        "benchmarks/manifests/cpp-jev-formal-comparison-v1.json",
+        "benchmarks/manifests/cpp-jev-formal-comparison-v2.json",
+        "benchmarks/manifests/cpp-jev-formal-comparison-v3.json",
+        "benchmarks/manifests/cpp-jev-formal-comparison-v4.json",
+        "benchmarks/manifests/cpp-jev-formal-comparison-v5.json",
+        "benchmarks/manifests/cpp-jev-formal-comparison-v6.json"
+      ],
+      "exposure": "本轮优化未使用；历史目录或旧实验接触另登记，不称全历史未见",
+      "structural_review": "依据源码入口确认"
+    },
+    {
+      "name": "libunwind",
+      "family": "https://github.com/libunwind/libunwind",
+      "task": {
+        "task_version": "main-build-v1",
+        "plan_id": "harness-update-libunwind",
+        "repository_url": "https://github.com/libunwind/libunwind",
+        "commit_sha": "5b694be99b21fbb32d9e33adb69cb07d7d60d897",
+        "image_id": "sha256:d483ffa7b71b9545cff9555f6c92b6281a3f826ce006e2d09134cbdca92f8aa1",
+        "source_archive_sha256": "e75e53051943cd0eca36ece77c97d9d61fe0bab84a6ae7ae5301e014c0adec44",
+        "build_system": "autotools",
+        "architecture": "x86_64",
+        "goal": "在给定Linux环境中，依据作者推荐或默认方式，从指定版本源码构建项目的主要程序或库；允许必要的构建适配，保持核心功能与测试含义，文件改动留待任务结束后审查。",
+        "common_clarification": "",
+        "parallel_jobs": 2
+      },
+      "reference": {
+        "task_sha256": "ea63e9cfee75fb2ff5b606550865b6b9e51aa27b8d5898479179539ec48bcf85",
+        "components": [
+          {
+            "name": "libunwind",
+            "artifact_names": [
+              "libunwind.a",
+              "libunwind.so",
+              "libunwind.so.8"
+            ],
+            "kinds": [
+              "static_library",
+              "shared_library"
+            ],
+            "evidence": "src/Makefile.am:59 lib_LTLIBRARIES += libunwind.la; 主要组件，其他语言绑定/示例不列为要求"
+          }
+        ],
+        "author_tests": [],
+        "tests_not_applicable_reason": "main-build-v1仅主项目构建、CLI轻量验证和干净重建，不要求完整作者测试",
+        "executable_smokes": [],
+        "generated_documents": []
+      },
+      "source_archive": "/home/yiwei/.codex/outputs/forge-harness-update-sources-2026-11-17-v1/libunwind/source.tar",
+      "source_evidence": [
+        {
+          "path": "src/Makefile.am",
+          "line": 59,
+          "quote": "lib_LTLIBRARIES += libunwind.la",
+          "sha256": "5529c2d5b51c81adab5e50abfba4e6a5b3021dda4ff3f754f54ead0a704afe5b"
+        }
+      ],
+      "paper_sources": [],
+      "source_role": "公开仓库补充项目",
+      "historical_exposure_pointers": [],
+      "exposure": "本轮优化未使用；历史目录或旧实验接触另登记，不称全历史未见",
+      "structural_review": "依据源码入口确认"
+    },
+    {
+      "name": "libyaml",
+      "family": "https://github.com/yaml/libyaml",
+      "task": {
+        "task_version": "main-build-v1",
+        "plan_id": "harness-update-libyaml",
+        "repository_url": "https://github.com/yaml/libyaml",
+        "commit_sha": "90a56d4500aa1a1798514c5cb55c3ad4cb095f94",
+        "image_id": "sha256:d483ffa7b71b9545cff9555f6c92b6281a3f826ce006e2d09134cbdca92f8aa1",
+        "source_archive_sha256": "294fae31b9ef6e5e2afeae5854a519a8195fd1882f0dfdcc312958351cf1e767",
+        "build_system": "cmake",
+        "architecture": "x86_64",
+        "goal": "在给定Linux环境中，依据作者推荐或默认方式，从指定版本源码构建项目的主要程序或库；允许必要的构建适配，保持核心功能与测试含义，文件改动留待任务结束后审查。",
+        "common_clarification": "",
+        "parallel_jobs": 2
+      },
+      "reference": {
+        "task_sha256": "075065ad0ab9a118669649f1fe5f73bef69943aa132651265d37f51001de06df",
+        "components": [
+          {
+            "name": "libyaml",
+            "artifact_names": [
+              "libyaml.a",
+              "libyaml.so"
+            ],
+            "kinds": [
+              "static_library",
+              "shared_library"
+            ],
+            "evidence": "CMakeLists.txt:56 add_library(yaml ${SRCS}); 主要组件，其他语言绑定/示例不列为要求"
+          }
+        ],
+        "author_tests": [],
+        "tests_not_applicable_reason": "main-build-v1仅主项目构建、CLI轻量验证和干净重建，不要求完整作者测试",
+        "executable_smokes": [],
+        "generated_documents": []
+      },
+      "source_archive": "/home/yiwei/.codex/outputs/forge-harness-update-sources-2026-11-17-v1/libyaml/source.tar",
+      "source_evidence": [
+        {
+          "path": "CMakeLists.txt",
+          "line": 56,
+          "quote": "add_library(yaml ${SRCS})",
+          "sha256": "bce7e7d2b70c211541e6c1f83d2b86aa87886ef82b5b8b8fd426fe598d0f8d66"
+        }
+      ],
+      "paper_sources": [],
+      "source_role": "公开仓库补充项目",
+      "historical_exposure_pointers": [],
+      "exposure": "本轮优化未使用；历史目录或旧实验接触另登记，不称全历史未见",
+      "structural_review": "依据源码入口确认"
+    },
+    {
+      "name": "zstd",
+      "family": "https://github.com/facebook/zstd",
+      "task": {
+        "task_version": "main-build-v1",
+        "plan_id": "harness-update-zstd",
+        "repository_url": "https://github.com/facebook/zstd",
+        "commit_sha": "cbf6ae94153b890876fb2177d8f38afecc685f28",
+        "image_id": "sha256:d483ffa7b71b9545cff9555f6c92b6281a3f826ce006e2d09134cbdca92f8aa1",
+        "source_archive_sha256": "38b6768944a8f38c7df6f7b536ea64e60ec04fcdccace2a7c6dcfbe1bad5619c",
+        "build_system": "make",
+        "architecture": "x86_64",
+        "goal": "在给定Linux环境中，依据作者推荐或默认方式，从指定版本源码构建项目的主要程序或库；允许必要的构建适配，保持核心功能与测试含义，文件改动留待任务结束后审查。",
+        "common_clarification": "",
+        "parallel_jobs": 2
+      },
+      "reference": {
+        "task_sha256": "a03862df7afa9a913c78e0df073617791996ddb53d4f34e55a3a134b1eaa3ff1",
+        "components": [
+          {
+            "name": "zstd",
+            "artifact_names": [
+              "zstd"
+            ],
+            "kinds": [
+              "executable"
+            ],
+            "evidence": "Makefile:40 ## default: Build lib-release and zstd-release; 主要组件，其他语言绑定/示例不列为要求"
+          }
+        ],
+        "author_tests": [],
+        "tests_not_applicable_reason": "main-build-v1仅主项目构建、CLI轻量验证和干净重建，不要求完整作者测试",
+        "executable_smokes": [
+          {
+            "artifact_name": "zstd",
+            "accepted_exit_codes": [
+              0
+            ],
+            "step": {
+              "step_id": "smoke-zstd",
+              "role": "smoke",
+              "command": "/artifacts/zstd --version",
+              "source": "programs/zstdcli.c作者版本入口输出Zstandard CLI",
+              "expected": "交付程序原生版本入口退出0并输出版本",
+              "workdir": "/artifacts",
+              "requires": [],
+              "required_output": [
+                "Zstandard CLI"
+              ],
+              "diagnostic_paths": []
+            }
+          }
+        ],
+        "generated_documents": []
+      },
+      "source_archive": "/home/yiwei/.codex/outputs/forge-harness-update-sources-2026-11-17-v1/zstd/source.tar",
+      "source_evidence": [
+        {
+          "path": "Makefile",
+          "line": 40,
+          "quote": "## default: Build lib-release and zstd-release",
+          "sha256": "989b6337a6cbcee21760fec7416ddd81f4ee436c58c87870c19a5ad7ae860c62"
+        },
+        {
+          "path": "programs/zstdcli.c",
+          "line": 177,
+          "quote": "DISPLAY_F(f, \"  -V, --version                 Display the program version and exit.\\n\");",
+          "sha256": "7f9006975c59fbc1d1453e33a7811b1530af31e051d76b3f223cfacc1c09ffef"
+        }
+      ],
+      "paper_sources": [
+        {
+          "name": "zstd",
+          "topic": "Compression",
+          "guide": "in_repo",
+          "source": "compileagent",
+          "source_url": "https://arxiv.org/html/2505.04254v1#A3.T4",
+          "row": 7,
+          "source_html_sha256": "f61b0a20cd65fa2191ffd722ac922d59b6673b485c6f460c209e1e4bcffa56a0"
+        }
+      ],
+      "source_role": "论文目录项目",
+      "historical_exposure_pointers": [
+        "benchmarks/fixtures/cpp-jev-offline-qualification-source-pool-v1.json",
+        "benchmarks/fixtures/cpp-jev-offline-qualification-source-pool-v2.json",
+        "benchmarks/fixtures/cpp-typed-action-benchmark-source-pool-v1.json",
+        "benchmarks/manifests/cpp-build-plan-cross-system-v1.json",
+        "benchmarks/manifests/cpp-build-plan-cross-system-v2.json"
+      ],
+      "exposure": "本轮优化未使用；历史目录或旧实验接触另登记，不称全历史未见",
+      "structural_review": "依据源码入口确认"
+    },
+    {
+      "name": "libass",
+      "family": "https://github.com/libass/libass",
+      "task": {
+        "task_version": "main-build-v1",
+        "plan_id": "harness-update-libass",
+        "repository_url": "https://github.com/libass/libass",
+        "commit_sha": "21b5a54fceff49c126c201d4b51c6445287a5072",
+        "image_id": "sha256:d483ffa7b71b9545cff9555f6c92b6281a3f826ce006e2d09134cbdca92f8aa1",
+        "source_archive_sha256": "e0961048d8f66c7401c6ff69f08f89405598708f8b0a6b96b43c62daad1e57d7",
+        "build_system": "autotools",
+        "architecture": "x86_64",
+        "goal": "在给定Linux环境中，依据作者推荐或默认方式，从指定版本源码构建项目的主要程序或库；允许必要的构建适配，保持核心功能与测试含义，文件改动留待任务结束后审查。",
+        "common_clarification": "",
+        "parallel_jobs": 2
+      },
+      "reference": {
+        "task_sha256": "5d718acc3a8f8ce60ecbfa1bccf580f27b26571b0f2c797d70a4640def006804",
+        "components": [
+          {
+            "name": "libass",
+            "artifact_names": [
+              "libass.a",
+              "libass.so",
+              "libass.so.9"
+            ],
+            "kinds": [
+              "static_library",
+              "shared_library"
+            ],
+            "evidence": "libass/Makefile_library.am:68 lib_LTLIBRARIES += libass/libass.la; 主要组件，其他语言绑定/示例不列为要求"
+          }
+        ],
+        "author_tests": [],
+        "tests_not_applicable_reason": "main-build-v1仅主项目构建、CLI轻量验证和干净重建，不要求完整作者测试",
+        "executable_smokes": [],
+        "generated_documents": []
+      },
+      "source_archive": "/home/yiwei/.codex/outputs/forge-harness-update-sources-2026-11-17-v1/libass/source.tar",
+      "source_evidence": [
+        {
+          "path": "libass/Makefile_library.am",
+          "line": 68,
+          "quote": "lib_LTLIBRARIES += libass/libass.la",
+          "sha256": "408447479895bba9dca3e64191524ee90f9599b23a955ff9b352f4e89c4ace82"
+        }
+      ],
+      "paper_sources": [],
+      "source_role": "公开仓库补充项目",
+      "historical_exposure_pointers": [],
+      "exposure": "本轮优化未使用；历史目录或旧实验接触另登记，不称全历史未见",
+      "structural_review": "依据源码入口确认"
+    },
+    {
+      "name": "libdeflate",
+      "family": "https://github.com/ebiggers/libdeflate",
+      "task": {
+        "task_version": "main-build-v1",
+        "plan_id": "harness-update-libdeflate",
+        "repository_url": "https://github.com/ebiggers/libdeflate",
+        "commit_sha": "c7e5386b309ae5f7b064e78adf033a6fd13c7428",
+        "image_id": "sha256:d483ffa7b71b9545cff9555f6c92b6281a3f826ce006e2d09134cbdca92f8aa1",
+        "source_archive_sha256": "50c1fdd1c840ad4959d48e3814d359dcb232f93706b055542566b15482968f45",
+        "build_system": "cmake",
+        "architecture": "x86_64",
+        "goal": "在给定Linux环境中，依据作者推荐或默认方式，从指定版本源码构建项目的主要程序或库；允许必要的构建适配，保持核心功能与测试含义，文件改动留待任务结束后审查。",
+        "common_clarification": "",
+        "parallel_jobs": 2
+      },
+      "reference": {
+        "task_sha256": "a385505c4c88827a6bdf72b863bc40f5a6d8224369b77612ea29cf5c7f2c79b4",
+        "components": [
+          {
+            "name": "libdeflate",
+            "artifact_names": [
+              "libdeflate.a",
+              "libdeflate.so",
+              "libdeflate.so.0"
+            ],
+            "kinds": [
+              "static_library",
+              "shared_library"
+            ],
+            "evidence": "CMakeLists.txt:279 add_library(libdeflate_static STATIC ${LIB_SOURCES}); 主要组件，其他语言绑定/示例不列为要求"
+          }
+        ],
+        "author_tests": [],
+        "tests_not_applicable_reason": "main-build-v1仅主项目构建、CLI轻量验证和干净重建，不要求完整作者测试",
+        "executable_smokes": [],
+        "generated_documents": []
+      },
+      "source_archive": "/home/yiwei/.codex/outputs/forge-harness-update-sources-2026-11-17-v1/libdeflate/source.tar",
+      "source_evidence": [
+        {
+          "path": "CMakeLists.txt",
+          "line": 279,
+          "quote": "add_library(libdeflate_static STATIC ${LIB_SOURCES})",
+          "sha256": "8c959ea24f315fec8cdabf174817b5ef131bf5b09a3d6f0dcea40d9e1e8bbdf6"
+        }
+      ],
+      "paper_sources": [],
+      "source_role": "公开仓库补充项目",
+      "historical_exposure_pointers": [],
+      "exposure": "本轮优化未使用；历史目录或旧实验接触另登记，不称全历史未见",
+      "structural_review": "依据源码入口确认"
+    },
+    {
+      "name": "libbcrypt",
+      "family": "https://github.com/rg3/libbcrypt",
+      "task": {
+        "task_version": "main-build-v1",
+        "plan_id": "harness-update-libbcrypt",
+        "repository_url": "https://github.com/rg3/libbcrypt",
+        "commit_sha": "9f712b35d24d26972c0ecf2890cddefea27dc945",
+        "image_id": "sha256:d483ffa7b71b9545cff9555f6c92b6281a3f826ce006e2d09134cbdca92f8aa1",
+        "source_archive_sha256": "0eb8d9b6790640f150c3c3a2932d2a94ea0421023ef92335954e85ca0b6a8f01",
+        "build_system": "make",
+        "architecture": "x86_64",
+        "goal": "在给定Linux环境中，依据作者推荐或默认方式，从指定版本源码构建项目的主要程序或库；允许必要的构建适配，保持核心功能与测试含义，文件改动留待任务结束后审查。",
+        "common_clarification": "",
+        "parallel_jobs": 2
+      },
+      "reference": {
+        "task_sha256": "00c238a07a6d6c96443ad0aac4f8e5c5348780905f187b881bb51e902ca53613",
+        "components": [
+          {
+            "name": "libbcrypt",
+            "artifact_names": [
+              "libbcrypt.a",
+              "libbcrypt.so",
+              "libbcrypt.so.1.1.0"
+            ],
+            "kinds": [
+              "static_library",
+              "shared_library"
+            ],
+            "evidence": "Makefile:40 BCRYPT_LAFILE = $(BCRYPT_LIBNAME).a; 主要组件，其他语言绑定/示例不列为要求"
+          }
+        ],
+        "author_tests": [],
+        "tests_not_applicable_reason": "main-build-v1仅主项目构建、CLI轻量验证和干净重建，不要求完整作者测试",
+        "executable_smokes": [],
+        "generated_documents": []
+      },
+      "source_archive": "/home/yiwei/.codex/outputs/forge-harness-update-sources-2026-11-17-v1/libbcrypt/source.tar",
+      "source_evidence": [
+        {
+          "path": "Makefile",
+          "line": 40,
+          "quote": "BCRYPT_LAFILE = $(BCRYPT_LIBNAME).a",
+          "sha256": "d895f91d2660c105ac4f38f8bf7a90de2a52a711590c712ce49b0c702a3fda61"
+        }
+      ],
+      "paper_sources": [
+        {
+          "name": "libbcrypt",
+          "topic": "Crypto",
+          "guide": "in_repo",
+          "source": "compileagent",
+          "source_url": "https://arxiv.org/html/2505.04254v1#A3.T4",
+          "row": 17,
+          "source_html_sha256": "f61b0a20cd65fa2191ffd722ac922d59b6673b485c6f460c209e1e4bcffa56a0"
+        }
+      ],
+      "source_role": "论文目录项目",
+      "historical_exposure_pointers": [],
+      "exposure": "本轮优化未使用；历史目录或旧实验接触另登记，不称全历史未见",
+      "structural_review": "依据源码入口确认"
+    },
+    {
+      "name": "libtasn1",
+      "family": "https://github.com/gnutls/libtasn1",
+      "task": {
+        "task_version": "main-build-v1",
+        "plan_id": "harness-update-libtasn1",
+        "repository_url": "https://github.com/gnutls/libtasn1",
+        "commit_sha": "2f1943343b113e1f5648373a9b109072ffb48c99",
+        "image_id": "sha256:d483ffa7b71b9545cff9555f6c92b6281a3f826ce006e2d09134cbdca92f8aa1",
+        "source_archive_sha256": "bcd3b9e146072fc04a55eac7d3336646111f0c78a24b13a01b9e3977a97f6ec2",
+        "build_system": "autotools",
+        "architecture": "x86_64",
+        "goal": "在给定Linux环境中，依据作者推荐或默认方式，从指定版本源码构建项目的主要程序或库；允许必要的构建适配，保持核心功能与测试含义，文件改动留待任务结束后审查。",
+        "common_clarification": "",
+        "parallel_jobs": 2
+      },
+      "reference": {
+        "task_sha256": "62cb91ec07dc0ab1e94b0dbeef0ec4ba53ac2c450da1f7db1e591b25b798402d",
+        "components": [
+          {
+            "name": "libtasn1",
+            "artifact_names": [
+              "libtasn1.a",
+              "libtasn1.so",
+              "libtasn1.so.6"
+            ],
+            "kinds": [
+              "static_library",
+              "shared_library"
+            ],
+            "evidence": "lib/Makefile.am:31 lib_LTLIBRARIES = libtasn1.la; 主要组件，其他语言绑定/示例不列为要求"
+          }
+        ],
+        "author_tests": [],
+        "tests_not_applicable_reason": "main-build-v1仅主项目构建、CLI轻量验证和干净重建，不要求完整作者测试",
+        "executable_smokes": [],
+        "generated_documents": []
+      },
+      "source_archive": "/home/yiwei/.codex/outputs/forge-harness-update-sources-2026-11-17-v1/libtasn1/source.tar",
+      "source_evidence": [
+        {
+          "path": "lib/Makefile.am",
+          "line": 31,
+          "quote": "lib_LTLIBRARIES = libtasn1.la",
+          "sha256": "2310e2719acadcac968f3cabbfc5b0c38ef4270d58e4e0cb812d7243de8c19cd"
+        }
+      ],
+      "paper_sources": [],
+      "source_role": "公开仓库补充项目",
+      "historical_exposure_pointers": [],
+      "exposure": "本轮优化未使用；历史目录或旧实验接触另登记，不称全历史未见",
+      "structural_review": "依据源码入口确认"
+    },
+    {
+      "name": "zlib-ng",
+      "family": "https://github.com/zlib-ng/zlib-ng",
+      "task": {
+        "task_version": "main-build-v1",
+        "plan_id": "harness-update-zlib-ng",
+        "repository_url": "https://github.com/zlib-ng/zlib-ng",
+        "commit_sha": "a04670521df1c4274a23b7fc78478509838f74a2",
+        "image_id": "sha256:d483ffa7b71b9545cff9555f6c92b6281a3f826ce006e2d09134cbdca92f8aa1",
+        "source_archive_sha256": "40327eb259433316ef2d182039729e510332c2b323144da30b84db660b4f52cb",
+        "build_system": "cmake",
+        "architecture": "x86_64",
+        "goal": "在给定Linux环境中，依据作者推荐或默认方式，从指定版本源码构建项目的主要程序或库；允许必要的构建适配，保持核心功能与测试含义，文件改动留待任务结束后审查。",
+        "common_clarification": "",
+        "parallel_jobs": 2
+      },
+      "reference": {
+        "task_sha256": "67a6be9828fbbee5134fc8d60f93f9245b14f6ec85a2e237786273fd845fb607",
+        "components": [
+          {
+            "name": "zlib-ng",
+            "artifact_names": [
+              "libz-ng.a",
+              "libz-ng.so",
+              "libz-ng.so.2"
+            ],
+            "kinds": [
+              "static_library",
+              "shared_library"
+            ],
+            "evidence": "CMakeLists.txt:1406 add_library(zlib-ng-static STATIC ${ZLIB_ALL_SRCS}); 主要组件，其他语言绑定/示例不列为要求"
+          }
+        ],
+        "author_tests": [],
+        "tests_not_applicable_reason": "main-build-v1仅主项目构建、CLI轻量验证和干净重建，不要求完整作者测试",
+        "executable_smokes": [],
+        "generated_documents": []
+      },
+      "source_archive": "/home/yiwei/.codex/outputs/forge-harness-update-sources-2026-11-17-v1/zlib-ng/source.tar",
+      "source_evidence": [
+        {
+          "path": "CMakeLists.txt",
+          "line": 1406,
+          "quote": "add_library(zlib-ng-static STATIC ${ZLIB_ALL_SRCS})",
+          "sha256": "8ea2d0b83e437f13d61bcef09a448c2da6d27e61e0fb8a07ed3e32258049b933"
+        }
+      ],
+      "paper_sources": [],
+      "source_role": "公开仓库补充项目",
+      "historical_exposure_pointers": [],
+      "exposure": "本轮优化未使用；历史目录或旧实验接触另登记，不称全历史未见",
+      "structural_review": "依据源码入口确认"
+    },
+    {
+      "name": "libcsv",
+      "family": "https://github.com/rgamble/libcsv",
+      "task": {
+        "task_version": "main-build-v1",
+        "plan_id": "harness-update-libcsv",
+        "repository_url": "https://github.com/rgamble/libcsv",
+        "commit_sha": "b1d5212831842ee5869d99bc208a21837e4037d5",
+        "image_id": "sha256:d483ffa7b71b9545cff9555f6c92b6281a3f826ce006e2d09134cbdca92f8aa1",
+        "source_archive_sha256": "2052971cc09284d6313a2e6dbc8e973dc37a1b6cf5d1963e5f6ad8d83936b67e",
+        "build_system": "autotools",
+        "architecture": "x86_64",
+        "goal": "在给定Linux环境中，依据作者推荐或默认方式，从指定版本源码构建项目的主要程序或库；允许必要的构建适配，保持核心功能与测试含义，文件改动留待任务结束后审查。",
+        "common_clarification": "",
+        "parallel_jobs": 2
+      },
+      "reference": {
+        "task_sha256": "3896ce47f7c3d3c24d084525dc60562a5e2d36ff570b4a6a7d3d315f7c2d54ca",
+        "components": [
+          {
+            "name": "libcsv",
+            "artifact_names": [
+              "libcsv.a",
+              "libcsv.so",
+              "libcsv.so.3"
+            ],
+            "kinds": [
+              "static_library",
+              "shared_library"
+            ],
+            "evidence": "Makefile.am:1 lib_LTLIBRARIES = libcsv.la; 主要组件，其他语言绑定/示例不列为要求"
+          }
+        ],
+        "author_tests": [],
+        "tests_not_applicable_reason": "main-build-v1仅主项目构建、CLI轻量验证和干净重建，不要求完整作者测试",
+        "executable_smokes": [],
+        "generated_documents": []
+      },
+      "source_archive": "/home/yiwei/.codex/outputs/forge-harness-update-sources-2026-11-17-v1/libcsv/source.tar",
+      "source_evidence": [
+        {
+          "path": "Makefile.am",
+          "line": 1,
+          "quote": "lib_LTLIBRARIES = libcsv.la",
+          "sha256": "c2cc0cbf1a355363a9800faac7672134ff05ebcebc82542ce8266401367b55f4"
+        }
+      ],
+      "paper_sources": [],
+      "source_role": "公开仓库补充项目",
+      "historical_exposure_pointers": [],
+      "exposure": "本轮优化未使用；历史目录或旧实验接触另登记，不称全历史未见",
+      "structural_review": "依据源码入口确认"
+    },
+    {
+      "name": "libconfuse",
+      "family": "https://github.com/libconfuse/libconfuse",
+      "task": {
+        "task_version": "main-build-v1",
+        "plan_id": "harness-update-libconfuse",
+        "repository_url": "https://github.com/libconfuse/libconfuse",
+        "commit_sha": "d3400e7ac98bd82eeade09db34baa38c0dad2227",
+        "image_id": "sha256:d483ffa7b71b9545cff9555f6c92b6281a3f826ce006e2d09134cbdca92f8aa1",
+        "source_archive_sha256": "d3cf00219c90bd39d6b8d929e78a56e63304c5a7371c07779698ff8eae5c8720",
+        "build_system": "autotools",
+        "architecture": "x86_64",
+        "goal": "在给定Linux环境中，依据作者推荐或默认方式，从指定版本源码构建项目的主要程序或库；允许必要的构建适配，保持核心功能与测试含义，文件改动留待任务结束后审查。",
+        "common_clarification": "",
+        "parallel_jobs": 2
+      },
+      "reference": {
+        "task_sha256": "fcb8265a7d14845512927de60ffe51dfcff3b57781f2b9d262485a4afcb6cb86",
+        "components": [
+          {
+            "name": "libconfuse",
+            "artifact_names": [
+              "libconfuse.a",
+              "libconfuse.so",
+              "libconfuse.so.2"
+            ],
+            "kinds": [
+              "static_library",
+              "shared_library"
+            ],
+            "evidence": "src/Makefile.am:1 lib_LTLIBRARIES        = libconfuse.la; 主要组件，其他语言绑定/示例不列为要求"
+          }
+        ],
+        "author_tests": [],
+        "tests_not_applicable_reason": "main-build-v1仅主项目构建、CLI轻量验证和干净重建，不要求完整作者测试",
+        "executable_smokes": [],
+        "generated_documents": []
+      },
+      "source_archive": "/home/yiwei/.codex/outputs/forge-harness-update-sources-2026-11-17-v1/libconfuse/source.tar",
+      "source_evidence": [
+        {
+          "path": "src/Makefile.am",
+          "line": 1,
+          "quote": "lib_LTLIBRARIES        = libconfuse.la",
+          "sha256": "6c973f73dceb71b2a083b8edde68cd88b33d195705aa2a7b97c6cbcab7f5972e"
+        }
+      ],
+      "paper_sources": [],
+      "source_role": "公开仓库补充项目",
+      "historical_exposure_pointers": [],
+      "exposure": "本轮优化未使用；历史目录或旧实验接触另登记，不称全历史未见",
+      "structural_review": "依据源码入口确认"
+    }
+  ],
+  "boundary": "18项目统一报告；libffi开发暴露保留，不做17项目子组汇总。参考内容不进入Agent输入。"
+}
