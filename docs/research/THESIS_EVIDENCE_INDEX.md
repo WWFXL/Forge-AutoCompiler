@@ -1,5 +1,8 @@
 # 硕士论文实验与证据索引
 
+E59（#819，结果待审、未入论文）：[共同修复后18项目Harness重新测量](2026-11-17-harness-remeasurement-results.md)，cpp-build-harness-update-repaired-comparison-flash-v1，36/36、原18项目重评。原/新完成17/18、16/18；请求95/106，费0.5317215/0.5208339美元，时1696.91/1625.56秒。新组libtasn1成功，但dsvpn格式失败、libass工具文本错误解析失败；少费/少时含早期失败，不作同等质量效率提升。201响应、未知0、36cleanup；[全18/后审/原件指针](../../benchmarks/analyses/harness-update-remeasurement-2026-11-17/README.md)，inventory88527cf8。E58与论文v0.12不回填，不增加独立项目样本。
+
+
 E58工程后续（#815，不增模型效果分母、不回填原失败）：[四项目失败归因与共同修复](2026-11-17-e58-failure-repair.md)。smenu/quickjs/zstd修正独立检查，libtasn1修清理阻断并补依赖/编译参数；四项主构建/交付/原归档干净重建通过、原输入未变，0Provider。175KB清理命令改为859字节及执行侧清单，首轮失败和误启动中断保留；[摘要/原件指针](../../benchmarks/analyses/e58-failure-repair-2026-11-17/summary.json)，仅供实现与案例说明，未改论文v0.12。
 
 

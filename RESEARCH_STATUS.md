@@ -3,11 +3,19 @@
 论文选材固定入口：[硕士论文实验与证据索引](docs/research/THESIS_EVIDENCE_INDEX.md)，[历史材料目录](docs/research/THESIS_EVIDENCE_CATALOG.md)保留存量导航。当前完整稿为[论文v0.12领域Harness结果与机制修订稿](docs/thesis/README.md)；E50–E52保存主构建系统及两轮Harness结果，既有完整任务、状态/恢复消融和两层经验继续按各自版本与分母使用。
 
 
-## 当前阶段（2026-11-17；#817 修复基座后18项目重新测量准备完成）
+## 当前阶段（2026-11-17；#819 共同修复后18项目重新测量完成，结果待审）
+
+[结果报告](docs/research/2026-11-17-harness-remeasurement-results.md)、[全18项目/36槽](benchmarks/analyses/harness-update-remeasurement-2026-11-17/README.md)：LH_v0_common/LH_v1主构建及可复现交付17/18、16/18；请求95/106、费用0.5317215/0.5208339美元、累计1696.91/1625.56秒。更新组费低2.05%、时低4.21%，但少完成一个，且两个早期失败缩短耗时，不能称同等质量效率提升。规划63→99、恢复32→7；本轮不支持总体成功率提升。
+
+三次失败：新组dsvpn两次输出不完整JSON；新组libass非法kind工具参数返回文本，被观察器当JSON解析后中止（已原材料0Provider复现）；原组libtasn1先gnulib不匹配，再连续两次非法JSON。旧清理阻断未再发生，三个CLI两组均完成。新组libtasn1自主补齐依赖、仅加config.h包含后默认make/交付/重建成功；libffi新组安装libltdl-dev，原组configure.ac兼容回退。原输入diff和gettext翻译后审已保留。
+
+身份cpp-build-harness-update-repaired-comparison-flash-v1，manifest04c8d26e、运行651471fe（发布树24053432一致）；授权10美元/保守UTC 02:55—10:55，36槽全部结束并封存，约56.21分钟，201响应/3142569Token/1.0525554美元、未知0，36cleanup/138容器引用不存在，正式进程已退出，无自动重试/补槽。原件forge-harness-update-repaired-comparison-flash-2026-11-17-v1，inventory88527cf8。原18项目重新评价不增独立样本，E58/论文v0.12不回填；新结果先审、不自动入文。建议下一步先修工具错误反馈、再提出最小输出可靠性改进，不追加本批付费。发布见Issue819关联PR/CI。
+
+## 上一阶段（2026-11-17；#817 修复基座后18项目重新测量准备完成）
 
 [新协议](benchmarks/preregistrations/cpp-build-harness-update-repaired-comparison-flash-v1.md)、入口`scripts/forge_harness_update_remeasurement.py`：原18项目×LH_v0_common/LH_v1共36槽，两组Harness/模型/任务/源码/顺序不变，统一PR #816执行基座，仅纠正smenu/quickjs/zstd独立检查；libtasn1不给已知修复答案。每槽从零规划，无方案复用或动态经验检索。新结果属于原项目集重新评价，不增加独立样本，原E58与论文不回填。
 
-8项必要检查及材料/归档核对通过，Docker就绪；复用四项目已有真实工程结果，不重复资格构建。新manifest `04c8d26e8838a96f38b9be1f6c2cac11e30975dae022c4968df4f4ce3d7d89aa`。本轮0Provider/0费用，拟10美元/8小时尚待新批预算与时窗绑定；旧E58授权不续用。结果先审核，不自动入论文。准备说明见[本轮记录](docs/research/2026-11-17-harness-remeasurement-preparation.md)。
+8项必要检查及材料/归档核对通过，Docker就绪；复用四项目已有真实工程结果，不重复资格构建。新manifest `04c8d26e8838a96f38b9be1f6c2cac11e30975dae022c4968df4f4ce3d7d89aa`。用户已确认10美元/8小时，保守截止UTC 2026-11-17 10:55；PR #818三项CI通过并合并24053432。正式36槽已启动，新目录forge-harness-update-repaired-comparison-flash-2026-11-17-v1；旧E58授权不续用。结果先审核，不自动入论文。准备说明见[本轮记录](docs/research/2026-11-17-harness-remeasurement-preparation.md)。
 
 ## 上一阶段（2026-11-17；#815 E58四项目共同修复及真实重建完成）
 
