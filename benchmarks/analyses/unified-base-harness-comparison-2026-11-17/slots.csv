@@ -1,0 +1,37 @@
+slot,project,method,status,main,delivery,requests,input_tokens,output_tokens,cost_usd,wall_seconds,error,rejection_count
+1,pocketsphinx,LH_v0_common,primary_completed,True,True,3,27357,755,0.0091131,35.105128680123016,,0
+2,pocketsphinx,LH_v1,primary_completed,True,True,5,52765,1214,0.0172863,38.198578532086685,,0
+3,dsvpn,LH_v1,error,,,4,26081,982,0.0090027,11.099789888830855,工具参数不是合法JSON：SimpleBuildActions: JSON语法错误：Expecting ':' delimiter（第1行，第389列，字符388）,2
+4,dsvpn,LH_v0_common,primary_completed,True,True,2,11134,571,0.0040254,14.40406898315996,,1
+5,smenu,LH_v0_common,primary_completed,True,True,3,22673,752,0.0077043,36.512881979113445,,0
+6,smenu,LH_v1,primary_completed,True,True,4,37447,1488,0.0130197,42.68829117109999,,0
+7,libuv,LH_v1,primary_completed,True,True,4,48756,991,0.015816,79.490122432122,,0
+8,libuv,LH_v0_common,primary_completed,True,True,1,10882,498,0.0038622,75.5051544921007,,0
+9,quickjs,LH_v0_common,primary_completed,True,True,2,18338,577,0.0061938,88.23327921982855,,0
+10,quickjs,LH_v1,primary_completed,True,True,5,68728,1313,0.022194,94.41094798711129,,0
+11,libffi,LH_v1,primary_completed,True,True,14,324668,7178,0.106014,109.21339888009243,,0
+12,libffi,LH_v0_common,primary_completed,True,True,21,449623,65429,0.2134017,465.42259362502955,,0
+13,libevent,LH_v0_common,primary_completed,True,True,2,21770,940,0.007659,130.40655777789652,,1
+14,libevent,LH_v1,primary_completed,True,True,3,38801,1145,0.0130143,132.8789108011406,,0
+15,cc65,LH_v1,primary_completed,True,True,5,46829,1552,0.0159111,161.18737662187777,,0
+16,cc65,LH_v0_common,primary_completed,True,True,6,67467,2495,0.0232341,169.94093302288093,,0
+17,libunwind,LH_v0_common,primary_completed,True,True,2,24198,1902,0.0095418,141.8835050109774,,0
+18,libunwind,LH_v1,primary_completed,True,True,7,124635,2389,0.0402573,63.77499019098468,,0
+19,libyaml,LH_v1,primary_completed,True,True,3,21994,1063,0.0078738,21.589543201960623,,0
+20,libyaml,LH_v0_common,primary_completed,True,True,2,12174,538,0.0042978,21.087467595003545,,0
+21,zstd,LH_v0_common,primary_completed,True,True,2,21345,782,0.0073419,100.81847427506,,1
+22,zstd,LH_v1,error,,,4,47352,934,0.0153264,12.45330700604245,工具参数不是合法JSON：SimpleBuildActions: JSON语法错误：Expecting ':' delimiter（第1行，第486列，字符485）,2
+23,libass,LH_v1,primary_completed,True,True,4,57222,2618,0.0203082,113.28672836092301,,0
+24,libass,LH_v0_common,primary_completed,True,True,7,98071,5771,0.0363465,118.72328543802723,,1
+25,libdeflate,LH_v0_common,primary_completed,True,True,1,9751,429,0.0034401,26.01731385407038,,0
+26,libdeflate,LH_v1,primary_completed,True,True,3,36467,777,0.0118725,29.39085745601915,,0
+27,libbcrypt,LH_v1,primary_completed,True,True,7,81044,3929,0.029028,72.57558584492654,,0
+28,libbcrypt,LH_v0_common,primary_completed,True,True,6,58874,5562,0.0243366,62.27729394193739,,0
+29,libtasn1,LH_v0_common,primary_completed,True,True,24,464324,32368,0.1781388,499.29529567202553,,1
+30,libtasn1,LH_v1,error,False,False,34,997515,32893,0.3387261,280.26765698194504,Agent workflow budget exhausted: recorded_tokens,1
+31,zlib-ng,LH_v1,primary_completed,True,True,11,195202,6611,0.0664938,181.27114541293122,,0
+32,zlib-ng,LH_v0_common,primary_completed,True,True,5,76565,2427,0.0258819,172.7176618219819,,0
+33,libcsv,LH_v0_common,primary_completed,True,True,3,26352,796,0.0088608,24.24389964598231,,0
+34,libcsv,LH_v1,primary_completed,True,True,4,41393,1413,0.0141135,33.10516254999675,,0
+35,libconfuse,LH_v1,primary_completed,True,True,11,198324,3393,0.0635688,92.27361977100372,,0
+36,libconfuse,LH_v0_common,primary_completed,True,True,5,48076,3766,0.018942,96.12514324905351,,0

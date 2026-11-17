@@ -1,0 +1,2194 @@
+{
+  "identity": "cpp-build-unified-base-harness-comparison-flash-v1",
+  "arms": {
+    "LH_v0_common": {
+      "planned": 18,
+      "observed": 18,
+      "unobserved": 0,
+      "main_build_completed": 18,
+      "reproducible_delivery_completed": 18,
+      "requests": 97,
+      "input_tokens": 1468974,
+      "output_tokens": 126358,
+      "estimated_cost_usd": "0.5923218",
+      "wall_seconds": 2278.719938284252,
+      "phases": {
+        "initial": {
+          "requests": 59,
+          "estimated_cost_usd": "0.2416875"
+        },
+        "recovery": {
+          "requests": 38,
+          "estimated_cost_usd": "0.3506343"
+        }
+      }
+    },
+    "LH_v1": {
+      "planned": 18,
+      "observed": 18,
+      "unobserved": 0,
+      "main_build_completed": 15,
+      "reproducible_delivery_completed": 15,
+      "requests": 132,
+      "input_tokens": 2445223,
+      "output_tokens": 71883,
+      "estimated_cost_usd": "0.8198265",
+      "wall_seconds": 1569.1560130910948,
+      "phases": {
+        "initial": {
+          "requests": 113,
+          "estimated_cost_usd": "0.5891373"
+        },
+        "recovery": {
+          "requests": 19,
+          "estimated_cost_usd": "0.2306892"
+        }
+      }
+    }
+  },
+  "slots": [
+    {
+      "slot": 1,
+      "project": "pocketsphinx",
+      "method": "LH_v0_common",
+      "status": "primary_completed",
+      "layers": {
+        "command_build_passed": true,
+        "primary_build_completed": true,
+        "delivery": "passed",
+        "author_tests": "not_required",
+        "executable_smoke": "not_applicable",
+        "final_verification_passed": true,
+        "clean_replay": "passed",
+        "full_completed": null,
+        "main_build_task_completed": true,
+        "reproducible_delivery_completed": true
+      },
+      "wall_seconds": 35.105128680123016,
+      "phases": {
+        "initial": {
+          "requests": 3,
+          "input_tokens": 27357,
+          "output_tokens": 755,
+          "reads": 3,
+          "exact_repeat_reads": 0,
+          "invocations": 1,
+          "estimated_cost_usd": "0.0091131"
+        },
+        "recovery": {
+          "requests": 0,
+          "input_tokens": 0,
+          "output_tokens": 0,
+          "reads": 0,
+          "exact_repeat_reads": 0,
+          "invocations": 0,
+          "estimated_cost_usd": "0"
+        }
+      },
+      "tool_behavior": {
+        "initial": {
+          "finalize_only_requests": 0,
+          "rejected_tool_calls": 0,
+          "executed_read_calls": 4,
+          "attempted_read_calls": 4
+        },
+        "recovery": {
+          "finalize_only_requests": 0,
+          "rejected_tool_calls": 0,
+          "executed_read_calls": 0,
+          "attempted_read_calls": 0
+        }
+      },
+      "usage": {
+        "requests": 3,
+        "input_tokens": 27357,
+        "output_tokens": 755,
+        "cost": "0.0091131",
+        "unknown": 0
+      }
+    },
+    {
+      "slot": 2,
+      "project": "pocketsphinx",
+      "method": "LH_v1",
+      "status": "primary_completed",
+      "layers": {
+        "command_build_passed": true,
+        "primary_build_completed": true,
+        "delivery": "passed",
+        "author_tests": "not_required",
+        "executable_smoke": "not_applicable",
+        "final_verification_passed": true,
+        "clean_replay": "passed",
+        "full_completed": null,
+        "main_build_task_completed": true,
+        "reproducible_delivery_completed": true
+      },
+      "wall_seconds": 38.198578532086685,
+      "phases": {
+        "initial": {
+          "requests": 5,
+          "input_tokens": 52765,
+          "output_tokens": 1214,
+          "reads": 6,
+          "exact_repeat_reads": 0,
+          "invocations": 1,
+          "estimated_cost_usd": "0.0172863"
+        },
+        "recovery": {
+          "requests": 0,
+          "input_tokens": 0,
+          "output_tokens": 0,
+          "reads": 0,
+          "exact_repeat_reads": 0,
+          "invocations": 0,
+          "estimated_cost_usd": "0"
+        }
+      },
+      "tool_behavior": {
+        "initial": {
+          "finalize_only_requests": 0,
+          "rejected_tool_calls": 0,
+          "executed_read_calls": 7,
+          "attempted_read_calls": 7
+        },
+        "recovery": {
+          "finalize_only_requests": 0,
+          "rejected_tool_calls": 0,
+          "executed_read_calls": 0,
+          "attempted_read_calls": 0
+        }
+      },
+      "usage": {
+        "requests": 5,
+        "input_tokens": 52765,
+        "output_tokens": 1214,
+        "cost": "0.0172863",
+        "unknown": 0
+      }
+    },
+    {
+      "slot": 3,
+      "project": "dsvpn",
+      "method": "LH_v1",
+      "status": "error",
+      "layers": {},
+      "wall_seconds": 11.099789888830855,
+      "phases": {
+        "initial": {
+          "requests": 4,
+          "input_tokens": 26081,
+          "output_tokens": 982,
+          "reads": 0,
+          "exact_repeat_reads": 0,
+          "invocations": 1,
+          "estimated_cost_usd": "0.0090027"
+        },
+        "recovery": {
+          "requests": 0,
+          "input_tokens": 0,
+          "output_tokens": 0,
+          "reads": 0,
+          "exact_repeat_reads": 0,
+          "invocations": 0,
+          "estimated_cost_usd": "0"
+        }
+      },
+      "tool_behavior": {
+        "initial": {
+          "finalize_only_requests": 0,
+          "rejected_tool_calls": 0,
+          "executed_read_calls": 1,
+          "attempted_read_calls": 1
+        },
+        "recovery": {
+          "finalize_only_requests": 0,
+          "rejected_tool_calls": 0,
+          "executed_read_calls": 0,
+          "attempted_read_calls": 0
+        }
+      },
+      "usage": {
+        "requests": 4,
+        "input_tokens": 26081,
+        "output_tokens": 982,
+        "cost": "0.0090027",
+        "unknown": 0
+      }
+    },
+    {
+      "slot": 4,
+      "project": "dsvpn",
+      "method": "LH_v0_common",
+      "status": "primary_completed",
+      "layers": {
+        "command_build_passed": true,
+        "primary_build_completed": true,
+        "delivery": "passed",
+        "author_tests": "not_required",
+        "executable_smoke": "passed",
+        "final_verification_passed": true,
+        "clean_replay": "passed",
+        "full_completed": null,
+        "main_build_task_completed": true,
+        "reproducible_delivery_completed": true
+      },
+      "wall_seconds": 14.40406898315996,
+      "phases": {
+        "initial": {
+          "requests": 2,
+          "input_tokens": 11134,
+          "output_tokens": 571,
+          "reads": 0,
+          "exact_repeat_reads": 0,
+          "invocations": 1,
+          "estimated_cost_usd": "0.0040254"
+        },
+        "recovery": {
+          "requests": 0,
+          "input_tokens": 0,
+          "output_tokens": 0,
+          "reads": 0,
+          "exact_repeat_reads": 0,
+          "invocations": 0,
+          "estimated_cost_usd": "0"
+        }
+      },
+      "tool_behavior": {
+        "initial": {
+          "finalize_only_requests": 0,
+          "rejected_tool_calls": 0,
+          "executed_read_calls": 0,
+          "attempted_read_calls": 0
+        },
+        "recovery": {
+          "finalize_only_requests": 0,
+          "rejected_tool_calls": 0,
+          "executed_read_calls": 0,
+          "attempted_read_calls": 0
+        }
+      },
+      "usage": {
+        "requests": 2,
+        "input_tokens": 11134,
+        "output_tokens": 571,
+        "cost": "0.0040254",
+        "unknown": 0
+      }
+    },
+    {
+      "slot": 5,
+      "project": "smenu",
+      "method": "LH_v0_common",
+      "status": "primary_completed",
+      "layers": {
+        "command_build_passed": true,
+        "primary_build_completed": true,
+        "delivery": "passed",
+        "author_tests": "not_required",
+        "executable_smoke": "passed",
+        "final_verification_passed": true,
+        "clean_replay": "passed",
+        "full_completed": null,
+        "main_build_task_completed": true,
+        "reproducible_delivery_completed": true
+      },
+      "wall_seconds": 36.512881979113445,
+      "phases": {
+        "initial": {
+          "requests": 3,
+          "input_tokens": 22673,
+          "output_tokens": 752,
+          "reads": 2,
+          "exact_repeat_reads": 0,
+          "invocations": 1,
+          "estimated_cost_usd": "0.0077043"
+        },
+        "recovery": {
+          "requests": 0,
+          "input_tokens": 0,
+          "output_tokens": 0,
+          "reads": 0,
+          "exact_repeat_reads": 0,
+          "invocations": 0,
+          "estimated_cost_usd": "0"
+        }
+      },
+      "tool_behavior": {
+        "initial": {
+          "finalize_only_requests": 0,
+          "rejected_tool_calls": 0,
+          "executed_read_calls": 3,
+          "attempted_read_calls": 3
+        },
+        "recovery": {
+          "finalize_only_requests": 0,
+          "rejected_tool_calls": 0,
+          "executed_read_calls": 0,
+          "attempted_read_calls": 0
+        }
+      },
+      "usage": {
+        "requests": 3,
+        "input_tokens": 22673,
+        "output_tokens": 752,
+        "cost": "0.0077043",
+        "unknown": 0
+      }
+    },
+    {
+      "slot": 6,
+      "project": "smenu",
+      "method": "LH_v1",
+      "status": "primary_completed",
+      "layers": {
+        "command_build_passed": true,
+        "primary_build_completed": true,
+        "delivery": "passed",
+        "author_tests": "not_required",
+        "executable_smoke": "passed",
+        "final_verification_passed": true,
+        "clean_replay": "passed",
+        "full_completed": null,
+        "main_build_task_completed": true,
+        "reproducible_delivery_completed": true
+      },
+      "wall_seconds": 42.68829117109999,
+      "phases": {
+        "initial": {
+          "requests": 4,
+          "input_tokens": 37447,
+          "output_tokens": 1488,
+          "reads": 2,
+          "exact_repeat_reads": 0,
+          "invocations": 1,
+          "estimated_cost_usd": "0.0130197"
+        },
+        "recovery": {
+          "requests": 0,
+          "input_tokens": 0,
+          "output_tokens": 0,
+          "reads": 0,
+          "exact_repeat_reads": 0,
+          "invocations": 0,
+          "estimated_cost_usd": "0"
+        }
+      },
+      "tool_behavior": {
+        "initial": {
+          "finalize_only_requests": 0,
+          "rejected_tool_calls": 0,
+          "executed_read_calls": 3,
+          "attempted_read_calls": 3
+        },
+        "recovery": {
+          "finalize_only_requests": 0,
+          "rejected_tool_calls": 0,
+          "executed_read_calls": 0,
+          "attempted_read_calls": 0
+        }
+      },
+      "usage": {
+        "requests": 4,
+        "input_tokens": 37447,
+        "output_tokens": 1488,
+        "cost": "0.0130197",
+        "unknown": 0
+      }
+    },
+    {
+      "slot": 7,
+      "project": "libuv",
+      "method": "LH_v1",
+      "status": "primary_completed",
+      "layers": {
+        "command_build_passed": true,
+        "primary_build_completed": true,
+        "delivery": "passed",
+        "author_tests": "not_required",
+        "executable_smoke": "not_applicable",
+        "final_verification_passed": true,
+        "clean_replay": "passed",
+        "full_completed": null,
+        "main_build_task_completed": true,
+        "reproducible_delivery_completed": true
+      },
+      "wall_seconds": 79.490122432122,
+      "phases": {
+        "initial": {
+          "requests": 4,
+          "input_tokens": 48756,
+          "output_tokens": 991,
+          "reads": 0,
+          "exact_repeat_reads": 0,
+          "invocations": 1,
+          "estimated_cost_usd": "0.0158160"
+        },
+        "recovery": {
+          "requests": 0,
+          "input_tokens": 0,
+          "output_tokens": 0,
+          "reads": 0,
+          "exact_repeat_reads": 0,
+          "invocations": 0,
+          "estimated_cost_usd": "0"
+        }
+      },
+      "tool_behavior": {
+        "initial": {
+          "finalize_only_requests": 0,
+          "rejected_tool_calls": 0,
+          "executed_read_calls": 0,
+          "attempted_read_calls": 0
+        },
+        "recovery": {
+          "finalize_only_requests": 0,
+          "rejected_tool_calls": 0,
+          "executed_read_calls": 0,
+          "attempted_read_calls": 0
+        }
+      },
+      "usage": {
+        "requests": 4,
+        "input_tokens": 48756,
+        "output_tokens": 991,
+        "cost": "0.015816",
+        "unknown": 0
+      }
+    },
+    {
+      "slot": 8,
+      "project": "libuv",
+      "method": "LH_v0_common",
+      "status": "primary_completed",
+      "layers": {
+        "command_build_passed": true,
+        "primary_build_completed": true,
+        "delivery": "passed",
+        "author_tests": "not_required",
+        "executable_smoke": "not_applicable",
+        "final_verification_passed": true,
+        "clean_replay": "passed",
+        "full_completed": null,
+        "main_build_task_completed": true,
+        "reproducible_delivery_completed": true
+      },
+      "wall_seconds": 75.5051544921007,
+      "phases": {
+        "initial": {
+          "requests": 1,
+          "input_tokens": 10882,
+          "output_tokens": 498,
+          "reads": 0,
+          "exact_repeat_reads": 0,
+          "invocations": 1,
+          "estimated_cost_usd": "0.0038622"
+        },
+        "recovery": {
+          "requests": 0,
+          "input_tokens": 0,
+          "output_tokens": 0,
+          "reads": 0,
+          "exact_repeat_reads": 0,
+          "invocations": 0,
+          "estimated_cost_usd": "0"
+        }
+      },
+      "tool_behavior": {
+        "initial": {
+          "finalize_only_requests": 0,
+          "rejected_tool_calls": 0,
+          "executed_read_calls": 0,
+          "attempted_read_calls": 0
+        },
+        "recovery": {
+          "finalize_only_requests": 0,
+          "rejected_tool_calls": 0,
+          "executed_read_calls": 0,
+          "attempted_read_calls": 0
+        }
+      },
+      "usage": {
+        "requests": 1,
+        "input_tokens": 10882,
+        "output_tokens": 498,
+        "cost": "0.0038622",
+        "unknown": 0
+      }
+    },
+    {
+      "slot": 9,
+      "project": "quickjs",
+      "method": "LH_v0_common",
+      "status": "primary_completed",
+      "layers": {
+        "command_build_passed": true,
+        "primary_build_completed": true,
+        "delivery": "passed",
+        "author_tests": "not_required",
+        "executable_smoke": "passed",
+        "final_verification_passed": true,
+        "clean_replay": "passed",
+        "full_completed": null,
+        "main_build_task_completed": true,
+        "reproducible_delivery_completed": true
+      },
+      "wall_seconds": 88.23327921982855,
+      "phases": {
+        "initial": {
+          "requests": 2,
+          "input_tokens": 18338,
+          "output_tokens": 577,
+          "reads": 1,
+          "exact_repeat_reads": 0,
+          "invocations": 1,
+          "estimated_cost_usd": "0.0061938"
+        },
+        "recovery": {
+          "requests": 0,
+          "input_tokens": 0,
+          "output_tokens": 0,
+          "reads": 0,
+          "exact_repeat_reads": 0,
+          "invocations": 0,
+          "estimated_cost_usd": "0"
+        }
+      },
+      "tool_behavior": {
+        "initial": {
+          "finalize_only_requests": 0,
+          "rejected_tool_calls": 0,
+          "executed_read_calls": 2,
+          "attempted_read_calls": 2
+        },
+        "recovery": {
+          "finalize_only_requests": 0,
+          "rejected_tool_calls": 0,
+          "executed_read_calls": 0,
+          "attempted_read_calls": 0
+        }
+      },
+      "usage": {
+        "requests": 2,
+        "input_tokens": 18338,
+        "output_tokens": 577,
+        "cost": "0.0061938",
+        "unknown": 0
+      }
+    },
+    {
+      "slot": 10,
+      "project": "quickjs",
+      "method": "LH_v1",
+      "status": "primary_completed",
+      "layers": {
+        "command_build_passed": true,
+        "primary_build_completed": true,
+        "delivery": "passed",
+        "author_tests": "not_required",
+        "executable_smoke": "passed",
+        "final_verification_passed": true,
+        "clean_replay": "passed",
+        "full_completed": null,
+        "main_build_task_completed": true,
+        "reproducible_delivery_completed": true
+      },
+      "wall_seconds": 94.41094798711129,
+      "phases": {
+        "initial": {
+          "requests": 5,
+          "input_tokens": 68728,
+          "output_tokens": 1313,
+          "reads": 5,
+          "exact_repeat_reads": 0,
+          "invocations": 1,
+          "estimated_cost_usd": "0.0221940"
+        },
+        "recovery": {
+          "requests": 0,
+          "input_tokens": 0,
+          "output_tokens": 0,
+          "reads": 0,
+          "exact_repeat_reads": 0,
+          "invocations": 0,
+          "estimated_cost_usd": "0"
+        }
+      },
+      "tool_behavior": {
+        "initial": {
+          "finalize_only_requests": 0,
+          "rejected_tool_calls": 0,
+          "executed_read_calls": 10,
+          "attempted_read_calls": 10
+        },
+        "recovery": {
+          "finalize_only_requests": 0,
+          "rejected_tool_calls": 0,
+          "executed_read_calls": 0,
+          "attempted_read_calls": 0
+        }
+      },
+      "usage": {
+        "requests": 5,
+        "input_tokens": 68728,
+        "output_tokens": 1313,
+        "cost": "0.022194",
+        "unknown": 0
+      }
+    },
+    {
+      "slot": 11,
+      "project": "libffi",
+      "method": "LH_v1",
+      "status": "primary_completed",
+      "layers": {
+        "command_build_passed": true,
+        "primary_build_completed": true,
+        "delivery": "passed",
+        "author_tests": "not_required",
+        "executable_smoke": "not_applicable",
+        "final_verification_passed": true,
+        "clean_replay": "passed",
+        "full_completed": null,
+        "main_build_task_completed": true,
+        "reproducible_delivery_completed": true
+      },
+      "wall_seconds": 109.21339888009243,
+      "phases": {
+        "initial": {
+          "requests": 12,
+          "input_tokens": 246759,
+          "output_tokens": 6012,
+          "reads": 10,
+          "exact_repeat_reads": 0,
+          "invocations": 1,
+          "estimated_cost_usd": "0.0812421"
+        },
+        "recovery": {
+          "requests": 2,
+          "input_tokens": 77909,
+          "output_tokens": 1166,
+          "reads": 0,
+          "exact_repeat_reads": 0,
+          "invocations": 1,
+          "estimated_cost_usd": "0.0247719"
+        }
+      },
+      "tool_behavior": {
+        "initial": {
+          "finalize_only_requests": 0,
+          "rejected_tool_calls": 0,
+          "executed_read_calls": 13,
+          "attempted_read_calls": 13
+        },
+        "recovery": {
+          "finalize_only_requests": 0,
+          "rejected_tool_calls": 0,
+          "executed_read_calls": 0,
+          "attempted_read_calls": 0
+        }
+      },
+      "usage": {
+        "requests": 14,
+        "input_tokens": 324668,
+        "output_tokens": 7178,
+        "cost": "0.106014",
+        "unknown": 0
+      }
+    },
+    {
+      "slot": 12,
+      "project": "libffi",
+      "method": "LH_v0_common",
+      "status": "primary_completed",
+      "layers": {
+        "command_build_passed": true,
+        "primary_build_completed": true,
+        "delivery": "passed",
+        "author_tests": "not_required",
+        "executable_smoke": "not_applicable",
+        "final_verification_passed": true,
+        "clean_replay": "passed",
+        "full_completed": null,
+        "main_build_task_completed": true,
+        "reproducible_delivery_completed": true
+      },
+      "wall_seconds": 465.42259362502955,
+      "phases": {
+        "initial": {
+          "requests": 6,
+          "input_tokens": 84720,
+          "output_tokens": 2337,
+          "reads": 5,
+          "exact_repeat_reads": 0,
+          "invocations": 1,
+          "estimated_cost_usd": "0.0282204"
+        },
+        "recovery": {
+          "requests": 15,
+          "input_tokens": 364903,
+          "output_tokens": 63092,
+          "reads": 18,
+          "exact_repeat_reads": 3,
+          "invocations": 4,
+          "estimated_cost_usd": "0.1851813"
+        }
+      },
+      "tool_behavior": {
+        "initial": {
+          "finalize_only_requests": 0,
+          "rejected_tool_calls": 0,
+          "executed_read_calls": 8,
+          "attempted_read_calls": 8
+        },
+        "recovery": {
+          "finalize_only_requests": 0,
+          "rejected_tool_calls": 0,
+          "executed_read_calls": 25,
+          "attempted_read_calls": 25
+        }
+      },
+      "usage": {
+        "requests": 21,
+        "input_tokens": 449623,
+        "output_tokens": 65429,
+        "cost": "0.2134017",
+        "unknown": 0
+      }
+    },
+    {
+      "slot": 13,
+      "project": "libevent",
+      "method": "LH_v0_common",
+      "status": "primary_completed",
+      "layers": {
+        "command_build_passed": true,
+        "primary_build_completed": true,
+        "delivery": "passed",
+        "author_tests": "not_required",
+        "executable_smoke": "not_applicable",
+        "final_verification_passed": true,
+        "clean_replay": "passed",
+        "full_completed": null,
+        "main_build_task_completed": true,
+        "reproducible_delivery_completed": true
+      },
+      "wall_seconds": 130.40655777789652,
+      "phases": {
+        "initial": {
+          "requests": 2,
+          "input_tokens": 21770,
+          "output_tokens": 940,
+          "reads": 0,
+          "exact_repeat_reads": 0,
+          "invocations": 1,
+          "estimated_cost_usd": "0.0076590"
+        },
+        "recovery": {
+          "requests": 0,
+          "input_tokens": 0,
+          "output_tokens": 0,
+          "reads": 0,
+          "exact_repeat_reads": 0,
+          "invocations": 0,
+          "estimated_cost_usd": "0"
+        }
+      },
+      "tool_behavior": {
+        "initial": {
+          "finalize_only_requests": 0,
+          "rejected_tool_calls": 0,
+          "executed_read_calls": 0,
+          "attempted_read_calls": 0
+        },
+        "recovery": {
+          "finalize_only_requests": 0,
+          "rejected_tool_calls": 0,
+          "executed_read_calls": 0,
+          "attempted_read_calls": 0
+        }
+      },
+      "usage": {
+        "requests": 2,
+        "input_tokens": 21770,
+        "output_tokens": 940,
+        "cost": "0.007659",
+        "unknown": 0
+      }
+    },
+    {
+      "slot": 14,
+      "project": "libevent",
+      "method": "LH_v1",
+      "status": "primary_completed",
+      "layers": {
+        "command_build_passed": true,
+        "primary_build_completed": true,
+        "delivery": "passed",
+        "author_tests": "not_required",
+        "executable_smoke": "not_applicable",
+        "final_verification_passed": true,
+        "clean_replay": "passed",
+        "full_completed": null,
+        "main_build_task_completed": true,
+        "reproducible_delivery_completed": true
+      },
+      "wall_seconds": 132.8789108011406,
+      "phases": {
+        "initial": {
+          "requests": 3,
+          "input_tokens": 38801,
+          "output_tokens": 1145,
+          "reads": 0,
+          "exact_repeat_reads": 0,
+          "invocations": 1,
+          "estimated_cost_usd": "0.0130143"
+        },
+        "recovery": {
+          "requests": 0,
+          "input_tokens": 0,
+          "output_tokens": 0,
+          "reads": 0,
+          "exact_repeat_reads": 0,
+          "invocations": 0,
+          "estimated_cost_usd": "0"
+        }
+      },
+      "tool_behavior": {
+        "initial": {
+          "finalize_only_requests": 0,
+          "rejected_tool_calls": 0,
+          "executed_read_calls": 1,
+          "attempted_read_calls": 1
+        },
+        "recovery": {
+          "finalize_only_requests": 0,
+          "rejected_tool_calls": 0,
+          "executed_read_calls": 0,
+          "attempted_read_calls": 0
+        }
+      },
+      "usage": {
+        "requests": 3,
+        "input_tokens": 38801,
+        "output_tokens": 1145,
+        "cost": "0.0130143",
+        "unknown": 0
+      }
+    },
+    {
+      "slot": 15,
+      "project": "cc65",
+      "method": "LH_v1",
+      "status": "primary_completed",
+      "layers": {
+        "command_build_passed": true,
+        "primary_build_completed": true,
+        "delivery": "passed",
+        "author_tests": "not_required",
+        "executable_smoke": "passed",
+        "final_verification_passed": true,
+        "clean_replay": "passed",
+        "full_completed": null,
+        "main_build_task_completed": true,
+        "reproducible_delivery_completed": true
+      },
+      "wall_seconds": 161.18737662187777,
+      "phases": {
+        "initial": {
+          "requests": 5,
+          "input_tokens": 46829,
+          "output_tokens": 1552,
+          "reads": 2,
+          "exact_repeat_reads": 0,
+          "invocations": 1,
+          "estimated_cost_usd": "0.0159111"
+        },
+        "recovery": {
+          "requests": 0,
+          "input_tokens": 0,
+          "output_tokens": 0,
+          "reads": 0,
+          "exact_repeat_reads": 0,
+          "invocations": 0,
+          "estimated_cost_usd": "0"
+        }
+      },
+      "tool_behavior": {
+        "initial": {
+          "finalize_only_requests": 0,
+          "rejected_tool_calls": 0,
+          "executed_read_calls": 3,
+          "attempted_read_calls": 3
+        },
+        "recovery": {
+          "finalize_only_requests": 0,
+          "rejected_tool_calls": 0,
+          "executed_read_calls": 0,
+          "attempted_read_calls": 0
+        }
+      },
+      "usage": {
+        "requests": 5,
+        "input_tokens": 46829,
+        "output_tokens": 1552,
+        "cost": "0.0159111",
+        "unknown": 0
+      }
+    },
+    {
+      "slot": 16,
+      "project": "cc65",
+      "method": "LH_v0_common",
+      "status": "primary_completed",
+      "layers": {
+        "command_build_passed": true,
+        "primary_build_completed": true,
+        "delivery": "passed",
+        "author_tests": "not_required",
+        "executable_smoke": "passed",
+        "final_verification_passed": true,
+        "clean_replay": "passed",
+        "full_completed": null,
+        "main_build_task_completed": true,
+        "reproducible_delivery_completed": true
+      },
+      "wall_seconds": 169.94093302288093,
+      "phases": {
+        "initial": {
+          "requests": 6,
+          "input_tokens": 67467,
+          "output_tokens": 2495,
+          "reads": 7,
+          "exact_repeat_reads": 0,
+          "invocations": 1,
+          "estimated_cost_usd": "0.0232341"
+        },
+        "recovery": {
+          "requests": 0,
+          "input_tokens": 0,
+          "output_tokens": 0,
+          "reads": 0,
+          "exact_repeat_reads": 0,
+          "invocations": 0,
+          "estimated_cost_usd": "0"
+        }
+      },
+      "tool_behavior": {
+        "initial": {
+          "finalize_only_requests": 0,
+          "rejected_tool_calls": 0,
+          "executed_read_calls": 9,
+          "attempted_read_calls": 9
+        },
+        "recovery": {
+          "finalize_only_requests": 0,
+          "rejected_tool_calls": 0,
+          "executed_read_calls": 0,
+          "attempted_read_calls": 0
+        }
+      },
+      "usage": {
+        "requests": 6,
+        "input_tokens": 67467,
+        "output_tokens": 2495,
+        "cost": "0.0232341",
+        "unknown": 0
+      }
+    },
+    {
+      "slot": 17,
+      "project": "libunwind",
+      "method": "LH_v0_common",
+      "status": "primary_completed",
+      "layers": {
+        "command_build_passed": true,
+        "primary_build_completed": true,
+        "delivery": "passed",
+        "author_tests": "not_required",
+        "executable_smoke": "not_applicable",
+        "final_verification_passed": true,
+        "clean_replay": "passed",
+        "full_completed": null,
+        "main_build_task_completed": true,
+        "reproducible_delivery_completed": true
+      },
+      "wall_seconds": 141.8835050109774,
+      "phases": {
+        "initial": {
+          "requests": 2,
+          "input_tokens": 24198,
+          "output_tokens": 1902,
+          "reads": 1,
+          "exact_repeat_reads": 0,
+          "invocations": 1,
+          "estimated_cost_usd": "0.0095418"
+        },
+        "recovery": {
+          "requests": 0,
+          "input_tokens": 0,
+          "output_tokens": 0,
+          "reads": 0,
+          "exact_repeat_reads": 0,
+          "invocations": 0,
+          "estimated_cost_usd": "0"
+        }
+      },
+      "tool_behavior": {
+        "initial": {
+          "finalize_only_requests": 0,
+          "rejected_tool_calls": 0,
+          "executed_read_calls": 2,
+          "attempted_read_calls": 2
+        },
+        "recovery": {
+          "finalize_only_requests": 0,
+          "rejected_tool_calls": 0,
+          "executed_read_calls": 0,
+          "attempted_read_calls": 0
+        }
+      },
+      "usage": {
+        "requests": 2,
+        "input_tokens": 24198,
+        "output_tokens": 1902,
+        "cost": "0.0095418",
+        "unknown": 0
+      }
+    },
+    {
+      "slot": 18,
+      "project": "libunwind",
+      "method": "LH_v1",
+      "status": "primary_completed",
+      "layers": {
+        "command_build_passed": true,
+        "primary_build_completed": true,
+        "delivery": "passed",
+        "author_tests": "not_required",
+        "executable_smoke": "not_applicable",
+        "final_verification_passed": true,
+        "clean_replay": "passed",
+        "full_completed": null,
+        "main_build_task_completed": true,
+        "reproducible_delivery_completed": true
+      },
+      "wall_seconds": 63.77499019098468,
+      "phases": {
+        "initial": {
+          "requests": 7,
+          "input_tokens": 124635,
+          "output_tokens": 2389,
+          "reads": 4,
+          "exact_repeat_reads": 0,
+          "invocations": 1,
+          "estimated_cost_usd": "0.0402573"
+        },
+        "recovery": {
+          "requests": 0,
+          "input_tokens": 0,
+          "output_tokens": 0,
+          "reads": 0,
+          "exact_repeat_reads": 0,
+          "invocations": 0,
+          "estimated_cost_usd": "0"
+        }
+      },
+      "tool_behavior": {
+        "initial": {
+          "finalize_only_requests": 0,
+          "rejected_tool_calls": 0,
+          "executed_read_calls": 6,
+          "attempted_read_calls": 6
+        },
+        "recovery": {
+          "finalize_only_requests": 0,
+          "rejected_tool_calls": 0,
+          "executed_read_calls": 0,
+          "attempted_read_calls": 0
+        }
+      },
+      "usage": {
+        "requests": 7,
+        "input_tokens": 124635,
+        "output_tokens": 2389,
+        "cost": "0.0402573",
+        "unknown": 0
+      }
+    },
+    {
+      "slot": 19,
+      "project": "libyaml",
+      "method": "LH_v1",
+      "status": "primary_completed",
+      "layers": {
+        "command_build_passed": true,
+        "primary_build_completed": true,
+        "delivery": "passed",
+        "author_tests": "not_required",
+        "executable_smoke": "not_applicable",
+        "final_verification_passed": true,
+        "clean_replay": "passed",
+        "full_completed": null,
+        "main_build_task_completed": true,
+        "reproducible_delivery_completed": true
+      },
+      "wall_seconds": 21.589543201960623,
+      "phases": {
+        "initial": {
+          "requests": 3,
+          "input_tokens": 21994,
+          "output_tokens": 1063,
+          "reads": 1,
+          "exact_repeat_reads": 0,
+          "invocations": 1,
+          "estimated_cost_usd": "0.0078738"
+        },
+        "recovery": {
+          "requests": 0,
+          "input_tokens": 0,
+          "output_tokens": 0,
+          "reads": 0,
+          "exact_repeat_reads": 0,
+          "invocations": 0,
+          "estimated_cost_usd": "0"
+        }
+      },
+      "tool_behavior": {
+        "initial": {
+          "finalize_only_requests": 0,
+          "rejected_tool_calls": 0,
+          "executed_read_calls": 3,
+          "attempted_read_calls": 3
+        },
+        "recovery": {
+          "finalize_only_requests": 0,
+          "rejected_tool_calls": 0,
+          "executed_read_calls": 0,
+          "attempted_read_calls": 0
+        }
+      },
+      "usage": {
+        "requests": 3,
+        "input_tokens": 21994,
+        "output_tokens": 1063,
+        "cost": "0.0078738",
+        "unknown": 0
+      }
+    },
+    {
+      "slot": 20,
+      "project": "libyaml",
+      "method": "LH_v0_common",
+      "status": "primary_completed",
+      "layers": {
+        "command_build_passed": true,
+        "primary_build_completed": true,
+        "delivery": "passed",
+        "author_tests": "not_required",
+        "executable_smoke": "not_applicable",
+        "final_verification_passed": true,
+        "clean_replay": "passed",
+        "full_completed": null,
+        "main_build_task_completed": true,
+        "reproducible_delivery_completed": true
+      },
+      "wall_seconds": 21.087467595003545,
+      "phases": {
+        "initial": {
+          "requests": 2,
+          "input_tokens": 12174,
+          "output_tokens": 538,
+          "reads": 1,
+          "exact_repeat_reads": 0,
+          "invocations": 1,
+          "estimated_cost_usd": "0.0042978"
+        },
+        "recovery": {
+          "requests": 0,
+          "input_tokens": 0,
+          "output_tokens": 0,
+          "reads": 0,
+          "exact_repeat_reads": 0,
+          "invocations": 0,
+          "estimated_cost_usd": "0"
+        }
+      },
+      "tool_behavior": {
+        "initial": {
+          "finalize_only_requests": 0,
+          "rejected_tool_calls": 0,
+          "executed_read_calls": 2,
+          "attempted_read_calls": 2
+        },
+        "recovery": {
+          "finalize_only_requests": 0,
+          "rejected_tool_calls": 0,
+          "executed_read_calls": 0,
+          "attempted_read_calls": 0
+        }
+      },
+      "usage": {
+        "requests": 2,
+        "input_tokens": 12174,
+        "output_tokens": 538,
+        "cost": "0.0042978",
+        "unknown": 0
+      }
+    },
+    {
+      "slot": 21,
+      "project": "zstd",
+      "method": "LH_v0_common",
+      "status": "primary_completed",
+      "layers": {
+        "command_build_passed": true,
+        "primary_build_completed": true,
+        "delivery": "passed",
+        "author_tests": "not_required",
+        "executable_smoke": "passed",
+        "final_verification_passed": true,
+        "clean_replay": "passed",
+        "full_completed": null,
+        "main_build_task_completed": true,
+        "reproducible_delivery_completed": true
+      },
+      "wall_seconds": 100.81847427506,
+      "phases": {
+        "initial": {
+          "requests": 2,
+          "input_tokens": 21345,
+          "output_tokens": 782,
+          "reads": 0,
+          "exact_repeat_reads": 0,
+          "invocations": 1,
+          "estimated_cost_usd": "0.0073419"
+        },
+        "recovery": {
+          "requests": 0,
+          "input_tokens": 0,
+          "output_tokens": 0,
+          "reads": 0,
+          "exact_repeat_reads": 0,
+          "invocations": 0,
+          "estimated_cost_usd": "0"
+        }
+      },
+      "tool_behavior": {
+        "initial": {
+          "finalize_only_requests": 0,
+          "rejected_tool_calls": 0,
+          "executed_read_calls": 0,
+          "attempted_read_calls": 0
+        },
+        "recovery": {
+          "finalize_only_requests": 0,
+          "rejected_tool_calls": 0,
+          "executed_read_calls": 0,
+          "attempted_read_calls": 0
+        }
+      },
+      "usage": {
+        "requests": 2,
+        "input_tokens": 21345,
+        "output_tokens": 782,
+        "cost": "0.0073419",
+        "unknown": 0
+      }
+    },
+    {
+      "slot": 22,
+      "project": "zstd",
+      "method": "LH_v1",
+      "status": "error",
+      "layers": {},
+      "wall_seconds": 12.45330700604245,
+      "phases": {
+        "initial": {
+          "requests": 4,
+          "input_tokens": 47352,
+          "output_tokens": 934,
+          "reads": 0,
+          "exact_repeat_reads": 0,
+          "invocations": 1,
+          "estimated_cost_usd": "0.0153264"
+        },
+        "recovery": {
+          "requests": 0,
+          "input_tokens": 0,
+          "output_tokens": 0,
+          "reads": 0,
+          "exact_repeat_reads": 0,
+          "invocations": 0,
+          "estimated_cost_usd": "0"
+        }
+      },
+      "tool_behavior": {
+        "initial": {
+          "finalize_only_requests": 0,
+          "rejected_tool_calls": 0,
+          "executed_read_calls": 0,
+          "attempted_read_calls": 0
+        },
+        "recovery": {
+          "finalize_only_requests": 0,
+          "rejected_tool_calls": 0,
+          "executed_read_calls": 0,
+          "attempted_read_calls": 0
+        }
+      },
+      "usage": {
+        "requests": 4,
+        "input_tokens": 47352,
+        "output_tokens": 934,
+        "cost": "0.0153264",
+        "unknown": 0
+      }
+    },
+    {
+      "slot": 23,
+      "project": "libass",
+      "method": "LH_v1",
+      "status": "primary_completed",
+      "layers": {
+        "command_build_passed": true,
+        "primary_build_completed": true,
+        "delivery": "passed",
+        "author_tests": "not_required",
+        "executable_smoke": "not_applicable",
+        "final_verification_passed": true,
+        "clean_replay": "passed",
+        "full_completed": null,
+        "main_build_task_completed": true,
+        "reproducible_delivery_completed": true
+      },
+      "wall_seconds": 113.28672836092301,
+      "phases": {
+        "initial": {
+          "requests": 4,
+          "input_tokens": 57222,
+          "output_tokens": 2618,
+          "reads": 2,
+          "exact_repeat_reads": 0,
+          "invocations": 1,
+          "estimated_cost_usd": "0.0203082"
+        },
+        "recovery": {
+          "requests": 0,
+          "input_tokens": 0,
+          "output_tokens": 0,
+          "reads": 0,
+          "exact_repeat_reads": 0,
+          "invocations": 0,
+          "estimated_cost_usd": "0"
+        }
+      },
+      "tool_behavior": {
+        "initial": {
+          "finalize_only_requests": 0,
+          "rejected_tool_calls": 0,
+          "executed_read_calls": 5,
+          "attempted_read_calls": 5
+        },
+        "recovery": {
+          "finalize_only_requests": 0,
+          "rejected_tool_calls": 0,
+          "executed_read_calls": 0,
+          "attempted_read_calls": 0
+        }
+      },
+      "usage": {
+        "requests": 4,
+        "input_tokens": 57222,
+        "output_tokens": 2618,
+        "cost": "0.0203082",
+        "unknown": 0
+      }
+    },
+    {
+      "slot": 24,
+      "project": "libass",
+      "method": "LH_v0_common",
+      "status": "primary_completed",
+      "layers": {
+        "command_build_passed": true,
+        "primary_build_completed": true,
+        "delivery": "passed",
+        "author_tests": "not_required",
+        "executable_smoke": "not_applicable",
+        "final_verification_passed": true,
+        "clean_replay": "passed",
+        "full_completed": null,
+        "main_build_task_completed": true,
+        "reproducible_delivery_completed": true
+      },
+      "wall_seconds": 118.72328543802723,
+      "phases": {
+        "initial": {
+          "requests": 4,
+          "input_tokens": 49449,
+          "output_tokens": 1173,
+          "reads": 3,
+          "exact_repeat_reads": 0,
+          "invocations": 1,
+          "estimated_cost_usd": "0.0162423"
+        },
+        "recovery": {
+          "requests": 3,
+          "input_tokens": 48622,
+          "output_tokens": 4598,
+          "reads": 2,
+          "exact_repeat_reads": 0,
+          "invocations": 1,
+          "estimated_cost_usd": "0.0201042"
+        }
+      },
+      "tool_behavior": {
+        "initial": {
+          "finalize_only_requests": 0,
+          "rejected_tool_calls": 0,
+          "executed_read_calls": 4,
+          "attempted_read_calls": 4
+        },
+        "recovery": {
+          "finalize_only_requests": 0,
+          "rejected_tool_calls": 0,
+          "executed_read_calls": 3,
+          "attempted_read_calls": 3
+        }
+      },
+      "usage": {
+        "requests": 7,
+        "input_tokens": 98071,
+        "output_tokens": 5771,
+        "cost": "0.0363465",
+        "unknown": 0
+      }
+    },
+    {
+      "slot": 25,
+      "project": "libdeflate",
+      "method": "LH_v0_common",
+      "status": "primary_completed",
+      "layers": {
+        "command_build_passed": true,
+        "primary_build_completed": true,
+        "delivery": "passed",
+        "author_tests": "not_required",
+        "executable_smoke": "not_applicable",
+        "final_verification_passed": true,
+        "clean_replay": "passed",
+        "full_completed": null,
+        "main_build_task_completed": true,
+        "reproducible_delivery_completed": true
+      },
+      "wall_seconds": 26.01731385407038,
+      "phases": {
+        "initial": {
+          "requests": 1,
+          "input_tokens": 9751,
+          "output_tokens": 429,
+          "reads": 0,
+          "exact_repeat_reads": 0,
+          "invocations": 1,
+          "estimated_cost_usd": "0.0034401"
+        },
+        "recovery": {
+          "requests": 0,
+          "input_tokens": 0,
+          "output_tokens": 0,
+          "reads": 0,
+          "exact_repeat_reads": 0,
+          "invocations": 0,
+          "estimated_cost_usd": "0"
+        }
+      },
+      "tool_behavior": {
+        "initial": {
+          "finalize_only_requests": 0,
+          "rejected_tool_calls": 0,
+          "executed_read_calls": 0,
+          "attempted_read_calls": 0
+        },
+        "recovery": {
+          "finalize_only_requests": 0,
+          "rejected_tool_calls": 0,
+          "executed_read_calls": 0,
+          "attempted_read_calls": 0
+        }
+      },
+      "usage": {
+        "requests": 1,
+        "input_tokens": 9751,
+        "output_tokens": 429,
+        "cost": "0.0034401",
+        "unknown": 0
+      }
+    },
+    {
+      "slot": 26,
+      "project": "libdeflate",
+      "method": "LH_v1",
+      "status": "primary_completed",
+      "layers": {
+        "command_build_passed": true,
+        "primary_build_completed": true,
+        "delivery": "passed",
+        "author_tests": "not_required",
+        "executable_smoke": "not_applicable",
+        "final_verification_passed": true,
+        "clean_replay": "passed",
+        "full_completed": null,
+        "main_build_task_completed": true,
+        "reproducible_delivery_completed": true
+      },
+      "wall_seconds": 29.39085745601915,
+      "phases": {
+        "initial": {
+          "requests": 3,
+          "input_tokens": 36467,
+          "output_tokens": 777,
+          "reads": 2,
+          "exact_repeat_reads": 0,
+          "invocations": 1,
+          "estimated_cost_usd": "0.0118725"
+        },
+        "recovery": {
+          "requests": 0,
+          "input_tokens": 0,
+          "output_tokens": 0,
+          "reads": 0,
+          "exact_repeat_reads": 0,
+          "invocations": 0,
+          "estimated_cost_usd": "0"
+        }
+      },
+      "tool_behavior": {
+        "initial": {
+          "finalize_only_requests": 0,
+          "rejected_tool_calls": 0,
+          "executed_read_calls": 2,
+          "attempted_read_calls": 2
+        },
+        "recovery": {
+          "finalize_only_requests": 0,
+          "rejected_tool_calls": 0,
+          "executed_read_calls": 0,
+          "attempted_read_calls": 0
+        }
+      },
+      "usage": {
+        "requests": 3,
+        "input_tokens": 36467,
+        "output_tokens": 777,
+        "cost": "0.0118725",
+        "unknown": 0
+      }
+    },
+    {
+      "slot": 27,
+      "project": "libbcrypt",
+      "method": "LH_v1",
+      "status": "primary_completed",
+      "layers": {
+        "command_build_passed": true,
+        "primary_build_completed": true,
+        "delivery": "passed",
+        "author_tests": "not_required",
+        "executable_smoke": "not_applicable",
+        "final_verification_passed": true,
+        "clean_replay": "passed",
+        "full_completed": null,
+        "main_build_task_completed": true,
+        "reproducible_delivery_completed": true
+      },
+      "wall_seconds": 72.57558584492654,
+      "phases": {
+        "initial": {
+          "requests": 7,
+          "input_tokens": 81044,
+          "output_tokens": 3929,
+          "reads": 1,
+          "exact_repeat_reads": 0,
+          "invocations": 1,
+          "estimated_cost_usd": "0.0290280"
+        },
+        "recovery": {
+          "requests": 0,
+          "input_tokens": 0,
+          "output_tokens": 0,
+          "reads": 0,
+          "exact_repeat_reads": 0,
+          "invocations": 0,
+          "estimated_cost_usd": "0"
+        }
+      },
+      "tool_behavior": {
+        "initial": {
+          "finalize_only_requests": 0,
+          "rejected_tool_calls": 0,
+          "executed_read_calls": 2,
+          "attempted_read_calls": 2
+        },
+        "recovery": {
+          "finalize_only_requests": 0,
+          "rejected_tool_calls": 0,
+          "executed_read_calls": 0,
+          "attempted_read_calls": 0
+        }
+      },
+      "usage": {
+        "requests": 7,
+        "input_tokens": 81044,
+        "output_tokens": 3929,
+        "cost": "0.029028",
+        "unknown": 0
+      }
+    },
+    {
+      "slot": 28,
+      "project": "libbcrypt",
+      "method": "LH_v0_common",
+      "status": "primary_completed",
+      "layers": {
+        "command_build_passed": true,
+        "primary_build_completed": true,
+        "delivery": "passed",
+        "author_tests": "not_required",
+        "executable_smoke": "not_applicable",
+        "final_verification_passed": true,
+        "clean_replay": "passed",
+        "full_completed": null,
+        "main_build_task_completed": true,
+        "reproducible_delivery_completed": true
+      },
+      "wall_seconds": 62.27729394193739,
+      "phases": {
+        "initial": {
+          "requests": 2,
+          "input_tokens": 15027,
+          "output_tokens": 1321,
+          "reads": 0,
+          "exact_repeat_reads": 0,
+          "invocations": 1,
+          "estimated_cost_usd": "0.0060933"
+        },
+        "recovery": {
+          "requests": 4,
+          "input_tokens": 43847,
+          "output_tokens": 4241,
+          "reads": 0,
+          "exact_repeat_reads": 0,
+          "invocations": 2,
+          "estimated_cost_usd": "0.0182433"
+        }
+      },
+      "tool_behavior": {
+        "initial": {
+          "finalize_only_requests": 0,
+          "rejected_tool_calls": 0,
+          "executed_read_calls": 2,
+          "attempted_read_calls": 2
+        },
+        "recovery": {
+          "finalize_only_requests": 0,
+          "rejected_tool_calls": 0,
+          "executed_read_calls": 2,
+          "attempted_read_calls": 2
+        }
+      },
+      "usage": {
+        "requests": 6,
+        "input_tokens": 58874,
+        "output_tokens": 5562,
+        "cost": "0.0243366",
+        "unknown": 0
+      }
+    },
+    {
+      "slot": 29,
+      "project": "libtasn1",
+      "method": "LH_v0_common",
+      "status": "primary_completed",
+      "layers": {
+        "command_build_passed": true,
+        "primary_build_completed": true,
+        "delivery": "passed",
+        "author_tests": "not_required",
+        "executable_smoke": "not_applicable",
+        "final_verification_passed": true,
+        "clean_replay": "passed",
+        "full_completed": null,
+        "main_build_task_completed": true,
+        "reproducible_delivery_completed": true
+      },
+      "wall_seconds": 499.29529567202553,
+      "phases": {
+        "initial": {
+          "requests": 10,
+          "input_tokens": 172590,
+          "output_tokens": 7942,
+          "reads": 12,
+          "exact_repeat_reads": 0,
+          "invocations": 1,
+          "estimated_cost_usd": "0.0613074"
+        },
+        "recovery": {
+          "requests": 14,
+          "input_tokens": 291734,
+          "output_tokens": 24426,
+          "reads": 10,
+          "exact_repeat_reads": 1,
+          "invocations": 4,
+          "estimated_cost_usd": "0.1168314"
+        }
+      },
+      "tool_behavior": {
+        "initial": {
+          "finalize_only_requests": 0,
+          "rejected_tool_calls": 0,
+          "executed_read_calls": 16,
+          "attempted_read_calls": 16
+        },
+        "recovery": {
+          "finalize_only_requests": 0,
+          "rejected_tool_calls": 0,
+          "executed_read_calls": 19,
+          "attempted_read_calls": 19
+        }
+      },
+      "usage": {
+        "requests": 24,
+        "input_tokens": 464324,
+        "output_tokens": 32368,
+        "cost": "0.1781388",
+        "unknown": 0
+      }
+    },
+    {
+      "slot": 30,
+      "project": "libtasn1",
+      "method": "LH_v1",
+      "status": "error",
+      "layers": {
+        "command_build_passed": null,
+        "primary_build_completed": null,
+        "delivery": "unobserved",
+        "author_tests": "unobserved",
+        "executable_smoke": "unobserved",
+        "final_verification_passed": null,
+        "clean_replay": "unobserved",
+        "full_completed": false,
+        "main_build_task_completed": false,
+        "reproducible_delivery_completed": false
+      },
+      "wall_seconds": 280.26765698194504,
+      "phases": {
+        "initial": {
+          "requests": 20,
+          "input_tokens": 499806,
+          "output_tokens": 13632,
+          "reads": 15,
+          "exact_repeat_reads": 0,
+          "invocations": 1,
+          "estimated_cost_usd": "0.1663002"
+        },
+        "recovery": {
+          "requests": 14,
+          "input_tokens": 497709,
+          "output_tokens": 19261,
+          "reads": 12,
+          "exact_repeat_reads": 0,
+          "invocations": 2,
+          "estimated_cost_usd": "0.1724259"
+        }
+      },
+      "tool_behavior": {
+        "initial": {
+          "finalize_only_requests": 0,
+          "rejected_tool_calls": 0,
+          "executed_read_calls": 24,
+          "attempted_read_calls": 24
+        },
+        "recovery": {
+          "finalize_only_requests": 0,
+          "rejected_tool_calls": 0,
+          "executed_read_calls": 19,
+          "attempted_read_calls": 19
+        }
+      },
+      "usage": {
+        "requests": 34,
+        "input_tokens": 997515,
+        "output_tokens": 32893,
+        "cost": "0.3387261",
+        "unknown": 0
+      }
+    },
+    {
+      "slot": 31,
+      "project": "zlib-ng",
+      "method": "LH_v1",
+      "status": "primary_completed",
+      "layers": {
+        "command_build_passed": true,
+        "primary_build_completed": true,
+        "delivery": "passed",
+        "author_tests": "not_required",
+        "executable_smoke": "not_applicable",
+        "final_verification_passed": true,
+        "clean_replay": "passed",
+        "full_completed": null,
+        "main_build_task_completed": true,
+        "reproducible_delivery_completed": true
+      },
+      "wall_seconds": 181.27114541293122,
+      "phases": {
+        "initial": {
+          "requests": 11,
+          "input_tokens": 195202,
+          "output_tokens": 6611,
+          "reads": 3,
+          "exact_repeat_reads": 0,
+          "invocations": 1,
+          "estimated_cost_usd": "0.0664938"
+        },
+        "recovery": {
+          "requests": 0,
+          "input_tokens": 0,
+          "output_tokens": 0,
+          "reads": 0,
+          "exact_repeat_reads": 0,
+          "invocations": 0,
+          "estimated_cost_usd": "0"
+        }
+      },
+      "tool_behavior": {
+        "initial": {
+          "finalize_only_requests": 0,
+          "rejected_tool_calls": 0,
+          "executed_read_calls": 4,
+          "attempted_read_calls": 4
+        },
+        "recovery": {
+          "finalize_only_requests": 0,
+          "rejected_tool_calls": 0,
+          "executed_read_calls": 0,
+          "attempted_read_calls": 0
+        }
+      },
+      "usage": {
+        "requests": 11,
+        "input_tokens": 195202,
+        "output_tokens": 6611,
+        "cost": "0.0664938",
+        "unknown": 0
+      }
+    },
+    {
+      "slot": 32,
+      "project": "zlib-ng",
+      "method": "LH_v0_common",
+      "status": "primary_completed",
+      "layers": {
+        "command_build_passed": true,
+        "primary_build_completed": true,
+        "delivery": "passed",
+        "author_tests": "not_required",
+        "executable_smoke": "not_applicable",
+        "final_verification_passed": true,
+        "clean_replay": "passed",
+        "full_completed": null,
+        "main_build_task_completed": true,
+        "reproducible_delivery_completed": true
+      },
+      "wall_seconds": 172.7176618219819,
+      "phases": {
+        "initial": {
+          "requests": 5,
+          "input_tokens": 76565,
+          "output_tokens": 2427,
+          "reads": 5,
+          "exact_repeat_reads": 0,
+          "invocations": 1,
+          "estimated_cost_usd": "0.0258819"
+        },
+        "recovery": {
+          "requests": 0,
+          "input_tokens": 0,
+          "output_tokens": 0,
+          "reads": 0,
+          "exact_repeat_reads": 0,
+          "invocations": 0,
+          "estimated_cost_usd": "0"
+        }
+      },
+      "tool_behavior": {
+        "initial": {
+          "finalize_only_requests": 0,
+          "rejected_tool_calls": 0,
+          "executed_read_calls": 7,
+          "attempted_read_calls": 7
+        },
+        "recovery": {
+          "finalize_only_requests": 0,
+          "rejected_tool_calls": 0,
+          "executed_read_calls": 0,
+          "attempted_read_calls": 0
+        }
+      },
+      "usage": {
+        "requests": 5,
+        "input_tokens": 76565,
+        "output_tokens": 2427,
+        "cost": "0.0258819",
+        "unknown": 0
+      }
+    },
+    {
+      "slot": 33,
+      "project": "libcsv",
+      "method": "LH_v0_common",
+      "status": "primary_completed",
+      "layers": {
+        "command_build_passed": true,
+        "primary_build_completed": true,
+        "delivery": "passed",
+        "author_tests": "not_required",
+        "executable_smoke": "not_applicable",
+        "final_verification_passed": true,
+        "clean_replay": "passed",
+        "full_completed": null,
+        "main_build_task_completed": true,
+        "reproducible_delivery_completed": true
+      },
+      "wall_seconds": 24.24389964598231,
+      "phases": {
+        "initial": {
+          "requests": 3,
+          "input_tokens": 26352,
+          "output_tokens": 796,
+          "reads": 2,
+          "exact_repeat_reads": 0,
+          "invocations": 1,
+          "estimated_cost_usd": "0.0088608"
+        },
+        "recovery": {
+          "requests": 0,
+          "input_tokens": 0,
+          "output_tokens": 0,
+          "reads": 0,
+          "exact_repeat_reads": 0,
+          "invocations": 0,
+          "estimated_cost_usd": "0"
+        }
+      },
+      "tool_behavior": {
+        "initial": {
+          "finalize_only_requests": 0,
+          "rejected_tool_calls": 0,
+          "executed_read_calls": 3,
+          "attempted_read_calls": 3
+        },
+        "recovery": {
+          "finalize_only_requests": 0,
+          "rejected_tool_calls": 0,
+          "executed_read_calls": 0,
+          "attempted_read_calls": 0
+        }
+      },
+      "usage": {
+        "requests": 3,
+        "input_tokens": 26352,
+        "output_tokens": 796,
+        "cost": "0.0088608",
+        "unknown": 0
+      }
+    },
+    {
+      "slot": 34,
+      "project": "libcsv",
+      "method": "LH_v1",
+      "status": "primary_completed",
+      "layers": {
+        "command_build_passed": true,
+        "primary_build_completed": true,
+        "delivery": "passed",
+        "author_tests": "not_required",
+        "executable_smoke": "not_applicable",
+        "final_verification_passed": true,
+        "clean_replay": "passed",
+        "full_completed": null,
+        "main_build_task_completed": true,
+        "reproducible_delivery_completed": true
+      },
+      "wall_seconds": 33.10516254999675,
+      "phases": {
+        "initial": {
+          "requests": 4,
+          "input_tokens": 41393,
+          "output_tokens": 1413,
+          "reads": 3,
+          "exact_repeat_reads": 0,
+          "invocations": 1,
+          "estimated_cost_usd": "0.0141135"
+        },
+        "recovery": {
+          "requests": 0,
+          "input_tokens": 0,
+          "output_tokens": 0,
+          "reads": 0,
+          "exact_repeat_reads": 0,
+          "invocations": 0,
+          "estimated_cost_usd": "0"
+        }
+      },
+      "tool_behavior": {
+        "initial": {
+          "finalize_only_requests": 0,
+          "rejected_tool_calls": 0,
+          "executed_read_calls": 5,
+          "attempted_read_calls": 5
+        },
+        "recovery": {
+          "finalize_only_requests": 0,
+          "rejected_tool_calls": 0,
+          "executed_read_calls": 0,
+          "attempted_read_calls": 0
+        }
+      },
+      "usage": {
+        "requests": 4,
+        "input_tokens": 41393,
+        "output_tokens": 1413,
+        "cost": "0.0141135",
+        "unknown": 0
+      }
+    },
+    {
+      "slot": 35,
+      "project": "libconfuse",
+      "method": "LH_v1",
+      "status": "primary_completed",
+      "layers": {
+        "command_build_passed": true,
+        "primary_build_completed": true,
+        "delivery": "passed",
+        "author_tests": "not_required",
+        "executable_smoke": "not_applicable",
+        "final_verification_passed": true,
+        "clean_replay": "passed",
+        "full_completed": null,
+        "main_build_task_completed": true,
+        "reproducible_delivery_completed": true
+      },
+      "wall_seconds": 92.27361977100372,
+      "phases": {
+        "initial": {
+          "requests": 8,
+          "input_tokens": 91742,
+          "output_tokens": 2129,
+          "reads": 4,
+          "exact_repeat_reads": 0,
+          "invocations": 1,
+          "estimated_cost_usd": "0.0300774"
+        },
+        "recovery": {
+          "requests": 3,
+          "input_tokens": 106582,
+          "output_tokens": 1264,
+          "reads": 0,
+          "exact_repeat_reads": 0,
+          "invocations": 1,
+          "estimated_cost_usd": "0.0334914"
+        }
+      },
+      "tool_behavior": {
+        "initial": {
+          "finalize_only_requests": 0,
+          "rejected_tool_calls": 0,
+          "executed_read_calls": 7,
+          "attempted_read_calls": 7
+        },
+        "recovery": {
+          "finalize_only_requests": 0,
+          "rejected_tool_calls": 0,
+          "executed_read_calls": 0,
+          "attempted_read_calls": 0
+        }
+      },
+      "usage": {
+        "requests": 11,
+        "input_tokens": 198324,
+        "output_tokens": 3393,
+        "cost": "0.0635688",
+        "unknown": 0
+      }
+    },
+    {
+      "slot": 36,
+      "project": "libconfuse",
+      "method": "LH_v0_common",
+      "status": "primary_completed",
+      "layers": {
+        "command_build_passed": true,
+        "primary_build_completed": true,
+        "delivery": "passed",
+        "author_tests": "not_required",
+        "executable_smoke": "not_applicable",
+        "final_verification_passed": true,
+        "clean_replay": "passed",
+        "full_completed": null,
+        "main_build_task_completed": true,
+        "reproducible_delivery_completed": true
+      },
+      "wall_seconds": 96.12514324905351,
+      "phases": {
+        "initial": {
+          "requests": 3,
+          "input_tokens": 25081,
+          "output_tokens": 953,
+          "reads": 2,
+          "exact_repeat_reads": 0,
+          "invocations": 1,
+          "estimated_cost_usd": "0.0086679"
+        },
+        "recovery": {
+          "requests": 2,
+          "input_tokens": 22995,
+          "output_tokens": 2813,
+          "reads": 0,
+          "exact_repeat_reads": 0,
+          "invocations": 2,
+          "estimated_cost_usd": "0.0102741"
+        }
+      },
+      "tool_behavior": {
+        "initial": {
+          "finalize_only_requests": 0,
+          "rejected_tool_calls": 0,
+          "executed_read_calls": 4,
+          "attempted_read_calls": 4
+        },
+        "recovery": {
+          "finalize_only_requests": 0,
+          "rejected_tool_calls": 0,
+          "executed_read_calls": 0,
+          "attempted_read_calls": 0
+        }
+      },
+      "usage": {
+        "requests": 5,
+        "input_tokens": 48076,
+        "output_tokens": 3766,
+        "cost": "0.018942",
+        "unknown": 0
+      }
+    }
+  ],
+  "unobserved": [],
+  "unclosed_slot": null,
+  "billing_complete": true,
+  "online_cost_usd": "1.4121483",
+  "boundary": "只汇总全部18项目；libffi开发暴露注明。包含多项Harness更新，不将差值归因单一经验或上下文；不作跨项目总体显著性声明。"
+}
