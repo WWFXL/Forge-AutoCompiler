@@ -636,6 +636,11 @@
 
 ## 最近变更 (Recent Changes)
 
+- 2026-11-17 — #830整理证据顺序规划Harness版本及完整提示提案，待用户审核。
+  - 文件: `docs/research/2026-11-17-planning-evidence-order-proposal.md`, `benchmarks/fixtures/planning-evidence-order-v1/`, `RESEARCH_STATUS.md`。
+  - 动机: E60前期调查增加未抵消恢复节省，按用户要求以当前LH_v1/P0为共同基线，仅追加P5证据获取顺序与停止条件，保持工具和恢复一致。
+  - 边界: 只生成待审候选，不接入运行、不调用Provider、不改论文。完整系统提示与diff已导出，现有接口装配/恢复不变检查通过；实际遵循和效果未观察。dsvpn/zstd输出链路另查。用户审核后再接入和安排新项目比较。
+
 - 2026-11-17 — #828完成统一基座原18项目36槽完整比较，结果待审
   - 文件: `docs/research/2026-11-17-unified-base-harness-comparison-results.md`, `benchmarks/analyses/unified-base-harness-comparison-2026-11-17/`, `RESEARCH_STATUS.md`
   - 结果: 原/新完成18/18、15/18，请求97/132，费0.5923218/0.8198265美元，累计2278.72/1569.16秒。初始59→113、恢复38→19；不支持整体优势，libffi补依赖有局部收益。
