@@ -636,6 +636,12 @@
 
 ## 最近变更 (Recent Changes)
 
+- 2026-11-17 — #826准备统一修复基座上的原18项目完整Harness比较
+  - 文件: `scripts/forge_unified_base_harness_comparison.py`, `backend/tests/test_unified_base_harness_comparison.py`, `benchmarks/preregistrations/cpp-build-unified-base-harness-comparison-flash-v1.md`
+  - 动机: 用户同意完整36槽比较，不将仅新组重跑的三次观察拼接旧分母；沿用E59两组差异与参考，共同使用PR822基座，不改Harness。
+  - 验证与边界: 3项必要检查、源码SHA/Docker/Ruff通过，manifest31ee49a2；0Provider/0凭据读取。拟10美元/8小时尚待新预算时窗；不重试、不补槽，结果先审核、不自动入论文。准备发布见Issue826关联PR/CI。
+
+
 - 2026-11-17 — #823完成更新Harness的三个未完成项目真实自主观察，结果待审
   - 文件: `docs/research/2026-11-17-failed-project-observation-results.md`, `benchmarks/analyses/failed-project-observation-2026-11-17/`, `RESEARCH_STATUS.md`
   - 结果: dsvpn/libass/libtasn1均主构建/交付/干净重建通过，30请求/0.2490891美元/累计618.35秒，未知0，3cleanup及12容器引用不存在，inventory1b819422，进程退出0。libtasn1补gtk-doc-tools及辅助程序一行config.h包含；默认make保留。
